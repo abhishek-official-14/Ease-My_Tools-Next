@@ -1,4 +1,4 @@
-import TextDiffChecker from "@/components/tools/TextDiffChecker";
+import TextDiffChecker from "@/components/tools/text-diff-checker";
 
 export const metadata = {
   title: "EaseMyTools - Text Diff Checker",

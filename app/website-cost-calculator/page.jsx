@@ -1,4 +1,4 @@
-import WebsiteCostCalculator from "@/components/tools/WebsiteCostCalculator";
+import WebsiteCostCalculator from "@/components/tools/website-cost-calculator";
 
 export const metadata = {
   title: "EaseMyTools - Website Cost Calculator",

@@ -1,4 +1,4 @@
-import TimeCalculator from "@/components/tools/TimeCalculator";
+import TimeCalculator from "@/components/tools/time-calculator";
 
 export const metadata = {
   title: "EaseMyTools - Time Calculator",

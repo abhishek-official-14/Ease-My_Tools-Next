@@ -1,4 +1,4 @@
-import CurrencyConverter from "@/components/tools/CurrencyConverter";
+import CurrencyConverter from "@/components/tools/currency-converter";
 
 export const metadata = {
   title: "EaseMyTools - Currency Converter",

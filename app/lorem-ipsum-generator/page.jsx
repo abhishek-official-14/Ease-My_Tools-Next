@@ -1,4 +1,4 @@
-import LoremIpsumGenerator from "@/components/tools/LoremIpsumGenerator";
+import LoremIpsumGenerator from "@/components/tools/lorem-ipsum-generator";
 
 export const metadata = {
   title: "EaseMyTools - Lorem Ipsum Generator",

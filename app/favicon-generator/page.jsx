@@ -1,4 +1,4 @@
-import FaviconGenerator from "@/components/tools/FaviconGenerator";
+import FaviconGenerator from "@/components/tools/favicon-generator";
 
 export const metadata = {
   title: "EaseMyTools - Favicon Generator",

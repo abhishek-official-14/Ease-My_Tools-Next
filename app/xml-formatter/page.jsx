@@ -1,4 +1,4 @@
-import XMLFormatter from "@/components/tools/XMLFormatter";
+import XMLFormatter from "@/components/tools/xml-formatter";
 
 export const metadata = {
   title: "EaseMyTools - Xml Formatter",

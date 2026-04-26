@@ -1,4 +1,4 @@
-import SvgConverter from "@/components/tools/SvgConverter";
+import SvgConverter from "@/components/tools/svg-converter";
 
 export const metadata = {
   title: "EaseMyTools - Svg Converter",

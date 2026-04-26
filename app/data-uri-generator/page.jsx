@@ -1,4 +1,4 @@
-import DataUriGenerator from "@/components/tools/DataUriGenerator";
+import DataUriGenerator from "@/components/tools/data-uri-generator";
 
 export const metadata = {
   title: "EaseMyTools - Data Uri Generator",
