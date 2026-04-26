@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/ColorPicker.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const ColorPicker = () => { // <-- i18next
-    const { theme } = useTheme();
     const [selectedColor, setSelectedColor] = useState('#667eea');
     const [colorHistory, setColorHistory] = useState([]);
 
@@ -58,7 +56,7 @@ const ColorPicker = () => { // <-- i18next
     };
 
     return (
-        <div className={`color-picker ${theme}`}>
+        <div className="color-picker">
             <div className="picker-header">
                 <h1>{"Color Picker"}</h1>
                 <p>{"Pick colors and get their values in different formats"}</p>

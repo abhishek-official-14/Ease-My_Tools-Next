@@ -16,8 +16,8 @@ input[type="file"] {
     font-size: 14px;
 }
 
-body.dark input[type="text"],
-body.dark input[type="file"] {
+.dark input[type="text"],
+.dark input[type="file"] {
     background-color: var(--card-dark);
     color: var(--text-dark);
     border: 1px solid #374151;

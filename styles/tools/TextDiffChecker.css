@@ -29,7 +29,7 @@ textarea {
     transition: border 0.3s;
 }
 
-body.dark textarea {
+.dark textarea {
     border: 1px solid #374151;
     background-color: var(--card-dark);
     color: var(--text-dark);
@@ -61,7 +61,7 @@ button:hover {
     color: var(--text-light);
 }
 
-body.dark .diff-result {
+.dark .diff-result {
     border: 1px solid #374151;
     background-color: var(--card-dark);
     color: var(--text-dark);

@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/WordCounter.css';
 
 const WordCounter = () => { // namespace for Word Counter
-    const { theme } = useTheme();
     const [text, setText] = useState('');
 
     const stats = {
@@ -27,7 +25,7 @@ const WordCounter = () => { // namespace for Word Counter
     };
 
     return (
-        <div className={`word-counter ${theme}`}>
+        <div className="word-counter">
             <div className="counter-header">
                 <h1>{"Word Counter"}</h1>
                 <p>{"Count words, characters, and more in your text"}</p>

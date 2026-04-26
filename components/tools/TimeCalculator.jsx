@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/TimeCalculator.css';
 
 const TimeCalculator = () => {
-    const { theme } = useTheme();
     const [calculationType, setCalculationType] = useState('add');
     const [time1, setTime1] = useState({ hours: 0, minutes: 0, seconds: 0 });
     const [time2, setTime2] = useState({ hours: 0, minutes: 0, seconds: 0 });
@@ -79,7 +77,7 @@ const TimeCalculator = () => {
     };
 
     return (
-        <div className={`time-calculator ${theme}`}>
+        <div className="time-calculator">
             <div className="calculator-header">
                 <h1>{"Time Calculator" || 'Time Calculator'}</h1>
                 <p>{"Add, subtract time and calculate date differences" || 'Add, subtract time and calculate date differences'}</p>

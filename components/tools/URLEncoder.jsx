@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/URLEncoder.css';
 
 const URLEncoder = () => {
-    const { theme } = useTheme();
     const [inputText, setInputText] = useState('');
     const [outputText, setOutputText] = useState('');
     const [operation, setOperation] = useState('encode');
@@ -65,7 +63,7 @@ const URLEncoder = () => {
     };
 
     return (
-        <div className={`url-encoder ${theme}`}>
+        <div className="url-encoder">
             <div className="encoder-header">
                 <h1>{"URL Encoder/Decoder" || 'URL Encoder/Decoder'}</h1>
                 <p>{"Encode and decode URL strings online" || 'Encode and decode URL strings online'}</p>

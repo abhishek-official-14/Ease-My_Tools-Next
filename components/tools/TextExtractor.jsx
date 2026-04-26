@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/TextExtractor.css';
 
 const TextExtractor = () => {
-    const { theme } = useTheme();
     const [extractedText, setExtractedText] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
     const [uploadedImage, setUploadedImage] = useState(null);
@@ -105,7 +103,7 @@ you would need to integrate with an OCR service like:
     };
 
     return (
-        <div className={`text-extractor ${theme}`} onPaste={handlePaste}>
+        <div className="text-extractor" onPaste={handlePaste}>
             <div className="extractor-header">
                 <h1>{"Text Extractor" || 'Text Extractor'}</h1>
                 <p>{"Extract text from images (OCR simulation)" || 'Extract text from images (OCR simulation)'}</p>

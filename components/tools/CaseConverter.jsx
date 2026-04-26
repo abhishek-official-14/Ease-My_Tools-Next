@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/CaseConverter.css';
 
 const CaseConverter = () => { // <-- i18next
-    const { theme } = useTheme();
     const [inputText, setInputText] = useState('');
     const [convertedText, setConvertedText] = useState('');
 
@@ -43,7 +41,7 @@ const CaseConverter = () => { // <-- i18next
     };
 
     return (
-        <div className={`case-converter ${theme}`}>
+        <div className="case-converter">
             <div className="converter-header">
                 <h1>{"Text Case Converter"}</h1>
                 <p>{"Convert text between different cases instantly"}</p>

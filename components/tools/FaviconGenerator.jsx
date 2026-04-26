@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/FaviconGenerator.css';
 
 const FaviconGenerator = () => {
-  const { theme } = useTheme();
   
   const [originalImage, setOriginalImage] = useState('');
   const [file, setFile] = useState(null);
@@ -183,7 +181,7 @@ const FaviconGenerator = () => {
   };
 
   return (
-    <div className={`favicon-generator ${theme}`}>
+    <div className="favicon-generator">
       <div className="tool-header">
         <h1>{"Favicon Generator"}</h1>
         <p>{"Create professional favicons for your website in multiple formats and sizes"}</p>

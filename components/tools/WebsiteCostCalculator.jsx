@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/WebsiteCostCalculator.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const WebsiteCostCalculator = () => {
-    const { theme } = useTheme();
     
     const [projectDetails, setProjectDetails] = useState({
         name: '',
@@ -223,7 +221,7 @@ const WebsiteCostCalculator = () => {
     };
 
     return (
-        <div className={`website-cost-calculator ${theme}`}>
+        <div className="website-cost-calculator">
             <div className="calculator-header">
                 <h1>{"Website Cost Calculator"}</h1>
                 <p>{"Professional website development cost estimator for agencies and freelancers"}</p>

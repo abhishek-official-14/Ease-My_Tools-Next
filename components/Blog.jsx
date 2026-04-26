@@ -1,11 +1,7 @@
 "use client";
-
-
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/Blog.css';
 
 const Blog = () => {
-  const { theme } = useTheme();
 
   const featuredPosts = [
     {
@@ -67,7 +63,7 @@ const Blog = () => {
   ];
 
   return (
-    <div className={`blog-page ${theme}`}>
+    <div className="blog-page">
       <div className="blog-container">
         <header className="blog-header">
           <h1>{"EaseMyTools Blog"}</h1>

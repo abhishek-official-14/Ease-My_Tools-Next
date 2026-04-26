@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/FileRenameTool.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const FileRenameTool = () => {
-  const { theme } = useTheme();
   
   const [files, setFiles] = useState([]);
   const [originalFiles, setOriginalFiles] = useState([]);
@@ -335,7 +333,7 @@ const FileRenameTool = () => {
   const statusCounts = getStatusCounts();
 
   return (
-    <div className={`file-rename-tool ${theme}`}>
+    <div className="file-rename-tool">
       <div className="tool-header">
         <h1>{t('title')}</h1>
         <p>{t('subtitle')}</p>

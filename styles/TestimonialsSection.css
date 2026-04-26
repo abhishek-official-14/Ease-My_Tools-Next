@@ -3,7 +3,7 @@
   background: #f8fafc;
 }
 
-body.dark .testimonials-section {
+.dark .testimonials-section {
   background: #0f172a;
 }
 
@@ -19,7 +19,7 @@ body.dark .testimonials-section {
   color: var(--text-light);
 }
 
-body.dark .testimonials-section h2 {
+.dark .testimonials-section h2 {
   color: var(--text-dark);
 }
 
@@ -37,7 +37,7 @@ body.dark .testimonials-section h2 {
   position: relative;
 }
 
-body.dark .testimonial-card {
+.dark .testimonial-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -66,7 +66,7 @@ body.dark .testimonial-card {
   font-style: italic;
 }
 
-body.dark .testimonial-content p {
+.dark .testimonial-content p {
   color: var(--text-dark);
 }
 
@@ -75,7 +75,7 @@ body.dark .testimonial-content p {
   padding-top: 1rem;
 }
 
-body.dark .testimonial-author {
+.dark .testimonial-author {
   border-color: #374151;
 }
 
@@ -85,7 +85,7 @@ body.dark .testimonial-author {
   margin-bottom: 0.25rem;
 }
 
-body.dark .testimonial-author strong {
+.dark .testimonial-author strong {
   color: var(--text-dark);
 }
 
@@ -94,7 +94,7 @@ body.dark .testimonial-author strong {
   font-size: 0.9rem;
 }
 
-body.dark .testimonial-author span {
+.dark .testimonial-author span {
   color: #9ca3af;
 }
 

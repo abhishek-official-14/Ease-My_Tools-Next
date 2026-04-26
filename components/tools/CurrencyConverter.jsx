@@ -2,7 +2,7 @@
 
 // import React, { useState, useEffect, useCallback, useRef } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/CurrencyConverter.css';
 
 // const CurrencyConverter = () => {
@@ -229,7 +229,7 @@
 //     const filteredCurrencies = getFilteredCurrencies();
 
 //     return (
-//         <div className={`currency-converter ${theme}`}>
+//         <div className="currency-converter">
 //             <div className="tool-header">
 //                 <h1>{"Currency Converter"}</h1>
 //                 <p>{"Real-time exchange rates with historical data"}</p>
@@ -425,13 +425,11 @@
 
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/CurrencyConverter.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const CurrencyConverter = () => {
-    const { theme } = useTheme();
     
     const [currencies, setCurrencies] = useState([]);
     const [conversion, setConversion] = useState({
@@ -682,7 +680,7 @@ const CurrencyConverter = () => {
     const trendText = getTrendText();
 
     return (
-        <div className={`currency-converter ${theme}`}>
+        <div className="currency-converter">
             <div className="tool-header">
                 <h1>{"Currency Converter"}</h1>
                 <p>{"Real-time exchange rates with historical data"}</p>

@@ -4,12 +4,12 @@
     margin: 0 auto;
 }
 
-.ssl-checker.light {
+.light .ssl-checker {
     background: var(--bg-light);
     color: var(--text-light);
 }
 
-.ssl-checker.dark {
+.dark .ssl-checker {
     background: var(--bg-dark);
     color: var(--text-dark);
 }
@@ -45,7 +45,7 @@
     color: var(--primary);
 }
 
-body.dark .protocol {
+.dark .protocol {
     background: var(--card-dark);
     border-color: #374151;
 }
@@ -59,7 +59,7 @@ body.dark .protocol {
     transition: border-color 0.3s;
 }
 
-body.dark .domain-input-group input {
+.dark .domain-input-group input {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -75,7 +75,7 @@ body.dark .domain-input-group input {
     cursor: not-allowed;
 }
 
-body.dark .domain-input-group input:disabled {
+.dark .domain-input-group input:disabled {
     background: #374151;
 }
 
@@ -127,7 +127,7 @@ body.dark .domain-input-group input:disabled {
     border-left: 4px solid #dc2626;
 }
 
-body.dark .error-message {
+.dark .error-message {
     background: #1f1b1b;
     color: #fca5a5;
 }
@@ -146,7 +146,7 @@ body.dark .error-message {
     border-radius: 8px;
 }
 
-body.dark .certificate-status {
+.dark .certificate-status {
     background: var(--card-dark);
 }
 
@@ -183,7 +183,7 @@ body.dark .certificate-status {
     padding: 20px;
 }
 
-body.dark .certificate-details {
+.dark .certificate-details {
     background: var(--card-dark);
 }
 
@@ -206,7 +206,7 @@ body.dark .certificate-details {
     border-bottom: 1px solid #e5e7eb;
 }
 
-body.dark .detail-item {
+.dark .detail-item {
     border-bottom-color: #374151;
 }
 
@@ -240,7 +240,7 @@ body.dark .detail-item {
     margin-top: 20px;
 }
 
-body.dark .certificate-tips {
+.dark .certificate-tips {
     background: var(--card-dark);
 }
 
@@ -301,11 +301,11 @@ body.dark .certificate-tips {
         border-top: none;
     }
     
-    body.dark .protocol {
+    .dark .protocol {
         border-right-color: #374151;
     }
     
-    body.dark .domain-input-group input {
+    .dark .domain-input-group input {
         border-left-color: #374151;
     }
 }

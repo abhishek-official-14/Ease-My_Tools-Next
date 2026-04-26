@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-body.dark .mobile-app-page {
+.dark .mobile-app-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -37,7 +37,7 @@ body.dark .mobile-app-page {
   line-height: 1.6;
 }
 
-body.dark .subtitle {
+.dark .subtitle {
   color: #9ca3af;
 }
 
@@ -60,7 +60,7 @@ body.dark .subtitle {
   min-width: 200px;
 }
 
-body.dark .app-badge {
+.dark .app-badge {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -71,7 +71,7 @@ body.dark .app-badge {
   border-color: var(--primary);
 }
 
-body.dark .app-badge:hover {
+.dark .app-badge:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
@@ -91,7 +91,7 @@ body.dark .app-badge:hover {
   margin-bottom: 0.25rem;
 }
 
-body.dark .available {
+.dark .available {
   color: #9ca3af;
 }
 
@@ -123,7 +123,7 @@ body.dark .available {
   position: relative;
 }
 
-body.dark .phone-screen {
+.dark .phone-screen {
   background: #374151;
 }
 
@@ -167,7 +167,7 @@ body.dark .phone-screen {
   transition: all 0.3s ease;
 }
 
-body.dark .tool-item {
+.dark .tool-item {
   background: #4b5563;
   color: #d1d5db;
 }
@@ -204,7 +204,7 @@ body.dark .tool-item {
   transition: all 0.3s ease;
 }
 
-body.dark .feature-card {
+.dark .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -214,7 +214,7 @@ body.dark .feature-card {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .feature-card:hover {
+.dark .feature-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -229,7 +229,7 @@ body.dark .feature-card:hover {
   color: var(--text-light);
 }
 
-body.dark .feature-card h3 {
+.dark .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -238,7 +238,7 @@ body.dark .feature-card h3 {
   line-height: 1.6;
 }
 
-body.dark .feature-card p {
+.dark .feature-card p {
   color: #9ca3af;
 }
 

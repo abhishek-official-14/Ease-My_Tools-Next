@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-body.dark .education-page {
+.dark .education-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -106,7 +106,7 @@ body.dark .education-page {
   transition: all 0.3s ease;
 }
 
-body.dark .feature-card {
+.dark .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -116,7 +116,7 @@ body.dark .feature-card {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .feature-card:hover {
+.dark .feature-card:hover {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -131,7 +131,7 @@ body.dark .feature-card:hover {
   color: var(--text-light);
 }
 
-body.dark .feature-card h3 {
+.dark .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -140,7 +140,7 @@ body.dark .feature-card h3 {
   line-height: 1.6;
 }
 
-body.dark .feature-card p {
+.dark .feature-card p {
   color: #9ca3af;
 }
 
@@ -169,7 +169,7 @@ body.dark .feature-card p {
   transition: all 0.3s ease;
 }
 
-body.dark .use-case-card {
+.dark .use-case-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -179,7 +179,7 @@ body.dark .use-case-card {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .use-case-card:hover {
+.dark .use-case-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -195,7 +195,7 @@ body.dark .use-case-card:hover {
   line-height: 1.6;
 }
 
-body.dark .use-case-card p {
+.dark .use-case-card p {
   color: #9ca3af;
 }
 
@@ -214,7 +214,7 @@ body.dark .use-case-card p {
   font-weight: 500;
 }
 
-body.dark .tool-tag {
+.dark .tool-tag {
   background: #064e3b;
   color: #a7f3d0;
 }
@@ -237,7 +237,7 @@ body.dark .tool-tag {
   font-size: 1.1rem;
 }
 
-body.dark .pricing-subtitle {
+.dark .pricing-subtitle {
   color: #9ca3af;
 }
 
@@ -258,7 +258,7 @@ body.dark .pricing-subtitle {
   transition: all 0.3s ease;
 }
 
-body.dark .pricing-card {
+.dark .pricing-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -268,7 +268,7 @@ body.dark .pricing-card {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .pricing-card:hover {
+.dark .pricing-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -278,7 +278,7 @@ body.dark .pricing-card:hover {
   color: var(--text-light);
 }
 
-body.dark .pricing-card h3 {
+.dark .pricing-card h3 {
   color: var(--text-dark);
 }
 
@@ -294,7 +294,7 @@ body.dark .pricing-card h3 {
   margin-bottom: 2rem;
 }
 
-body.dark .pricing-card p {
+.dark .pricing-card p {
   color: #9ca3af;
 }
 
@@ -313,7 +313,7 @@ body.dark .pricing-card p {
   align-items: center;
 }
 
-body.dark .pricing-card li {
+.dark .pricing-card li {
   color: #d1d5db;
   border-color: #374151;
 }
@@ -373,7 +373,7 @@ body.dark .pricing-card li {
   transition: all 0.3s ease;
 }
 
-body.dark .resource-card {
+.dark .resource-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -383,7 +383,7 @@ body.dark .resource-card {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .resource-card:hover {
+.dark .resource-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -398,7 +398,7 @@ body.dark .resource-card:hover {
   color: var(--text-light);
 }
 
-body.dark .resource-card h3 {
+.dark .resource-card h3 {
   color: var(--text-dark);
 }
 
@@ -408,7 +408,7 @@ body.dark .resource-card h3 {
   line-height: 1.6;
 }
 
-body.dark .resource-card p {
+.dark .resource-card p {
   color: #9ca3af;
 }
 

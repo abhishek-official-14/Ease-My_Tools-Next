@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-body.dark .desktop-app-page {
+.dark .desktop-app-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -37,7 +37,7 @@ body.dark .desktop-app-page {
   line-height: 1.6;
 }
 
-body.dark .subtitle {
+.dark .subtitle {
   color: #9ca3af;
 }
 
@@ -59,7 +59,7 @@ body.dark .subtitle {
   transition: all 0.3s ease;
 }
 
-body.dark .download-badge {
+.dark .download-badge {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -70,7 +70,7 @@ body.dark .download-badge {
   border-color: var(--primary);
 }
 
-body.dark .download-badge:hover {
+.dark .download-badge:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
@@ -95,7 +95,7 @@ body.dark .download-badge:hover {
   font-size: 0.9rem;
 }
 
-body.dark .os-details {
+.dark .os-details {
   color: #9ca3af;
 }
 
@@ -121,7 +121,7 @@ body.dark .os-details {
   position: relative;
 }
 
-body.dark .desktop-screen {
+.dark .desktop-screen {
   background: #374151;
 }
 
@@ -153,7 +153,7 @@ body.dark .desktop-screen {
   border-bottom: 1px solid #e5e7eb;
 }
 
-body.dark .window-header {
+.dark .window-header {
   background: #4b5563;
   border-color: #6b7280;
 }
@@ -187,7 +187,7 @@ body.dark .window-header {
   color: #374151;
 }
 
-body.dark .window-title {
+.dark .window-title {
   color: #d1d5db;
 }
 
@@ -203,7 +203,7 @@ body.dark .window-title {
   padding: 1rem;
 }
 
-body.dark .sidebar {
+.dark .sidebar {
   background: #4b5563;
   border-color: #6b7280;
 }
@@ -225,7 +225,7 @@ body.dark .sidebar {
   background: #e5e7eb;
 }
 
-body.dark .sidebar-item:hover {
+.dark .sidebar-item:hover {
   background: #6b7280;
 }
 
@@ -243,7 +243,7 @@ body.dark .sidebar-item:hover {
 /** main error  satrt **/
 
 
-body.dark .main-content {
+.dark .main-content {
   background: var(--bg-dark);
 }
 
@@ -266,7 +266,7 @@ body.dark .main-content {
   transition: all 0.3s ease;
 }
 
-body.dark .tool-card {
+.dark .tool-card {
   background: #6b7280;
   color: #d1d5db;
 }
@@ -318,7 +318,7 @@ body.dark .tool-card {
   transition: all 0.3s ease;
 }
 
-body.dark .feature-card {
+.dark .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -328,7 +328,7 @@ body.dark .feature-card {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .feature-card:hover {
+.dark .feature-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -343,7 +343,7 @@ body.dark .feature-card:hover {
   color: var(--text-light);
 }
 
-body.dark .feature-card h3 {
+.dark .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -352,7 +352,7 @@ body.dark .feature-card h3 {
   line-height: 1.6;
 }
 
-body.dark .feature-card p {
+.dark .feature-card p {
   color: #9ca3af;
 }
 
@@ -382,7 +382,7 @@ body.dark .feature-card p {
   text-align: center;
 }
 
-body.dark .download-card {
+.dark .download-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -393,7 +393,7 @@ body.dark .download-card {
   border-color: var(--primary);
 }
 
-body.dark .download-card:hover {
+.dark .download-card:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
@@ -415,7 +415,7 @@ body.dark .download-card:hover {
   color: var(--text-light);
 }
 
-body.dark .platform-info h3 {
+.dark .platform-info h3 {
   color: var(--text-dark);
 }
 
@@ -424,7 +424,7 @@ body.dark .platform-info h3 {
   font-size: 0.9rem;
 }
 
-body.dark .platform-version {
+.dark .platform-version {
   color: #9ca3af;
 }
 
@@ -438,7 +438,7 @@ body.dark .platform-version {
   color: var(--text-light);
 }
 
-body.dark .file-size {
+.dark .file-size {
   color: var(--text-dark);
 }
 
@@ -448,7 +448,7 @@ body.dark .file-size {
   line-height: 1.5;
 }
 
-body.dark .instructions {
+.dark .instructions {
   color: #9ca3af;
 }
 

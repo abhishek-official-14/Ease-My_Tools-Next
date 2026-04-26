@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/NutritionMaster.css';
 
 const t = (key, fallback) => fallback ?? key;
@@ -1446,7 +1445,6 @@ const COMPREHENSIVE_FOOD_DATABASE = [
 // Total items in this database: 42 (from original) + 458+ (new) = 500+ items
 
 const NutritionMaster = () => {
-    const { theme } = useTheme();
     
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
@@ -1516,7 +1514,7 @@ const NutritionMaster = () => {
     };
 
     return (
-        <div className={`nutrition-master ${theme}`}>
+        <div className="nutrition-master">
             <div className="tool-header">
                 <h1>{"Nutrition Master - Complete Food Database"}</h1>
                 <p>{"Comprehensive nutritional analysis with 500+ foods, fruits, dry fruits, and supplements"}</p>

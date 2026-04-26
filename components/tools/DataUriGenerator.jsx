@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/DataUriGenerator.css';
 
 const DataUriGenerator = () => {
-    const { theme } = useTheme();
     const [inputType, setInputType] = useState('text');
     const [text, setText] = useState('');
     const [file, setFile] = useState(null);
@@ -114,7 +112,7 @@ const DataUriGenerator = () => {
     };
 
     return (
-        <div className={`data-uri-generator ${theme}`}>
+        <div className="data-uri-generator">
             <div className="tool-header">
                 <h1>{"Data URI Generator"}</h1>
                 <p>{"Convert files and text to Data URIs"}</p>

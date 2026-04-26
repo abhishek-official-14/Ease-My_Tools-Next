@@ -4,12 +4,12 @@
     margin: 0 auto;
 }
 
-.data-uri-generator.light {
+.light .data-uri-generator {
     background: var(--bg-light);
     color: var(--text-light);
 }
 
-.data-uri-generator.dark {
+.dark .data-uri-generator {
     background: var(--bg-dark);
     color: var(--text-dark);
 }
@@ -67,7 +67,7 @@
     background: white;
 }
 
-body.dark .text-type-selector select {
+.dark .text-type-selector select {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -89,7 +89,7 @@ body.dark .text-type-selector select {
     outline: none;
 }
 
-body.dark .text-input-section textarea {
+.dark .text-input-section textarea {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -108,7 +108,7 @@ body.dark .text-input-section textarea {
     background: var(--card-light);
 }
 
-body.dark .file-input {
+.dark .file-input {
     background: var(--card-dark);
     border-color: #374151;
 }
@@ -120,7 +120,7 @@ body.dark .file-input {
     border: 1px solid #e5e7eb;
 }
 
-body.dark .file-info {
+.dark .file-info {
     background: var(--card-dark);
     border-color: #374151;
 }
@@ -176,7 +176,7 @@ body.dark .file-info {
     border-radius: 8px;
 }
 
-body.dark .file-info-section {
+.dark .file-info-section {
     background: var(--card-dark);
 }
 
@@ -199,7 +199,7 @@ body.dark .file-info-section {
     border-bottom: 1px solid #e5e7eb;
 }
 
-body.dark .info-item {
+.dark .info-item {
     border-bottom-color: #374151;
 }
 
@@ -225,7 +225,7 @@ body.dark .info-item {
     padding: 20px;
 }
 
-body.dark .data-uri-output {
+.dark .data-uri-output {
     background: var(--card-dark);
 }
 
@@ -273,7 +273,7 @@ body.dark .data-uri-output {
     background: var(--bg-light);
 }
 
-body.dark .uri-output {
+.dark .uri-output {
     background: var(--bg-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -292,7 +292,7 @@ body.dark .uri-output {
     padding: 20px;
 }
 
-body.dark .preview-section {
+.dark .preview-section {
     background: var(--card-dark);
 }
 
@@ -311,7 +311,7 @@ body.dark .preview-section {
     padding: 20px;
 }
 
-body.dark .preview-container {
+.dark .preview-container {
     border-color: #374151;
 }
 
@@ -334,7 +334,7 @@ body.dark .preview-container {
     white-space: pre-wrap;
 }
 
-body.dark .text-preview {
+.dark .text-preview {
     background: var(--bg-dark);
 }
 
@@ -350,7 +350,7 @@ body.dark .text-preview {
     margin-top: 20px;
 }
 
-body.dark .data-uri-info {
+.dark .data-uri-info {
     background: var(--card-dark);
 }
 

@@ -2,7 +2,7 @@
 
 // // // import React, { useState, useRef } from 'react';
 // // // 
-// // // import { useTheme } from '../../contexts/ThemeContext';
+// // // import { useTheme } from 'next-themes';
 // // // import '../../styles/tools/Mp4ToGif.css';
 
 // // // const Mp4ToGif = () => {
@@ -137,7 +137,7 @@
 // // //     };
 
 // // //     return (
-// // //         <div className={`mp4-to-gif ${theme}`}>
+// // //         <div className="mp4-to-gif">
 // // //             <div className="tool-header">
 // // //                 <h1>{"MP4 to GIF Converter"}</h1>
 // // //                 <p>{"Convert MP4 videos to animated GIFs"}</p>
@@ -324,7 +324,7 @@
 
 // // // import React, { useState, useRef } from 'react';
 // // // 
-// // // import { useTheme } from '../../contexts/ThemeContext';
+// // // import { useTheme } from 'next-themes';
 // // // import '../../styles/tools/Mp4ToGif.css';
 
 // // // const Mp4ToGif = () => {
@@ -477,7 +477,7 @@
 // // //   };
 
 // // //   return (
-// // //     <div className={`mp4-to-gif ${theme}`}>
+// // //     <div className="mp4-to-gif">
 // // //       <div className="tool-header">
 // // //         <h1>{"MP4 to GIF Converter"}</h1>
 // // //         <p>{"Convert MP4 videos to animated GIFs"}</p>
@@ -662,7 +662,7 @@
 
 
 // import { useState, useRef } from "react";
-// import { useTheme } from "../../contexts/ThemeContext";
+// import { useTheme } from "next-themes";
 // 
 // import { FFmpeg } from "@ffmpeg/ffmpeg";
 // import { fetchFile } from "@ffmpeg/util";
@@ -785,7 +785,7 @@
 //   };
 
 //   return (
-//     <div className={`mp4-to-gif ${theme}`}>
+//     <div className="mp4-to-gif">
 //       <h2>{"MP4 to GIF Converter"}</h2>
 
 //       <div

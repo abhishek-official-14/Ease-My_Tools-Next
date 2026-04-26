@@ -1,14 +1,10 @@
 "use client";
-
-
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/LegalPage.css';
 
 const Contact = () => {
-  const { theme } = useTheme();
 
   return (
-    <div className={`legal-page ${theme}`}>
+    <div className="legal-page">
       <div className="legal-container">
         <header className="legal-header">
           <h1>{"Contact Us"}</h1>

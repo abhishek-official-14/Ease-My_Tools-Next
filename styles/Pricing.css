@@ -5,7 +5,7 @@
   padding: 2rem 1rem;
 }
 
-body.dark .pricing-page {
+.dark .pricing-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -33,7 +33,7 @@ body.dark .pricing-page {
   margin: 0 auto;
 }
 
-body.dark .pricing-subtitle {
+.dark .pricing-subtitle {
   color: #9ca3af;
 }
 
@@ -53,7 +53,7 @@ body.dark .pricing-subtitle {
   transition: all 0.3s ease;
 }
 
-body.dark .pricing-card {
+.dark .pricing-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -64,7 +64,7 @@ body.dark .pricing-card {
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
 }
 
-body.dark .pricing-card.highlighted {
+.dark .pricing-card.highlighted {
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
 }
 
@@ -92,7 +92,7 @@ body.dark .pricing-card.highlighted {
   color: var(--text-light);
 }
 
-body.dark .plan-header h3 {
+.dark .plan-header h3 {
   color: var(--text-dark);
 }
 
@@ -111,7 +111,7 @@ body.dark .plan-header h3 {
   color: #6b7280;
 }
 
-body.dark .period {
+.dark .period {
   color: #9ca3af;
 }
 
@@ -120,7 +120,7 @@ body.dark .period {
   font-size: 0.9rem;
 }
 
-body.dark .plan-description {
+.dark .plan-description {
   color: #9ca3af;
 }
 
@@ -137,7 +137,7 @@ body.dark .plan-description {
   color: #4b5563;
 }
 
-body.dark .plan-features li {
+.dark .plan-features li {
   color: #d1d5db;
 }
 
@@ -186,7 +186,7 @@ body.dark .plan-features li {
   margin-top: 4rem;
 }
 
-body.dark .pricing-faq {
+.dark .pricing-faq {
   background: var(--card-dark);
 }
 
@@ -209,7 +209,7 @@ body.dark .pricing-faq {
   font-size: 1.1rem;
 }
 
-body.dark .faq-item h3 {
+.dark .faq-item h3 {
   color: var(--text-dark);
 }
 
@@ -218,7 +218,7 @@ body.dark .faq-item h3 {
   line-height: 1.6;
 }
 
-body.dark .faq-item p {
+.dark .faq-item p {
   color: #9ca3af;
 }
 

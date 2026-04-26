@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/JwtDebugger.css';
 
 const JwtDebugger = () => {
-    const { theme } = useTheme();
     const [jwtToken, setJwtToken] = useState('');
     const [decoded, setDecoded] = useState(null);
     const [error, setError] = useState('');
@@ -75,7 +73,7 @@ const JwtDebugger = () => {
     };
 
     return (
-        <div className={`jwt-debugger ${theme}`}>
+        <div className="jwt-debugger">
             <div className="tool-header">
                 <h1>{"JWT Debugger"}</h1>
                 <p>{"Decode and verify JSON Web Tokens"}</p>

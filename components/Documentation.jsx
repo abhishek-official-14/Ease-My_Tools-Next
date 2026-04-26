@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from 'react';
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/Documentation.css';
 
 const Documentation = () => {
-  const { theme } = useTheme();
   const [activeSection, setActiveSection] = useState('getting-started');
 
   const sections = [
@@ -118,7 +116,7 @@ ${"This example shows how to automate image processing for a folder of images."}
   ];
 
   return (
-    <div className={`documentation-page ${theme}`}>
+    <div className="documentation-page">
       <div className="docs-container">
         <header className="docs-header">
           <h1>{"Documentation"}</h1>

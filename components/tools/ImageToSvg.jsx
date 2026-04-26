@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/ImageToSvg.css';
 
 const ImageToSvg = () => {
-    const { theme } = useTheme();
     const [file, setFile] = useState(null);
     const [originalImage, setOriginalImage] = useState('');
     const [svgOutput, setSvgOutput] = useState('');
@@ -361,7 +359,7 @@ const ImageToSvg = () => {
     };
 
     return (
-        <div className={`image-to-svg ${theme}`}>
+        <div className="image-to-svg">
             <div className="tool-header">
                 <h1>{"Image to SVG Converter"}</h1>
                 <p>{"Convert raster images (PNG, JPG, WebP) to scalable SVG format"}</p>
