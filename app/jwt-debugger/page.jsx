@@ -1,4 +1,4 @@
-import JwtDebugger from "@/components/tools/JwtDebugger";
+import JwtDebugger from "@/components/tools/jwt-debugger";
 
 export const metadata = {
   title: "EaseMyTools - Jwt Debugger",

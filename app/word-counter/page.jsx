@@ -1,4 +1,4 @@
-import WordCounter from "@/components/tools/WordCounter";
+import WordCounter from "@/components/tools/word-counter";
 
 export const metadata = {
   title: "EaseMyTools - Word Counter",

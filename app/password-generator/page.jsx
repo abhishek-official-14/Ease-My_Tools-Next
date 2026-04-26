@@ -1,4 +1,4 @@
-import PasswordGenerator from "@/components/tools/PasswordGenerator";
+import PasswordGenerator from "@/components/tools/password-generator";
 
 export const metadata = {
   title: "EaseMyTools - Password Generator",

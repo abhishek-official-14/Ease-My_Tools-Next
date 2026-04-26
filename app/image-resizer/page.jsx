@@ -1,4 +1,4 @@
-import ImageResizer from "@/components/tools/ImageResizer";
+import ImageResizer from "@/components/tools/image-resizer";
 
 export const metadata = {
   title: "EaseMyTools - Image Resizer",

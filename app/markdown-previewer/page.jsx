@@ -1,4 +1,4 @@
-import MarkdownPreviewer from "@/components/tools/MarkdownPreviewer";
+import MarkdownPreviewer from "@/components/tools/markdown-previewer";
 
 export const metadata = {
   title: "EaseMyTools - Markdown Previewer",

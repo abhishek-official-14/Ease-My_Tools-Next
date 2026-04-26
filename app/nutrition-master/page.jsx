@@ -1,4 +1,4 @@
-import NutritionMaster from "@/components/tools/NutritionMaster";
+import NutritionMaster from "@/components/tools/nutrition-master";
 
 export const metadata = {
   title: "EaseMyTools - Nutrition Master",

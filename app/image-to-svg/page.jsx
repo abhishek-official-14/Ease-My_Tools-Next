@@ -1,4 +1,4 @@
-import ImageToSvg from "@/components/tools/ImageToSvg";
+import ImageToSvg from "@/components/tools/image-to-svg";
 
 export const metadata = {
   title: "EaseMyTools - Image To Svg",

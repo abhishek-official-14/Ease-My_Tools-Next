@@ -1,4 +1,4 @@
-import AgeCalculator from "@/components/tools/AgeCalculator";
+import AgeCalculator from "@/components/tools/age-calculator";
 
 export const metadata = {
   title: "EaseMyTools - Age Calculator",

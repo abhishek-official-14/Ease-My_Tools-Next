@@ -1,4 +1,4 @@
-import QRCodeTool from "@/components/tools/QRCodeTool";
+import QRCodeTool from "@/components/tools/qr-code-tool";
 
 export const metadata = {
   title: "EaseMyTools - Qr Code Tool",
