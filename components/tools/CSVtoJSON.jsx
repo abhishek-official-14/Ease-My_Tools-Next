@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/CSVtoJSON.css';
 
 const CSVtoJSON = () => {
-    const { theme } = useTheme();
     const [csvInput, setCsvInput] = useState('');
     const [jsonOutput, setJsonOutput] = useState('');
     const [delimiter, setDelimiter] = useState(',');
@@ -150,7 +148,7 @@ const CSVtoJSON = () => {
     };
 
     return (
-        <div className={`csv-json-converter ${theme}`}>
+        <div className="csv-json-converter">
             <div className="converter-header">
                 <h1>{"CSV to JSON Converter" || 'CSV to JSON Converter'}</h1>
                 <p>{"Convert between CSV and JSON formats" || 'Convert between CSV and JSON formats'}</p>
@@ -258,7 +256,7 @@ export default CSVtoJSON;
 
 // import React, { useState, useRef } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/CsvToJson.css';
 
 // const CsvToJson = () => {
@@ -388,7 +386,7 @@ export default CSVtoJSON;
 //     };
 
 //     return (
-//         <div className={`csv-to-json ${theme}`}>
+//         <div className="csv-to-json">
 //             <div className="tool-header">
 //                 <h1>{"CSV to JSON Converter"}</h1>
 //                 <p>{"Convert between CSV and JSON formats"}</p>

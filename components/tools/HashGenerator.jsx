@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/HashGenerator.css';
 
 const HashGenerator = () => {
-    const { theme } = useTheme();
     const [inputText, setInputText] = useState('');
     const [hashes, setHashes] = useState({ md5: '', sha1: '', sha256: '' });
     const [isProcessing, setIsProcessing] = useState(false);
@@ -52,7 +50,7 @@ const HashGenerator = () => {
     };
 
     return (
-        <div className={`hash-generator ${theme}`}>
+        <div className="hash-generator">
             <div className="generator-header">
                 <h1>{"Hash Generator" || 'Hash Generator'}</h1>
                 <p>{"Generate MD5, SHA-1, and SHA-256 hashes" || 'Generate MD5, SHA-1, and SHA-256 hashes'}</p>

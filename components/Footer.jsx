@@ -1,13 +1,13 @@
 "use client";
 
 // import "../styles/Footer.css";
-// import { useTheme } from "../contexts/ThemeContext";
+// import { useTheme } from "next-themes";
 
 // const Footer = () => {
 //   const { theme } = useTheme();
 
 //   return (
-//     <footer className={`footer ${theme}`}>
+//     <footer className="footer">
 //       <div className="footer-container">
 //         <div className="footer-column">
 //           <h4>PRODUCT</h4>
@@ -81,13 +81,13 @@
 
 
 // import "../styles/Footer.css";
-// import { useTheme } from "../contexts/ThemeContext";
+// import { useTheme } from "next-themes";
 // 
 // const Footer = () => {
 //   const { theme } = useTheme();
 
 //   return (
-//     <footer className={`footer ${theme}`}>
+//     <footer className="footer">
 //       <div className="footer-container">
 //         <div className="footer-column">
 //           <h4>PRODUCT</h4>
@@ -162,15 +162,12 @@
 
 import Link from "next/link";
 import "../styles/Footer.css";
-import { useTheme } from "../contexts/ThemeContext";
 
 const Footer = () => {
   console.log("Footer was rendered");
-  
-  const { theme } = useTheme();
 
   return (
-    <footer className={`footer ${theme}`}>
+    <footer className="footer">
       <div className="footer-container">
         <div className="footer-column">
           <h4>PRODUCT</h4>

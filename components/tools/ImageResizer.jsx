@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/ImageResizer.css';
 
 const ImageResizer = () => {
-    const { theme } = useTheme();
     const [originalImage, setOriginalImage] = useState(null);
     const [resizedImage, setResizedImage] = useState(null);
     const [width, setWidth] = useState(800);
@@ -146,7 +144,7 @@ const ImageResizer = () => {
     };
 
     return (
-        <div className={`image-resizer ${theme}`}>
+        <div className="image-resizer">
             <div className="resizer-header">
                 <h1>{"Image Resizer" || 'Image Resizer'}</h1>
                 <p>{"Resize images while maintaining quality" || 'Resize images while maintaining quality'}</p>

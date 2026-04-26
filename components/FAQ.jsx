@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from 'react';
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/FAQ.css';
 
 const FAQ = () => {
-  const { theme } = useTheme();
   const [openItems, setOpenItems] = useState({});
 
   const toggleItem = (index) => {
@@ -74,7 +72,7 @@ const FAQ = () => {
   ];
 
   return (
-    <div className={`faq-page ${theme}`}>
+    <div className="faq-page">
       <div className="faq-container">
         <header className="faq-header">
           <h1>{"Frequently Asked Questions"}</h1>

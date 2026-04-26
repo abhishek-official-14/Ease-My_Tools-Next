@@ -47,13 +47,13 @@
     text-align: center;
 }
 
-body.light .category-tool-card {
+.light .category-tool-card {
     background: var(--card-light);
     border-color: #e5e7eb;
     color: var(--text-light);
 }
 
-body.dark .category-tool-card {
+.dark .category-tool-card {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -109,7 +109,7 @@ body.dark .category-tool-card {
     margin-top: auto;
 }
 
-body.dark .category-tool-card p {
+.dark .category-tool-card p {
     color: #9ca3af;
 }
 

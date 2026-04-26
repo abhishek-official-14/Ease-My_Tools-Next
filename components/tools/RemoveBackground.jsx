@@ -2,7 +2,7 @@
 
 // import React, { useState, useRef, useCallback } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/RemoveBackground.css';
 
 // const RemoveBackground = () => {
@@ -146,7 +146,7 @@
 //     ];
 
 //     return (
-//         <div className={`remove-background ${theme}`}>
+//         <div className="remove-background">
 //             <div className="tool-header">
 //                 <h1>{"Background Remover"}</h1>
 //                 <p>{"Remove background from images automatically with AI"}</p>
@@ -342,7 +342,7 @@
 // src/components/tools/RemoveBackground.jsx
 // import React, { useState, useRef, useCallback } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/RemoveBackground.css';
 
 // // const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000';
@@ -475,7 +475,7 @@
 //   ];
 
 //   return (
-//     <div className={`remove-background ${theme}`}>
+//     <div className="remove-background">
 //       <div className="tool-header">
 //         <h1>{"Background Remover" || 'Remove Background'}</h1>
 //         <p>{"Remove background from images automatically with AI" || 'Remove background and replace with color or image'}</p>
@@ -675,7 +675,7 @@
 
 // import React, { useState, useRef, useCallback } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/RemoveBackground.css';
 
 
@@ -945,13 +945,11 @@
 
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/RemoveBackground.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const RemoveBackground = () => {
-  const { theme } = useTheme();
   
   const API_BASE_URL = 'http://localhost:8000';
   const API = {
@@ -1152,7 +1150,7 @@ const RemoveBackground = () => {
   };
 
   return (
-    <div className={`remove-background-layout ${theme}`}>
+    <div className="remove-background-layout">
       {/* Top Toolbar */}
       <div className="top-toolbar">
         <div className="left-tools">

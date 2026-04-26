@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../styles/ToolsPage.css";
 import { useRouter } from "next/navigation";
-import { useTheme } from "../contexts/ThemeContext";
 import { getToolCategories, getAllTools } from "../data/toolsData";
 import Header from "./Header";
 
@@ -11,7 +10,6 @@ const AUTO_SCROLL_INTERVAL = 2500;
 
 const ToolsPage = () => {
     const router = useRouter();
-    const { theme } = useTheme();
 
     const toolCategories = getToolCategories();
     const allTools = getAllTools();
@@ -121,7 +119,7 @@ const ToolsPage = () => {
     return (
         <>
             <Header />
-            <div className={`tools-page ${theme}`}>
+            <div className="tools-page">
                 {/* --- SEARCH SECTION --- */}
                 <div className="search-container">
                     <div className="search-bar">

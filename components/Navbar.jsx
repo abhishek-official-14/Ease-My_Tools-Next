@@ -5,12 +5,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link"; // Added for SPA navigation
 import "../styles/Navbar.css";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
   console.log("navbar was rendered");
 
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const rawMenus = [{"title":"PDF","items":[{"label":"Merge PDF","icon":"📑"},{"label":"Split PDF","icon":"✂️"},{"label":"Compress PDF","icon":"📉"}]},{"title":"Image","items":[{"label":"Remove BG","icon":"🖼️"},{"label":"Resize","icon":"📏"},{"label":"Convert","icon":"🔄"}]},{"title":"Video","items":[{"label":"Compress","icon":"🎥"},{"label":"Mute","icon":"🔇"},{"label":"Convert","icon":"🔄"}]},{"title":"File","items":[{"label":"Split Excel","icon":"📊"},{"label":"Word → PDF","icon":"📝"},{"label":"PPT → PDF","icon":"📽️"}]}];
   const menus = Array.isArray(rawMenus) ? rawMenus : []; // defensive guard
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -61,8 +62,18 @@ const Navbar = () => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const activeTheme = theme === "system" ? resolvedTheme : theme;
+
+  const handleThemeToggle = () => {
+    setTheme(activeTheme === "dark" ? "light" : "dark");
+  };
+
   return (
-    <header className={`navbar navbar-${theme}`}>
+    <header className="navbar">
       <div className="navbar-container">
         {/* Logo */}
         <Link href="/" className="navbar-logo" style={{ textDecoration: "None" }}>
@@ -119,8 +130,8 @@ const Navbar = () => {
             <Link href="/login" className="signin-btn">
               Sign In
             </Link>
-            <button className="theme-toggle-btn" onClick={toggleTheme}>
-              {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+            <button className="theme-toggle-btn" onClick={handleThemeToggle}>
+              {!mounted ? "🌓 Theme" : activeTheme === "light" ? "🌙 Dark" : "☀️ Light"}
             </button>
           </div>
 

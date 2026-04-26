@@ -2,10 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import "../styles/Header.css";
-import { useTheme } from "../contexts/ThemeContext";
 
 const Header = () => {
-  const { theme } = useTheme();
 
   const words = [{ text: "Everything", color: "#7C3AED" }, { text: "PDFs", color: "#E11D48" }, { text: "Videos", color: "#2563EB" }, { text: "Images", color: "#059669" }];
   const [index, setIndex] = useState(0);
@@ -24,7 +22,7 @@ const Header = () => {
   const currentWord = words[index] || { text: "Tools", color: "#6366f1" };
 
   return (
-    <div className={`hero-container ${theme}`}>
+    <div className="hero-container">
       <h1 className="hero-title">
         {"Free Tools to Make"}{" "}
         <span

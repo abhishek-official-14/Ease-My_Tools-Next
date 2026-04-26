@@ -2,13 +2,11 @@
 
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/unitconverter.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const UnitConverter = () => { // <-- i18next
-    const { theme } = useTheme();
     const [category, setCategory] = useState('length');
     const [fromUnit, setFromUnit] = useState('meter');
     const [toUnit, setToUnit] = useState('kilometer');
@@ -102,7 +100,7 @@ const UnitConverter = () => { // <-- i18next
     const units = getUnits();
 
     return (
-        <div className={`unit-converter ${theme}`}>
+        <div className="unit-converter">
             <div className="converter-header">
                 <h1>{"Unit Converter"}</h1>
                 <p>{"Convert between different units instantly"}</p>

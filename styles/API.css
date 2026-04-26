@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-body.dark .api-page {
+.dark .api-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -105,7 +105,7 @@ body.dark .api-page {
   transition: all 0.3s ease;
 }
 
-body.dark .feature-card {
+.dark .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -115,7 +115,7 @@ body.dark .feature-card {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .feature-card:hover {
+.dark .feature-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -130,7 +130,7 @@ body.dark .feature-card:hover {
   color: var(--text-light);
 }
 
-body.dark .feature-card h3 {
+.dark .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -139,7 +139,7 @@ body.dark .feature-card h3 {
   line-height: 1.6;
 }
 
-body.dark .feature-card p {
+.dark .feature-card p {
   color: #9ca3af;
 }
 
@@ -163,7 +163,7 @@ body.dark .feature-card p {
   border: 1px solid #e5e7eb;
 }
 
-body.dark .endpoints-container {
+.dark .endpoints-container {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -174,7 +174,7 @@ body.dark .endpoints-container {
   padding: 1.5rem;
 }
 
-body.dark .endpoints-sidebar {
+.dark .endpoints-sidebar {
   background: #1f2937;
   border-color: #374151;
 }
@@ -197,7 +197,7 @@ body.dark .endpoints-sidebar {
   background: #e5e7eb;
 }
 
-body.dark .endpoint-item:hover {
+.dark .endpoint-item:hover {
   background: #374151;
 }
 
@@ -242,7 +242,7 @@ body.dark .endpoint-item:hover {
   text-transform: capitalize;
 }
 
-body.dark .endpoint-header h3 {
+.dark .endpoint-header h3 {
   color: var(--text-dark);
 }
 
@@ -252,7 +252,7 @@ body.dark .endpoint-header h3 {
   line-height: 1.6;
 }
 
-body.dark .endpoint-header p {
+.dark .endpoint-header p {
   color: #9ca3af;
 }
 
@@ -275,7 +275,7 @@ body.dark .endpoint-header p {
   border: 1px solid #e5e7eb;
 }
 
-body.dark .parameters-table {
+.dark .parameters-table {
   background: #1f2937;
   border-color: #374151;
 }
@@ -290,7 +290,7 @@ body.dark .parameters-table {
   color: #374151;
 }
 
-body.dark .table-header {
+.dark .table-header {
   background: #374151;
   color: #d1d5db;
 }
@@ -303,7 +303,7 @@ body.dark .table-header {
   border-bottom: 1px solid #e5e7eb;
 }
 
-body.dark .table-row {
+.dark .table-row {
   border-color: #374151;
 }
 
@@ -322,7 +322,7 @@ body.dark .table-row {
   color: #6b7280;
 }
 
-body.dark .param-type {
+.dark .param-type {
   color: #9ca3af;
 }
 
@@ -335,7 +335,7 @@ body.dark .param-type {
   color: #6b7280;
 }
 
-body.dark .param-description {
+.dark .param-description {
   color: #9ca3af;
 }
 
@@ -373,7 +373,7 @@ body.dark .param-description {
   border: 1px solid #e5e7eb;
 }
 
-body.dark .code-example {
+.dark .code-example {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -429,7 +429,7 @@ body.dark .code-example {
   transition: all 0.3s ease;
 }
 
-body.dark .pricing-card {
+.dark .pricing-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -440,7 +440,7 @@ body.dark .pricing-card {
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
 }
 
-body.dark .pricing-card.highlighted {
+.dark .pricing-card.highlighted {
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
 }
 
@@ -450,7 +450,7 @@ body.dark .pricing-card.highlighted {
   color: var(--text-light);
 }
 
-body.dark .pricing-card h3 {
+.dark .pricing-card h3 {
   color: var(--text-dark);
 }
 
@@ -466,7 +466,7 @@ body.dark .pricing-card h3 {
   color: #6b7280;
 }
 
-body.dark .price span {
+.dark .price span {
   color: #9ca3af;
 }
 
@@ -475,7 +475,7 @@ body.dark .price span {
   margin-bottom: 2rem;
 }
 
-body.dark .pricing-card p {
+.dark .pricing-card p {
   color: #9ca3af;
 }
 
@@ -492,7 +492,7 @@ body.dark .pricing-card p {
   border-bottom: 1px solid #e5e7eb;
 }
 
-body.dark .pricing-card li {
+.dark .pricing-card li {
   color: #d1d5db;
   border-color: #374151;
 }
@@ -533,7 +533,7 @@ body.dark .pricing-card li {
     border-bottom: 1px solid #e5e7eb;
   }
   
-  body.dark .endpoints-sidebar {
+  .dark .endpoints-sidebar {
     border-color: #374151;
   }
 }

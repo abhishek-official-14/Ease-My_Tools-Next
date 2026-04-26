@@ -2,7 +2,7 @@
 
 // import React, { useState, useRef, useCallback } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/PDFImageExtractor.css';
 
 // const PDFImageExtractor = () => {
@@ -236,7 +236,7 @@
 //   };
 
 //   return (
-//     <div className={`pdf-image-extractor ${theme}`}>
+//     <div className="pdf-image-extractor">
 //       <div className="tool-header">
 //         <h1>{"PDF Image Extractor"}</h1>
 //         <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>
@@ -579,7 +579,7 @@
 
 // import React, { useState, useRef, useCallback } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/PDFImageExtractor.css';
 
 // const PDFImageExtractor = () => {
@@ -705,7 +705,7 @@
 //   };
 
 //   return (
-//     <div className={`pdf-image-extractor ${theme}`}>
+//     <div className="pdf-image-extractor">
 //       <div className="tool-header">
 //         <h1>{"PDF Image Extractor"}</h1>
 //         <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>
@@ -831,7 +831,7 @@
 
 // import React, { useState, useRef, useCallback } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/PDFImageExtractor.css';
 
 // const PDFImageExtractor = () => {
@@ -1063,7 +1063,7 @@
 //   };
 
 //   return (
-//     <div className={`pdf-image-extractor ${theme}`}>
+//     <div className="pdf-image-extractor">
 //       <div className="tool-header">
 //         <h1>{"PDF Image Extractor"}</h1>
 //         <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>
@@ -1440,13 +1440,11 @@
 
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/PDFImageExtractor.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const PDFImageExtractor = () => {
-  const { theme } = useTheme();
   
   const [file, setFile] = useState(null);
   const [originalFile, setOriginalFile] = useState(null);
@@ -1711,7 +1709,7 @@ const PDFImageExtractor = () => {
   const summary = calculateSummary();
 
   return (
-    <div className={`pdf-image-extractor ${theme}`}>
+    <div className="pdf-image-extractor">
       <div className="tool-header">
         <h1>{"PDF Image Extractor"}</h1>
         <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>

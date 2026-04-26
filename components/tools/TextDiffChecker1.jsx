@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/TextDiffChecker.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const TextDiffChecker = () => {
-    const { theme } = useTheme();
     const [text1, setText1] = useState('');
     const [text2, setText2] = useState('');
     const [diffResult, setDiffResult] = useState('');
@@ -51,7 +49,7 @@ const TextDiffChecker = () => {
     };
 
     return (
-        <div className={`text-diff-checker ${theme}`}>
+        <div className="text-diff-checker">
             <div className="diff-header">
                 <h1>{t('title') || 'Text Diff Checker'}</h1>
                 <p>{t('subtitle') || 'Compare and find differences between two texts'}</p>

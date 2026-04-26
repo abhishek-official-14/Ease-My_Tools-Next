@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/JSONFormatter.css';
 
 const JSONFormatter = () => { // <-- i18next
-    const { theme } = useTheme();
     const [inputJSON, setInputJSON] = useState('');
     const [formattedJSON, setFormattedJSON] = useState('');
     const [isValid, setIsValid] = useState(true);
@@ -78,7 +76,7 @@ const JSONFormatter = () => { // <-- i18next
     };
 
     return (
-        <div className={`json-formatter ${theme}`}>
+        <div className="json-formatter">
             <div className="formatter-header">
                 <h1>{"JSON Formatter"}</h1>
                 <p>{"Format, validate, and minify JSON data"}</p>

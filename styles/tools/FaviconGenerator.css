@@ -23,7 +23,7 @@
   font-size: 1.1rem;
 }
 
-body.dark .tool-header p {
+.dark .tool-header p {
   color: #9ca3af;
 }
 
@@ -34,7 +34,7 @@ body.dark .tool-header p {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .generator-container {
+.dark .generator-container {
   background: var(--card-dark);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
@@ -54,7 +54,7 @@ body.dark .generator-container {
   background: #f8fafc;
 }
 
-body.dark .upload-area {
+.dark .upload-area {
   border-color: #374151;
   background: #1f2937;
 }
@@ -65,7 +65,7 @@ body.dark .upload-area {
   transform: translateY(-2px);
 }
 
-body.dark .upload-area:hover {
+.dark .upload-area:hover {
   background: #1e3a8a;
 }
 
@@ -80,7 +80,7 @@ body.dark .upload-area:hover {
   color: var(--text-light);
 }
 
-body.dark .upload-content h3 {
+.dark .upload-content h3 {
   color: var(--text-dark);
 }
 
@@ -111,7 +111,7 @@ body.dark .upload-content h3 {
   border: 2px solid #e5e7eb;
 }
 
-body.dark .preview-image {
+.dark .preview-image {
   border-color: #374151;
 }
 
@@ -161,7 +161,7 @@ body.dark .preview-image {
   background: white;
 }
 
-body.dark .format-option {
+.dark .format-option {
   border-color: #374151;
   background: #374151;
 }
@@ -178,7 +178,7 @@ body.dark .format-option {
   box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
 }
 
-body.dark .format-option.active {
+.dark .format-option.active {
   background: #1e3a8a;
 }
 
@@ -195,7 +195,7 @@ body.dark .format-option.active {
   color: var(--text-light);
 }
 
-body.dark .format-label {
+.dark .format-label {
   color: var(--text-dark);
 }
 
@@ -215,7 +215,7 @@ body.dark .format-label {
   line-height: 1.4;
 }
 
-body.dark .format-description {
+.dark .format-description {
   color: #9ca3af;
 }
 
@@ -265,7 +265,7 @@ body.dark .format-description {
   background: white;
 }
 
-body.dark .size-option {
+.dark .size-option {
   border-color: #374151;
   background: #374151;
 }
@@ -280,7 +280,7 @@ body.dark .size-option {
   background: #eff6ff;
 }
 
-body.dark .size-option.selected {
+.dark .size-option.selected {
   background: #1e3a8a;
 }
 
@@ -309,7 +309,7 @@ body.dark .size-option.selected {
   color: var(--text-light);
 }
 
-body.dark .size-label {
+.dark .size-label {
   color: var(--text-dark);
 }
 
@@ -318,7 +318,7 @@ body.dark .size-label {
   color: #6b7280;
 }
 
-body.dark .size-description {
+.dark .size-description {
   color: #9ca3af;
 }
 
@@ -338,7 +338,7 @@ body.dark .size-description {
   border-radius: 8px;
 }
 
-body.dark .option-row {
+.dark .option-row {
   background: #374151;
 }
 
@@ -395,7 +395,7 @@ body.dark .option-row {
   -webkit-appearance: none;
 }
 
-body.dark .slider {
+.dark .slider {
   background: #4b5563;
 }
 
@@ -478,7 +478,7 @@ body.dark .slider {
   border-top: 2px solid #e5e7eb;
 }
 
-body.dark .results-section {
+.dark .results-section {
   border-color: #374151;
 }
 
@@ -548,7 +548,7 @@ body.dark .results-section {
   transition: all 0.3s ease;
 }
 
-body.dark .icon-card {
+.dark .icon-card {
   background: #374151;
   border-color: #4b5563;
 }
@@ -572,7 +572,7 @@ body.dark .icon-card {
   background: white;
 }
 
-body.dark .icon-preview img {
+.dark .icon-preview img {
   border-color: #4b5563;
   background: #4b5563;
 }
@@ -599,7 +599,7 @@ body.dark .icon-preview img {
   border-radius: 6px;
 }
 
-body.dark .icon-info {
+.dark .icon-info {
   background: #4b5563;
 }
 
@@ -615,7 +615,7 @@ body.dark .icon-info {
   font-weight: 600;
 }
 
-body.dark .icon-size {
+.dark .icon-size {
   color: #9ca3af;
 }
 
@@ -672,7 +672,7 @@ body.dark .icon-size {
   border-top: 2px solid #e5e7eb;
 }
 
-body.dark .tips-section {
+.dark .tips-section {
   border-color: #374151;
 }
 
@@ -697,7 +697,7 @@ body.dark .tips-section {
   border-left: 4px solid #3b82f6;
 }
 
-body.dark .tip-item {
+.dark .tip-item {
   background: #374151;
 }
 
@@ -712,7 +712,7 @@ body.dark .tip-item {
   color: var(--text-light);
 }
 
-body.dark .tip-item strong {
+.dark .tip-item strong {
   color: var(--text-dark);
 }
 
@@ -722,7 +722,7 @@ body.dark .tip-item strong {
   line-height: 1.5;
 }
 
-body.dark .tip-item p {
+.dark .tip-item p {
   color: #9ca3af;
 }
 
@@ -742,7 +742,7 @@ body.dark .tip-item p {
   border: 1px solid #e5e7eb;
 }
 
-body.dark .status-indicator {
+.dark .status-indicator {
   background: #374151;
   border-color: #4b5563;
 }

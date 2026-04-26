@@ -1,11 +1,7 @@
 "use client";
-
-
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/DesktopApp.module.css';
 
 const DesktopApp = () => {
-  const { theme } = useTheme();
 
   const features = [
     {
@@ -58,7 +54,7 @@ const DesktopApp = () => {
   ];
 
   return (
-    <div className={`desktop-app-page ${theme}`}>
+    <div className="desktop-app-page">
       <div className="desktop-container">
         <header className="desktop-header">
           <div className="header-content">

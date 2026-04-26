@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/PercentageCalculator.css';
 
 const PercentageCalculator = () => {
-    const { theme } = useTheme();
     const [calculationType, setCalculationType] = useState('percentage');
     const [values, setValues] = useState({
         percentage: '',
@@ -58,7 +56,7 @@ const PercentageCalculator = () => {
     };
 
     return (
-        <div className={`percentage-calculator ${theme}`}>
+        <div className="percentage-calculator">
             <div className="calculator-header">
                 <h1>{"Percentage Calculator" || 'Percentage Calculator'}</h1>
                 <p>{"Calculate percentages, discounts, and changes" || 'Calculate percentages, discounts, and changes'}</p>

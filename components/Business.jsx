@@ -1,11 +1,7 @@
 "use client";
-
-
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/Business.css';
 
 const Business = () => {
-  const { theme } = useTheme();
 
   const features = [
     {
@@ -49,7 +45,7 @@ const Business = () => {
   ];
 
   return (
-    <div className={`business-page ${theme}`}>
+    <div className="business-page">
       <div className="business-container">
         <header className="business-header">
           <div className="header-content">

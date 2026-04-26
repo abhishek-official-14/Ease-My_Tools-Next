@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from 'react';
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/API.css';
 
 const API = () => {
-  const { theme } = useTheme();
   const [activeEndpoint, setActiveEndpoint] = useState(0);
 
   const endpoints = [
@@ -108,7 +106,7 @@ print(response.json())`
   ];
 
   return (
-    <div className={`api-page ${theme}`}>
+    <div className="api-page">
       <div className="api-container">
         <header className="api-header">
           <h1>{"EaseMyTools API"}</h1>

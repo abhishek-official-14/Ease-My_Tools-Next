@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/XMLFormatter.css';
 
 const XMLFormatter = () => {
-    const { theme } = useTheme();
     const [inputXML, setInputXML] = useState('');
     const [formattedXML, setFormattedXML] = useState('');
     const [indentSize, setIndentSize] = useState(2);
@@ -132,7 +130,7 @@ const XMLFormatter = () => {
     };
 
     return (
-        <div className={`xml-formatter ${theme}`}>
+        <div className="xml-formatter">
             <div className="formatter-header">
                 <h1>{"XML Formatter" || 'XML Formatter'}</h1>
                 <p>{"Format, validate, and minify XML data" || 'Format, validate, and minify XML data'}</p>

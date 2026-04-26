@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useCallback } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/RegexGenerator.css';
 
 const RegexGenerator = () => {
-    const { theme } = useTheme();
     
     const [description, setDescription] = useState('');
     const [regex, setRegex] = useState('');
@@ -177,7 +175,7 @@ const RegexGenerator = () => {
     }, []);
 
     return (
-        <div className={`regex-generator ${theme}`}>
+        <div className="regex-generator">
             <div className="tool-header">
                 <h1>{"Regex Generator"}</h1>
                 <p>{"Generate regular expressions from natural language descriptions"}</p>
@@ -321,7 +319,7 @@ export default RegexGenerator;
 
 // import React, { useState, useCallback, useEffect } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/RegexGenerator.css';
 
 // const RegexGenerator = () => {
@@ -805,7 +803,7 @@ export default RegexGenerator;
 //     };
 
 //     return (
-//         <div className={`regex-generator enhanced ${theme}`}>
+//         <div className="regex-generator enhanced">
 //             <div className="tool-header">
 //                 <h1>{"Regex Generator"}</h1>
 //                 <p>{"Generate regular expressions from natural language descriptions"}</p>

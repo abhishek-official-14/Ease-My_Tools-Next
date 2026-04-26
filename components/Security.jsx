@@ -1,11 +1,7 @@
 "use client";
-
-
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/Security.css';
 
 const Security = () => {
-  const { theme } = useTheme();
 
   const securityFeatures = [
     {
@@ -81,7 +77,7 @@ const Security = () => {
   ];
 
   return (
-    <div className={`security-page ${theme}`}>
+    <div className="security-page">
       <div className="security-container">
         <header className="security-header">
           <div className="header-content">

@@ -3,12 +3,9 @@
 //@ts-nocheck
 import React, { useState, useRef } from "react";
 import "../../styles/tools/Base64Converter.css";
-import { useTheme } from "../../contexts/ThemeContext";
 
 const Base64Converter = () => {
     console.log("Base64Converter was rendered");
-    
-    const { theme } = useTheme();
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [mode, setMode] = useState("encode");
@@ -65,7 +62,7 @@ const Base64Converter = () => {
     };
 
     return (
-        <div className={`base64-container ${theme}`}>
+        <div className="base64-container">
             <h2 className="title">{"🔤 Base64 Converter"}</h2>
 
             <div className="mode-selector">

@@ -26,14 +26,14 @@
 }
 
 /* Light Mode */
-body.light {
+.light {
   background-color: var(--bg-light);
   color: var(--text-light);
   transition: background 0.3s, color 0.3s;
 }
 
 /* Dark Mode */
-body.dark {
+.dark {
   background-color: var(--bg-dark);
   color: var(--text-dark);
   transition: background 0.3s, color 0.3s;
@@ -76,7 +76,7 @@ input {
 }
 
 /* Dark mode override */
-body.dark .language-btn {
+.dark .language-btn {
   background: var(--card-dark);
   color: var(--text-dark);
   border: 1px solid #374151;
@@ -113,12 +113,12 @@ body.dark .language-btn {
 }
 
 /* Dark mode dropdown */
-body.dark .language-dropdown {
+.dark .language-dropdown {
   background: var(--card-dark);
   color: var(--text-dark);
 }
 
-body.dark .language-dropdown li:hover {
+.dark .language-dropdown li:hover {
   background: #334155;
 }
 

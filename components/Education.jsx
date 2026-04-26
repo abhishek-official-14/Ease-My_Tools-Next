@@ -1,11 +1,7 @@
 "use client";
-
-
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/Education.css';
 
 const Education = () => {
-  const { theme } = useTheme();
 
   const features = [
     {
@@ -74,7 +70,7 @@ const Education = () => {
   ];
 
   return (
-    <div className={`education-page ${theme}`}>
+    <div className="education-page">
       <div className="education-container">
         <header className="education-header">
           <div className="header-content">

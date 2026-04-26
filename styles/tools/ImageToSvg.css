@@ -26,7 +26,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .converter-container {
+.dark .converter-container {
     background: var(--card-dark);
 }
 
@@ -45,7 +45,7 @@ body.dark .converter-container {
     background: #f8fafc;
 }
 
-body.dark .upload-area {
+.dark .upload-area {
     border-color: #374151;
     background: #1f2937;
 }
@@ -55,7 +55,7 @@ body.dark .upload-area {
     background: #f0f9ff;
 }
 
-body.dark .upload-area:hover {
+.dark .upload-area:hover {
     background: #1e3a8a;
 }
 
@@ -69,7 +69,7 @@ body.dark .upload-area:hover {
     color: var(--text-light);
 }
 
-body.dark .upload-content h3 {
+.dark .upload-content h3 {
     color: var(--text-dark);
 }
 
@@ -92,7 +92,7 @@ body.dark .upload-content h3 {
     border-left: 4px solid var(--primary);
 }
 
-body.dark .file-info {
+.dark .file-info {
     background: #334155;
 }
 
@@ -104,7 +104,7 @@ body.dark .file-info {
     border-radius: 8px;
 }
 
-body.dark .settings-section {
+.dark .settings-section {
     background: #1f2937;
 }
 
@@ -139,8 +139,8 @@ body.dark .settings-section {
     background: white;
 }
 
-body.dark .setting-group select,
-body.dark .setting-group input[type="range"] {
+.dark .setting-group select,
+.dark .setting-group input[type="range"] {
     border-color: #4b5563;
     background: #374151;
     color: var(--text-dark);
@@ -169,7 +169,7 @@ body.dark .setting-group input[type="range"] {
     padding-top: 1rem;
 }
 
-body.dark .advanced-options {
+.dark .advanced-options {
     border-color: #374151;
 }
 
@@ -193,7 +193,7 @@ body.dark .advanced-options {
     border-radius: 6px;
 }
 
-body.dark .advanced-grid {
+.dark .advanced-grid {
     background: #374151;
 }
 
@@ -246,7 +246,7 @@ body.dark .advanced-grid {
     padding-top: 2rem;
 }
 
-body.dark .preview-section {
+.dark .preview-section {
     border-color: #374151;
 }
 
@@ -277,8 +277,8 @@ body.dark .preview-section {
     object-fit: contain;
 }
 
-body.dark .preview-image,
-body.dark .preview-svg {
+.dark .preview-image,
+.dark .preview-svg {
     border-color: #374151;
     background: #374151;
 }
@@ -297,7 +297,7 @@ body.dark .preview-svg {
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
-body.dark .preview-svg {
+.dark .preview-svg {
     background: 
         linear-gradient(45deg, #374151 25%, transparent 25%),
         linear-gradient(-45deg, #374151 25%, transparent 25%),
@@ -372,7 +372,7 @@ body.dark .preview-svg {
     overflow-y: auto;
 }
 
-body.dark .svg-code {
+.dark .svg-code {
     background: #111827;
 }
 

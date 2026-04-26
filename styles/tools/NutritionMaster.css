@@ -26,7 +26,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .master-container {
+.dark .master-container {
     background: var(--card-dark);
 }
 
@@ -52,7 +52,7 @@ body.dark .master-container {
     transition: border-color 0.2s;
 }
 
-body.dark .search-input {
+.dark .search-input {
     border-color: #4b5563;
     background: #374151;
     color: var(--text-dark);
@@ -87,7 +87,7 @@ body.dark .search-input {
     background: white;
 }
 
-body.dark .filter-group select {
+.dark .filter-group select {
     border-color: #4b5563;
     background: #374151;
     color: var(--text-dark);
@@ -121,7 +121,7 @@ body.dark .filter-group select {
     position: relative;
 }
 
-body.dark .food-card {
+.dark .food-card {
     background: #374151;
     border-color: #4b5563;
 }
@@ -137,7 +137,7 @@ body.dark .food-card {
     background: #f0f9ff;
 }
 
-body.dark .food-card.selected {
+.dark .food-card.selected {
     background: #1e3a8a;
 }
 
@@ -154,7 +154,7 @@ body.dark .food-card.selected {
     font-size: 1.2rem;
 }
 
-body.dark .food-header h3 {
+.dark .food-header h3 {
     color: var(--text-dark);
 }
 
@@ -168,7 +168,7 @@ body.dark .food-header h3 {
     font-weight: 600;
 }
 
-body.dark .food-category {
+.dark .food-category {
     background: #4b5563;
 }
 
@@ -241,17 +241,17 @@ body.dark .food-category {
     color: #1e40af;
 }
 
-body.dark .goal-tag.weightGain {
+.dark .goal-tag.weightGain {
     background: #78350f;
     color: #fef3c7;
 }
 
-body.dark .goal-tag.weightLoss {
+.dark .goal-tag.weightLoss {
     background: #064e3b;
     color: #dcfce7;
 }
 
-body.dark .goal-tag.maintenance {
+.dark .goal-tag.maintenance {
     background: #1e3a8a;
     color: #dbeafe;
 }
@@ -284,7 +284,7 @@ body.dark .goal-tag.maintenance {
     margin-top: 2rem;
 }
 
-body.dark .detail-section {
+.dark .detail-section {
     border-color: #374151;
 }
 
@@ -344,7 +344,7 @@ body.dark .detail-section {
     border: 1px solid #e2e8f0;
 }
 
-body.dark .fact-item {
+.dark .fact-item {
     background: #374151;
     border-color: #4b5563;
 }
@@ -354,7 +354,7 @@ body.dark .fact-item {
     color: var(--text-light);
 }
 
-body.dark .fact-label {
+.dark .fact-label {
     color: var(--text-dark);
 }
 
@@ -382,8 +382,8 @@ body.dark .fact-label {
     border: 1px solid #e2e8f0;
 }
 
-body.dark .vitamin-item,
-body.dark .mineral-item {
+.dark .vitamin-item,
+.dark .mineral-item {
     background: #374151;
     border-color: #4b5563;
 }
@@ -404,8 +404,8 @@ body.dark .mineral-item {
     overflow: hidden;
 }
 
-body.dark .vitamin-bar,
-body.dark .mineral-bar {
+.dark .vitamin-bar,
+.dark .mineral-bar {
     background: #4b5563;
 }
 
@@ -442,7 +442,7 @@ body.dark .mineral-bar {
     font-weight: 600;
 }
 
-body.dark .antioxidant-tag {
+.dark .antioxidant-tag {
     background: #1e3a8a;
     border-color: #3b82f6;
     color: #dbeafe;
@@ -462,7 +462,7 @@ body.dark .antioxidant-tag {
     border-left: 4px solid var(--primary);
 }
 
-body.dark .benefits-list li {
+.dark .benefits-list li {
     background: #1e3a8a;
 }
 
@@ -473,7 +473,7 @@ body.dark .benefits-list li {
     margin-top: 2rem;
 }
 
-body.dark .compare-section {
+.dark .compare-section {
     border-color: #374151;
 }
 
@@ -496,7 +496,7 @@ body.dark .compare-section {
     position: relative;
 }
 
-body.dark .compare-card {
+.dark .compare-card {
     background: #374151;
     border-color: #4b5563;
 }
@@ -523,7 +523,7 @@ body.dark .compare-card {
     color: var(--text-light);
 }
 
-body.dark .compare-card h4 {
+.dark .compare-card h4 {
     color: var(--text-dark);
 }
 

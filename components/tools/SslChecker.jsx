@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/SslChecker.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const SslChecker = () => {
-    const { theme } = useTheme();
     const [domain, setDomain] = useState('');
     const [certificate, setCertificate] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -95,7 +93,7 @@ const SslChecker = () => {
     };
 
     return (
-        <div className={`ssl-checker ${theme}`}>
+        <div className="ssl-checker">
             <div className="tool-header">
                 <h1>{"SSL Certificate Checker"}</h1>
                 <p>{"Check SSL certificate information for any domain"}</p>

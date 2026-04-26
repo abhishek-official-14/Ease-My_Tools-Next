@@ -1,11 +1,7 @@
 "use client";
-
-
-import { useTheme } from '../contexts/ThemeContext';
 import '../styles/MobileApp.css';
 
 const MobileApp = () => {
-  const { theme } = useTheme();
 
   const features = [
     {
@@ -46,7 +42,7 @@ const MobileApp = () => {
   ];
 
   return (
-    <div className={`mobile-app-page ${theme}`}>
+    <div className="mobile-app-page">
       <div className="mobile-container">
         <header className="mobile-header">
           <div className="header-content">

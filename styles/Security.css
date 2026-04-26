@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-body.dark .security-page {
+.dark .security-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -66,7 +66,7 @@ body.dark .security-page {
   transition: all 0.3s ease;
 }
 
-body.dark .feature-card {
+.dark .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -76,7 +76,7 @@ body.dark .feature-card {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .feature-card:hover {
+.dark .feature-card:hover {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -91,7 +91,7 @@ body.dark .feature-card:hover {
   color: var(--text-light);
 }
 
-body.dark .feature-card h3 {
+.dark .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -100,7 +100,7 @@ body.dark .feature-card h3 {
   line-height: 1.6;
 }
 
-body.dark .feature-card p {
+.dark .feature-card p {
   color: #9ca3af;
 }
 
@@ -129,7 +129,7 @@ body.dark .feature-card p {
   transition: all 0.3s ease;
 }
 
-body.dark .compliance-card {
+.dark .compliance-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -139,7 +139,7 @@ body.dark .compliance-card {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .compliance-card:hover {
+.dark .compliance-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -156,7 +156,7 @@ body.dark .compliance-card:hover {
   margin: 0;
 }
 
-body.dark .compliance-header h3 {
+.dark .compliance-header h3 {
   color: var(--text-dark);
 }
 
@@ -175,7 +175,7 @@ body.dark .compliance-header h3 {
   margin: 0;
 }
 
-body.dark .compliance-card p {
+.dark .compliance-card p {
   color: #9ca3af;
 }
 
@@ -204,7 +204,7 @@ body.dark .compliance-card p {
   transition: all 0.3s ease;
 }
 
-body.dark .practice-card {
+.dark .practice-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -214,7 +214,7 @@ body.dark .practice-card {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.dark .practice-card:hover {
+.dark .practice-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -226,7 +226,7 @@ body.dark .practice-card:hover {
   padding-bottom: 0.5rem;
 }
 
-body.dark .practice-card h3 {
+.dark .practice-card h3 {
   border-color: #374151;
 }
 
@@ -244,7 +244,7 @@ body.dark .practice-card h3 {
   padding-left: 1.5rem;
 }
 
-body.dark .practice-card li {
+.dark .practice-card li {
   color: #d1d5db;
   border-color: #374151;
 }
@@ -285,7 +285,7 @@ body.dark .practice-card li {
   border: 1px solid #e5e7eb;
 }
 
-body.dark .faq-item {
+.dark .faq-item {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -296,7 +296,7 @@ body.dark .faq-item {
   color: var(--text-light);
 }
 
-body.dark .faq-item h3 {
+.dark .faq-item h3 {
   color: var(--text-dark);
 }
 
@@ -306,7 +306,7 @@ body.dark .faq-item h3 {
   margin: 0;
 }
 
-body.dark .faq-item p {
+.dark .faq-item p {
   color: #9ca3af;
 }
 

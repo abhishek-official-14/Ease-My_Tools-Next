@@ -2,7 +2,7 @@
 
 // import React, { useState, useRef, useCallback } from 'react';
 // 
-// import { useTheme } from '../../contexts/ThemeContext';
+// import { useTheme } from 'next-themes';
 // import '../../styles/tools/FileConverter.css';
 
 // const FileConverter = () => {
@@ -334,7 +334,7 @@
 //     ];
 
 //     return (
-//         <div className={`file-converter ${theme}`}>
+//         <div className="file-converter">
 //             <div className="tool-header">
 //                 <h1>{"File Format Converter"}</h1>
 //                 <p>{"Convert between CSV, Excel, and JSON formats seamlessly"}</p>
@@ -575,11 +575,9 @@
 
 
 import React, { useState, useRef, useCallback } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/FileConverter.css';
 
 const FileConverter = () => {
-    const { theme } = useTheme();
     
     const [file, setFile] = useState(null);
     const [originalContent, setOriginalContent] = useState('');
@@ -902,7 +900,7 @@ const FileConverter = () => {
     ];
 
     return (
-        <div className={`file-converter ${theme}`}>
+        <div className="file-converter">
             <div className="tool-header">
                 <h1>{"File Format Converter"}</h1>
                 <p>{"Convert between CSV, Excel, and JSON formats seamlessly"}</p>

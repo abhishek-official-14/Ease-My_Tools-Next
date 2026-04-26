@@ -25,7 +25,7 @@
     transition: background 0.3s, color 0.3s, border 0.3s;
 }
 
-body.dark .markdown-input {
+.dark .markdown-input {
     background-color: var(--card-dark);
     color: var(--text-dark);
     border: 1px solid #374151;
@@ -43,7 +43,7 @@ body.dark .markdown-input {
     transition: background 0.3s, color 0.3s, border 0.3s;
 }
 
-body.dark .markdown-preview {
+.dark .markdown-preview {
     background-color: var(--card-dark);
     color: var(--text-dark);
     border: 1px solid #374151;
@@ -81,7 +81,7 @@ body.dark .markdown-preview {
     font-family: monospace;
 }
 
-body.dark .markdown-preview code {
+.dark .markdown-preview code {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -92,6 +92,6 @@ body.dark .markdown-preview code {
     overflow-x: auto;
 }
 
-body.dark .markdown-preview pre {
+.dark .markdown-preview pre {
     background-color: rgba(255, 255, 255, 0.1);
 }

@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/PasswordGenerator.css';
 
 const t = (key, fallback) => fallback ?? key;
 
 const PasswordGenerator = () => {
-    const { theme } = useTheme();
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
     const [includeUppercase, setIncludeUppercase] = useState(true);
@@ -91,7 +89,7 @@ const PasswordGenerator = () => {
     }, []);
 
     return (
-        <div className={`password-generator ${theme}`}>
+        <div className="password-generator">
             <div className="tool-header">
                 <h1>{"Password Generator"}</h1>
                 <p>{"Generate strong and secure passwords"}</p>

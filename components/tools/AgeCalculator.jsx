@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
 import '../../styles/tools/AgeCalculator.css';
 
 const AgeCalculator = () => {
-    const { theme } = useTheme();
     const [birthDate, setBirthDate] = useState('');
     const [age, setAge] = useState(null);
 
@@ -62,7 +60,7 @@ const AgeCalculator = () => {
     };
 
     return (
-        <div className={`age-calculator ${theme}`}>
+        <div className="age-calculator">
             <div className="calculator-header">
                 <h1>{"Age Calculator" || 'Age Calculator'}</h1>
                 <p>{"Calculate your exact age in years, months, and days" || 'Calculate your exact age in years, months, and days'}</p>

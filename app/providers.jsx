@@ -1,11 +1,16 @@
 "use client";
 
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider } from "next-themes";
 import ScrollToTop from "@/components/ScrollToTop";
 
 export default function Providers({ children }) {
   return (
-    <ThemeProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem
+      disableTransitionOnChange
+    >
       <ScrollToTop />
       {children}
     </ThemeProvider>
