@@ -1,4 +1,4 @@
-import ColorPicker from "@/components/tools/ColorPicker";
+import ColorPicker from "@/components/tools/color-picker";
 
 export const metadata = {
   title: "EaseMyTools - Color Picker",

@@ -1,4 +1,4 @@
-import TextExtractor from "@/components/tools/TextExtractor";
+import TextExtractor from "@/components/tools/text-extractor";
 
 export const metadata = {
   title: "EaseMyTools - Text Extractor",

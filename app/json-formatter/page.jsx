@@ -1,4 +1,4 @@
-import JSONFormatter from "@/components/tools/JSONFormatter";
+import JSONFormatter from "@/components/tools/json-formatter";
 
 export const metadata = {
   title: "EaseMyTools - Json Formatter",

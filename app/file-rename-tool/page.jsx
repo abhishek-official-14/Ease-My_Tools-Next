@@ -1,4 +1,4 @@
-import FileRenameTool from "@/components/tools/FileRenameTool";
+import FileRenameTool from "@/components/tools/file-rename-tool";
 
 export const metadata = {
   title: "EaseMyTools - File Rename Tool",

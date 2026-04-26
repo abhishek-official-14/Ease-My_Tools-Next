@@ -1,4 +1,4 @@
-import Base64Converter from "@/components/tools/Base64Converter";
+import Base64Converter from "@/components/tools/base64-converter";
 
 export const metadata = {
   title: "EaseMyTools - Base64 Converter",

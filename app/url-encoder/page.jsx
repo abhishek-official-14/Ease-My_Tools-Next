@@ -1,4 +1,4 @@
-import URLEncoder from "@/components/tools/URLEncoder";
+import URLEncoder from "@/components/tools/url-encoder";
 
 export const metadata = {
   title: "EaseMyTools - Url Encoder",

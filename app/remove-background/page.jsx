@@ -1,4 +1,4 @@
-import RemoveBackground from "@/components/tools/RemoveBackground";
+import RemoveBackground from "@/components/tools/remove-background";
 
 export const metadata = {
   title: "EaseMyTools - Remove Background",

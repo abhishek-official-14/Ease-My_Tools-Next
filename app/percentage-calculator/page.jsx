@@ -1,4 +1,4 @@
-import PercentageCalculator from "@/components/tools/PercentageCalculator";
+import PercentageCalculator from "@/components/tools/percentage-calculator";
 
 export const metadata = {
   title: "EaseMyTools - Percentage Calculator",

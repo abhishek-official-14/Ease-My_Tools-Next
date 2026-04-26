@@ -1,4 +1,4 @@
-import RegexGenerator from "@/components/tools/RegexGenerator";
+import RegexGenerator from "@/components/tools/regex-generator";
 
 export const metadata = {
   title: "EaseMyTools - Regex Generator",

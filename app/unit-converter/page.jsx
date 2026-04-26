@@ -1,4 +1,4 @@
-import UnitConverter from "@/components/tools/UnitConverter";
+import UnitConverter from "@/components/tools/unit-converter";
 
 export const metadata = {
   title: "EaseMyTools - Unit Converter",

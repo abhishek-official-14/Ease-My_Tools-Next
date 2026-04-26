@@ -1,4 +1,4 @@
-import CSVtoJSON from "@/components/tools/CSVtoJSON";
+import CSVtoJSON from "@/components/tools/csv-to-json";
 
 export const metadata = {
   title: "EaseMyTools - Csv To Json",

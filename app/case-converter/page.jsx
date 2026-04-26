@@ -1,4 +1,4 @@
-import CaseConverter from "@/components/tools/CaseConverter";
+import CaseConverter from "@/components/tools/case-converter";
 
 export const metadata = {
   title: "EaseMyTools - Case Converter",

@@ -1,4 +1,4 @@
-import SslChecker from "@/components/tools/SslChecker";
+import SslChecker from "@/components/tools/ssl-checker";
 
 export const metadata = {
   title: "EaseMyTools - Ssl Checker",
