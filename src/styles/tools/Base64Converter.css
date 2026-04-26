@@ -1,0 +1,121 @@
+/* styles/tools/base64converter.css */
+.base64-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.base64-container.light {
+    background: var(--bg-light);
+    color: var(--text-light);
+}
+
+.base64-container.dark {
+    background: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.mode-selector {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+
+.mode-selector button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.mode-selector button.active {
+    background: var(--primary);
+    color: white;
+}
+
+.text-area {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+.base64-container.dark .text-area {
+    background: var(--card-dark);
+    border-color: #374151;
+    color: var(--text-dark);
+}
+
+.file-drop-zone {
+    border: 2px dashed #cbd5e0;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-drop-zone:hover {
+    border-color: var(--primary);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.base64-container.dark .file-drop-zone {
+    border-color: #4b5563;
+}
+
+.action-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.convert-btn {
+    width: 100%;
+    margin: 1.5rem 0;
+    font-size: 1.1rem;
+}
+
+.output-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.clear-btn {
+    background: #ef4444;
+}
+
+.output {
+    background: #f8fafc;
+}
+
+.base64-container.dark .output {
+    background: #1f2937;
+}

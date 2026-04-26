@@ -1,0 +1,97 @@
+.markdown-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .markdown-container {
+        flex-direction: row;
+    }
+}
+
+.markdown-input {
+    flex: 1;
+    min-height: 300px;
+    padding: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: var(--card-light);
+    color: var(--text-light);
+    font-family: monospace;
+    font-size: 14px;
+    resize: vertical;
+    transition: background 0.3s, color 0.3s, border 0.3s;
+}
+
+body.dark .markdown-input {
+    background-color: var(--card-dark);
+    color: var(--text-dark);
+    border: 1px solid #374151;
+}
+
+.markdown-preview {
+    flex: 1;
+    min-height: 300px;
+    padding: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: var(--card-light);
+    color: var(--text-light);
+    overflow-y: auto;
+    transition: background 0.3s, color 0.3s, border 0.3s;
+}
+
+body.dark .markdown-preview {
+    background-color: var(--card-dark);
+    color: var(--text-dark);
+    border: 1px solid #374151;
+}
+
+/* Markdown content styles */
+.markdown-preview h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.markdown-preview h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.markdown-preview h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.markdown-preview p {
+    margin-bottom: 0.5rem;
+}
+
+.markdown-preview a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.markdown-preview code {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+body.dark .markdown-preview code {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.markdown-preview pre {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+body.dark .markdown-preview pre {
+    background-color: rgba(255, 255, 255, 0.1);
+}

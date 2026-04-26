@@ -1,0 +1,232 @@
+tools-2-master
+├─ .gitignore
+├─ declarations.d.ts
+├─ eslint.config.js
+├─ index.html
+├─ jsconfig.json
+├─ package-lock.json
+├─ package.json
+├─ project-hierarchy.txt
+├─ public
+│  ├─ locales
+│  │  ├─ en
+│  │  │  ├─ ageCalculator.json
+│  │  │  ├─ base64.json
+│  │  │  ├─ caseConverter.json
+│  │  │  ├─ colorPicker.json
+│  │  │  ├─ csvToJson.json
+│  │  │  ├─ currencyConverter.json
+│  │  │  ├─ dataUriGenerator.json
+│  │  │  ├─ faviconGenerator.json
+│  │  │  ├─ fileConverter.json
+│  │  │  ├─ fileRenameTool.json
+│  │  │  ├─ hashGenerator.json
+│  │  │  ├─ header.json
+│  │  │  ├─ imageResizer.json
+│  │  │  ├─ imageToSvg.json
+│  │  │  ├─ jsonFormatter.json
+│  │  │  ├─ jwtDebugger.json
+│  │  │  ├─ loremIpsum.json
+│  │  │  ├─ mp4ToGif.json
+│  │  │  ├─ navbar.json
+│  │  │  ├─ nutritionAdvisor.json
+│  │  │  ├─ nutritionMaster.json
+│  │  │  ├─ passwordGenerator.json
+│  │  │  ├─ pdfImageExtractor.json
+│  │  │  ├─ percentageCalculator.json
+│  │  │  ├─ qrGenerator.json
+│  │  │  ├─ regexGenerator.json
+│  │  │  ├─ removeBg.json
+│  │  │  ├─ sslChecker.json
+│  │  │  ├─ svgConverter.json
+│  │  │  ├─ textExtractor.json
+│  │  │  ├─ timeCalculator.json
+│  │  │  ├─ tools.json
+│  │  │  ├─ unitConverter.json
+│  │  │  ├─ urlEncoder.json
+│  │  │  ├─ websiteCostCalculator.json
+│  │  │  ├─ wordCounter.json
+│  │  │  └─ xmlFormatter.json
+│  │  └─ hi
+│  │     ├─ ageCalculator.json
+│  │     ├─ base64.json
+│  │     ├─ caseConverter.json
+│  │     ├─ colorPicker.json
+│  │     ├─ csvToJson.json
+│  │     ├─ currencyConverter.json
+│  │     ├─ dataUriGenerator.json
+│  │     ├─ faviconGenerator.json
+│  │     ├─ fileConverter.json
+│  │     ├─ fileRenameTool.json
+│  │     ├─ hashGenerator.json
+│  │     ├─ header.json
+│  │     ├─ imageResizer.json
+│  │     ├─ jsonFormatter.json
+│  │     ├─ jwtDebugger.json
+│  │     ├─ loremIpsum.json
+│  │     ├─ mp4ToGif.json
+│  │     ├─ navbar.json
+│  │     ├─ passwordGenerator.json
+│  │     ├─ pdfImageExtractor.json
+│  │     ├─ percentageCalculator.json
+│  │     ├─ qrGenerator.json
+│  │     ├─ regexGenerator.json
+│  │     ├─ removeBg.json
+│  │     ├─ sslChecker.json
+│  │     ├─ textExtractor.json
+│  │     ├─ timeCalculator.json
+│  │     ├─ tools.json
+│  │     ├─ unitConverter.json
+│  │     ├─ urlEncoder.json
+│  │     ├─ websiteCostCalculator.json
+│  │     ├─ wordCounter.json
+│  │     └─ xmlFormatter.json
+│  └─ vite.svg
+├─ README.md
+├─ src
+│  ├─ App.css
+│  ├─ App.jsx
+│  ├─ assets
+│  │  ├─ EaseMyTools.svg
+│  │  └─ react.svg
+│  ├─ components
+│  │  ├─ About.jsx
+│  │  ├─ API.jsx
+│  │  ├─ BackButton.jsx
+│  │  ├─ BenefitsSection.jsx
+│  │  ├─ Blog.jsx
+│  │  ├─ Business.jsx
+│  │  ├─ CategoryToolsPage.jsx
+│  │  ├─ Contact.jsx
+│  │  ├─ CookiePolicy.jsx
+│  │  ├─ DesktopApp.jsx
+│  │  ├─ Documentation.jsx
+│  │  ├─ Education.jsx
+│  │  ├─ FAQ.jsx
+│  │  ├─ FeaturedTools.jsx
+│  │  ├─ Features.jsx
+│  │  ├─ Footer.jsx
+│  │  ├─ Header.jsx
+│  │  ├─ HeroSection.jsx
+│  │  ├─ HomePage.jsx
+│  │  ├─ LanguageSelector.jsx
+│  │  ├─ MobileApp.jsx
+│  │  ├─ Navbar.jsx
+│  │  ├─ NewsletterSection.jsx
+│  │  ├─ Press.jsx
+│  │  ├─ Pricing.jsx
+│  │  ├─ PrivacyPolicy.jsx
+│  │  ├─ Security.jsx
+│  │  ├─ TermsConditions.jsx
+│  │  ├─ TestimonialsSection.jsx
+│  │  ├─ tools
+│  │  │  ├─ AgeCalculator.jsx
+│  │  │  ├─ Base64Converter.jsx
+│  │  │  ├─ CaseConverter.jsx
+│  │  │  ├─ ColorPicker.jsx
+│  │  │  ├─ CSVtoJSON.jsx
+│  │  │  ├─ CurrencyConverter.jsx
+│  │  │  ├─ DataUriGenerator.jsx
+│  │  │  ├─ FaviconGenerator.jsx
+│  │  │  ├─ FileConverter.jsx
+│  │  │  ├─ FileRenameTool.jsx
+│  │  │  ├─ HashGenerator.jsx
+│  │  │  ├─ ImageResizer.jsx
+│  │  │  ├─ ImageToSvg.jsx
+│  │  │  ├─ JSONFormatter.jsx
+│  │  │  ├─ JwtDebugger.jsx
+│  │  │  ├─ LoremIpsumGenerator.jsx
+│  │  │  ├─ MarkdownPreviewer.jsx
+│  │  │  ├─ Mp4ToGif.jsx
+│  │  │  ├─ NutritionMaster.jsx
+│  │  │  ├─ PasswordGenerator.jsx
+│  │  │  ├─ PDFImageExtractor.jsx
+│  │  │  ├─ PercentageCalculator.jsx
+│  │  │  ├─ QRCodeTool.jsx
+│  │  │  ├─ RegexGenerator.jsx
+│  │  │  ├─ RemoveBackground.jsx
+│  │  │  ├─ SslChecker.jsx
+│  │  │  ├─ SvgConverter.jsx
+│  │  │  ├─ TextDiffChecker.jsx
+│  │  │  ├─ TextDiffChecker1.jsx
+│  │  │  ├─ TextExtractor.jsx
+│  │  │  ├─ TimeCalculator.jsx
+│  │  │  ├─ UnitConverter.jsx
+│  │  │  ├─ URLEncoder.jsx
+│  │  │  ├─ WebsiteCostCalculator.jsx
+│  │  │  ├─ WordCounter.jsx
+│  │  │  └─ XMLFormatter.jsx
+│  │  └─ ToolsPage.jsx
+│  ├─ contexts
+│  │  └─ ThemeContext.jsx
+│  ├─ data
+│  │  └─ toolsData.js
+│  ├─ i18n.js
+│  ├─ index.css
+│  ├─ main.jsx
+│  └─ styles
+│     ├─ API.css
+│     ├─ BackButton.css
+│     ├─ BenefitsSection.css
+│     ├─ Blog.css
+│     ├─ Business.css
+│     ├─ CategoryToolsPage.css
+│     ├─ DesktopApp.module.css
+│     ├─ Documentation.css
+│     ├─ Education.css
+│     ├─ FAQ.css
+│     ├─ FeaturedTools.css
+│     ├─ Features.css
+│     ├─ Footer.css
+│     ├─ Header.css
+│     ├─ HeroSection.css
+│     ├─ HomePage.css
+│     ├─ LegalPage.css
+│     ├─ MobileApp.css
+│     ├─ Navbar.css
+│     ├─ NewsletterSection.css
+│     ├─ Press.css
+│     ├─ Pricing.css
+│     ├─ PrivacyPolicy.css
+│     ├─ Security.css
+│     ├─ TestimonialsSection.css
+│     ├─ tools
+│     │  ├─ AgeCalculator.css
+│     │  ├─ Base64Converter.css
+│     │  ├─ Base64Tool.css
+│     │  ├─ CaseConverter.css
+│     │  ├─ ColorPicker.css
+│     │  ├─ CSVtoJSON.css
+│     │  ├─ CurrencyConverter.css
+│     │  ├─ DataUriGenerator.css
+│     │  ├─ FaviconGenerator.css
+│     │  ├─ FileConverter.css
+│     │  ├─ FileRenameTool.css
+│     │  ├─ HashGenerator.css
+│     │  ├─ ImageResizer.css
+│     │  ├─ ImageToSvg.css
+│     │  ├─ JSONFormatter.css
+│     │  ├─ JwtDebugger.css
+│     │  ├─ LoremIpsumGenerator.css
+│     │  ├─ MarkdownPreviewer.css
+│     │  ├─ Mp4ToGif.css
+│     │  ├─ NutritionMaster.css
+│     │  ├─ PasswordGenerator.css
+│     │  ├─ PDFImageExtractor.css
+│     │  ├─ PercentageCalculator.css
+│     │  ├─ QRCodeGenerator.css
+│     │  ├─ QRCodeTool.css
+│     │  ├─ RegexGenerator.css
+│     │  ├─ RemoveBackground.css
+│     │  ├─ SslChecker.css
+│     │  ├─ SvgConverter.css
+│     │  ├─ TextDiffChecker.css
+│     │  ├─ TextExtractor.css
+│     │  ├─ TimeCalculator.css
+│     │  ├─ unitconverter.css
+│     │  ├─ URLEncoder.css
+│     │  ├─ WebsiteCostCalculator.css
+│     │  ├─ WordCounter.css
+│     │  └─ XMLFormatter.css
+│     └─ ToolsPage.css
+└─ vite.config.js

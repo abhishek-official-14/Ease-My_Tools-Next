@@ -1,0 +1,371 @@
+.time-calculator {
+    min-height: 100vh;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.time-calculator.light {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #2d3748;
+}
+
+.time-calculator.dark {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+}
+
+.calculator-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.calculator-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.calculator-header p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+.calculator-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--card-light);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.time-calculator.dark .calculator-container {
+    background: var(--card-dark);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.calculation-types {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.type-btn {
+    padding: 0.75rem 2rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    min-width: 200px;
+}
+
+.time-calculator.dark .type-btn {
+    border-color: #4b5563;
+}
+
+.type-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+}
+
+.type-btn:hover:not(.active) {
+    border-color: #667eea;
+}
+
+.time-section, .date-section {
+    margin-bottom: 2rem;
+}
+
+.time-section h3, .date-section h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #667eea;
+}
+
+.time-inputs {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.time-group {
+    text-align: center;
+}
+
+.time-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.time-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.time-controls input {
+    width: 60px;
+    padding: 0.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 5px;
+    text-align: center;
+    background: white;
+    font-size: 1rem;
+}
+
+.time-calculator.dark .time-controls input {
+    background: #1f2937;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+.time-controls input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.operation-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.op-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #e2e8f0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.time-calculator.dark .op-btn {
+    border-color: #4b5563;
+}
+
+.op-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+}
+
+.date-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.date-group {
+    text-align: center;
+}
+
+.date-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.date-input {
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    width: 100%;
+}
+
+.time-calculator.dark .date-input {
+    background: #1f2937;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.calculate-btn, .clear-btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    display: block;
+    margin: 1rem auto;
+}
+
+.calculate-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.clear-btn {
+    background: #e53e3e;
+    color: white;
+}
+
+.clear-btn:hover {
+    background: #c53030;
+    transform: translateY(-2px);
+}
+
+.result-section {
+    background: #f7fafc;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+}
+
+.time-calculator.dark .result-section {
+    background: #1f2937;
+}
+
+.result-section h4 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #667eea;
+}
+
+.result-display {
+    text-align: center;
+}
+
+.result-time {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+}
+
+.result-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    text-align: center;
+}
+
+.result-breakdown div {
+    padding: 0.5rem;
+    background: white;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.time-calculator.dark .result-breakdown div {
+    background: #374151;
+}
+
+.date-result {
+    text-align: center;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-item {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1rem;
+    border-radius: 10px;
+    color: white;
+}
+
+.result-item .value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.result-item .label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.total-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.total-breakdown div {
+    padding: 0.5rem;
+    background: white;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.time-calculator.dark .total-breakdown div {
+    background: #374151;
+}
+
+@media (max-width: 768px) {
+    .time-calculator {
+        padding: 1rem;
+    }
+
+    .calculator-header h1 {
+        font-size: 2rem;
+    }
+
+    .calculator-container {
+        padding: 1.5rem;
+    }
+
+    .calculation-types {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .type-btn {
+        min-width: 150px;
+    }
+
+    .time-inputs {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .date-inputs {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .result-breakdown, .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .total-breakdown {
+        grid-template-columns: 1fr;
+    }
+}

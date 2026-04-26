@@ -1,0 +1,575 @@
+.desktop-app-page {
+  min-height: 100vh;
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.dark .desktop-app-page {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.desktop-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.desktop-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 6rem;
+}
+
+.header-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  color: #6b7280;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+body.dark .subtitle {
+  color: #9ca3af;
+}
+
+.download-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.download-badge {
+  display: flex;
+  align-items: center;
+  background: var(--card-light);
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+body.dark .download-badge {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.download-badge:hover {
+  transform: translateX(8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+body.dark .download-badge:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.os-icon {
+  font-size: 2.5rem;
+  margin-right: 1.5rem;
+}
+
+.os-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.os-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.os-details {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+body.dark .os-details {
+  color: #9ca3af;
+}
+
+.header-image {
+  display: flex;
+  justify-content: center;
+}
+
+.desktop-mockup {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.desktop-screen {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+body.dark .desktop-screen {
+  background: #374151;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.app-window {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.window-header {
+  background: #f3f4f6;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+body.dark .window-header {
+  background: #4b5563;
+  border-color: #6b7280;
+}
+
+.window-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.control.close {
+  background: #ef4444;
+}
+
+.control.minimize {
+  background: #f59e0b;
+}
+
+.control.maximize {
+  background: #10b981;
+}
+
+.window-title {
+  font-weight: 600;
+  color: #374151;
+}
+
+body.dark .window-title {
+  color: #d1d5db;
+}
+
+.window-content {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 200px;
+  background: #f9fafb;
+  border-right: 1px solid #e5e7eb;
+  padding: 1rem;
+}
+
+body.dark .sidebar {
+  background: #4b5563;
+  border-color: #6b7280;
+}
+
+.sidebar-item {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+
+
+/** error  satrt **/
+
+.sidebar-item:hover {
+  background: #e5e7eb;
+}
+
+body.dark .sidebar-item:hover {
+  background: #6b7280;
+}
+
+.sidebar-item.active {
+  background: var(--primary);
+  color: white;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1.5rem;
+  background: white;
+}
+
+/** main error  satrt **/
+
+
+body.dark .main-content {
+  background: var(--bg-dark);
+}
+
+/** main error end **/
+
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.tool-card {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  color: #4b5563;
+  transition: all 0.3s ease;
+}
+
+body.dark .tool-card {
+  background: #6b7280;
+  color: #d1d5db;
+}
+
+.tool-card:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.desktop-features {
+  margin-bottom: 6rem;
+}
+
+.desktop-features h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--primary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+
+
+/** error  End **/
+
+
+
+
+
+
+
+
+
+
+
+
+.feature-card {
+  background: var(--card-light);
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+body.dark .feature-card {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .feature-card:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+body.dark .feature-card h3 {
+  color: var(--text-dark);
+}
+
+.feature-card p {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+body.dark .feature-card p {
+  color: #9ca3af;
+}
+
+.download-section {
+  margin-bottom: 6rem;
+}
+
+.download-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--primary);
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.download-card {
+  background: var(--card-light);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+body.dark .download-card {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.download-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+body.dark .download-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.download-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.platform-icon {
+  font-size: 3rem;
+  margin-right: 1rem;
+}
+
+.platform-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-light);
+}
+
+body.dark .platform-info h3 {
+  color: var(--text-dark);
+}
+
+.platform-version {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+body.dark .platform-version {
+  color: #9ca3af;
+}
+
+.download-details {
+  margin-bottom: 2rem;
+}
+
+.file-size {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+body.dark .file-size {
+  color: var(--text-dark);
+}
+
+.instructions {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+body.dark .instructions {
+  color: #9ca3af;
+}
+
+.download-button {
+  display: block;
+  background: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.download-button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+}
+
+.desktop-cta {
+  background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+  color: white;
+  padding: 4rem 2rem;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  display: flex;
+  align-items: center;
+  background: white;
+  color: var(--primary);
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.button-icon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+@media (max-width: 968px) {
+  .desktop-header {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .header-content h1 {
+    font-size: 2.8rem;
+  }
+  
+  .download-badges {
+    align-items: center;
+  }
+  
+  .download-badge {
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .desktop-features h2,
+  .download-section h2 {
+    font-size: 2rem;
+  }
+  
+  .features-grid,
+  .download-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-button {
+    width: 250px;
+    justify-content: center;
+  }
+  
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .desktop-mockup {
+    max-width: 100%;
+  }
+}

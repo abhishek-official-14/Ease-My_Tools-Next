@@ -1,0 +1,288 @@
+/* ToolsPage.css */
+
+.tools-page {
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.tools-page.light {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+.tools-page.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* --- SEARCH BAR --- */
+.search-container {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+  /* z-index: 5000; */
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  border: 2px solid #e5e7eb;
+  background-color: var(--card-light);
+  color: var(--text-light);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 150px !important;
+}
+
+.tools-page.dark .search-bar input {
+  background-color: var(--card-dark);
+  color: var(--text-dark);
+  border-color: #374151;
+}
+
+/* --- SEARCH DROPDOWN --- */
+.search-container .tool-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--card-light);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 6000;
+  animation: slideDown 0.2s ease-out;
+}
+
+.tools-page.dark .search-container .tool-dropdown {
+  background-color: var(--card-dark);
+  border-color: #374151;
+}
+
+.tool-list {
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+}
+
+.tool-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tool-link:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.tools-page.dark .tool-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.search-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.tool-icon-svg {
+  width: 20px !important;
+  height: 20px !important;
+  color: var(--primary);
+}
+
+.tool-label {
+  font-weight: 500;
+  font-size: 0.9rem !important;
+  color: inherit;
+}
+
+/* --- SLIDER STYLES --- */
+.categories-slider {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.slider-container {
+  overflow: hidden;
+  width: 100%;
+  cursor: grab;
+}
+
+.slider-track {
+  display: flex;
+}
+
+.slider-track .cards-grid {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Desktop: 4 columns */
+  gap: 1rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.category-card {
+  border-radius: 16px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-icon {
+  font-size: 2rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  flex: 1;
+}
+
+.tools-count {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+.card-description {
+  flex-grow: 1;
+  font-size: 0.85rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* DOTS */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.dot {
+  width: 30px;
+  height: 5px;
+  background-color: #d1d5db;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.dot.active {
+  background-color: var(--primary);
+  width: 45px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- MOBILE & TABLET OPTIMIZATIONS --- */
+
+@media (max-width: 768px) {
+  .slider-track .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns */
+    grid-template-rows: repeat(2, 1fr);
+    /* 2 rows */
+    gap: 0.75rem;
+  }
+
+  .category-card {
+    padding: 1rem;
+    min-height: 140px;
+    /* Smaller cards for mobile grid */
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+  }
+
+  .card-description {
+    font-size: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Limit description text on mobile */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .tools-page {
+    padding: 0.5rem;
+  }
+
+  .slider-track .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* Keep 2 columns */
+    grid-template-rows: repeat(2, 1fr);
+    /* Keep 2 rows */
+    gap: 0.5rem;
+  }
+
+  .category-card {
+    padding: 0.75rem;
+    min-height: 120px;
+    border-radius: 12px;
+  }
+
+  .card-top {
+    margin-bottom: 0.4rem;
+  }
+
+  .card-icon {
+    font-size: 1.25rem;
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+  }
+
+  /* Hide description on very small screens to keep the 2x2 grid clean */
+  .card-description {
+    display: none;
+  }
+
+  .dot {
+    width: 20px;
+  }
+}

@@ -1,0 +1,598 @@
+.nutrition-master {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.tool-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.tool-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.tool-header p {
+    color: #6b7280;
+    font-size: 1.1rem;
+}
+
+.master-container {
+    background: var(--card-light);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .master-container {
+    background: var(--card-dark);
+}
+
+/* Controls Section */
+.controls-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+body.dark .search-input {
+    border-color: #4b5563;
+    background: #374151;
+    color: var(--text-dark);
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.filter-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.filter-group select {
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: white;
+}
+
+body.dark .filter-group select {
+    border-color: #4b5563;
+    background: #374151;
+    color: var(--text-dark);
+}
+
+/* Results Info */
+.results-info {
+    margin-bottom: 1rem;
+}
+
+.results-info p {
+    color: #6b7280;
+    font-weight: 600;
+}
+
+/* Foods Grid */
+.foods-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.food-card {
+    padding: 1.5rem;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+body.dark .food-card {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+.food-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.food-card.selected {
+    border-color: var(--primary);
+    background: #f0f9ff;
+}
+
+body.dark .food-card.selected {
+    background: #1e3a8a;
+}
+
+.food-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.food-header h3 {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 1.2rem;
+}
+
+body.dark .food-header h3 {
+    color: var(--text-dark);
+}
+
+.food-category {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    background: #e5e7eb;
+    border-radius: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+body.dark .food-category {
+    background: #4b5563;
+}
+
+.food-basic-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calorie-display {
+    text-align: center;
+}
+
+.calories {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+}
+
+.unit {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.macros {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.food-serving {
+    margin-bottom: 1rem;
+}
+
+.food-serving small {
+    color: #6b7280;
+}
+
+.food-best-for {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.goal-tag {
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.goal-tag.weightGain {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.goal-tag.weightLoss {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.goal-tag.maintenance {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+body.dark .goal-tag.weightGain {
+    background: #78350f;
+    color: #fef3c7;
+}
+
+body.dark .goal-tag.weightLoss {
+    background: #064e3b;
+    color: #dcfce7;
+}
+
+body.dark .goal-tag.maintenance {
+    background: #1e3a8a;
+    color: #dbeafe;
+}
+
+.compare-btn {
+    width: 100%;
+    padding: 0.5rem;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.compare-btn:hover:not(:disabled) {
+    background: #7c3aed;
+}
+
+.compare-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* Detail Section */
+.detail-section {
+    border-top: 2px solid #e5e7eb;
+    padding-top: 2rem;
+    margin-top: 2rem;
+}
+
+body.dark .detail-section {
+    border-color: #374151;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.detail-header h2 {
+    color: var(--primary);
+    margin: 0;
+}
+
+.close-btn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-content {
+    display: grid;
+    gap: 2rem;
+}
+
+.nutrition-facts h3,
+.vitamins-section h3,
+.minerals-section h3,
+.antioxidants-section h3,
+.benefits-section h3 {
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.fact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+body.dark .fact-item {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+.fact-label {
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+body.dark .fact-label {
+    color: var(--text-dark);
+}
+
+.fact-value {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Vitamins and Minerals */
+.vitamins-grid,
+.minerals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.vitamin-item,
+.mineral-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+body.dark .vitamin-item,
+body.dark .mineral-item {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+.vitamin-name,
+.mineral-name {
+    flex: 1;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.vitamin-bar,
+.mineral-bar {
+    flex: 2;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+body.dark .vitamin-bar,
+body.dark .mineral-bar {
+    background: #4b5563;
+}
+
+.vitamin-fill,
+.mineral-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.vitamin-amount,
+.mineral-amount {
+    min-width: 40px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Antioxidants */
+.antioxidants-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.antioxidant-tag {
+    padding: 0.5rem 1rem;
+    background: #f0f9ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #1e40af;
+    font-weight: 600;
+}
+
+body.dark .antioxidant-tag {
+    background: #1e3a8a;
+    border-color: #3b82f6;
+    color: #dbeafe;
+}
+
+/* Benefits */
+.benefits-list {
+    list-style: none;
+    padding: 0;
+}
+
+.benefits-list li {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: #f0f9ff;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+body.dark .benefits-list li {
+    background: #1e3a8a;
+}
+
+/* Compare Section */
+.compare-section {
+    border-top: 2px solid #e5e7eb;
+    padding-top: 2rem;
+    margin-top: 2rem;
+}
+
+body.dark .compare-section {
+    border-color: #374151;
+}
+
+.compare-section h3 {
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.compare-card {
+    padding: 1rem;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    position: relative;
+}
+
+body.dark .compare-card {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+.remove-compare {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.compare-card h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-light);
+}
+
+body.dark .compare-card h4 {
+    color: var(--text-dark);
+}
+
+.compare-macros {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.macro-compare {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.macro-compare span:first-child {
+    color: #6b7280;
+}
+
+.macro-compare span:last-child {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nutrition-master {
+        padding: 1rem;
+    }
+    
+    .master-container {
+        padding: 1rem;
+    }
+    
+    .controls-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .filter-controls {
+        flex-direction: column;
+    }
+    
+    .foods-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .facts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .vitamins-grid,
+    .minerals-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .compare-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .vitamin-item,
+    .mineral-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .vitamin-bar,
+    .mineral-bar {
+        width: 100%;
+    }
+}

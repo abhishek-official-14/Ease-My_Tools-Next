@@ -1,0 +1,413 @@
+.age-calculator {
+    min-height: 100vh;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.age-calculator.light {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #2d3748;
+}
+
+.age-calculator.dark {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+}
+
+.calculator-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.calculator-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.calculator-header p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+.calculator-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card-light);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.age-calculator.dark .calculator-container {
+    background: var(--card-dark);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.input-section {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.input-section label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.date-input {
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    background: white;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.age-calculator.dark .date-input {
+    background: #1f2937;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+.date-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.calculate-btn, .clear-btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.calculate-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.clear-btn {
+    background: #e53e3e;
+    color: white;
+}
+
+.clear-btn:hover {
+    background: #c53030;
+    transform: translateY(-2px);
+}
+
+.results-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.results-section h3 {
+    margin-bottom: 2rem;
+    color: #667eea;
+    font-size: 1.5rem;
+}
+
+.age-display {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.age-unit {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 1rem;
+    border-radius: 15px;
+    color: white;
+    min-width: 120px;
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.age-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.age-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.additional-stats {
+    background: #f7fafc;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: left;
+}
+
+.age-calculator.dark .additional-stats {
+    background: #1f2937;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.age-calculator.dark .stat {
+    border-bottom-color: #4b5563;
+}
+
+.stat:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-weight: 600;
+}
+
+.stat-value {
+    font-weight: 700;
+    color: #667eea;
+}
+
+.fun-facts {
+    background: #f7fafc;
+    padding: 1.5rem;
+    border-radius: 15px;
+    border-left: 4px solid #667eea;
+}
+
+.age-calculator.dark .fun-facts {
+    background: #1f2937;
+}
+
+.fun-facts h4 {
+    margin-bottom: 1rem;
+    color: #667eea;
+}
+
+.fun-facts ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.fun-facts li {
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.fun-facts li::before {
+    content: '🎉';
+    position: absolute;
+    left: 0;
+}
+
+@media (max-width: 768px) {
+    .age-calculator {
+        padding: 1rem;
+    }
+
+    .calculator-header h1 {
+        font-size: 2rem;
+    }
+
+    .calculator-container {
+        padding: 1.5rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .age-display {
+        gap: 1rem;
+    }
+
+    .age-unit {
+        min-width: 100px;
+        padding: 1.5rem 0.5rem;
+    }
+
+    .age-number {
+        font-size: 2rem;
+    }
+}
+
+
+
+
+
+/* Responsive Design for Tool Pages */
+.tool-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem var(--container-padding-mobile);
+}
+
+.tool-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tool-header h1 {
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.tool-header p {
+  font-size: 1.2rem;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Upload Area */
+.upload-area {
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+  margin-bottom: 2rem;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.primary-btn, .secondary-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 140px;
+}
+
+/* Preview Section */
+.preview-container {
+  display: grid;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tool-container {
+    padding: 3rem var(--container-padding-tablet);
+  }
+  
+  .tool-header h1 {
+    font-size: 2.75rem;
+  }
+  
+  .preview-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .action-buttons {
+    flex-wrap: nowrap;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .tool-container {
+    padding: 4rem var(--container-padding-desktop);
+  }
+  
+  .tool-header h1 {
+    font-size: 3rem;
+  }
+  
+  .preview-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+  .tool-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .tool-header p {
+    font-size: 1.1rem;
+  }
+  
+  .upload-area {
+    padding: 2rem 1rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .primary-btn, .secondary-btn {
+    width: 100%;
+  }
+  
+  .preview-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .tool-container {
+    padding: 1rem;
+  }
+  
+  .tool-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tool-header p {
+    font-size: 1rem;
+  }
+  
+  .upload-area {
+    padding: 1.5rem 1rem;
+  }
+}

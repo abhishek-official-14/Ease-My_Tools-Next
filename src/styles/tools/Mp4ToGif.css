@@ -1,0 +1,377 @@
+.mp4-to-gif {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.mp4-to-gif.light {
+    background: var(--bg-light);
+    color: var(--text-light);
+}
+
+.mp4-to-gif.dark {
+    background: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.converter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+}
+
+.drop-zone {
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: var(--card-light);
+}
+
+.drop-zone.dragging {
+    border-color: var(--primary);
+    background: #eff6ff;
+    transform: scale(1.02);
+}
+
+.drop-zone.has-file {
+    border-color: #10b981;
+    background: #f0fdf4;
+}
+
+body.dark .drop-zone {
+    background: var(--card-dark);
+    border-color: #374151;
+}
+
+body.dark .drop-zone.dragging {
+    background: #1e3a8a;
+}
+
+body.dark .drop-zone.has-file {
+    background: #052e16;
+}
+
+.file-input {
+    display: none;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.upload-icon {
+    font-size: 3rem;
+}
+
+.upload-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.drag-text {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.file-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.file-icon {
+    font-size: 2rem;
+}
+
+.file-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.file-size {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.video-preview {
+    background: var(--card-light);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+body.dark .video-preview {
+    background: var(--card-dark);
+}
+
+.video-preview h3 {
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.video-player {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 8px;
+    background: black;
+}
+
+.settings-section {
+    background: var(--card-light);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+body.dark .settings-section {
+    background: var(--card-dark);
+}
+
+.settings-section h3 {
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.setting-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.setting-group input,
+.setting-group select {
+    padding: 10px 12px;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    background: white;
+    font-family: inherit;
+}
+
+body.dark .setting-group input,
+body.dark .setting-group select {
+    background: var(--card-dark);
+    border-color: #374151;
+    color: var(--text-dark);
+}
+
+.setting-group input:focus,
+.setting-group select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.primary-btn, .secondary-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 150px;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.primary-btn:hover:not(:disabled) {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+.primary-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.secondary-btn {
+    background: #6b7280;
+    color: white;
+}
+
+.secondary-btn:hover {
+    background: #4b5563;
+    transform: translateY(-1px);
+}
+
+.conversion-info {
+    background: var(--card-light);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+body.dark .conversion-info {
+    background: var(--card-dark);
+}
+
+.conversion-info h3 {
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+body.dark .info-item {
+    border-bottom-color: #374151;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.info-value {
+    font-weight: 600;
+}
+
+.gif-result {
+    background: var(--card-light);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+body.dark .gif-result {
+    background: var(--card-dark);
+}
+
+.gif-result h3 {
+    margin-bottom: 15px;
+    color: var(--primary);
+}
+
+.gif-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.gif-image {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+}
+
+body.dark .gif-image {
+    border-color: #374151;
+}
+
+.download-btn {
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.download-btn:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+.conversion-tips {
+    padding: 20px;
+    background: var(--card-light);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+body.dark .conversion-tips {
+    background: var(--card-dark);
+}
+
+.conversion-tips h4 {
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.conversion-tips ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.conversion-tips li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .mp4-to-gif {
+        padding: 15px;
+    }
+    
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .primary-btn, .secondary-btn {
+        min-width: auto;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}

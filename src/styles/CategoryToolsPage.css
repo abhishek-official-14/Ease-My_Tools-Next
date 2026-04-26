@@ -1,0 +1,125 @@
+/* ========== Category Tools Page Styles ========== */
+
+.category-tools-page {
+    padding: 2rem;
+    min-height: 80vh;
+}
+
+.category-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.category-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.category-header p {
+    font-size: 1.125rem;
+    opacity: 0.8;
+}
+
+
+/* --- Tools Grid --- */
+.category-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+.category-tools-grid.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Tool Card --- */
+.category-tool-card {
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+body.light .category-tool-card {
+    background: var(--card-light);
+    border-color: #e5e7eb;
+    color: var(--text-light);
+}
+
+body.dark .category-tool-card {
+    background: var(--card-dark);
+    border-color: #374151;
+    color: var(--text-dark);
+}
+
+.category-tool-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Floating Animation --- */
+.floating-card {
+    animation: floatIn 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes floatIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* --- Tool Card Content --- */
+.tool-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.tool-card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.category-tool-card h3 {
+    font-size: 1.375rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.category-tool-card p {
+    color: #6b7280;
+    font-size: 1rem;
+    margin-top: auto;
+}
+
+body.dark .category-tool-card p {
+    color: #9ca3af;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .category-tools-page {
+        padding: 1rem;
+    }
+
+    .category-tools-grid {
+        grid-template-columns: 1fr;
+    }
+}

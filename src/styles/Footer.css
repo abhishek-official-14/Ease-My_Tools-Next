@@ -1,0 +1,134 @@
+.footer {
+  padding: 40px 60px 20px;
+  font-size: 0.95rem;
+  transition: background 0.3s, color 0.3s;
+  margin-top: auto;
+}
+
+.footer.light {
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+.footer.dark {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* MAIN GRID */
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 40px;
+}
+
+/* COLUMNS */
+.footer-column h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.footer-column a {
+  display: block;
+  text-decoration: none;
+  margin-bottom: 8px;
+  color: inherit;
+  transition: color 0.3s;
+}
+
+.footer-column a:hover {
+  color: var(--primary);
+}
+
+/* DIVIDER */
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(128, 128, 128, 0.4);
+  margin: 30px 0 20px;
+}
+
+/* BOTTOM */
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 0.9rem;
+}
+
+.footer-social {
+  display: flex;
+  gap: 14px;
+  font-size: 1.2rem;
+  margin-left: 15px;
+}
+
+.footer-social a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.footer-social a:hover {
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.footer-copy {
+  opacity: 0.8;
+}
+
+/* ============================= */
+/* ✅ RESPONSIVE ONLY */
+/* ============================= */
+
+@media (max-width: 1024px) {
+  .footer-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 24px 16px;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .footer-column h4 {
+    margin-bottom: 8px;
+  }
+
+  .footer-social {
+    font-size: 1.4rem;
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+  }
+}

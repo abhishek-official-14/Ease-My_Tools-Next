@@ -1,0 +1,517 @@
+.press-page {
+  min-height: 100vh;
+  background: var(--bg-light);
+  color: var(--text-light);
+}
+
+body.dark .press-page {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.press-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.press-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+body.dark .press-header {
+  border-color: #374151;
+}
+
+.press-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.press-subtitle {
+  font-size: 1.2rem;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+body.dark .press-subtitle {
+  color: #9ca3af;
+}
+
+.press-contact {
+  margin-bottom: 6rem;
+}
+
+.contact-card {
+  background: var(--card-light);
+  padding: 3rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+body.dark .contact-card {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.contact-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.contact-card p {
+  color: #6b7280;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+body.dark .contact-card p {
+  color: #9ca3af;
+}
+
+.contact-info {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-item strong {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+body.dark .contact-item strong {
+  color: var(--text-dark);
+}
+
+.contact-item a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.press-releases {
+  margin-bottom: 6rem;
+}
+
+.press-releases h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--primary);
+}
+
+.releases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.release-card {
+  background: var(--card-light);
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+body.dark .release-card {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.release-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .release-card:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.release-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.release-date {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+body.dark .release-date {
+  color: #9ca3af;
+}
+
+.release-category {
+  background: var(--primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.release-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+  line-height: 1.3;
+}
+
+body.dark .release-title {
+  color: var(--text-dark);
+}
+
+.release-excerpt {
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+body.dark .release-excerpt {
+  color: #9ca3af;
+}
+
+.read-more {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.read-more:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.media-coverage {
+  margin-bottom: 6rem;
+}
+
+.media-coverage h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--primary);
+}
+
+.coverage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.coverage-card {
+  background: var(--card-light);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+body.dark .coverage-card {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.coverage-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .coverage-card:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.coverage-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.outlet-logo {
+  font-size: 2.5rem;
+}
+
+.outlet-info {
+  flex: 1;
+}
+
+.outlet-name {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-light);
+}
+
+body.dark .outlet-name {
+  color: var(--text-dark);
+}
+
+.coverage-date {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+body.dark .coverage-date {
+  color: #9ca3af;
+}
+
+.coverage-title {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-light);
+  line-height: 1.4;
+}
+
+body.dark .coverage-title {
+  color: var(--text-dark);
+}
+
+.read-article {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.read-article:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.press-kit {
+  margin-bottom: 6rem;
+}
+
+.press-kit h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.kit-description {
+  color: #6b7280;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+body.dark .kit-description {
+  color: #9ca3af;
+}
+
+.kit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.kit-item {
+  background: var(--card-light);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+body.dark .kit-item {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.kit-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .kit-item:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.kit-info {
+  flex: 1;
+}
+
+.kit-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+}
+
+body.dark .kit-info h3 {
+  color: var(--text-dark);
+}
+
+.kit-info p {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+body.dark .kit-info p {
+  color: #9ca3af;
+}
+
+.kit-format {
+  color: #9ca3af;
+  font-size: 0.8rem;
+  font-family: 'Monaco', 'Consolas', monospace;
+}
+
+body.dark .kit-format {
+  color: #6b7280;
+}
+
+.download-button {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.download-button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+}
+
+.company-info {
+  margin-bottom: 4rem;
+}
+
+.company-info h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--primary);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.info-card {
+  background: var(--card-light);
+  padding: 2.5rem 2rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+body.dark .info-card {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.info-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.info-card p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+body.dark .info-card p {
+  color: #9ca3af;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-card li {
+  padding: 0.75rem 0;
+  color: #4b5563;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+body.dark .info-card li {
+  color: #d1d5db;
+  border-color: #374151;
+}
+
+.info-card li:last-child {
+  border-bottom: none;
+}
+
+.info-card li::before {
+  content: '•';
+  color: var(--primary);
+  font-weight: bold;
+  margin-right: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .press-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .press-releases h2,
+  .media-coverage h2,
+  .press-kit h2,
+  .company-info h2 {
+    font-size: 2rem;
+  }
+  
+  .releases-grid,
+  .coverage-grid,
+  .kit-grid,
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contact-info {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .contact-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .kit-item {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .release-card,
+  .coverage-card,
+  .info-card {
+    padding: 2rem 1.5rem;
+  }
+}
