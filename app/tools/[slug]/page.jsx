@@ -3,14 +3,8 @@ import CategoryToolsPage from "@/components/CategoryToolsPage";
 import { categoryTitles, getToolBySlug, toolsByCategory } from "@/data/toolsData";
 import { notFound } from "next/navigation";
 
-const resolveSlug = async (paramsInput) => {
-  const resolvedParams = await paramsInput;
-  return resolvedParams?.slug;
-};
-
-export async function generateMetadata({ params }) {
-  const slug = await resolveSlug(params);
-  const tool = getToolBySlug(slug);
+export function generateMetadata({ params }) {
+  const tool = getToolBySlug(params.slug);
 
   if (tool) {
     return {
@@ -19,27 +13,26 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  if (slug && categoryTitles[slug]) {
+  if (categoryTitles[params.slug]) {
     return {
-      title: `EaseMyTools - ${categoryTitles[slug]}`,
-      description: `Explore ${categoryTitles[slug]} on EaseMyTools.`,
+      title: `EaseMyTools - ${categoryTitles[params.slug]}`,
+      description: `Explore ${categoryTitles[params.slug]} on EaseMyTools.`,
     };
   }
 
   return {};
 }
 
-export default async function Page({ params }) {
-  const slug = await resolveSlug(params);
-  const tool = getToolBySlug(slug);
+export default function Page({ params }) {
+  const tool = getToolBySlug(params.slug);
 
   if (tool) {
     const DynamicComponent = dynamic(tool.component);
     return <DynamicComponent />;
   }
 
-  if (slug && toolsByCategory[slug]) {
-    return <CategoryToolsPage categoryId={slug} />;
+  if (toolsByCategory[params.slug]) {
+    return <CategoryToolsPage categoryId={params.slug} />;
   }
 
   return notFound();
