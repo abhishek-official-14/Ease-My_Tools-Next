@@ -60,7 +60,7 @@ const FaviconGenerator = () => {
       setGeneratedIcons([]);
     };
     reader.readAsDataURL(uploadedFile);
-  }, [t]);
+  }, []);
 
   // Handle drag and drop
   const handleDrop = useCallback((e) => {

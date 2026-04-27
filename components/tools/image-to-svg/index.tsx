@@ -58,7 +58,7 @@ const ImageToSvg = () => {
             img.src = imageUrl;
         };
         reader.readAsDataURL(uploadedFile);
-    }, [t]);
+    }, []);
 
     const handleDrop = useCallback((e) => {
         e.preventDefault();

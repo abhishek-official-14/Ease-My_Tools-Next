@@ -58,7 +58,7 @@ const RegexGenerator = () => {
         } finally {
             setIsGenerating(false);
         }
-    }, [description, t]);
+    }, [description]);
 
     const generateRegexFromDescription = (desc) => {
         const lowerDesc = desc.toLowerCase();

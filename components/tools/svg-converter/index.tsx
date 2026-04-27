@@ -57,7 +57,7 @@ const SvgConverter = () => {
             }));
         };
         reader.readAsText(uploadedFile);
-    }, [t]);
+    }, []);
 
     const handleDrop = useCallback((e) => {
         e.preventDefault();

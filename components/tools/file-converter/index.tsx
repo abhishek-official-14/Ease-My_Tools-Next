@@ -823,7 +823,7 @@ const FileConverter = () => {
             console.error('File reading error:', error);
             alert("Conversion failed");
         }
-    }, [t, conversionSettings.csvDelimiter]);
+    }, [conversionSettings.csvDelimiter]);
 
     const handleDrop = useCallback((e) => {
         e.preventDefault();
