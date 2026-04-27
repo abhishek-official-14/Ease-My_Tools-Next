@@ -134,13 +134,13 @@ const ToolsPage = () => {
                     {isOpen && filteredTools.length > 0 && (
                         <div className="tool-dropdown">
                             <ul className="tool-list">
-                                {filteredTools.map(({ name, link, icon: Icon }) => (
+                                {filteredTools.map(({ name, slug, icon: Icon }) => (
                                     <li
                                         key={name}
                                         className="tool-item"
                                         onMouseDown={(e) => {
                                             e.preventDefault(); // Prevents input blur
-                                            router.push(link);
+                                            router.push(`/tools/${slug}`);
                                         }}
                                     >
                                         <div className="tool-link">
