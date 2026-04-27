@@ -4,12 +4,12 @@
     margin: 0 auto;
 }
 
-.light .jwt-debugger {
+:global(.light) .jwt-debugger {
     background: var(--bg-light);
     color: var(--text-light);
 }
 
-.dark .jwt-debugger {
+:global(.dark) .jwt-debugger {
     background: var(--bg-dark);
     color: var(--text-dark);
 }
@@ -46,7 +46,7 @@
     background-color: #fef2f2;
 }
 
-.dark .input-section textarea.error {
+:global(.dark) .input-section textarea.error {
     background-color: #1f1b1b;
 }
 
@@ -55,7 +55,7 @@
     outline: none;
 }
 
-.dark .input-section textarea {
+:global(.dark) .input-section textarea {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -103,7 +103,7 @@
     border-left: 4px solid #dc2626;
 }
 
-.dark .error-message {
+:global(.dark) .error-message {
     background: #1f1b1b;
     color: #fca5a5;
 }
@@ -120,7 +120,7 @@
     border-radius: 8px;
 }
 
-.dark .token-info {
+:global(.dark) .token-info {
     background: var(--card-dark);
 }
 
@@ -143,7 +143,7 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .info-item {
+:global(.dark) .info-item {
     border-bottom-color: #374151;
 }
 
@@ -181,7 +181,7 @@
     overflow: hidden;
 }
 
-.dark .jwt-part {
+:global(.dark) .jwt-part {
     border-color: #374151;
 }
 
@@ -194,7 +194,7 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .part-header {
+:global(.dark) .part-header {
     background: var(--card-dark);
     border-bottom-color: #374151;
 }
@@ -231,7 +231,7 @@
     overflow-y: auto;
 }
 
-.dark .json-output {
+:global(.dark) .json-output {
     background: var(--bg-dark);
 }
 
@@ -243,7 +243,7 @@
     background: var(--bg-light);
 }
 
-.dark .signature-output {
+:global(.dark) .signature-output {
     background: var(--bg-dark);
 }
 
@@ -271,7 +271,7 @@
     margin-top: 20px;
 }
 
-.dark .jwt-info {
+:global(.dark) .jwt-info {
     background: var(--card-dark);
 }
 

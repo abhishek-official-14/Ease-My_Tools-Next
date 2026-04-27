@@ -17,7 +17,7 @@
     font-weight: 700;
 }
 
-.dark .tool-header h1 {
+:global(.dark) .tool-header h1 {
     color: var(--text-dark);
 }
 
@@ -26,7 +26,7 @@
     font-size: 1.1rem;
 }
 
-.dark .tool-header p {
+:global(.dark) .tool-header p {
     color: #9ca3af;
 }
 
@@ -45,7 +45,7 @@
     transition: all 0.3s ease;
 }
 
-.dark .conversion-card {
+:global(.dark) .conversion-card {
     background: var(--card-dark);
 }
 
@@ -62,7 +62,7 @@
     color: var(--text-light);
 }
 
-.dark .amount-section label {
+:global(.dark) .amount-section label {
     color: var(--text-dark);
 }
 
@@ -82,7 +82,7 @@
     transition: all 0.2s;
 }
 
-.dark .amount-input {
+:global(.dark) .amount-input {
     background: #374151;
     border-color: #4b5563;
     color: var(--text-dark);
@@ -124,7 +124,7 @@
     font-size: 0.9rem;
 }
 
-.dark .currency-group label {
+:global(.dark) .currency-group label {
     color: var(--text-dark);
 }
 
@@ -139,7 +139,7 @@
     cursor: pointer;
 }
 
-.dark .currency-select {
+:global(.dark) .currency-select {
     background: #374151;
     border-color: #4b5563;
     color: var(--text-dark);
@@ -187,7 +187,7 @@
     border: 1px solid #bfdbfe;
 }
 
-.dark .loading-indicator {
+:global(.dark) .loading-indicator {
     background: #1e3a8a;
     border-color: #3b82f6;
 }
@@ -211,7 +211,7 @@
     font-weight: 500;
 }
 
-.dark .loading-indicator span {
+:global(.dark) .loading-indicator span {
     color: #dbeafe;
 }
 
@@ -226,7 +226,7 @@
     border: 1px solid #fecaca;
 }
 
-.dark .error-message {
+:global(.dark) .error-message {
     background: #7f1d1d;
     border-color: #fecaca;
 }
@@ -236,7 +236,7 @@
     font-weight: 500;
 }
 
-.dark .error-message span {
+:global(.dark) .error-message span {
     color: #fecaca;
 }
 
@@ -263,7 +263,7 @@
     border: 2px solid #bfdbfe;
 }
 
-.dark .conversion-result {
+:global(.dark) .conversion-result {
     background: #1e3a8a;
     border-color: #3b82f6;
 }
@@ -287,7 +287,7 @@
     font-weight: 500;
 }
 
-.dark .result-label {
+:global(.dark) .result-label {
     color: #9ca3af;
 }
 
@@ -307,8 +307,8 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .rate-info,
-.dark .cache-info {
+:global(.dark) .rate-info,
+:global(.dark) .cache-info {
     border-color: #4b5563;
 }
 
@@ -323,8 +323,8 @@
     font-weight: 500;
 }
 
-.dark .rate-label,
-.dark .cache-label {
+:global(.dark) .rate-label,
+:global(.dark) .cache-label {
     color: #9ca3af;
 }
 
@@ -337,8 +337,8 @@
     gap: 0.5rem;
 }
 
-.dark .rate-value,
-.dark .cache-value {
+:global(.dark) .rate-value,
+:global(.dark) .cache-value {
     color: var(--text-dark);
 }
 
@@ -375,7 +375,7 @@
     border-top: 2px solid #e5e7eb;
 }
 
-.dark .historical-section {
+:global(.dark) .historical-section {
     border-color: #4b5563;
 }
 
@@ -395,7 +395,7 @@
     border-radius: 8px;
 }
 
-.dark .trend-indicator {
+:global(.dark) .trend-indicator {
     background: #374151;
 }
 
@@ -408,7 +408,7 @@
     color: var(--text-light);
 }
 
-.dark .trend-text {
+:global(.dark) .trend-text {
     color: var(--text-dark);
 }
 
@@ -424,7 +424,7 @@
     border: 1px solid #e5e7eb;
 }
 
-.dark .history-chart {
+:global(.dark) .history-chart {
     background: #374151;
     border-color: #4b5563;
 }
@@ -472,7 +472,7 @@
     border-radius: 6px;
 }
 
-.dark .history-row {
+:global(.dark) .history-row {
     background: #374151;
     border-color: #4b5563;
 }
@@ -482,7 +482,7 @@
     font-weight: 500;
 }
 
-.dark .history-date {
+:global(.dark) .history-date {
     color: var(--text-dark);
 }
 
@@ -504,7 +504,7 @@
     padding: 1.5rem;
 }
 
-.dark .popular-currencies {
+:global(.dark) .popular-currencies {
     background: var(--card-dark);
 }
 
@@ -531,7 +531,7 @@
     color: #374151;
 }
 
-.dark .currency-chip {
+:global(.dark) .currency-chip {
     background: #374151;
     border-color: #4b5563;
     color: #d1d5db;
@@ -561,7 +561,7 @@
     padding: 1.5rem;
 }
 
-.dark .currency-list-section {
+:global(.dark) .currency-list-section {
     background: var(--card-dark);
 }
 
@@ -592,7 +592,7 @@
     font-size: 0.9rem;
 }
 
-.dark .search-input {
+:global(.dark) .search-input {
     background: #374151;
     border-color: #4b5563;
     color: var(--text-dark);
@@ -622,7 +622,7 @@
     transition: all 0.2s;
 }
 
-.dark .currency-item {
+:global(.dark) .currency-item {
     background: #374151;
     border-color: #4b5563;
 }
@@ -637,7 +637,7 @@
     border-color: var(--primary);
 }
 
-.dark .currency-item.selected {
+:global(.dark) .currency-item.selected {
     background: #1e3a8a;
 }
 
@@ -652,7 +652,7 @@
     color: var(--text-light);
 }
 
-.dark .currency-code {
+:global(.dark) .currency-code {
     color: var(--text-dark);
 }
 
@@ -674,7 +674,7 @@
     padding: 1.5rem;
 }
 
-.dark .tips-section {
+:global(.dark) .tips-section {
     background: var(--card-dark);
 }
 
@@ -699,7 +699,7 @@
     line-height: 1.5;
 }
 
-.dark .tip-item {
+:global(.dark) .tip-item {
     background: #1e3a8a;
 }
 

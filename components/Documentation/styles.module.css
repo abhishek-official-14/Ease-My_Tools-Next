@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-.dark .documentation-page {
+:global(.dark) .documentation-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -22,7 +22,7 @@
   border-bottom: 2px solid #e5e7eb;
 }
 
-.dark .docs-header {
+:global(.dark) .docs-header {
   border-color: #374151;
 }
 
@@ -39,7 +39,7 @@
   margin: 0 auto;
 }
 
-.dark .docs-subtitle {
+:global(.dark) .docs-subtitle {
   color: #9ca3af;
 }
 
@@ -63,7 +63,7 @@
   border: 1px solid #e5e7eb;
 }
 
-.dark .sidebar-content {
+:global(.dark) .sidebar-content {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -97,7 +97,7 @@
   font-weight: 500;
 }
 
-.dark .nav-item {
+:global(.dark) .nav-item {
   color: var(--text-dark);
 }
 
@@ -105,7 +105,7 @@
   background: #f3f4f6;
 }
 
-.dark .nav-item:hover {
+:global(.dark) .nav-item:hover {
   background: #374151;
 }
 
@@ -121,7 +121,7 @@
   border-left: 2px solid #e5e7eb;
 }
 
-.dark .subsections {
+:global(.dark) .subsections {
   border-color: #374151;
 }
 
@@ -139,7 +139,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .subsections a {
+:global(.dark) .subsections a {
   color: #9ca3af;
 }
 
@@ -148,7 +148,7 @@
   background: #f3f4f6;
 }
 
-.dark .subsections a:hover {
+:global(.dark) .subsections a:hover {
   background: #374151;
 }
 
@@ -159,7 +159,7 @@
   border: 1px solid #e5e7eb;
 }
 
-.dark .docs-content {
+:global(.dark) .docs-content {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -177,7 +177,7 @@
   line-height: 1.6;
 }
 
-.dark .section-description {
+:global(.dark) .section-description {
   color: #9ca3af;
 }
 
@@ -187,7 +187,7 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .subsection {
+:global(.dark) .subsection {
   border-color: #374151;
 }
 
@@ -204,7 +204,7 @@
   padding-left: 1rem;
 }
 
-.dark .subsection-content h3 {
+:global(.dark) .subsection-content h3 {
   color: var(--text-dark);
 }
 
@@ -217,7 +217,7 @@
   color: #4b5563;
 }
 
-.dark .markdown-content p {
+:global(.dark) .markdown-content p {
   color: #d1d5db;
 }
 
@@ -231,7 +231,7 @@
   color: #4b5563;
 }
 
-.dark .markdown-content li {
+:global(.dark) .markdown-content li {
   color: #d1d5db;
 }
 
@@ -244,7 +244,7 @@
   color: #dc2626;
 }
 
-.dark .markdown-content code {
+:global(.dark) .markdown-content code {
   background: #374151;
   color: #f87171;
 }
@@ -278,7 +278,7 @@
   border: 1px solid #e5e7eb;
 }
 
-.dark .docs-support {
+:global(.dark) .docs-support {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -295,7 +295,7 @@
   font-size: 1.1rem;
 }
 
-.dark .docs-support p {
+:global(.dark) .docs-support p {
   color: #9ca3af;
 }
 

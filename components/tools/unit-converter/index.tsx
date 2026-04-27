@@ -112,7 +112,7 @@ const UnitConverter = () => { // <-- i18next
                     {Object.entries(categories).map(([key, label]) => (
                         <button
                             key={key}
-                            className={`${styles["category-btn"]} ${category === key ? 'active' : ''}`}
+                            className={`${styles["category-btn"]} ${category === key ? styles["active"] : ""}`}
                             onClick={() => handleCategoryChange(key)}
                         >
                             {label}

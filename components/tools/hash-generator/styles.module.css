@@ -26,7 +26,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.dark .generator-container {
+:global(.dark) .generator-container {
     background: var(--card-dark);
 }
 
@@ -54,7 +54,7 @@
     color: var(--text-light);
 }
 
-.dark .text-input {
+:global(.dark) .text-input {
     background: var(--bg-dark);
     color: var(--text-dark);
     border-color: #374151;
@@ -135,7 +135,7 @@
     border: 1px solid #d1d5db;
 }
 
-.dark .hash-output {
+:global(.dark) .hash-output {
     background: var(--card-dark);
     border-color: #374151;
 }
@@ -180,7 +180,7 @@
     border-left: 4px solid var(--primary);
 }
 
-.dark .algorithm {
+:global(.dark) .algorithm {
     background: var(--card-dark);
 }
 

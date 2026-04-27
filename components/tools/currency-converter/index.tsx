@@ -357,7 +357,7 @@
 //                         {popularCurrencies.map(currencyCode => (
 //                             <button
 //                                 key={currencyCode}
-//                                 className={`${styles["currency-chip"]} ${conversion.to === currencyCode ? 'active' : ''}`}
+//                                 className={`${styles["currency-chip"]} ${conversion.to === currencyCode ? styles["active"] : ""}`}
 //                                 onClick={() => handleCurrencyChange('to', currencyCode)}
 //                             >
 //                                 {currencyCode}
@@ -859,7 +859,7 @@ const CurrencyConverter = () => {
                         {popularCurrencies.map(currencyCode => (
                             <button
                                 key={currencyCode}
-                                className={`${styles["currency-chip"]} ${conversion.to === currencyCode ? 'active' : ''}`}
+                                className={`${styles["currency-chip"]} ${conversion.to === currencyCode ? styles["active"] : ""}`}
                                 onClick={() => handleCurrencyChange('to', currencyCode)}
                                 disabled={loading}
                             >

@@ -5,12 +5,12 @@
   transition: all 0.3s ease;
 }
 
-.light .tools-page {
+:global(.light) .tools-page {
   background-color: var(--bg-light);
   color: var(--text-light);
 }
 
-.dark .tools-page {
+:global(.dark) .tools-page {
   background-color: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -35,7 +35,7 @@
   border-radius: 150px !important;
 }
 
-.dark .tools-page .search-bar input {
+:global(.dark) .tools-page .search-bar input {
   background-color: var(--card-dark);
   color: var(--text-dark);
   border-color: #374151;
@@ -58,7 +58,7 @@
   animation: slideDown 0.2s ease-out;
 }
 
-.dark .tools-page .search-container .tool-dropdown {
+:global(.dark) .tools-page .search-container .tool-dropdown {
   background-color: var(--card-dark);
   border-color: #374151;
 }
@@ -82,7 +82,7 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.dark .tools-page .tool-link:hover {
+:global(.dark) .tools-page .tool-link:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
 

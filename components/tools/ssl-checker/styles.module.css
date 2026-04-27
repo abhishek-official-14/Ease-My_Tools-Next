@@ -4,12 +4,12 @@
     margin: 0 auto;
 }
 
-.light .ssl-checker {
+:global(.light) .ssl-checker {
     background: var(--bg-light);
     color: var(--text-light);
 }
 
-.dark .ssl-checker {
+:global(.dark) .ssl-checker {
     background: var(--bg-dark);
     color: var(--text-dark);
 }
@@ -45,7 +45,7 @@
     color: var(--primary);
 }
 
-.dark .protocol {
+:global(.dark) .protocol {
     background: var(--card-dark);
     border-color: #374151;
 }
@@ -59,7 +59,7 @@
     transition: border-color 0.3s;
 }
 
-.dark .domain-input-group input {
+:global(.dark) .domain-input-group input {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -75,7 +75,7 @@
     cursor: not-allowed;
 }
 
-.dark .domain-input-group input:disabled {
+:global(.dark) .domain-input-group input:disabled {
     background: #374151;
 }
 
@@ -127,7 +127,7 @@
     border-left: 4px solid #dc2626;
 }
 
-.dark .error-message {
+:global(.dark) .error-message {
     background: #1f1b1b;
     color: #fca5a5;
 }
@@ -146,7 +146,7 @@
     border-radius: 8px;
 }
 
-.dark .certificate-status {
+:global(.dark) .certificate-status {
     background: var(--card-dark);
 }
 
@@ -183,7 +183,7 @@
     padding: 20px;
 }
 
-.dark .certificate-details {
+:global(.dark) .certificate-details {
     background: var(--card-dark);
 }
 
@@ -206,7 +206,7 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .detail-item {
+:global(.dark) .detail-item {
     border-bottom-color: #374151;
 }
 
@@ -240,7 +240,7 @@
     margin-top: 20px;
 }
 
-.dark .certificate-tips {
+:global(.dark) .certificate-tips {
     background: var(--card-dark);
 }
 
@@ -301,11 +301,11 @@
         border-top: none;
     }
     
-    .dark .protocol {
+    :global(.dark) .protocol {
         border-right-color: #374151;
     }
     
-    .dark .domain-input-group input {
+    :global(.dark) .domain-input-group input {
         border-left-color: #374151;
     }
 }

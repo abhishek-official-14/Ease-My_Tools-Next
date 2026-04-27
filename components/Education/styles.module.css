@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-.dark .education-page {
+:global(.dark) .education-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -106,7 +106,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .feature-card {
+:global(.dark) .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -116,7 +116,7 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.dark .feature-card:hover {
+:global(.dark) .feature-card:hover {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -131,7 +131,7 @@
   color: var(--text-light);
 }
 
-.dark .feature-card h3 {
+:global(.dark) .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -140,7 +140,7 @@
   line-height: 1.6;
 }
 
-.dark .feature-card p {
+:global(.dark) .feature-card p {
   color: #9ca3af;
 }
 
@@ -169,7 +169,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .use-case-card {
+:global(.dark) .use-case-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -179,7 +179,7 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.dark .use-case-card:hover {
+:global(.dark) .use-case-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -195,7 +195,7 @@
   line-height: 1.6;
 }
 
-.dark .use-case-card p {
+:global(.dark) .use-case-card p {
   color: #9ca3af;
 }
 
@@ -214,7 +214,7 @@
   font-weight: 500;
 }
 
-.dark .tool-tag {
+:global(.dark) .tool-tag {
   background: #064e3b;
   color: #a7f3d0;
 }
@@ -237,7 +237,7 @@
   font-size: 1.1rem;
 }
 
-.dark .pricing-subtitle {
+:global(.dark) .pricing-subtitle {
   color: #9ca3af;
 }
 
@@ -258,7 +258,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .pricing-card {
+:global(.dark) .pricing-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -268,7 +268,7 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.dark .pricing-card:hover {
+:global(.dark) .pricing-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -278,7 +278,7 @@
   color: var(--text-light);
 }
 
-.dark .pricing-card h3 {
+:global(.dark) .pricing-card h3 {
   color: var(--text-dark);
 }
 
@@ -294,7 +294,7 @@
   margin-bottom: 2rem;
 }
 
-.dark .pricing-card p {
+:global(.dark) .pricing-card p {
   color: #9ca3af;
 }
 
@@ -313,7 +313,7 @@
   align-items: center;
 }
 
-.dark .pricing-card li {
+:global(.dark) .pricing-card li {
   color: #d1d5db;
   border-color: #374151;
 }
@@ -373,7 +373,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .resource-card {
+:global(.dark) .resource-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -383,7 +383,7 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.dark .resource-card:hover {
+:global(.dark) .resource-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -398,7 +398,7 @@
   color: var(--text-light);
 }
 
-.dark .resource-card h3 {
+:global(.dark) .resource-card h3 {
   color: var(--text-dark);
 }
 
@@ -408,7 +408,7 @@
   line-height: 1.6;
 }
 
-.dark .resource-card p {
+:global(.dark) .resource-card p {
   color: #9ca3af;
 }
 

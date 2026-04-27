@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-.dark .desktop-app-page {
+:global(.dark) .desktop-app-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -37,7 +37,7 @@
   line-height: 1.6;
 }
 
-.dark .subtitle {
+:global(.dark) .subtitle {
   color: #9ca3af;
 }
 
@@ -59,7 +59,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .download-badge {
+:global(.dark) .download-badge {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -70,7 +70,7 @@
   border-color: var(--primary);
 }
 
-.dark .download-badge:hover {
+:global(.dark) .download-badge:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
@@ -95,7 +95,7 @@
   font-size: 0.9rem;
 }
 
-.dark .os-details {
+:global(.dark) .os-details {
   color: #9ca3af;
 }
 
@@ -121,7 +121,7 @@
   position: relative;
 }
 
-.dark .desktop-screen {
+:global(.dark) .desktop-screen {
   background: #374151;
 }
 
@@ -153,7 +153,7 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .window-header {
+:global(.dark) .window-header {
   background: #4b5563;
   border-color: #6b7280;
 }
@@ -187,7 +187,7 @@
   color: #374151;
 }
 
-.dark .window-title {
+:global(.dark) .window-title {
   color: #d1d5db;
 }
 
@@ -203,7 +203,7 @@
   padding: 1rem;
 }
 
-.dark .sidebar {
+:global(.dark) .sidebar {
   background: #4b5563;
   border-color: #6b7280;
 }
@@ -225,7 +225,7 @@
   background: #e5e7eb;
 }
 
-.dark .sidebar-item:hover {
+:global(.dark) .sidebar-item:hover {
   background: #6b7280;
 }
 
@@ -243,7 +243,7 @@
 /** main error  satrt **/
 
 
-.dark .main-content {
+:global(.dark) .main-content {
   background: var(--bg-dark);
 }
 
@@ -266,7 +266,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .tool-card {
+:global(.dark) .tool-card {
   background: #6b7280;
   color: #d1d5db;
 }
@@ -318,7 +318,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .feature-card {
+:global(.dark) .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -328,7 +328,7 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.dark .feature-card:hover {
+:global(.dark) .feature-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -343,7 +343,7 @@
   color: var(--text-light);
 }
 
-.dark .feature-card h3 {
+:global(.dark) .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -352,7 +352,7 @@
   line-height: 1.6;
 }
 
-.dark .feature-card p {
+:global(.dark) .feature-card p {
   color: #9ca3af;
 }
 
@@ -382,7 +382,7 @@
   text-align: center;
 }
 
-.dark .download-card {
+:global(.dark) .download-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -393,7 +393,7 @@
   border-color: var(--primary);
 }
 
-.dark .download-card:hover {
+:global(.dark) .download-card:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
@@ -415,7 +415,7 @@
   color: var(--text-light);
 }
 
-.dark .platform-info h3 {
+:global(.dark) .platform-info h3 {
   color: var(--text-dark);
 }
 
@@ -424,7 +424,7 @@
   font-size: 0.9rem;
 }
 
-.dark .platform-version {
+:global(.dark) .platform-version {
   color: #9ca3af;
 }
 
@@ -438,7 +438,7 @@
   color: var(--text-light);
 }
 
-.dark .file-size {
+:global(.dark) .file-size {
   color: var(--text-dark);
 }
 
@@ -448,7 +448,7 @@
   line-height: 1.5;
 }
 
-.dark .instructions {
+:global(.dark) .instructions {
   color: #9ca3af;
 }
 

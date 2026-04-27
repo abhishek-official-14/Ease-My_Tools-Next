@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-.dark .security-page {
+:global(.dark) .security-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -66,7 +66,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .feature-card {
+:global(.dark) .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -76,7 +76,7 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.dark .feature-card:hover {
+:global(.dark) .feature-card:hover {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -91,7 +91,7 @@
   color: var(--text-light);
 }
 
-.dark .feature-card h3 {
+:global(.dark) .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -100,7 +100,7 @@
   line-height: 1.6;
 }
 
-.dark .feature-card p {
+:global(.dark) .feature-card p {
   color: #9ca3af;
 }
 
@@ -129,7 +129,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .compliance-card {
+:global(.dark) .compliance-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -139,7 +139,7 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.dark .compliance-card:hover {
+:global(.dark) .compliance-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -156,7 +156,7 @@
   margin: 0;
 }
 
-.dark .compliance-header h3 {
+:global(.dark) .compliance-header h3 {
   color: var(--text-dark);
 }
 
@@ -175,7 +175,7 @@
   margin: 0;
 }
 
-.dark .compliance-card p {
+:global(.dark) .compliance-card p {
   color: #9ca3af;
 }
 
@@ -204,7 +204,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .practice-card {
+:global(.dark) .practice-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -214,7 +214,7 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.dark .practice-card:hover {
+:global(.dark) .practice-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -226,7 +226,7 @@
   padding-bottom: 0.5rem;
 }
 
-.dark .practice-card h3 {
+:global(.dark) .practice-card h3 {
   border-color: #374151;
 }
 
@@ -244,7 +244,7 @@
   padding-left: 1.5rem;
 }
 
-.dark .practice-card li {
+:global(.dark) .practice-card li {
   color: #d1d5db;
   border-color: #374151;
 }
@@ -285,7 +285,7 @@
   border: 1px solid #e5e7eb;
 }
 
-.dark .faq-item {
+:global(.dark) .faq-item {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -296,7 +296,7 @@
   color: var(--text-light);
 }
 
-.dark .faq-item h3 {
+:global(.dark) .faq-item h3 {
   color: var(--text-dark);
 }
 
@@ -306,7 +306,7 @@
   margin: 0;
 }
 
-.dark .faq-item p {
+:global(.dark) .faq-item p {
   color: #9ca3af;
 }
 

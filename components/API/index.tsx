@@ -156,7 +156,7 @@ print(response.json())`
               {endpoints.map((endpoint, index) => (
                 <button
                   key={index}
-                  className={`${styles["endpoint-item"]} ${activeEndpoint === index ? 'active' : ''}`}
+                  className={`${styles["endpoint-item"]} ${activeEndpoint === index ? styles["active"] : ""}`}
                   onClick={() => setActiveEndpoint(index)}
                 >
                   <span className={`${styles["method"]} ${endpoint.method.toLowerCase()}`}>

@@ -65,19 +65,19 @@ const PercentageCalculator = () => {
             <div className={styles["calculator-container"]}>
                 <div className={styles["calculation-types"]}>
                     <button 
-                        className={`${styles["type-btn"]} ${calculationType === 'percentage' ? 'active' : ''}`}
+                        className={`${styles["type-btn"]} ${calculationType === 'percentage' ? styles["active"] : ""}`}
                         onClick={() => setCalculationType('percentage')}
                     >
                         {"Basic Percentage" || 'Basic Percentage'}
                     </button>
                     <button 
-                        className={`${styles["type-btn"]} ${calculationType === 'change' ? 'active' : ''}`}
+                        className={`${styles["type-btn"]} ${calculationType === 'change' ? styles["active"] : ""}`}
                         onClick={() => setCalculationType('change')}
                     >
                         {"Percentage Change" || 'Percentage Change'}
                     </button>
                     <button 
-                        className={`${styles["type-btn"]} ${calculationType === 'findNumber' ? 'active' : ''}`}
+                        className={`${styles["type-btn"]} ${calculationType === 'findNumber' ? styles["active"] : ""}`}
                         onClick={() => setCalculationType('findNumber')}
                     >
                         {"Find Number" || 'Find Number'}

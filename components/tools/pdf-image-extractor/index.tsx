@@ -299,7 +299,7 @@
 //                   {formatOptions.map(format => (
 //                     <div
 //                       key={format.value}
-//                       className={`${styles["format-option"]} ${settings.format === format.value ? 'active' : ''}`}
+//                       className={`${styles["format-option"]} ${settings.format === format.value ? styles["active"] : ""}`}
 //                       onClick={() => setSettings(prev => ({ ...prev, format: format.value }))}
 //                     >
 //                       <div className={styles["format-header"]}>
@@ -318,7 +318,7 @@
 //                   {qualityOptions.map(quality => (
 //                     <div
 //                       key={quality.value}
-//                       className={`${styles["quality-option"]} ${settings.quality === quality.value ? 'active' : ''}`}
+//                       className={`${styles["quality-option"]} ${settings.quality === quality.value ? styles["active"] : ""}`}
 //                       onClick={() => setSettings(prev => ({ ...prev, quality: quality.value }))}
 //                     >
 //                       <span className={styles["quality-label"]}>{quality.label}</span>
@@ -1126,7 +1126,7 @@
 //                   {formatOptions.map(format => (
 //                     <div
 //                       key={format.value}
-//                       className={`${styles["format-option"]} ${settings.format === format.value ? 'active' : ''}`}
+//                       className={`${styles["format-option"]} ${settings.format === format.value ? styles["active"] : ""}`}
 //                       onClick={() => setSettings(prev => ({ ...prev, format: format.value }))}
 //                     >
 //                       <div className={styles["format-header"]}>
@@ -1145,7 +1145,7 @@
 //                   {qualityOptions.map(quality => (
 //                     <div
 //                       key={quality.value}
-//                       className={`${styles["quality-option"]} ${settings.quality === quality.value ? 'active' : ''}`}
+//                       className={`${styles["quality-option"]} ${settings.quality === quality.value ? styles["active"] : ""}`}
 //                       onClick={() => setSettings(prev => ({ ...prev, quality: quality.value }))}
 //                     >
 //                       <span className={styles["quality-label"]}>{quality.label}</span>
@@ -1781,7 +1781,7 @@ const PDFImageExtractor = () => {
                   {formatOptions.map(format => (
                     <div
                       key={format.value}
-                      className={`${styles["format-option"]} ${settings.format === format.value ? 'active' : ''}`}
+                      className={`${styles["format-option"]} ${settings.format === format.value ? styles["active"] : ""}`}
                       onClick={() => setSettings(prev => ({ ...prev, format: format.value }))}
                     >
                       <div className={styles["format-header"]}>
@@ -1800,7 +1800,7 @@ const PDFImageExtractor = () => {
                   {qualityOptions.map(quality => (
                     <div
                       key={quality.value}
-                      className={`${styles["quality-option"]} ${settings.quality === quality.value ? 'active' : ''}`}
+                      className={`${styles["quality-option"]} ${settings.quality === quality.value ? styles["active"] : ""}`}
                       onClick={() => setSettings(prev => ({ ...prev, quality: quality.value }))}
                     >
                       <span className={styles["quality-label"]}>{quality.label}</span>

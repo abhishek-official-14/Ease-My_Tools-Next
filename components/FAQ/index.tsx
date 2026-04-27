@@ -99,7 +99,7 @@ const FAQ = () => {
                   return (
                     <div 
                       key={itemIndex} 
-                      className={`${styles["faq-item"]} ${openItems[globalIndex] ? 'open' : ''}`}
+                      className={`${styles["faq-item"]} ${openItems[globalIndex] ? styles["open"] : ""}`}
                     >
                       <div 
                         className={styles["faq-question"]}

@@ -236,7 +236,7 @@ const FaviconGenerator = () => {
                   {formatOptions.map(format => (
                     <div
                       key={format.value}
-                      className={`${styles["format-option"]} ${settings.format === format.value ? 'active' : ''}`}
+                      className={`${styles["format-option"]} ${settings.format === format.value ? styles["active"] : ""}`}
                       onClick={() => setSettings(prev => ({ ...prev, format: format.value }))}
                     >
                       <div className={styles["format-header"]}>
@@ -295,7 +295,7 @@ const FaviconGenerator = () => {
                     />
                     <button
                       type="button"
-                      className={`${styles["transparent-btn"]} ${settings.backgroundColor === 'transparent' ? 'active' : ''}`}
+                      className={`${styles["transparent-btn"]} ${settings.backgroundColor === 'transparent' ? styles["active"] : ""}`}
                       onClick={() => setSettings(prev => ({ 
                         ...prev, 
                         backgroundColor: 'transparent' 
