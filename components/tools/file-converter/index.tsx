@@ -3,7 +3,7 @@
 // import React, { useState, useRef, useCallback } from 'react';
 // 
 // import { useTheme } from 'next-themes';
-// import './styles.css';
+// import styles from './styles.module.css';
 
 // const FileConverter = () => {
 //     const { t } = useTranslation('fileConverter');
@@ -334,22 +334,22 @@
 //     ];
 
 //     return (
-//         <div className="file-converter">
-//             <div className="tool-header">
+//         <div className={styles["file-converter"]}>
+//             <div className={styles["tool-header"]}>
 //                 <h1>{"File Format Converter"}</h1>
 //                 <p>{"Convert between CSV, Excel, and JSON formats seamlessly"}</p>
 //             </div>
 
-//             <div className="converter-container">
-//                 <div className="upload-section">
+//             <div className={styles["converter-container"]}>
+//                 <div className={styles["upload-section"]}>
 //                     <div 
-//                         className="upload-area"
+//                         className={styles["upload-area"]}
 //                         onDrop={handleDrop}
 //                         onDragOver={handleDragOver}
 //                         onClick={() => fileInputRef.current?.click()}
 //                     >
-//                         <div className="upload-content">
-//                             <div className="upload-icon">📁</div>
+//                         <div className={styles["upload-content"]}>
+//                             <div className={styles["upload-icon"]}>📁</div>
 //                             <h3>{"Drop your file here or click to browse"}</h3>
 //                             <p>{"Drag & drop your file here"}</p>
 //                             <small>{"Supported formats: CSV, XLSX, JSON"}</small>
@@ -365,29 +365,29 @@
 //                     </div>
 
 //                     {file && (
-//                         <div className="file-info-card">
+//                         <div className={styles["file-info-card"]}>
 //                             <h4>{"File Information"}</h4>
-//                             <div className="info-grid">
-//                                 <div className="info-item">
+//                             <div className={styles["info-grid"]}>
+//                                 <div className={styles["info-item"]}>
 //                                     <label>{"Name"}:</label>
 //                                     <span>{fileInfo.name}</span>
 //                                 </div>
-//                                 <div className="info-item">
+//                                 <div className={styles["info-item"]}>
 //                                     <label>{"Size"}:</label>
 //                                     <span>{(fileInfo.size / 1024).toFixed(2)} KB</span>
 //                                 </div>
-//                                 <div className="info-item">
+//                                 <div className={styles["info-item"]}>
 //                                     <label>{"Type"}:</label>
 //                                     <span>{fileInfo.type}</span>
 //                                 </div>
 //                                 {fileInfo.rows !== undefined && (
-//                                     <div className="info-item">
+//                                     <div className={styles["info-item"]}>
 //                                         <label>{"Rows"}:</label>
 //                                         <span>{fileInfo.rows}</span>
 //                                     </div>
 //                                 )}
 //                                 {fileInfo.columns !== undefined && (
-//                                     <div className="info-item">
+//                                     <div className={styles["info-item"]}>
 //                                         <label>{"Columns"}:</label>
 //                                         <span>{fileInfo.columns}</span>
 //                                     </div>
@@ -398,18 +398,18 @@
 //                 </div>
 
 //                 {file && (
-//                     <div className="conversion-section">
-//                         <div className="format-selection">
-//                             <div className="format-group">
+//                     <div className={styles["conversion-section"]}>
+//                         <div className={styles["format-selection"]}>
+//                             <div className={styles["format-group"]}>
 //                                 <label>{"Original Format"}</label>
-//                                 <div className="format-display">
-//                                     <span className="format-badge">{fileInfo.type}</span>
+//                                 <div className={styles["format-display"]}>
+//                                     <span className={styles["format-badge"]}>{fileInfo.type}</span>
 //                                 </div>
 //                             </div>
                             
-//                             <div className="conversion-arrow">→</div>
+//                             <div className={styles["conversion-arrow"]}>→</div>
                             
-//                             <div className="format-group">
+//                             <div className={styles["format-group"]}>
 //                                 <label>{"Convert To"}</label>
 //                                 <select
 //                                     value={conversionSettings.targetFormat}
@@ -430,12 +430,12 @@
 //                             </div>
 //                         </div>
 
-//                         <div className="settings-section">
+//                         <div className={styles["settings-section"]}>
 //                             <h4>{"Conversion Options"}</h4>
                             
-//                             <div className="settings-grid">
+//                             <div className={styles["settings-grid"]}>
 //                                 {(fileInfo.originalFormat === 'csv' || conversionSettings.targetFormat === 'csv') && (
-//                                     <div className="setting-group">
+//                                     <div className={styles["setting-group"]}>
 //                                         <label>{"CSV Delimiter"}</label>
 //                                         <select
 //                                             value={conversionSettings.csvDelimiter}
@@ -454,7 +454,7 @@
 //                                 )}
 
 //                                 {conversionSettings.targetFormat === 'json' && (
-//                                     <div className="setting-group">
+//                                     <div className={styles["setting-group"]}>
 //                                         <label>{"JSON Format"}</label>
 //                                         <select
 //                                             value={conversionSettings.jsonFormat}
@@ -470,7 +470,7 @@
 //                                 )}
 
 //                                 {(fileInfo.originalFormat === 'csv' || conversionSettings.targetFormat === 'csv') && (
-//                                     <div className="setting-group">
+//                                     <div className={styles["setting-group"]}>
 //                                         <label>
 //                                             <input
 //                                                 type="checkbox"
@@ -486,7 +486,7 @@
 //                                 )}
 
 //                                 {conversionSettings.targetFormat === 'excel' && (
-//                                     <div className="setting-group">
+//                                     <div className={styles["setting-group"]}>
 //                                         <label>{"Sheet Name"}</label>
 //                                         <input
 //                                             type="text"
@@ -502,15 +502,15 @@
 //                             </div>
 //                         </div>
 
-//                         <div className="action-buttons">
+//                         <div className={styles["action-buttons"]}>
 //                             <button 
 //                                 onClick={performConversion} 
-//                                 className={`primary-btn ${converting ? 'converting' : ''}`}
+//                                 className={`${styles["primary-btn"]} ${converting ? 'converting' : ''}`}
 //                                 disabled={converting}
 //                             >
 //                                 {converting ? "Converting..." : "Convert File"}
 //                             </button>
-//                             <button onClick={clearAll} className="secondary-btn">
+//                             <button onClick={clearAll} className={styles["secondary-btn"]}>
 //                                 {"Clear All"}
 //                             </button>
 //                         </div>
@@ -518,13 +518,13 @@
 //                 )}
 
 //                 {(originalContent || convertedContent) && (
-//                     <div className="preview-section">
+//                     <div className={styles["preview-section"]}>
 //                         <h3>{"Preview"}</h3>
-//                         <div className="preview-container">
+//                         <div className={styles["preview-container"]}>
 //                             {originalContent && (
-//                                 <div className="preview-item">
+//                                 <div className={styles["preview-item"]}>
 //                                     <h4>{"Original File"}</h4>
-//                                     <div className="preview-content">
+//                                     <div className={styles["preview-content"]}>
 //                                         <pre>{originalContent.substring(0, 1000)}</pre>
 //                                         {originalContent.length > 1000 && (
 //                                             <small>... (showing first 1000 characters)</small>
@@ -533,19 +533,19 @@
 //                                 </div>
 //                             )}
 //                             {convertedContent && (
-//                                 <div className="preview-item">
+//                                 <div className={styles["preview-item"]}>
 //                                     <h4>{"Converted File"}</h4>
-//                                     <div className="preview-content">
+//                                     <div className={styles["preview-content"]}>
 //                                         <pre>{convertedContent.substring(0, 1000)}</pre>
 //                                         {convertedContent.length > 1000 && (
 //                                             <small>... (showing first 1000 characters)</small>
 //                                         )}
 //                                     </div>
-//                                     <div className="conversion-actions">
-//                                         <button onClick={downloadFile} className="download-btn">
+//                                     <div className={styles["conversion-actions"]}>
+//                                         <button onClick={downloadFile} className={styles["download-btn"]}>
 //                                             {"Download Converted File"}
 //                                         </button>
-//                                         <div className="success-message">
+//                                         <div className={styles["success-message"]}>
 //                                             ✓ {"Conversion complete!"}
 //                                         </div>
 //                                     </div>
@@ -555,9 +555,9 @@
 //                     </div>
 //                 )}
 
-//                 <div className="tips-section">
+//                 <div className={styles["tips-section"]}>
 //                     <h3>💡 {"Conversion Tips"}</h3>
-//                     <div className="tips-list">
+//                     <div className={styles["tips-list"]}>
 //                         <li>{"CSV to JSON: First row becomes keys"}</li>
 //                         <li>{"JSON to CSV: Arrays of objects work best"}</li>
 //                         <li>{"Excel: Supports multiple sheets in XLSX"}</li>
@@ -575,7 +575,7 @@
 
 
 import React, { useState, useRef, useCallback } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const FileConverter = () => {
     
@@ -900,22 +900,22 @@ const FileConverter = () => {
     ];
 
     return (
-        <div className="file-converter">
-            <div className="tool-header">
+        <div className={styles["file-converter"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"File Format Converter"}</h1>
                 <p>{"Convert between CSV, Excel, and JSON formats seamlessly"}</p>
             </div>
 
-            <div className="converter-container">
-                <div className="upload-section">
+            <div className={styles["converter-container"]}>
+                <div className={styles["upload-section"]}>
                     <div 
-                        className="upload-area"
+                        className={styles["upload-area"]}
                         onDrop={handleDrop}
                         onDragOver={handleDragOver}
                         onClick={() => fileInputRef.current?.click()}
                     >
-                        <div className="upload-content">
-                            <div className="upload-icon">📁</div>
+                        <div className={styles["upload-content"]}>
+                            <div className={styles["upload-icon"]}>📁</div>
                             <h3>{"Drop your file here or click to browse"}</h3>
                             <p>{"Drag & drop your file here"}</p>
                             <small>{"Supported formats: CSV, XLSX, JSON"}</small>
@@ -931,29 +931,29 @@ const FileConverter = () => {
                     </div>
 
                     {file && (
-                        <div className="file-info-card">
+                        <div className={styles["file-info-card"]}>
                             <h4>{"File Information"}</h4>
-                            <div className="info-grid">
-                                <div className="info-item">
+                            <div className={styles["info-grid"]}>
+                                <div className={styles["info-item"]}>
                                     <label>{"Name"}:</label>
                                     <span>{fileInfo.name}</span>
                                 </div>
-                                <div className="info-item">
+                                <div className={styles["info-item"]}>
                                     <label>{"Size"}:</label>
                                     <span>{(fileInfo.size / 1024).toFixed(2)} KB</span>
                                 </div>
-                                <div className="info-item">
+                                <div className={styles["info-item"]}>
                                     <label>{"Type"}:</label>
-                                    <span className="format-badge">{fileInfo.type}</span>
+                                    <span className={styles["format-badge"]}>{fileInfo.type}</span>
                                 </div>
                                 {fileInfo.rows !== undefined && (
-                                    <div className="info-item">
+                                    <div className={styles["info-item"]}>
                                         <label>{"Rows"}:</label>
                                         <span>{fileInfo.rows}</span>
                                     </div>
                                 )}
                                 {fileInfo.columns !== undefined && (
-                                    <div className="info-item">
+                                    <div className={styles["info-item"]}>
                                         <label>{"Columns"}:</label>
                                         <span>{fileInfo.columns}</span>
                                     </div>
@@ -964,18 +964,18 @@ const FileConverter = () => {
                 </div>
 
                 {file && (
-                    <div className="conversion-section">
-                        <div className="format-selection">
-                            <div className="format-group">
+                    <div className={styles["conversion-section"]}>
+                        <div className={styles["format-selection"]}>
+                            <div className={styles["format-group"]}>
                                 <label>{"Original Format"}</label>
-                                <div className="format-display">
-                                    <span className="format-badge">{fileInfo.type}</span>
+                                <div className={styles["format-display"]}>
+                                    <span className={styles["format-badge"]}>{fileInfo.type}</span>
                                 </div>
                             </div>
                             
-                            <div className="conversion-arrow">→</div>
+                            <div className={styles["conversion-arrow"]}>→</div>
                             
-                            <div className="format-group">
+                            <div className={styles["format-group"]}>
                                 <label>{"Convert To"}</label>
                                 <select
                                     value={conversionSettings.targetFormat}
@@ -983,7 +983,7 @@ const FileConverter = () => {
                                         ...prev,
                                         targetFormat: e.target.value
                                     }))}
-                                    className="format-select"
+                                    className={styles["format-select"]}
                                 >
                                     {formatOptions
                                         .filter(opt => opt.value !== fileInfo.originalFormat)
@@ -997,12 +997,12 @@ const FileConverter = () => {
                             </div>
                         </div>
 
-                        <div className="settings-section">
+                        <div className={styles["settings-section"]}>
                             <h4>{"Conversion Options"}</h4>
                             
-                            <div className="settings-grid">
+                            <div className={styles["settings-grid"]}>
                                 {(fileInfo.originalFormat === 'csv' || conversionSettings.targetFormat === 'csv') && (
-                                    <div className="setting-group">
+                                    <div className={styles["setting-group"]}>
                                         <label>{"CSV Delimiter"}</label>
                                         <select
                                             value={conversionSettings.csvDelimiter}
@@ -1021,7 +1021,7 @@ const FileConverter = () => {
                                 )}
 
                                 {conversionSettings.targetFormat === 'json' && (
-                                    <div className="setting-group">
+                                    <div className={styles["setting-group"]}>
                                         <label>{"JSON Format"}</label>
                                         <select
                                             value={conversionSettings.jsonFormat}
@@ -1037,8 +1037,8 @@ const FileConverter = () => {
                                 )}
 
                                 {(fileInfo.originalFormat === 'csv' || conversionSettings.targetFormat === 'csv') && (
-                                    <div className="setting-group checkbox-group">
-                                        <label className="checkbox-label">
+                                    <div className={`${styles["setting-group"]} ${styles["checkbox-group"]}`}>
+                                        <label className={styles["checkbox-label"]}>
                                             <input
                                                 type="checkbox"
                                                 checked={conversionSettings.includeHeaders}
@@ -1047,14 +1047,14 @@ const FileConverter = () => {
                                                     includeHeaders: e.target.checked
                                                 }))}
                                             />
-                                            <span className="checkmark"></span>
+                                            <span className={styles["checkmark"]}></span>
                                             {"Include Headers"}
                                         </label>
                                     </div>
                                 )}
 
                                 {conversionSettings.targetFormat === 'excel' && (
-                                    <div className="setting-group">
+                                    <div className={styles["setting-group"]}>
                                         <label>{"Sheet Name"}</label>
                                         <input
                                             type="text"
@@ -1070,15 +1070,15 @@ const FileConverter = () => {
                             </div>
                         </div>
 
-                        <div className="action-buttons">
+                        <div className={styles["action-buttons"]}>
                             <button 
                                 onClick={performConversion} 
-                                className={`primary-btn ${converting ? 'converting' : ''}`}
+                                className={`${styles["primary-btn"]} ${converting ? 'converting' : ''}`}
                                 disabled={converting || !file}
                             >
                                 {converting ? "Converting..." : "Convert File"}
                             </button>
-                            <button onClick={clearAll} className="secondary-btn">
+                            <button onClick={clearAll} className={styles["secondary-btn"]}>
                                 {"Clear All"}
                             </button>
                         </div>
@@ -1086,13 +1086,13 @@ const FileConverter = () => {
                 )}
 
                 {(originalContent || convertedContent) && (
-                    <div className="preview-section">
+                    <div className={styles["preview-section"]}>
                         <h3>{"Preview"}</h3>
-                        <div className="preview-container">
+                        <div className={styles["preview-container"]}>
                             {originalContent && (
-                                <div className="preview-item">
+                                <div className={styles["preview-item"]}>
                                     <h4>{"Original File"}</h4>
-                                    <div className="preview-content">
+                                    <div className={styles["preview-content"]}>
                                         <pre>{originalContent.substring(0, 500)}</pre>
                                         {originalContent.length > 500 && (
                                             <small>... (showing first 500 characters)</small>
@@ -1101,19 +1101,19 @@ const FileConverter = () => {
                                 </div>
                             )}
                             {convertedContent && (
-                                <div className="preview-item">
+                                <div className={styles["preview-item"]}>
                                     <h4>{"Converted File"}</h4>
-                                    <div className="preview-content">
+                                    <div className={styles["preview-content"]}>
                                         <pre>{convertedContent.substring(0, 500)}</pre>
                                         {convertedContent.length > 500 && (
                                             <small>... (showing first 500 characters)</small>
                                         )}
                                     </div>
-                                    <div className="conversion-actions">
-                                        <button onClick={downloadFile} className="download-btn">
+                                    <div className={styles["conversion-actions"]}>
+                                        <button onClick={downloadFile} className={styles["download-btn"]}>
                                             {"Download Converted File"}
                                         </button>
-                                        <div className="success-message">
+                                        <div className={styles["success-message"]}>
                                             ✓ {"Conversion complete!"}
                                         </div>
                                     </div>
@@ -1123,9 +1123,9 @@ const FileConverter = () => {
                     </div>
                 )}
 
-                <div className="tips-section">
+                <div className={styles["tips-section"]}>
                     <h3>💡 {"Conversion Tips"}</h3>
-                    <div className="tips-list">
+                    <div className={styles["tips-list"]}>
                         <li>{"CSV to JSON: First row becomes keys"}</li>
                         <li>{"JSON to CSV: Arrays of objects work best"}</li>
                         <li>{"Excel: Supports multiple sheets in XLSX"}</li>

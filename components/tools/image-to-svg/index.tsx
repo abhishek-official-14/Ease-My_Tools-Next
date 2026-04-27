@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const ImageToSvg = () => {
     const [file, setFile] = useState(null);
@@ -359,23 +359,23 @@ const ImageToSvg = () => {
     };
 
     return (
-        <div className="image-to-svg">
-            <div className="tool-header">
+        <div className={styles["image-to-svg"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"Image to SVG Converter"}</h1>
                 <p>{"Convert raster images (PNG, JPG, WebP) to scalable SVG format"}</p>
             </div>
 
-            <div className="converter-container">
+            <div className={styles["converter-container"]}>
                 {/* Upload Section */}
-                <div className="upload-section">
+                <div className={styles["upload-section"]}>
                     <div 
-                        className="upload-area"
+                        className={styles["upload-area"]}
                         onDrop={handleDrop}
                         onDragOver={handleDragOver}
                         onClick={() => fileInputRef.current?.click()}
                     >
-                        <div className="upload-content">
-                            <div className="upload-icon">🖼️</div>
+                        <div className={styles["upload-content"]}>
+                            <div className={styles["upload-icon"]}>🖼️</div>
                             <h3>{"Upload Image File"}</h3>
                             <p>{"Drag & drop your image here or click to browse"}</p>
                             <small>{"Supported formats: PNG, JPG, JPEG, WebP, GIF"}</small>
@@ -391,7 +391,7 @@ const ImageToSvg = () => {
                     </div>
 
                     {file && (
-                        <div className="file-info">
+                        <div className={styles["file-info"]}>
                             <strong>Selected file:</strong> {file.name}
                             <br />
                             <small>
@@ -406,11 +406,11 @@ const ImageToSvg = () => {
 
                 {/* Conversion Settings */}
                 {file && (
-                    <div className="settings-section">
+                    <div className={styles["settings-section"]}>
                         <h3>{"Conversion Mode"}</h3>
                         
-                        <div className="settings-grid">
-                            <div className="setting-group">
+                        <div className={styles["settings-grid"]}>
+                            <div className={styles["setting-group"]}>
                                 <label>{"Trace Method"}</label>
                                 <select
                                     value={conversionSettings.mode}
@@ -425,7 +425,7 @@ const ImageToSvg = () => {
                                 </select>
                             </div>
 
-                            <div className="setting-group">
+                            <div className={styles["setting-group"]}>
                                 <label>{"Accuracy"}</label>
                                 <select
                                     value={conversionSettings.accuracy}
@@ -439,7 +439,7 @@ const ImageToSvg = () => {
                             </div>
 
                             {conversionSettings.mode === 'posterized' && (
-                                <div className="setting-group">
+                                <div className={styles["setting-group"]}>
                                     <label>{"Max Colors"}: {conversionSettings.colors}</label>
                                     <input
                                         type="range"
@@ -455,7 +455,7 @@ const ImageToSvg = () => {
                             )}
 
                             {conversionSettings.mode === 'blackWhite' && (
-                                <div className="setting-group">
+                                <div className={styles["setting-group"]}>
                                     <label>{"Threshold"}: {conversionSettings.threshold}</label>
                                     <input
                                         type="range"
@@ -470,7 +470,7 @@ const ImageToSvg = () => {
                                 </div>
                             )}
 
-                            <div className="setting-group">
+                            <div className={styles["setting-group"]}>
                                 <label>{"Simplify"}: {conversionSettings.simplify}</label>
                                 <input
                                     type="range"
@@ -487,11 +487,11 @@ const ImageToSvg = () => {
                         </div>
 
                         {/* Advanced Options */}
-                        <details className="advanced-options">
+                        <details className={styles["advanced-options"]}>
                             <summary>{"Advanced Options"}</summary>
-                            <div className="advanced-grid">
-                                <div className="setting-group">
-                                    <label className="checkbox-label">
+                            <div className={styles["advanced-grid"]}>
+                                <div className={styles["setting-group"]}>
+                                    <label className={styles["checkbox-label"]}>
                                         <input
                                             type="checkbox"
                                             checked={conversionSettings.optimize}
@@ -504,8 +504,8 @@ const ImageToSvg = () => {
                                     </label>
                                 </div>
 
-                                <div className="setting-group">
-                                    <label className="checkbox-label">
+                                <div className={styles["setting-group"]}>
+                                    <label className={styles["checkbox-label"]}>
                                         <input
                                             type="checkbox"
                                             checked={conversionSettings.removeSmallShapes}
@@ -518,8 +518,8 @@ const ImageToSvg = () => {
                                     </label>
                                 </div>
 
-                                <div className="setting-group">
-                                    <label className="checkbox-label">
+                                <div className={styles["setting-group"]}>
+                                    <label className={styles["checkbox-label"]}>
                                         <input
                                             type="checkbox"
                                             checked={conversionSettings.roundCoordinates}
@@ -538,15 +538,15 @@ const ImageToSvg = () => {
 
                 {/* Action Buttons */}
                 {file && (
-                    <div className="action-buttons">
+                    <div className={styles["action-buttons"]}>
                         <button 
                             onClick={convertToSvg} 
-                            className="primary-btn"
+                            className={styles["primary-btn"]}
                             disabled={processing}
                         >
                             {processing ? "Processing image..." : "Convert to SVG"}
                         </button>
-                        <button onClick={clearAll} className="secondary-btn">
+                        <button onClick={clearAll} className={styles["secondary-btn"]}>
                             {"Clear"}
                         </button>
                     </div>
@@ -554,35 +554,35 @@ const ImageToSvg = () => {
 
                 {/* Preview Section */}
                 {(originalImage || svgOutput) && (
-                    <div className="preview-section">
-                        <div className="preview-container">
+                    <div className={styles["preview-section"]}>
+                        <div className={styles["preview-container"]}>
                             {originalImage && (
-                                <div className="preview-item">
+                                <div className={styles["preview-item"]}>
                                     <h4>{"Original Image"}</h4>
                                     <img 
                                         src={originalImage} 
                                         alt="Original" 
-                                        className="preview-image"
+                                        className={styles["preview-image"]}
                                     />
                                 </div>
                             )}
                             {svgOutput && (
-                                <div className="preview-item">
+                                <div className={styles["preview-item"]}>
                                     <h4>{"SVG Output"}</h4>
                                     <div 
-                                        className="preview-svg"
+                                        className={styles["preview-svg"]}
                                         dangerouslySetInnerHTML={{ __html: svgOutput }}
                                     />
-                                    <div className="svg-actions">
-                                        <button onClick={downloadSvg} className="download-btn">
+                                    <div className={styles["svg-actions"]}>
+                                        <button onClick={downloadSvg} className={styles["download-btn"]}>
                                             {"Download SVG"}
                                         </button>
-                                        <button onClick={copySvgCode} className="copy-btn">
+                                        <button onClick={copySvgCode} className={styles["copy-btn"]}>
                                             {"Copy SVG Code"}
                                         </button>
                                     </div>
                                     {svgOutput.length > 0 && (
-                                        <div className="file-info">
+                                        <div className={styles["file-info"]}>
                                             <small>{"SVG Size"}: {(svgOutput.length / 1024).toFixed(2)} KB</small>
                                         </div>
                                     )}
@@ -592,9 +592,9 @@ const ImageToSvg = () => {
 
                         {/* SVG Code Preview */}
                         {svgOutput && (
-                            <div className="code-section">
+                            <div className={styles["code-section"]}>
                                 <h4>{"SVG Code"}</h4>
-                                <pre className="svg-code">
+                                <pre className={styles["svg-code"]}>
                                     {svgOutput}
                                 </pre>
                             </div>

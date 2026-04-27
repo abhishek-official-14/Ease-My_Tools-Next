@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -1514,27 +1514,27 @@ const NutritionMaster = () => {
     };
 
     return (
-        <div className="nutrition-master">
-            <div className="tool-header">
+        <div className={styles["nutrition-master"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"Nutrition Master - Complete Food Database"}</h1>
                 <p>{"Comprehensive nutritional analysis with 500+ foods, fruits, dry fruits, and supplements"}</p>
             </div>
 
-            <div className="master-container">
+            <div className={styles["master-container"]}>
                 {/* Search and Filters */}
-                <div className="controls-section">
-                    <div className="search-box">
+                <div className={styles["controls-section"]}>
+                    <div className={styles["search-box"]}>
                         <input
                             type="text"
                             placeholder={"Search foods, fruits, dry fruits, supplements..."}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="search-input"
+                            className={styles["search-input"]}
                         />
                     </div>
 
-                    <div className="filter-controls">
-                        <div className="filter-group">
+                    <div className={styles["filter-controls"]}>
+                        <div className={styles["filter-group"]}>
                             <label>{"Filter by Category"}</label>
                             <select
                                 value={selectedCategory}
@@ -1548,7 +1548,7 @@ const NutritionMaster = () => {
                             </select>
                         </div>
 
-                        <div className="filter-group">
+                        <div className={styles["filter-group"]}>
                             <label>{"Weight Goal"}</label>
                             <select
                                 value={selectedGoal}
@@ -1564,49 +1564,49 @@ const NutritionMaster = () => {
                 </div>
 
                 {/* Results Count */}
-                <div className="results-info">
+                <div className={styles["results-info"]}>
                     <p>Found {filteredFoods.length} items</p>
                 </div>
 
                 {/* Food Grid */}
-                <div className="foods-grid">
+                <div className={styles["foods-grid"]}>
                     {filteredFoods.map(food => (
                         <div 
                             key={food.id} 
-                            className={`food-card ${selectedFood?.id === food.id ? 'selected' : ''}`}
+                            className={`${styles["food-card"]} ${selectedFood?.id === food.id ? 'selected' : ''}`}
                             onClick={() => setSelectedFood(food)}
                         >
-                            <div className="food-header">
+                            <div className={styles["food-header"]}>
                                 <h3>{food.name}</h3>
-                                <span className="food-category">{t(food.category)}</span>
+                                <span className={styles["food-category"]}>{t(food.category)}</span>
                             </div>
                             
-                            <div className="food-basic-info">
-                                <div className="calorie-display">
-                                    <span className="calories">{food.calories}</span>
-                                    <span className="unit">cal</span>
+                            <div className={styles["food-basic-info"]}>
+                                <div className={styles["calorie-display"]}>
+                                    <span className={styles["calories"]}>{food.calories}</span>
+                                    <span className={styles["unit"]}>cal</span>
                                 </div>
-                                <div className="macros">
+                                <div className={styles["macros"]}>
                                     <span>P: {food.protein}g</span>
                                     <span>C: {food.carbs}g</span>
                                     <span>F: {food.fat}g</span>
                                 </div>
                             </div>
 
-                            <div className="food-serving">
+                            <div className={styles["food-serving"]}>
                                 <small>{"Serving Size"}: {food.serving}</small>
                             </div>
 
-                            <div className="food-best-for">
+                            <div className={styles["food-best-for"]}>
                                 {food.bestFor.map(goal => (
-                                    <span key={goal} className={`goal-tag ${goal}`}>
+                                    <span key={goal} className={`${styles["goal-tag"]} ${goal}`}>
                                         {t(goal)}
                                     </span>
                                 ))}
                             </div>
 
                             <button 
-                                className="compare-btn"
+                                className={styles["compare-btn"]}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     addToCompare(food);
@@ -1621,63 +1621,63 @@ const NutritionMaster = () => {
 
                 {/* Detailed View */}
                 {selectedFood && (
-                    <div className="detail-section">
-                        <div className="detail-header">
+                    <div className={styles["detail-section"]}>
+                        <div className={styles["detail-header"]}>
                             <h2>{selectedFood.name}</h2>
                             <button 
-                                className="close-btn"
+                                className={styles["close-btn"]}
                                 onClick={() => setSelectedFood(null)}
                             >
                                 ×
                             </button>
                         </div>
 
-                        <div className="detail-content">
-                            <div className="nutrition-facts">
+                        <div className={styles["detail-content"]}>
+                            <div className={styles["nutrition-facts"]}>
                                 <h3>{"Nutrition Facts"}</h3>
-                                <div className="facts-grid">
-                                    <div className="fact-item">
-                                        <span className="fact-label">{"Calories"}</span>
-                                        <span className="fact-value">{selectedFood.calories}</span>
+                                <div className={styles["facts-grid"]}>
+                                    <div className={styles["fact-item"]}>
+                                        <span className={styles["fact-label"]}>{"Calories"}</span>
+                                        <span className={styles["fact-value"]}>{selectedFood.calories}</span>
                                     </div>
-                                    <div className="fact-item">
-                                        <span className="fact-label">{"Protein"}</span>
-                                        <span className="fact-value">{selectedFood.protein}g</span>
+                                    <div className={styles["fact-item"]}>
+                                        <span className={styles["fact-label"]}>{"Protein"}</span>
+                                        <span className={styles["fact-value"]}>{selectedFood.protein}g</span>
                                     </div>
-                                    <div className="fact-item">
-                                        <span className="fact-label">{"Carbohydrates"}</span>
-                                        <span className="fact-value">{selectedFood.carbs}g</span>
+                                    <div className={styles["fact-item"]}>
+                                        <span className={styles["fact-label"]}>{"Carbohydrates"}</span>
+                                        <span className={styles["fact-value"]}>{selectedFood.carbs}g</span>
                                     </div>
-                                    <div className="fact-item">
-                                        <span className="fact-label">{"Fat"}</span>
-                                        <span className="fact-value">{selectedFood.fat}g</span>
+                                    <div className={styles["fact-item"]}>
+                                        <span className={styles["fact-label"]}>{"Fat"}</span>
+                                        <span className={styles["fact-value"]}>{selectedFood.fat}g</span>
                                     </div>
-                                    <div className="fact-item">
-                                        <span className="fact-label">{"Fiber"}</span>
-                                        <span className="fact-value">{selectedFood.fiber}g</span>
+                                    <div className={styles["fact-item"]}>
+                                        <span className={styles["fact-label"]}>{"Fiber"}</span>
+                                        <span className={styles["fact-value"]}>{selectedFood.fiber}g</span>
                                     </div>
-                                    <div className="fact-item">
-                                        <span className="fact-label">{"Sugar"}</span>
-                                        <span className="fact-value">{selectedFood.sugar}g</span>
+                                    <div className={styles["fact-item"]}>
+                                        <span className={styles["fact-label"]}>{"Sugar"}</span>
+                                        <span className={styles["fact-value"]}>{selectedFood.sugar}g</span>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Vitamins */}
                             {Object.keys(selectedFood.vitamins).length > 0 && (
-                                <div className="vitamins-section">
+                                <div className={styles["vitamins-section"]}>
                                     <h3>{"Vitamins"}</h3>
-                                    <div className="vitamins-grid">
+                                    <div className={styles["vitamins-grid"]}>
                                         {Object.entries(selectedFood.vitamins).map(([vitamin, amount]) => (
-                                            <div key={vitamin} className="vitamin-item">
-                                                <span className="vitamin-name">{t(vitamin)}</span>
-                                                <div className="vitamin-bar">
+                                            <div key={vitamin} className={styles["vitamin-item"]}>
+                                                <span className={styles["vitamin-name"]}>{t(vitamin)}</span>
+                                                <div className={styles["vitamin-bar"]}>
                                                     <div 
-                                                        className="vitamin-fill"
+                                                        className={styles["vitamin-fill"]}
                                                         style={{ width: `${Math.min(getVitaminPercentage(vitamin, amount), 100)}%` }}
                                                     ></div>
                                                 </div>
-                                                <span className="vitamin-amount">{amount}%</span>
+                                                <span className={styles["vitamin-amount"]}>{amount}%</span>
                                             </div>
                                         ))}
                                     </div>
@@ -1686,19 +1686,19 @@ const NutritionMaster = () => {
 
                             {/* Minerals */}
                             {Object.keys(selectedFood.minerals).length > 0 && (
-                                <div className="minerals-section">
+                                <div className={styles["minerals-section"]}>
                                     <h3>{"Minerals"}</h3>
-                                    <div className="minerals-grid">
+                                    <div className={styles["minerals-grid"]}>
                                         {Object.entries(selectedFood.minerals).map(([mineral, amount]) => (
-                                            <div key={mineral} className="mineral-item">
-                                                <span className="mineral-name">{t(mineral)}</span>
-                                                <div className="mineral-bar">
+                                            <div key={mineral} className={styles["mineral-item"]}>
+                                                <span className={styles["mineral-name"]}>{t(mineral)}</span>
+                                                <div className={styles["mineral-bar"]}>
                                                     <div 
-                                                        className="mineral-fill"
+                                                        className={styles["mineral-fill"]}
                                                         style={{ width: `${Math.min(getMineralPercentage(mineral, amount), 100)}%` }}
                                                     ></div>
                                                 </div>
-                                                <span className="mineral-amount">{amount}%</span>
+                                                <span className={styles["mineral-amount"]}>{amount}%</span>
                                             </div>
                                         ))}
                                     </div>
@@ -1707,11 +1707,11 @@ const NutritionMaster = () => {
 
                             {/* Antioxidants */}
                             {selectedFood.antioxidants.length > 0 && (
-                                <div className="antioxidants-section">
+                                <div className={styles["antioxidants-section"]}>
                                     <h3>{"Antioxidants"}</h3>
-                                    <div className="antioxidants-list">
+                                    <div className={styles["antioxidants-list"]}>
                                         {selectedFood.antioxidants.map((antioxidant, index) => (
-                                            <span key={index} className="antioxidant-tag">
+                                            <span key={index} className={styles["antioxidant-tag"]}>
                                                 {antioxidant}
                                             </span>
                                         ))}
@@ -1720,9 +1720,9 @@ const NutritionMaster = () => {
                             )}
 
                             {/* Benefits */}
-                            <div className="benefits-section">
+                            <div className={styles["benefits-section"]}>
                                 <h3>{"Health Benefits"}</h3>
-                                <ul className="benefits-list">
+                                <ul className={styles["benefits-list"]}>
                                     {selectedFood.benefits.map((benefit, index) => (
                                         <li key={index}>{benefit}</li>
                                     ))}
@@ -1734,32 +1734,32 @@ const NutritionMaster = () => {
 
                 {/* Comparison Section */}
                 {compareList.length > 0 && (
-                    <div className="compare-section">
+                    <div className={styles["compare-section"]}>
                         <h3>{"Compare Foods"} ({compareList.length}/5)</h3>
-                        <div className="compare-grid">
+                        <div className={styles["compare-grid"]}>
                             {compareList.map(food => (
-                                <div key={food.id} className="compare-card">
+                                <div key={food.id} className={styles["compare-card"]}>
                                     <button 
-                                        className="remove-compare"
+                                        className={styles["remove-compare"]}
                                         onClick={() => removeFromCompare(food.id)}
                                     >
                                         ×
                                     </button>
                                     <h4>{food.name}</h4>
-                                    <div className="compare-macros">
-                                        <div className="macro-compare">
+                                    <div className={styles["compare-macros"]}>
+                                        <div className={styles["macro-compare"]}>
                                             <span>Calories</span>
                                             <span>{food.calories}</span>
                                         </div>
-                                        <div className="macro-compare">
+                                        <div className={styles["macro-compare"]}>
                                             <span>Protein</span>
                                             <span>{food.protein}g</span>
                                         </div>
-                                        <div className="macro-compare">
+                                        <div className={styles["macro-compare"]}>
                                             <span>Carbs</span>
                                             <span>{food.carbs}g</span>
                                         </div>
-                                        <div className="macro-compare">
+                                        <div className={styles["macro-compare"]}>
                                             <span>Fat</span>
                                             <span>{food.fat}g</span>
                                         </div>

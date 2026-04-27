@@ -3,7 +3,7 @@
 // // // import React, { useState, useRef } from 'react';
 // // // 
 // // // import { useTheme } from 'next-themes';
-// // // import './styles.css';
+// // // import styles from './styles.module.css';
 
 // // // const Mp4ToGif = () => {
 // // //     const { t } = useTranslation('mp4ToGif');
@@ -137,16 +137,16 @@
 // // //     };
 
 // // //     return (
-// // //         <div className="mp4-to-gif">
-// // //             <div className="tool-header">
+// // //         <div className={styles["mp4-to-gif"]}>
+// // //             <div className={styles["tool-header"]}>
 // // //                 <h1>{"MP4 to GIF Converter"}</h1>
 // // //                 <p>{"Convert MP4 videos to animated GIFs"}</p>
 // // //             </div>
 
-// // //             <div className="converter-container">
-// // //                 <div className="upload-section">
+// // //             <div className={styles["converter-container"]}>
+// // //                 <div className={styles["upload-section"]}>
 // // //                     <div 
-// // //                         className={`drop-zone ${isDragging ? 'dragging' : ''} ${videoFile ? 'has-file' : ''}`}
+// // //                         className={`${styles["drop-zone"]} ${isDragging ? 'dragging' : ''} ${videoFile ? 'has-file' : ''}`}
 // // //                         onDragOver={handleDragOver}
 // // //                         onDragLeave={handleDragLeave}
 // // //                         onDrop={handleDrop}
@@ -156,44 +156,44 @@
 // // //                             type="file"
 // // //                             accept="video/*"
 // // //                             onChange={handleFileSelect}
-// // //                             className="file-input"
+// // //                             className={styles["file-input"]}
 // // //                         />
 // // //                         {!videoFile ? (
-// // //                             <div className="upload-content">
-// // //                                 <div className="upload-icon">🎥</div>
-// // //                                 <span className="upload-text">{"Upload MP4 Video"}</span>
-// // //                                 <span className="drag-text">{"or drag and drop MP4 file here"}</span>
-// // //                                 <div className="file-info">
+// // //                             <div className={styles["upload-content"]}>
+// // //                                 <div className={styles["upload-icon"]}>🎥</div>
+// // //                                 <span className={styles["upload-text"]}>{"Upload MP4 Video"}</span>
+// // //                                 <span className={styles["drag-text"]}>{"or drag and drop MP4 file here"}</span>
+// // //                                 <div className={styles["file-info"]}>
 // // //                                     <span>{"Supported formats: MP4, MOV, AVI"}</span>
 // // //                                     <span>{"Max file size: 50MB"}</span>
 // // //                                 </div>
 // // //                             </div>
 // // //                         ) : (
-// // //                             <div className="file-preview">
-// // //                                 <div className="file-icon">✅</div>
-// // //                                 <span className="file-name">{videoFile.name}</span>
-// // //                                 <span className="file-size">{formatFileSize(videoFile.size)}</span>
+// // //                             <div className={styles["file-preview"]}>
+// // //                                 <div className={styles["file-icon"]}>✅</div>
+// // //                                 <span className={styles["file-name"]}>{videoFile.name}</span>
+// // //                                 <span className={styles["file-size"]}>{formatFileSize(videoFile.size)}</span>
 // // //                             </div>
 // // //                         )}
 // // //                     </div>
 // // //                 </div>
 
 // // //                 {videoUrl && (
-// // //                     <div className="video-preview">
+// // //                     <div className={styles["video-preview"]}>
 // // //                         <h3>{"Preview"}</h3>
 // // //                         <video
 // // //                             ref={videoRef}
 // // //                             src={videoUrl}
 // // //                             controls
-// // //                             className="video-player"
+// // //                             className={styles["video-player"]}
 // // //                         />
 // // //                     </div>
 // // //                 )}
 
-// // //                 <div className="settings-section">
+// // //                 <div className={styles["settings-section"]}>
 // // //                     <h3>{"Conversion Settings"}</h3>
-// // //                     <div className="settings-grid">
-// // //                         <div className="setting-group">
+// // //                     <div className={styles["settings-grid"]}>
+// // //                         <div className={styles["setting-group"]}>
 // // //                             <label>{"Start Time (seconds)"}</label>
 // // //                             <input
 // // //                                 type="number"
@@ -204,7 +204,7 @@
 // // //                             />
 // // //                         </div>
 
-// // //                         <div className="setting-group">
+// // //                         <div className={styles["setting-group"]}>
 // // //                             <label>{"Duration (seconds)"}</label>
 // // //                             <input
 // // //                                 type="number"
@@ -216,7 +216,7 @@
 // // //                             />
 // // //                         </div>
 
-// // //                         <div className="setting-group">
+// // //                         <div className={styles["setting-group"]}>
 // // //                             <label>{"GIF Width (pixels)"}</label>
 // // //                             <input
 // // //                                 type="number"
@@ -228,7 +228,7 @@
 // // //                             />
 // // //                         </div>
 
-// // //                         <div className="setting-group">
+// // //                         <div className={styles["setting-group"]}>
 // // //                             <label>{"Frame Rate (FPS)"}</label>
 // // //                             <select 
 // // //                                 value={settings.frameRate} 
@@ -242,7 +242,7 @@
 // // //                             </select>
 // // //                         </div>
 
-// // //                         <div className="setting-group">
+// // //                         <div className={styles["setting-group"]}>
 // // //                             <label>{"Quality"}</label>
 // // //                             <select 
 // // //                                 value={settings.quality} 
@@ -256,56 +256,56 @@
 // // //                     </div>
 // // //                 </div>
 
-// // //                 <div className="action-buttons">
+// // //                 <div className={styles["action-buttons"]}>
 // // //                     <button 
 // // //                         onClick={convertToGif} 
-// // //                         className="primary-btn"
+// // //                         className={styles["primary-btn"]}
 // // //                         disabled={!videoFile || isConverting}
 // // //                     >
 // // //                         {isConverting ? "Converting..." : "Convert to GIF"}
 // // //                     </button>
-// // //                     <button onClick={clearAll} className="secondary-btn">
+// // //                     <button onClick={clearAll} className={styles["secondary-btn"]}>
 // // //                         {"Clear"}
 // // //                     </button>
 // // //                 </div>
 
 // // //                 {conversionInfo && (
-// // //                     <div className="conversion-info">
+// // //                     <div className={styles["conversion-info"]}>
 // // //                         <h3>{"Conversion Information"}</h3>
-// // //                         <div className="info-grid">
-// // //                             <div className="info-item">
-// // //                                 <span className="info-label">{"Original Size"}:</span>
-// // //                                 <span className="info-value">{conversionInfo.originalSize}</span>
+// // //                         <div className={styles["info-grid"]}>
+// // //                             <div className={styles["info-item"]}>
+// // //                                 <span className={styles["info-label"]}>{"Original Size"}:</span>
+// // //                                 <span className={styles["info-value"]}>{conversionInfo.originalSize}</span>
 // // //                             </div>
-// // //                             <div className="info-item">
-// // //                                 <span className="info-label">{"GIF Size"}:</span>
-// // //                                 <span className="info-value">{conversionInfo.gifSize}</span>
+// // //                             <div className={styles["info-item"]}>
+// // //                                 <span className={styles["info-label"]}>{"GIF Size"}:</span>
+// // //                                 <span className={styles["info-value"]}>{conversionInfo.gifSize}</span>
 // // //                             </div>
-// // //                             <div className="info-item">
-// // //                                 <span className="info-label">{"Duration"}:</span>
-// // //                                 <span className="info-value">{conversionInfo.duration}</span>
+// // //                             <div className={styles["info-item"]}>
+// // //                                 <span className={styles["info-label"]}>{"Duration"}:</span>
+// // //                                 <span className={styles["info-value"]}>{conversionInfo.duration}</span>
 // // //                             </div>
-// // //                             <div className="info-item">
-// // //                                 <span className="info-label">{"Compression"}:</span>
-// // //                                 <span className="info-value">{conversionInfo.compression}</span>
+// // //                             <div className={styles["info-item"]}>
+// // //                                 <span className={styles["info-label"]}>{"Compression"}:</span>
+// // //                                 <span className={styles["info-value"]}>{conversionInfo.compression}</span>
 // // //                             </div>
 // // //                         </div>
 // // //                     </div>
 // // //                 )}
 
 // // //                 {gifUrl && (
-// // //                     <div className="gif-result">
+// // //                     <div className={styles["gif-result"]}>
 // // //                         <h3>Converted GIF</h3>
-// // //                         <div className="gif-preview">
-// // //                             <img src={gifUrl} alt="Converted GIF" className="gif-image" />
-// // //                             <button onClick={downloadGif} className="download-btn">
+// // //                         <div className={styles["gif-preview"]}>
+// // //                             <img src={gifUrl} alt="Converted GIF" className={styles["gif-image"]} />
+// // //                             <button onClick={downloadGif} className={styles["download-btn"]}>
 // // //                                 {"Download GIF"}
 // // //                             </button>
 // // //                         </div>
 // // //                     </div>
 // // //                 )}
 
-// // //                 <div className="conversion-tips">
+// // //                 <div className={styles["conversion-tips"]}>
 // // //                     <h4>{"Conversion Tips"}</h4>
 // // //                     <ul>
 // // //                         <li>{"Shorter durations and lower frame rates create smaller GIFs"}</li>
@@ -325,7 +325,7 @@
 // // // import React, { useState, useRef } from 'react';
 // // // 
 // // // import { useTheme } from 'next-themes';
-// // // import './styles.css';
+// // // import styles from './styles.module.css';
 
 // // // const Mp4ToGif = () => {
 // // //   // safe translation & theme fallbacks so component doesn't crash if contexts/namespaces are missing
@@ -477,18 +477,18 @@
 // // //   };
 
 // // //   return (
-// // //     <div className="mp4-to-gif">
-// // //       <div className="tool-header">
+// // //     <div className={styles["mp4-to-gif"]}>
+// // //       <div className={styles["tool-header"]}>
 // // //         <h1>{"MP4 to GIF Converter"}</h1>
 // // //         <p>{"Convert MP4 videos to animated GIFs"}</p>
 // // //       </div>
 
-// // //       <div className="converter-container">
-// // //         <div className="upload-section">
+// // //       <div className={styles["converter-container"]}>
+// // //         <div className={styles["upload-section"]}>
 // // //           <div
 // // //             role="button"
 // // //             tabIndex={0}
-// // //             className={`drop-zone ${isDragging ? 'dragging' : ''} ${videoFile ? 'has-file' : ''}`}
+// // //             className={`${styles["drop-zone"]} ${isDragging ? 'dragging' : ''} ${videoFile ? 'has-file' : ''}`}
 // // //             onDragOver={handleDragOver}
 // // //             onDragLeave={handleDragLeave}
 // // //             onDrop={handleDrop}
@@ -500,40 +500,40 @@
 // // //               type="file"
 // // //               accept="video/*"
 // // //               onChange={handleFileSelect}
-// // //               className="file-input"
+// // //               className={styles["file-input"]}
 // // //             />
 
 // // //             {!videoFile ? (
-// // //               <div className="upload-content">
-// // //                 <div className="upload-icon">🎥</div>
-// // //                 <span className="upload-text">{"Upload MP4 Video"}</span>
-// // //                 <span className="drag-text">{"or drag and drop MP4 file here"}</span>
-// // //                 <div className="file-info">
+// // //               <div className={styles["upload-content"]}>
+// // //                 <div className={styles["upload-icon"]}>🎥</div>
+// // //                 <span className={styles["upload-text"]}>{"Upload MP4 Video"}</span>
+// // //                 <span className={styles["drag-text"]}>{"or drag and drop MP4 file here"}</span>
+// // //                 <div className={styles["file-info"]}>
 // // //                   <span>{"Supported formats: MP4, MOV, AVI"}</span>
 // // //                   <span>{"Max file size: 50MB"}</span>
 // // //                 </div>
 // // //               </div>
 // // //             ) : (
-// // //               <div className="file-preview">
-// // //                 <div className="file-icon">✅</div>
-// // //                 <span className="file-name">{videoFile.name}</span>
-// // //                 <span className="file-size">{formatFileSize(videoFile.size)}</span>
+// // //               <div className={styles["file-preview"]}>
+// // //                 <div className={styles["file-icon"]}>✅</div>
+// // //                 <span className={styles["file-name"]}>{videoFile.name}</span>
+// // //                 <span className={styles["file-size"]}>{formatFileSize(videoFile.size)}</span>
 // // //               </div>
 // // //             )}
 // // //           </div>
 // // //         </div>
 
 // // //         {videoUrl && (
-// // //           <div className="video-preview">
+// // //           <div className={styles["video-preview"]}>
 // // //             <h3>{"Preview"}</h3>
-// // //             <video ref={videoRef} src={videoUrl} controls className="video-player" />
+// // //             <video ref={videoRef} src={videoUrl} controls className={styles["video-player"]} />
 // // //           </div>
 // // //         )}
 
-// // //         <div className="settings-section">
+// // //         <div className={styles["settings-section"]}>
 // // //           <h3>{"Conversion Settings"}</h3>
-// // //           <div className="settings-grid">
-// // //             <div className="setting-group">
+// // //           <div className={styles["settings-grid"]}>
+// // //             <div className={styles["setting-group"]}>
 // // //               <label>{"Start Time (seconds)"}</label>
 // // //               <input
 // // //                 type="number"
@@ -544,7 +544,7 @@
 // // //               />
 // // //             </div>
 
-// // //             <div className="setting-group">
+// // //             <div className={styles["setting-group"]}>
 // // //               <label>{"Duration (seconds)"}</label>
 // // //               <input
 // // //                 type="number"
@@ -556,7 +556,7 @@
 // // //               />
 // // //             </div>
 
-// // //             <div className="setting-group">
+// // //             <div className={styles["setting-group"]}>
 // // //               <label>{"GIF Width (pixels)"}</label>
 // // //               <input
 // // //                 type="number"
@@ -568,7 +568,7 @@
 // // //               />
 // // //             </div>
 
-// // //             <div className="setting-group">
+// // //             <div className={styles["setting-group"]}>
 // // //               <label>{"Frame Rate (FPS)"}</label>
 // // //               <select value={settings.frameRate} onChange={(e) => updateSetting('frameRate', Number(e.target.value))}>
 // // //                 <option value={5}>5 FPS</option>
@@ -579,7 +579,7 @@
 // // //               </select>
 // // //             </div>
 
-// // //             <div className="setting-group">
+// // //             <div className={styles["setting-group"]}>
 // // //               <label>{"Quality"}</label>
 // // //               <select value={settings.quality} onChange={(e) => updateSetting('quality', e.target.value)}>
 // // //                 <option value="low">{"Low"}</option>
@@ -590,58 +590,58 @@
 // // //           </div>
 // // //         </div>
 
-// // //         <div className="action-buttons">
+// // //         <div className={styles["action-buttons"]}>
 // // //           <button
 // // //             onClick={convertToGif}
-// // //             className="primary-btn"
+// // //             className={styles["primary-btn"]}
 // // //             disabled={!videoFile || isConverting}
 // // //           >
 // // //             {isConverting ? "Converting..." : "Convert to GIF"}
 // // //           </button>
 
-// // //           <button onClick={clearAll} className="secondary-btn">{"Clear"}</button>
+// // //           <button onClick={clearAll} className={styles["secondary-btn"]}>{"Clear"}</button>
 // // //         </div>
 
-// // //         {error && <div className="error-message" role="alert">{error}</div>}
+// // //         {error && <div className={styles["error-message"]} role="alert">{error}</div>}
 
 // // //         {conversionInfo && (
-// // //           <div className="conversion-info">
+// // //           <div className={styles["conversion-info"]}>
 // // //             <h3>{"Conversion Information"}</h3>
-// // //             <div className="info-grid">
-// // //               <div className="info-item">
-// // //                 <span className="info-label">{"Original Size"}:</span>
-// // //                 <span className="info-value">{conversionInfo.originalSize}</span>
+// // //             <div className={styles["info-grid"]}>
+// // //               <div className={styles["info-item"]}>
+// // //                 <span className={styles["info-label"]}>{"Original Size"}:</span>
+// // //                 <span className={styles["info-value"]}>{conversionInfo.originalSize}</span>
 // // //               </div>
 
-// // //               <div className="info-item">
-// // //                 <span className="info-label">{"GIF Size"}:</span>
-// // //                 <span className="info-value">{conversionInfo.gifSize}</span>
+// // //               <div className={styles["info-item"]}>
+// // //                 <span className={styles["info-label"]}>{"GIF Size"}:</span>
+// // //                 <span className={styles["info-value"]}>{conversionInfo.gifSize}</span>
 // // //               </div>
 
-// // //               <div className="info-item">
-// // //                 <span className="info-label">{"Duration"}:</span>
-// // //                 <span className="info-value">{conversionInfo.duration}</span>
+// // //               <div className={styles["info-item"]}>
+// // //                 <span className={styles["info-label"]}>{"Duration"}:</span>
+// // //                 <span className={styles["info-value"]}>{conversionInfo.duration}</span>
 // // //               </div>
 
-// // //               <div className="info-item">
-// // //                 <span className="info-label">{"Compression"}:</span>
-// // //                 <span className="info-value">{conversionInfo.compression}</span>
+// // //               <div className={styles["info-item"]}>
+// // //                 <span className={styles["info-label"]}>{"Compression"}:</span>
+// // //                 <span className={styles["info-value"]}>{conversionInfo.compression}</span>
 // // //               </div>
 // // //             </div>
 // // //           </div>
 // // //         )}
 
 // // //         {gifUrl && (
-// // //           <div className="gif-result">
+// // //           <div className={styles["gif-result"]}>
 // // //             <h3>{t('convertedGif') || 'Converted GIF'}</h3>
-// // //             <div className="gif-preview">
-// // //               <img src={gifUrl} alt="Converted GIF" className="gif-image" />
-// // //               <button onClick={downloadGif} className="download-btn">{"Download GIF"}</button>
+// // //             <div className={styles["gif-preview"]}>
+// // //               <img src={gifUrl} alt="Converted GIF" className={styles["gif-image"]} />
+// // //               <button onClick={downloadGif} className={styles["download-btn"]}>{"Download GIF"}</button>
 // // //             </div>
 // // //           </div>
 // // //         )}
 
-// // //         <div className="conversion-tips">
+// // //         <div className={styles["conversion-tips"]}>
 // // //           <h4>{"Conversion Tips"}</h4>
 // // //           <ul>
 // // //             <li>{"Shorter durations and lower frame rates create smaller GIFs"}</li>
@@ -667,7 +667,7 @@
 // import { FFmpeg } from "@ffmpeg/ffmpeg";
 // import { fetchFile } from "@ffmpeg/util";
 
-// import './styles.css';
+// import styles from './styles.module.css';
 
 // const ffmpeg = createFFmpeg({ log: true });
 
@@ -785,11 +785,11 @@
 //   };
 
 //   return (
-//     <div className="mp4-to-gif">
+//     <div className={styles["mp4-to-gif"]}>
 //       <h2>{"MP4 to GIF Converter"}</h2>
 
 //       <div
-//         className="drop-zone"
+//         className={styles["drop-zone"]}
 //         onDrop={handleDrop}
 //         onDragOver={(e) => e.preventDefault()}
 //         onClick={() => fileInputRef.current?.click()}
@@ -811,7 +811,7 @@
 //       </div>
 
 //       {file && (
-//         <div className="video-preview">
+//         <div className={styles["video-preview"]}>
 //           <video ref={videoRef} controls>
 //             <source src={URL.createObjectURL(file)} type={file.type} />
 //           </video>
@@ -819,7 +819,7 @@
 //       )}
 
 //       {/* Settings */}
-//       <div className="settings">
+//       <div className={styles["settings"]}>
 //         <label>
 //           Width:
 //           <input
@@ -867,10 +867,10 @@
 //         </label>
 //       </div>
 
-//       {error && <p className="error">{error}</p>}
+//       {error && <p className={styles["error"]}>{error}</p>}
 //       {loading && <p>Converting... {progress}%</p>}
 
-//       <div className="actions">
+//       <div className={styles["actions"]}>
 //         <button onClick={convertToGif} disabled={loading}>
 //           {loading ? "Converting..." : "Convert to GIF"}
 //         </button>
@@ -882,7 +882,7 @@
 //       </div>
 
 //       {gifUrl && (
-//         <div className="gif-preview">
+//         <div className={styles["gif-preview"]}>
 //           <img src={gifUrl} alt="GIF Preview" />
 //         </div>
 //       )}

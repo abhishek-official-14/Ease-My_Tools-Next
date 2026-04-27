@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useMemo } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -221,19 +221,19 @@ const WebsiteCostCalculator = () => {
     };
 
     return (
-        <div className="website-cost-calculator">
-            <div className="calculator-header">
+        <div className={styles["website-cost-calculator"]}>
+            <div className={styles["calculator-header"]}>
                 <h1>{"Website Cost Calculator"}</h1>
                 <p>{"Professional website development cost estimator for agencies and freelancers"}</p>
             </div>
 
-            <div className="calculator-container">
+            <div className={styles["calculator-container"]}>
                 {/* Left Panel - Inputs */}
-                <div className="input-panel">
+                <div className={styles["input-panel"]}>
                     {/* Project Details */}
-                    <section className="input-section">
+                    <section className={styles["input-section"]}>
                         <h3>{"Project Details"}</h3>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <label>{"Project Name"}</label>
                             <input
                                 type="text"
@@ -245,7 +245,7 @@ const WebsiteCostCalculator = () => {
                                 placeholder={"Enter project name..."}
                             />
                         </div>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <label>{"Project Type"}</label>
                             <select
                                 value={projectDetails.type}
@@ -264,11 +264,11 @@ const WebsiteCostCalculator = () => {
                     </section>
 
                     {/* Features */}
-                    <section className="input-section">
+                    <section className={styles["input-section"]}>
                         <h3>{"Features & Functionality"}</h3>
-                        <div className="features-grid">
+                        <div className={styles["features-grid"]}>
                             {Object.entries(features).map(([key, value]) => (
-                                <label key={key} className="checkbox-label">
+                                <label key={key} className={styles["checkbox-label"]}>
                                     <input
                                         type="checkbox"
                                         checked={value}
@@ -281,9 +281,9 @@ const WebsiteCostCalculator = () => {
                     </section>
 
                     {/* Design */}
-                    <section className="input-section">
+                    <section className={styles["input-section"]}>
                         <h3>{"Design & UX"}</h3>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <label>Design Approach</label>
                             <select
                                 value={design.type}
@@ -299,7 +299,7 @@ const WebsiteCostCalculator = () => {
                                 ))}
                             </select>
                         </div>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <label>Number of Pages</label>
                             <input
                                 type="number"
@@ -312,7 +312,7 @@ const WebsiteCostCalculator = () => {
                                 }))}
                             />
                         </div>
-                        <label className="checkbox-label">
+                        <label className={styles["checkbox-label"]}>
                             <input
                                 type="checkbox"
                                 checked={design.branding}
@@ -326,9 +326,9 @@ const WebsiteCostCalculator = () => {
                     </section>
 
                     {/* Development */}
-                    <section className="input-section">
+                    <section className={styles["input-section"]}>
                         <h3>{"Development"}</h3>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <label>Development Platform</label>
                             <select
                                 value={development.platform}
@@ -344,7 +344,7 @@ const WebsiteCostCalculator = () => {
                                 ))}
                             </select>
                         </div>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <label>Complexity Level</label>
                             <select
                                 value={development.complexity}
@@ -362,10 +362,10 @@ const WebsiteCostCalculator = () => {
                     </section>
 
                     {/* Team Rates */}
-                    <section className="input-section">
+                    <section className={styles["input-section"]}>
                         <h3>{"Team & Rates"}</h3>
                         {Object.entries(teamRates).map(([role, rate]) => (
-                            <div key={role} className="input-group">
+                            <div key={role} className={styles["input-group"]}>
                                 <label>{t(`teamRoles.${role}`)} ($/hr)</label>
                                 <input
                                     type="number"
@@ -378,10 +378,10 @@ const WebsiteCostCalculator = () => {
                     </section>
 
                     {/* Additional Costs */}
-                    <section className="input-section">
+                    <section className={styles["input-section"]}>
                         <h3>Additional Costs</h3>
                         {Object.entries(additionalCosts).map(([item, cost]) => (
-                            <div key={item} className="input-group">
+                            <div key={item} className={styles["input-group"]}>
                                 <label>
                                     {item === 'hosting' ? 'Monthly Hosting' :
                                      item === 'domain' ? 'Domain (annual)' :
@@ -401,38 +401,38 @@ const WebsiteCostCalculator = () => {
                 </div>
 
                 {/* Right Panel - Results */}
-                <div className="results-panel">
-                    <div className="cost-summary">
+                <div className={styles["results-panel"]}>
+                    <div className={styles["cost-summary"]}>
                         <h3>{"Cost Summary"}</h3>
-                        <div className="total-cost">
-                            <span className="label">{"Total Estimated Cost"}:</span>
-                            <span className="amount">{formatCurrency(totalCost)}</span>
+                        <div className={styles["total-cost"]}>
+                            <span className={styles["label"]}>{"Total Estimated Cost"}:</span>
+                            <span className={styles["amount"]}>{formatCurrency(totalCost)}</span>
                         </div>
 
-                        <div className="cost-breakdown">
+                        <div className={styles["cost-breakdown"]}>
                             <h4>{"Cost Breakdown"}</h4>
                             {Object.entries(costs).map(([category, cost]) => (
-                                <div key={category} className="breakdown-item">
-                                    <span className="category">
+                                <div key={category} className={styles["breakdown-item"]}>
+                                    <span className={styles["category"]}>
                                         {t(`costElements.${category}`)}:
                                     </span>
-                                    <span className="cost">{formatCurrency(cost)}</span>
+                                    <span className={styles["cost"]}>{formatCurrency(cost)}</span>
                                 </div>
                             ))}
                         </div>
 
-                        <div className="action-buttons">
-                            <button onClick={exportToPDF} className="primary-btn">
+                        <div className={styles["action-buttons"]}>
+                            <button onClick={exportToPDF} className={styles["primary-btn"]}>
                                 {"Export PDF Proposal"}
                             </button>
-                            <button onClick={resetCalculator} className="secondary-btn">
+                            <button onClick={resetCalculator} className={styles["secondary-btn"]}>
                                 {"Reset"}
                             </button>
                         </div>
                     </div>
 
                     {/* Project Assumptions */}
-                    <div className="assumptions-section">
+                    <div className={styles["assumptions-section"]}>
                         <h4>{"Assumptions"}</h4>
                         <ul>
                             <li>Project management included (15% of development cost)</li>
@@ -444,14 +444,14 @@ const WebsiteCostCalculator = () => {
                     </div>
 
                     {/* Feature Impact */}
-                    <div className="feature-impact">
+                    <div className={styles["feature-impact"]}>
                         <h4>Feature Impact on Cost</h4>
-                        <div className="impact-list">
+                        <div className={styles["impact-list"]}>
                             {Object.entries(features).map(([feature, enabled]) => {
                                 if (!enabled) return null;
                                 const impact = getFeatureImpact(feature);
                                 return (
-                                    <div key={feature} className="impact-item">
+                                    <div key={feature} className={styles["impact-item"]}>
                                         <span>✓ {t(`featuresList.${feature}`)}</span>
                                         <span>+{formatCurrency(impact)}</span>
                                     </div>

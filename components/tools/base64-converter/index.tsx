@@ -2,7 +2,7 @@
 
 //@ts-nocheck
 import React, { useState, useRef } from "react";
-import './styles.css';
+import styles from './styles.module.css';
 
 const Base64Converter = () => {
     console.log("Base64Converter was rendered");
@@ -62,10 +62,10 @@ const Base64Converter = () => {
     };
 
     return (
-        <div className="base64-container">
-            <h2 className="title">{"🔤 Base64 Converter"}</h2>
+        <div className={styles["base64-container"]}>
+            <h2 className={styles["title"]}>{"🔤 Base64 Converter"}</h2>
 
-            <div className="mode-selector">
+            <div className={styles["mode-selector"]}>
                 <button
                     className={mode === "encode" ? "active" : ""}
                     onClick={() => setMode("encode")}
@@ -80,18 +80,18 @@ const Base64Converter = () => {
                 </button>
             </div>
 
-            <div className="input-section">
+            <div className={styles["input-section"]}>
                 <textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder={"Enter text to encode/decode..."}
-                    className="text-area"
+                    className={styles["text-area"]}
                     rows={6}
                 />
             </div>
 
             <div
-                className="file-drop-zone"
+                className={styles["file-drop-zone"]}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
@@ -105,27 +105,27 @@ const Base64Converter = () => {
                 />
             </div>
 
-            <button className="action-btn convert-btn" onClick={handleEncode}>
+            <button className={`${styles["action-btn"]} ${styles["convert-btn"]}`} onClick={handleEncode}>
                 {mode === "encode" ? "Encode" : "Decode"}
             </button>
 
             {output && (
-                <div className="output-section">
+                <div className={styles["output-section"]}>
                     <textarea
                         value={output}
                         readOnly
                         placeholder={"Result will appear here..."}
-                        className="text-area output"
+                        className={`${styles["text-area"]} ${styles["output"]}`}
                         rows={6}
                     />
-                    <div className="output-actions">
-                        <button className="action-btn" onClick={copyToClipboard}>
+                    <div className={styles["output-actions"]}>
+                        <button className={styles["action-btn"]} onClick={copyToClipboard}>
                             {"📋 Copy"}
                         </button>
-                        <button className="action-btn" onClick={downloadFile}>
+                        <button className={styles["action-btn"]} onClick={downloadFile}>
                             {"📥 Download as File"}
                         </button>
-                        <button className="action-btn clear-btn" onClick={clearAll}>
+                        <button className={`${styles["action-btn"]} ${styles["clear-btn"]}`} onClick={clearAll}>
                             {"🗑️ Clear"}
                         </button>
                     </div>

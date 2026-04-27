@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -333,42 +333,42 @@ const FileRenameTool = () => {
   const statusCounts = getStatusCounts();
 
   return (
-    <div className="file-rename-tool">
-      <div className="tool-header">
+    <div className={styles["file-rename-tool"]}>
+      <div className={styles["tool-header"]}>
         <h1>{t('title')}</h1>
         <p>{t('subtitle')}</p>
       </div>
 
-      <div className="rename-container">
+      <div className={styles["rename-container"]}>
         {/* Upload Section */}
-        <div className="upload-section">
+        <div className={styles["upload-section"]}>
           <div 
-            className="upload-area"
+            className={styles["upload-area"]}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onClick={() => fileInputRef.current?.click()}
           >
             {files.length === 0 ? (
-              <div className="upload-content">
-                <div className="upload-icon">📁</div>
+              <div className={styles["upload-content"]}>
+                <div className={styles["upload-icon"]}>📁</div>
                 <h3>{t('uploadArea')}</h3>
                 <p>{t('dragDrop')}</p>
                 <small>{t('supportedFiles')}</small>
                 <small>{t('maxSize')}</small>
               </div>
             ) : (
-              <div className="files-summary">
-                <div className="summary-icon">📁</div>
-                <div className="summary-info">
+              <div className={styles["files-summary"]}>
+                <div className={styles["summary-icon"]}>📁</div>
+                <div className={styles["summary-info"]}>
                   <strong>{files.length} {t('filesSelected')}</strong>
-                  <div className="file-stats">
+                  <div className={styles["file-stats"]}>
                     <span>📝 {statusCounts.modified || 0} {t('modified')}</span>
                     <span>⏳ {statusCounts.pending || 0} {t('pending')}</span>
                     <span>✅ {statusCounts.renamed || 0} {t('renamed')}</span>
                   </div>
                 </div>
                 <button 
-                  className="clear-btn"
+                  className={styles["clear-btn"]}
                   onClick={(e) => {
                     e.stopPropagation();
                     clearAll();
@@ -390,29 +390,29 @@ const FileRenameTool = () => {
 
         {/* File Actions */}
         {files.length > 0 && (
-          <div className="file-actions-section">
-            <div className="action-buttons">
+          <div className={styles["file-actions-section"]}>
+            <div className={styles["action-buttons"]}>
               <button 
-                className="btn secondary"
+                className={`${styles["btn"]} ${styles["secondary"]}`}
                 onClick={() => sortFiles('name')}
               >
                 🔤 {t('sortByName')}
               </button>
               <button 
-                className="btn secondary"
+                className={`${styles["btn"]} ${styles["secondary"]}`}
                 onClick={() => sortFiles('size')}
               >
                 📊 {t('sortBySize')}
               </button>
               <button 
-                className="btn secondary"
+                className={`${styles["btn"]} ${styles["secondary"]}`}
                 onClick={() => sortFiles('date')}
               >
                 📅 {t('sortByDate')}
               </button>
               
               <select 
-                className="filter-select"
+                className={styles["filter-select"]}
                 onChange={(e) => filterFiles(e.target.value)}
                 defaultValue="all"
               >
@@ -429,14 +429,14 @@ const FileRenameTool = () => {
 
         {/* Naming Strategy Section */}
         {files.length > 0 && (
-          <div className="strategy-section">
+          <div className={styles["strategy-section"]}>
             <h3>{t('namingStrategy')}</h3>
             
-            <div className="strategy-grid">
+            <div className={styles["strategy-grid"]}>
               {/* Method Selection */}
-              <div className="strategy-group">
+              <div className={styles["strategy-group"]}>
                 <label>{t('renameMethod')}</label>
-                <div className="method-options">
+                <div className={styles["method-options"]}>
                   {[
                     { value: 'sequential', label: t('sequential'), icon: '🔢', description: t('sequentialDesc') },
                     { value: 'custom', label: t('customPattern'), icon: '🎨', description: t('customDesc') },
@@ -445,13 +445,13 @@ const FileRenameTool = () => {
                   ].map(method => (
                     <div
                       key={method.value}
-                      className={`method-option ${namingStrategy.method === method.value ? 'active' : ''}`}
+                      className={`${styles["method-option"]} ${namingStrategy.method === method.value ? 'active' : ''}`}
                       onClick={() => setNamingStrategy(prev => ({ ...prev, method: method.value }))}
                     >
-                      <span className="method-icon">{method.icon}</span>
-                      <div className="method-info">
-                        <span className="method-label">{method.label}</span>
-                        <span className="method-description">{method.description}</span>
+                      <span className={styles["method-icon"]}>{method.icon}</span>
+                      <div className={styles["method-info"]}>
+                        <span className={styles["method-label"]}>{method.label}</span>
+                        <span className={styles["method-description"]}>{method.description}</span>
                       </div>
                     </div>
                   ))}
@@ -460,8 +460,8 @@ const FileRenameTool = () => {
 
               {/* Method-specific settings */}
               {namingStrategy.method === 'sequential' && (
-                <div className="method-settings">
-                  <div className="setting-row">
+                <div className={styles["method-settings"]}>
+                  <div className={styles["setting-row"]}>
                     <label>{t('baseName')}</label>
                     <input
                       type="text"
@@ -470,7 +470,7 @@ const FileRenameTool = () => {
                       placeholder={t('baseNamePlaceholder')}
                     />
                   </div>
-                  <div className="setting-row">
+                  <div className={styles["setting-row"]}>
                     <label>{t('startNumber')}</label>
                     <input
                       type="number"
@@ -479,7 +479,7 @@ const FileRenameTool = () => {
                       min="1"
                     />
                   </div>
-                  <div className="setting-row">
+                  <div className={styles["setting-row"]}>
                     <label>{t('numberPadding')}</label>
                     <input
                       type="number"
@@ -493,8 +493,8 @@ const FileRenameTool = () => {
               )}
 
               {namingStrategy.method === 'custom' && (
-                <div className="method-settings">
-                  <div className="setting-row">
+                <div className={styles["method-settings"]}>
+                  <div className={styles["setting-row"]}>
                     <label>{t('customPattern')}</label>
                     <input
                       type="text"
@@ -503,16 +503,16 @@ const FileRenameTool = () => {
                       placeholder="[name]_[counter]_[date]"
                     />
                   </div>
-                  <div className="pattern-help">
+                  <div className={styles["pattern-help"]}>
                     <small>{t('patternHelp')}: [name], [counter], [date], [timestamp]</small>
                   </div>
                 </div>
               )}
 
               {/* Case Transformation */}
-              <div className="strategy-group">
+              <div className={styles["strategy-group"]}>
                 <label>{t('caseTransformation')}</label>
-                <div className="case-options">
+                <div className={styles["case-options"]}>
                   {[
                     { value: 'original', label: t('originalCase') },
                     { value: 'lowercase', label: t('lowercase') },
@@ -521,7 +521,7 @@ const FileRenameTool = () => {
                   ].map(caseOption => (
                     <button
                       key={caseOption.value}
-                      className={`case-btn ${namingStrategy.case === caseOption.value ? 'active' : ''}`}
+                      className={`${styles["case-btn"]} ${namingStrategy.case === caseOption.value ? 'active' : ''}`}
                       onClick={() => setNamingStrategy(prev => ({ ...prev, case: caseOption.value }))}
                     >
                       {caseOption.label}
@@ -532,17 +532,17 @@ const FileRenameTool = () => {
             </div>
 
             {/* Advanced Options */}
-            <div className="advanced-section">
+            <div className={styles["advanced-section"]}>
               <h4>{t('advancedOptions')}</h4>
-              <div className="advanced-grid">
-                <div className="advanced-option">
-                  <label className="checkbox-label">
+              <div className={styles["advanced-grid"]}>
+                <div className={styles["advanced-option"]}>
+                  <label className={styles["checkbox-label"]}>
                     <input
                       type="checkbox"
                       checked={advancedOptions.removeSpaces}
                       onChange={(e) => setAdvancedOptions(prev => ({ ...prev, removeSpaces: e.target.checked }))}
                     />
-                    <span className="checkmark"></span>
+                    <span className={styles["checkmark"]}></span>
                     {t('removeSpaces')}
                   </label>
                   {advancedOptions.removeSpaces && (
@@ -557,19 +557,19 @@ const FileRenameTool = () => {
                   )}
                 </div>
 
-                <div className="advanced-option">
-                  <label className="checkbox-label">
+                <div className={styles["advanced-option"]}>
+                  <label className={styles["checkbox-label"]}>
                     <input
                       type="checkbox"
                       checked={advancedOptions.removeSpecialChars}
                       onChange={(e) => setAdvancedOptions(prev => ({ ...prev, removeSpecialChars: e.target.checked }))}
                     />
-                    <span className="checkmark"></span>
+                    <span className={styles["checkmark"]}></span>
                     {t('removeSpecialChars')}
                   </label>
                 </div>
 
-                <div className="advanced-option">
+                <div className={styles["advanced-option"]}>
                   <label>{t('addPrefix')}</label>
                   <input
                     type="text"
@@ -579,7 +579,7 @@ const FileRenameTool = () => {
                   />
                 </div>
 
-                <div className="advanced-option">
+                <div className={styles["advanced-option"]}>
                   <label>{t('addSuffix')}</label>
                   <input
                     type="text"
@@ -589,26 +589,26 @@ const FileRenameTool = () => {
                   />
                 </div>
 
-                <div className="advanced-option">
-                  <label className="checkbox-label">
+                <div className={styles["advanced-option"]}>
+                  <label className={styles["checkbox-label"]}>
                     <input
                       type="checkbox"
                       checked={advancedOptions.preserveExtension}
                       onChange={(e) => setAdvancedOptions(prev => ({ ...prev, preserveExtension: e.target.checked }))}
                     />
-                    <span className="checkmark"></span>
+                    <span className={styles["checkmark"]}></span>
                     {t('preserveExtension')}
                   </label>
                 </div>
 
-                <div className="advanced-option">
-                  <label className="checkbox-label">
+                <div className={styles["advanced-option"]}>
+                  <label className={styles["checkbox-label"]}>
                     <input
                       type="checkbox"
                       checked={advancedOptions.addTimestamp}
                       onChange={(e) => setAdvancedOptions(prev => ({ ...prev, addTimestamp: e.target.checked }))}
                     />
-                    <span className="checkmark"></span>
+                    <span className={styles["checkmark"]}></span>
                     {t('addTimestamp')}
                   </label>
                 </div>
@@ -616,9 +616,9 @@ const FileRenameTool = () => {
             </div>
 
             {/* Preview & Apply Buttons */}
-            <div className="action-section">
+            <div className={styles["action-section"]}>
               <button 
-                className="btn primary preview-btn"
+                className={`${styles["btn"]} ${styles["primary"]} ${styles["preview-btn"]}`}
                 onClick={() => generatePreview()}
                 disabled={processing}
               >
@@ -627,13 +627,13 @@ const FileRenameTool = () => {
               
               {previewMode && (
                 <button 
-                  className="btn success apply-btn"
+                  className={`${styles["btn"]} ${styles["success"]} ${styles["apply-btn"]}`}
                   onClick={applyRenaming}
                   disabled={processing}
                 >
                   {processing ? (
                     <>
-                      <span className="spinner"></span>
+                      <span className={styles["spinner"]}></span>
                       {t('applying')}...
                     </>
                   ) : (
@@ -643,7 +643,7 @@ const FileRenameTool = () => {
               )}
               
               <button 
-                className="btn outline reset-btn"
+                className={`${styles["btn"]} ${styles["outline"]} ${styles["reset-btn"]}`}
                 onClick={resetNames}
                 disabled={processing}
               >
@@ -655,12 +655,12 @@ const FileRenameTool = () => {
 
         {/* Files Preview */}
         {files.length > 0 && previewMode && (
-          <div className="files-preview-section">
-            <div className="preview-header">
+          <div className={styles["files-preview-section"]}>
+            <div className={styles["preview-header"]}>
               <h3>{t('preview')} ({files.length} {t('files')})</h3>
-              <div className="preview-actions">
+              <div className={styles["preview-actions"]}>
                 <button 
-                  className="btn outline"
+                  className={`${styles["btn"]} ${styles["outline"]}`}
                   onClick={downloadReport}
                 >
                   📊 {t('downloadReport')}
@@ -668,10 +668,10 @@ const FileRenameTool = () => {
               </div>
             </div>
 
-            <div className="files-list">
+            <div className={styles["files-list"]}>
               {files.map((file) => (
-                <div key={file.id} className={`file-item ${file.status}`}>
-                  <div className="file-icon">
+                <div key={file.id} className={`${styles["file-item"]} ${file.status}`}>
+                  <div className={styles["file-icon"]}>
                     {file.type.startsWith('image') ? '🖼️' : 
                      file.type.startsWith('video') ? '🎥' : 
                      file.type.startsWith('audio') ? '🎵' : 
@@ -679,27 +679,27 @@ const FileRenameTool = () => {
                      file.type.includes('document') ? '📝' : '📁'}
                   </div>
                   
-                  <div className="file-names">
-                    <div className="original-name">
-                      <span className="name-label">{t('original')}:</span>
-                      <span className="name-value">{file.originalName}</span>
+                  <div className={styles["file-names"]}>
+                    <div className={styles["original-name"]}>
+                      <span className={styles["name-label"]}>{t('original')}:</span>
+                      <span className={styles["name-value"]}>{file.originalName}</span>
                     </div>
-                    <div className="new-name">
-                      <span className="name-label">{t('new')}:</span>
+                    <div className={styles["new-name"]}>
+                      <span className={styles["name-label"]}>{t('new')}:</span>
                       <input
                         type="text"
                         value={file.newName}
                         onChange={(e) => updateFileName(file.id, e.target.value)}
-                        className="name-input"
+                        className={styles["name-input"]}
                       />
                     </div>
                   </div>
 
-                  <div className="file-info">
-                    <span className="file-size">
+                  <div className={styles["file-info"]}>
+                    <span className={styles["file-size"]}>
                       {(file.size / 1024).toFixed(1)} KB
                     </span>
-                    <span className={`file-status ${file.status}`}>
+                    <span className={`${styles["file-status"]} ${file.status}`}>
                       {file.status === 'modified' && '✏️'}
                       {file.status === 'pending' && '⏳'}
                       {file.status === 'renamed' && '✅'}
@@ -713,29 +713,29 @@ const FileRenameTool = () => {
 
         {/* History Section */}
         {renameHistory.length > 0 && (
-          <div className="history-section">
+          <div className={styles["history-section"]}>
             <h3>{t('renameHistory')}</h3>
-            <div className="history-list">
+            <div className={styles["history-list"]}>
               {renameHistory.slice(0, 5).map(record => (
-                <div key={record.id} className="history-item">
-                  <div className="history-header">
-                    <span className="history-time">
+                <div key={record.id} className={styles["history-item"]}>
+                  <div className={styles["history-header"]}>
+                    <span className={styles["history-time"]}>
                       {new Date(record.timestamp).toLocaleString()}
                     </span>
-                    <span className="history-count">
+                    <span className={styles["history-count"]}>
                       {record.files.length} {t('files')}
                     </span>
                   </div>
-                  <div className="history-preview">
+                  <div className={styles["history-preview"]}>
                     {record.files.slice(0, 3).map((file, idx) => (
-                      <div key={idx} className="history-file">
-                        <span className="original">"{file.original}"</span>
-                        <span className="arrow">→</span>
-                        <span className="new">"{file.new}"</span>
+                      <div key={idx} className={styles["history-file"]}>
+                        <span className={styles["original"]}>"{file.original}"</span>
+                        <span className={styles["arrow"]}>→</span>
+                        <span className={styles["new"]}>"{file.new}"</span>
                       </div>
                     ))}
                     {record.files.length > 3 && (
-                      <div className="history-more">
+                      <div className={styles["history-more"]}>
                         +{record.files.length - 3} more files
                       </div>
                     )}
@@ -747,33 +747,33 @@ const FileRenameTool = () => {
         )}
 
         {/* Tips Section */}
-        <div className="tips-section">
+        <div className={styles["tips-section"]}>
           <h3>💡 {t('professionalTips')}</h3>
-          <div className="tips-grid">
-            <div className="tip-card">
-              <div className="tip-icon">📁</div>
-              <div className="tip-content">
+          <div className={styles["tips-grid"]}>
+            <div className={styles["tip-card"]}>
+              <div className={styles["tip-icon"]}>📁</div>
+              <div className={styles["tip-content"]}>
                 <h4>{t('tip1Title')}</h4>
                 <p>{t('tip1Description')}</p>
               </div>
             </div>
-            <div className="tip-card">
-              <div className="tip-icon">🔢</div>
-              <div className="tip-content">
+            <div className={styles["tip-card"]}>
+              <div className={styles["tip-icon"]}>🔢</div>
+              <div className={styles["tip-content"]}>
                 <h4>{t('tip2Title')}</h4>
                 <p>{t('tip2Description')}</p>
               </div>
             </div>
-            <div className="tip-card">
-              <div className="tip-icon">🎯</div>
-              <div className="tip-content">
+            <div className={styles["tip-card"]}>
+              <div className={styles["tip-icon"]}>🎯</div>
+              <div className={styles["tip-content"]}>
                 <h4>{t('tip3Title')}</h4>
                 <p>{t('tip3Description')}</p>
               </div>
             </div>
-            <div className="tip-card">
-              <div className="tip-icon">💾</div>
-              <div className="tip-content">
+            <div className={styles["tip-card"]}>
+              <div className={styles["tip-icon"]}>💾</div>
+              <div className={styles["tip-content"]}>
                 <h4>{t('tip4Title')}</h4>
                 <p>{t('tip4Description')}</p>
               </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const WordCounter = () => { // namespace for Word Counter
     const [text, setText] = useState('');
@@ -25,56 +25,56 @@ const WordCounter = () => { // namespace for Word Counter
     };
 
     return (
-        <div className="word-counter">
-            <div className="counter-header">
+        <div className={styles["word-counter"]}>
+            <div className={styles["counter-header"]}>
                 <h1>{"Word Counter"}</h1>
                 <p>{"Count words, characters, and more in your text"}</p>
             </div>
 
-            <div className="counter-container">
-                <div className="input-section">
+            <div className={styles["counter-container"]}>
+                <div className={styles["input-section"]}>
                     <textarea
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         placeholder={"Start typing or paste your text here..."}
-                        className="text-area"
+                        className={styles["text-area"]}
                         // @ts-ignore
                         rows="10"
                     />
                 </div>
 
-                <div className="stats-grid">
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.words}</div>
-                        <div className="stat-label">{"Words"}</div>
+                <div className={styles["stats-grid"]}>
+                    <div className={styles["stat-card"]}>
+                        <div className={styles["stat-number"]}>{stats.words}</div>
+                        <div className={styles["stat-label"]}>{"Words"}</div>
                     </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.characters}</div>
-                        <div className="stat-label">{"Characters"}</div>
+                    <div className={styles["stat-card"]}>
+                        <div className={styles["stat-number"]}>{stats.characters}</div>
+                        <div className={styles["stat-label"]}>{"Characters"}</div>
                     </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.charactersWithoutSpaces}</div>
-                        <div className="stat-label">{"Characters (no spaces)"}</div>
+                    <div className={styles["stat-card"]}>
+                        <div className={styles["stat-number"]}>{stats.charactersWithoutSpaces}</div>
+                        <div className={styles["stat-label"]}>{"Characters (no spaces)"}</div>
                     </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.sentences}</div>
-                        <div className="stat-label">{"Sentences"}</div>
+                    <div className={styles["stat-card"]}>
+                        <div className={styles["stat-number"]}>{stats.sentences}</div>
+                        <div className={styles["stat-label"]}>{"Sentences"}</div>
                     </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.paragraphs}</div>
-                        <div className="stat-label">{"Paragraphs"}</div>
+                    <div className={styles["stat-card"]}>
+                        <div className={styles["stat-number"]}>{stats.paragraphs}</div>
+                        <div className={styles["stat-label"]}>{"Paragraphs"}</div>
                     </div>
-                    <div className="stat-card">
-                        <div className="stat-number">{stats.readingTime}</div>
-                        <div className="stat-label">{"Reading Time (minutes)"}</div>
+                    <div className={styles["stat-card"]}>
+                        <div className={styles["stat-number"]}>{stats.readingTime}</div>
+                        <div className={styles["stat-label"]}>{"Reading Time (minutes)"}</div>
                     </div>
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={copyToClipboard} className="action-btn copy">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={copyToClipboard} className={`${styles["action-btn"]} ${styles["copy"]}`}>
                         {"Copy Text"}
                     </button>
-                    <button onClick={clearText} className="action-btn clear">
+                    <button onClick={clearText} className={`${styles["action-btn"]} ${styles["clear"]}`}>
                         {"Clear Text"}
                     </button>
                 </div>
