@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import styles from './styles.module.css';
-import { categoryTitles, toolsByCategory } from "../data/toolsData";
-import BackButton from "./BackButton";
+import styles from "./styles.module.css";
+import { categoryTitles, toolsByCategory } from "../../data/toolsData";
+import BackButton from "../BackButton";
 
 type CategoryToolsPageProps = {
   categoryId?: string;
@@ -22,13 +22,13 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
 
   if (!categoryId || !toolsByCategory[categoryId] || toolsByCategory[categoryId].length === 0) {
     return (
-      <div className={styles["category-tools-page"]}>
-        <div className={styles["category-header"]}>
-          <BackButton></BackButton>
+      <div className={styles.categoryToolsPage}>
+        <div className={styles.categoryHeader}>
+          <BackButton />
           <h1>Category Not Found</h1>
           <p>The category "{categoryId}" doesn't exist or has no tools.</p>
           <button
-            className={styles["back-button"]}
+            className={styles.backButton}
             onClick={() => router.push("/tools")}
             style={{ marginTop: "1rem" }}
           >
@@ -42,25 +42,29 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
   const categoryTools = toolsByCategory[categoryId];
 
   return (
-    <div className={styles["category-tools-page"]}>
-      <div className={styles["category-header"]}>
-        <BackButton></BackButton>
+    <div className={styles.categoryToolsPage}>
+      <div className={styles.categoryHeader}>
+        <BackButton />
         <h1>{categoryTitles[categoryId] || "Tools"}</h1>
         <p>{categoryTools.length} tools available</p>
       </div>
 
-      <div className={`${styles["category-tools-grid"]} ${animated ? "animated" : ""}`}>
+      <div
+        className={`${styles.categoryToolsGrid} ${animated ? styles.animated : ""
+          }`}
+      >
         {categoryTools.map((tool, index) => {
           const IconComponent = tool.icon;
+
           return (
             <div
               key={tool.name}
-              className={`${styles["category-tool-card"]} ${styles["floating-card"]}`}
+              className={`${styles.categoryToolCard} ${styles.floatingCard}`}
               style={{ animationDelay: `${index * 0.1}s` }}
               onClick={() => router.push(`/tools/${tool.slug}`)}
             >
-              <div className={styles["tool-card-content"]}>
-                <IconComponent className={styles["tool-card-icon"]} />
+              <div className={styles.toolCardContent}>
+                <IconComponent className={styles.toolCardIcon} />
                 <h3>{tool.name}</h3>
                 <p>Click to use this tool</p>
               </div>

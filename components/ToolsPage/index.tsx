@@ -3,8 +3,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import styles from './styles.module.css';
 import { useRouter } from "next/navigation";
-import { getToolCategories, getAllTools } from "../data/toolsData";
-import Header from "./Header";
+import { getToolCategories, getAllTools } from "../../data/toolsData";
+import Header from "../Header";
 
 const AUTO_SCROLL_INTERVAL = 2500;
 
