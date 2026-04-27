@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const SvgConverter = () => {
     const [file, setFile] = useState(null);
@@ -236,23 +236,23 @@ const SvgConverter = () => {
     ];
 
     return (
-        <div className="svg-converter">
-            <div className="tool-header">
+        <div className={styles["svg-converter"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"SVG Converter"}</h1>
                 <p>{"Convert SVG files to PNG, JPG, and other formats"}</p>
             </div>
 
-            <div className="converter-container">
+            <div className={styles["converter-container"]}>
                 {/* Upload Section */}
-                <div className="upload-section">
+                <div className={styles["upload-section"]}>
                     <div 
-                        className="upload-area"
+                        className={styles["upload-area"]}
                         onDrop={handleDrop}
                         onDragOver={handleDragOver}
                         onClick={() => fileInputRef.current?.click()}
                     >
-                        <div className="upload-content">
-                            <div className="upload-icon">📁</div>
+                        <div className={styles["upload-content"]}>
+                            <div className={styles["upload-icon"]}>📁</div>
                             <h3>{"Upload SVG File"}</h3>
                             <p>{"Drag & drop your SVG file here or click to browse"}</p>
                             <small>{"Supported formats: SVG, PNG, JPG, WebP"}</small>
@@ -268,7 +268,7 @@ const SvgConverter = () => {
                     </div>
 
                     {file && (
-                        <div className="file-info">
+                        <div className={styles["file-info"]}>
                             <strong>Selected file:</strong> {file.name}
                             <br />
                             <small>
@@ -283,11 +283,11 @@ const SvgConverter = () => {
 
                 {/* Conversion Settings */}
                 {file && (
-                    <div className="settings-section">
+                    <div className={styles["settings-section"]}>
                         <h3>{"Convert to"}</h3>
                         
-                        <div className="settings-grid">
-                            <div className="setting-group">
+                        <div className={styles["settings-grid"]}>
+                            <div className={styles["setting-group"]}>
                                 <label>{"Format"}</label>
                                 <select
                                     value={conversionSettings.format}
@@ -302,7 +302,7 @@ const SvgConverter = () => {
                                 </select>
                             </div>
 
-                            <div className="setting-group">
+                            <div className={styles["setting-group"]}>
                                 <label>{"Background Color"}</label>
                                 <select
                                     value={conversionSettings.backgroundColor}
@@ -324,12 +324,12 @@ const SvgConverter = () => {
                                             ...prev,
                                             customBackground: e.target.value
                                         }))}
-                                        className="color-picker"
+                                        className={styles["color-picker"]}
                                     />
                                 )}
                             </div>
 
-                            <div className="setting-group">
+                            <div className={styles["setting-group"]}>
                                 <label>{"Quality"}: {conversionSettings.quality}%</label>
                                 <input
                                     type="range"
@@ -344,8 +344,8 @@ const SvgConverter = () => {
                                 />
                             </div>
 
-                            <div className="setting-group full-width">
-                                <label className="checkbox-label">
+                            <div className={`${styles["setting-group"]} ${styles["full-width"]}`}>
+                                <label className={styles["checkbox-label"]}>
                                     <input
                                         type="checkbox"
                                         checked={conversionSettings.maintainAspectRatio}
@@ -359,9 +359,9 @@ const SvgConverter = () => {
                             </div>
                         </div>
 
-                        <div className="dimensions-section">
+                        <div className={styles["dimensions-section"]}>
                             <h4>{"Resize"}</h4>
-                            <div className="preset-sizes">
+                            <div className={styles["preset-sizes"]}>
                                 {presetSizes.map((preset, index) => (
                                     <button
                                         key={index}
@@ -372,14 +372,14 @@ const SvgConverter = () => {
                                                 height: preset.height
                                             }));
                                         }}
-                                        className="preset-size-btn"
+                                        className={styles["preset-size-btn"]}
                                     >
                                         {preset.label}
                                     </button>
                                 ))}
                             </div>
-                            <div className="dimension-inputs">
-                                <div className="dimension-group">
+                            <div className={styles["dimension-inputs"]}>
+                                <div className={styles["dimension-group"]}>
                                     <label>{"Width"}</label>
                                     <input
                                         type="number"
@@ -389,7 +389,7 @@ const SvgConverter = () => {
                                         max="5000"
                                     />
                                 </div>
-                                <div className="dimension-group">
+                                <div className={styles["dimension-group"]}>
                                     <label>{"Height"}</label>
                                     <input
                                         type="number"
@@ -406,15 +406,15 @@ const SvgConverter = () => {
 
                 {/* Action Buttons */}
                 {file && (
-                    <div className="action-buttons">
+                    <div className={styles["action-buttons"]}>
                         <button 
                             onClick={convertSvgToImage} 
-                            className="primary-btn"
+                            className={styles["primary-btn"]}
                             disabled={converting}
                         >
                             {converting ? 'Converting...' : "Convert"}
                         </button>
-                        <button onClick={clearAll} className="secondary-btn">
+                        <button onClick={clearAll} className={styles["secondary-btn"]}>
                             {"Clear"}
                         </button>
                     </div>
@@ -422,26 +422,26 @@ const SvgConverter = () => {
 
                 {/* Preview Section */}
                 {(originalSvg || convertedImage) && (
-                    <div className="preview-section">
-                        <div className="preview-container">
+                    <div className={styles["preview-section"]}>
+                        <div className={styles["preview-container"]}>
                             {originalSvg && (
-                                <div className="preview-item">
+                                <div className={styles["preview-item"]}>
                                     <h4>{"Original"}</h4>
                                     <div 
-                                        className="preview-image original-svg"
+                                        className={`${styles["preview-image"]} ${styles["original-svg"]}`}
                                         dangerouslySetInnerHTML={{ __html: originalSvg }}
                                     />
                                 </div>
                             )}
                             {convertedImage && (
-                                <div className="preview-item">
+                                <div className={styles["preview-item"]}>
                                     <h4>{"Converted"} ({conversionSettings.format.toUpperCase()})</h4>
                                     <img 
                                         src={convertedImage} 
                                         alt="Converted" 
-                                        className="preview-image"
+                                        className={styles["preview-image"]}
                                     />
-                                    <button onClick={downloadImage} className="download-btn">
+                                    <button onClick={downloadImage} className={styles["download-btn"]}>
                                         {"Download"}
                                     </button>
                                 </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const HashGenerator = () => {
     const [inputText, setInputText] = useState('');
@@ -50,62 +50,62 @@ const HashGenerator = () => {
     };
 
     return (
-        <div className="hash-generator">
-            <div className="generator-header">
+        <div className={styles["hash-generator"]}>
+            <div className={styles["generator-header"]}>
                 <h1>{"Hash Generator" || 'Hash Generator'}</h1>
                 <p>{"Generate MD5, SHA-1, and SHA-256 hashes" || 'Generate MD5, SHA-1, and SHA-256 hashes'}</p>
             </div>
 
-            <div className="generator-container">
-                <div className="input-section">
+            <div className={styles["generator-container"]}>
+                <div className={styles["input-section"]}>
                     <label>{"Input Text" || 'Input Text'}</label>
                     <textarea
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
                         placeholder={"Enter text to generate hashes..." || 'Enter text to generate hashes...'}
-                        className="text-input"
+                        className={styles["text-input"]}
                         rows="4"
                     />
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={generateHashes} className="generate-btn" disabled={isProcessing}>
+                <div className={styles["action-buttons"]}>
+                    <button onClick={generateHashes} className={styles["generate-btn"]} disabled={isProcessing}>
                         {isProcessing ? "Generating..." || 'Generating...' : "Generate Hashes" || 'Generate Hashes'}
                     </button>
-                    <button onClick={clearAll} className="clear-btn">
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
                 {(hashes.md5 || hashes.sha1 || hashes.sha256) && (
-                    <div className="results-section">
+                    <div className={styles["results-section"]}>
                         <h3>{"Generated Hashes" || 'Generated Hashes'}</h3>
                         
-                        <div className="hash-result">
+                        <div className={styles["hash-result"]}>
                             <label>MD5:</label>
-                            <div className="hash-output">
+                            <div className={styles["hash-output"]}>
                                 <code>{hashes.md5}</code>
-                                <button onClick={() => copyToClipboard(hashes.md5)} className="copy-btn">
+                                <button onClick={() => copyToClipboard(hashes.md5)} className={styles["copy-btn"]}>
                                     {"Copy" || 'Copy'}
                                 </button>
                             </div>
                         </div>
 
-                        <div className="hash-result">
+                        <div className={styles["hash-result"]}>
                             <label>SHA-1:</label>
-                            <div className="hash-output">
+                            <div className={styles["hash-output"]}>
                                 <code>{hashes.sha1}</code>
-                                <button onClick={() => copyToClipboard(hashes.sha1)} className="copy-btn">
+                                <button onClick={() => copyToClipboard(hashes.sha1)} className={styles["copy-btn"]}>
                                     {"Copy" || 'Copy'}
                                 </button>
                             </div>
                         </div>
 
-                        <div className="hash-result">
+                        <div className={styles["hash-result"]}>
                             <label>SHA-256:</label>
-                            <div className="hash-output">
+                            <div className={styles["hash-output"]}>
                                 <code>{hashes.sha256}</code>
-                                <button onClick={() => copyToClipboard(hashes.sha256)} className="copy-btn">
+                                <button onClick={() => copyToClipboard(hashes.sha256)} className={styles["copy-btn"]}>
                                     {"Copy" || 'Copy'}
                                 </button>
                             </div>
@@ -113,18 +113,18 @@ const HashGenerator = () => {
                     </div>
                 )}
 
-                <div className="info-section">
+                <div className={styles["info-section"]}>
                     <h4>{"About Hash Functions" || 'About Hash Functions'}</h4>
-                    <div className="algorithm-info">
-                        <div className="algorithm">
+                    <div className={styles["algorithm-info"]}>
+                        <div className={styles["algorithm"]}>
                             <h5>MD5</h5>
                             <p>{"128-bit hash function. Fast but considered cryptographically broken." || '128-bit hash function. Fast but considered cryptographically broken.'}</p>
                         </div>
-                        <div className="algorithm">
+                        <div className={styles["algorithm"]}>
                             <h5>SHA-1</h5>
                             <p>{"160-bit hash function. No longer considered secure against attacks." || '160-bit hash function. No longer considered secure against attacks.'}</p>
                         </div>
-                        <div className="algorithm">
+                        <div className={styles["algorithm"]}>
                             <h5>SHA-256</h5>
                             <p>{"256-bit hash function. Part of SHA-2 family, currently secure." || '256-bit hash function. Part of SHA-2 family, currently secure.'}</p>
                         </div>

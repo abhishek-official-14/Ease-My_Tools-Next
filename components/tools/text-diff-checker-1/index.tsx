@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -49,70 +49,70 @@ const TextDiffChecker = () => {
     };
 
     return (
-        <div className="text-diff-checker">
-            <div className="diff-header">
+        <div className={styles["text-diff-checker"]}>
+            <div className={styles["diff-header"]}>
                 <h1>{t('title') || 'Text Diff Checker'}</h1>
                 <p>{t('subtitle') || 'Compare and find differences between two texts'}</p>
             </div>
 
-            <div className="diff-container">
-                <div className="text-inputs">
-                    <div className="text-section">
+            <div className={styles["diff-container"]}>
+                <div className={styles["text-inputs"]}>
+                    <div className={styles["text-section"]}>
                         <label>{t('text1') || 'Text 1'}</label>
                         <textarea
                             value={text1}
                             onChange={(e) => setText1(e.target.value)}
                             placeholder={t('text1Placeholder') || 'Enter first text...'}
-                            className="text-input"
+                            className={styles["text-input"]}
                             rows="8"
                         />
                     </div>
 
-                    <div className="text-section">
+                    <div className={styles["text-section"]}>
                         <label>{t('text2') || 'Text 2'}</label>
                         <textarea
                             value={text2}
                             onChange={(e) => setText2(e.target.value)}
                             placeholder={t('text2Placeholder') || 'Enter second text...'}
-                            className="text-input"
+                            className={styles["text-input"]}
                             rows="8"
                         />
                     </div>
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={findDifferences} className="diff-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={findDifferences} className={styles["diff-btn"]}>
                         {t('findDifferences') || 'Find Differences'}
                     </button>
-                    <button onClick={swapTexts} className="swap-btn">
+                    <button onClick={swapTexts} className={styles["swap-btn"]}>
                         {t('swapTexts') || 'Swap Texts'}
                     </button>
-                    <button onClick={clearAll} className="clear-btn">
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         {t('clear') || 'Clear All'}
                     </button>
                 </div>
 
                 {diffResult && (
-                    <div className="result-section">
+                    <div className={styles["result-section"]}>
                         <h3>{t('differences') || 'Differences'}</h3>
-                        <div className="diff-output">
+                        <div className={styles["diff-output"]}>
                             <pre>{diffResult}</pre>
                         </div>
-                        <div className="diff-legend">
-                            <div className="legend-item">
-                                <span className="removed">-</span> {t('removed') || 'Removed'}
+                        <div className={styles["diff-legend"]}>
+                            <div className={styles["legend-item"]}>
+                                <span className={styles["removed"]}>-</span> {t('removed') || 'Removed'}
                             </div>
-                            <div className="legend-item">
-                                <span className="added">+</span> {t('added') || 'Added'}
+                            <div className={styles["legend-item"]}>
+                                <span className={styles["added"]}>+</span> {t('added') || 'Added'}
                             </div>
-                            <div className="legend-item">
-                                <span className="unchanged"> </span> {t('unchanged') || 'Unchanged'}
+                            <div className={styles["legend-item"]}>
+                                <span className={styles["unchanged"]}> </span> {t('unchanged') || 'Unchanged'}
                             </div>
                         </div>
                     </div>
                 )}
 
-                <div className="info-section">
+                <div className={styles["info-section"]}>
                     <h4>{t('aboutDiff') || 'About Text Comparison'}</h4>
                     <p>{t('diffInfo') || 'Text diff tools compare two pieces of text and highlight the differences between them. This is useful for code reviews, document comparison, and tracking changes.'}</p>
                     

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const LoremIpsumGenerator = () => {
     const [outputType, setOutputType] = useState('paragraphs');
@@ -98,20 +98,20 @@ const LoremIpsumGenerator = () => {
     };
 
     return (
-        <div className="lorem-generator">
-            <div className="generator-header">
+        <div className={styles["lorem-generator"]}>
+            <div className={styles["generator-header"]}>
                 <h1>{"Lorem Ipsum Generator" || 'Lorem Ipsum Generator'}</h1>
                 <p>{"Generate placeholder text for your projects" || 'Generate placeholder text for your projects'}</p>
             </div>
 
-            <div className="generator-container">
-                <div className="controls-section">
-                    <div className="control-group">
+            <div className={styles["generator-container"]}>
+                <div className={styles["controls-section"]}>
+                    <div className={styles["control-group"]}>
                         <label>{"Output Type" || 'Output Type'}</label>
                         <select 
                             value={outputType} 
                             onChange={(e) => setOutputType(e.target.value)}
-                            className="type-select"
+                            className={styles["type-select"]}
                         >
                             <option value="paragraphs">{"Paragraphs" || 'Paragraphs'}</option>
                             <option value="sentences">{"Sentences" || 'Sentences'}</option>
@@ -120,7 +120,7 @@ const LoremIpsumGenerator = () => {
                         </select>
                     </div>
 
-                    <div className="control-group">
+                    <div className={styles["control-group"]}>
                         <label>{"Quantity" || 'Quantity'}</label>
                         <input
                             type="number"
@@ -128,38 +128,38 @@ const LoremIpsumGenerator = () => {
                             onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
                             min="1"
                             max={outputType === 'words' ? 1000 : 50}
-                            className="quantity-input"
+                            className={styles["quantity-input"]}
                         />
                     </div>
 
-                    <button onClick={generateText} className="generate-btn">
+                    <button onClick={generateText} className={styles["generate-btn"]}>
                         {"Generate Lorem Ipsum" || 'Generate Lorem Ipsum'}
                     </button>
                 </div>
 
                 {generatedText && (
-                    <div className="output-section">
-                        <div className="output-header">
+                    <div className={styles["output-section"]}>
+                        <div className={styles["output-header"]}>
                             <h3>{"Generated Text" || 'Generated Text'}</h3>
-                            <div className="output-actions">
-                                <button onClick={copyToClipboard} className="copy-btn">
+                            <div className={styles["output-actions"]}>
+                                <button onClick={copyToClipboard} className={styles["copy-btn"]}>
                                     {"Copy" || 'Copy'}
                                 </button>
-                                <button onClick={downloadText} className="download-btn">
+                                <button onClick={downloadText} className={styles["download-btn"]}>
                                     {"Download" || 'Download'}
                                 </button>
-                                <button onClick={clearText} className="clear-btn">
+                                <button onClick={clearText} className={styles["clear-btn"]}>
                                     {"Clear" || 'Clear'}
                                 </button>
                             </div>
                         </div>
-                        <div className="text-output">
+                        <div className={styles["text-output"]}>
                             <pre>{generatedText}</pre>
                         </div>
                     </div>
                 )}
 
-                <div className="info-section">
+                <div className={styles["info-section"]}>
                     <h4>{"About Lorem Ipsum" || 'About Lorem Ipsum'}</h4>
                     <p>{"Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry's standard dummy text ever since the 1500s." || 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. It has been the industry\'s standard dummy text ever since the 1500s.'}</p>
                     
@@ -171,19 +171,19 @@ const LoremIpsumGenerator = () => {
                         <li>{"Content placeholder" || 'Content placeholder'}</li>
                     </ul>
 
-                    <div className="quick-generate">
+                    <div className={styles["quick-generate"]}>
                         <h5>{"Quick Generate:" || 'Quick Generate:'}</h5>
-                        <div className="quick-buttons">
-                            <button onClick={() => {setOutputType('paragraphs'); setQuantity(1); generateText();}} className="quick-btn">
+                        <div className={styles["quick-buttons"]}>
+                            <button onClick={() => {setOutputType('paragraphs'); setQuantity(1); generateText();}} className={styles["quick-btn"]}>
                                 1 {"Paragraph" || 'Paragraph'}
                             </button>
-                            <button onClick={() => {setOutputType('paragraphs'); setQuantity(3); generateText();}} className="quick-btn">
+                            <button onClick={() => {setOutputType('paragraphs'); setQuantity(3); generateText();}} className={styles["quick-btn"]}>
                                 3 {"Paragraphs" || 'Paragraphs'}
                             </button>
-                            <button onClick={() => {setOutputType('words'); setQuantity(50); generateText();}} className="quick-btn">
+                            <button onClick={() => {setOutputType('words'); setQuantity(50); generateText();}} className={styles["quick-btn"]}>
                                 50 {"Words" || 'Words'}
                             </button>
-                            <button onClick={() => {setOutputType('list'); setQuantity(5); generateText();}} className="quick-btn">
+                            <button onClick={() => {setOutputType('list'); setQuantity(5); generateText();}} className={styles["quick-btn"]}>
                                 5 {"List Items" || 'List Items'}
                             </button>
                         </div>

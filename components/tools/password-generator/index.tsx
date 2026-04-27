@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -89,53 +89,53 @@ const PasswordGenerator = () => {
     }, []);
 
     return (
-        <div className="password-generator">
-            <div className="tool-header">
+        <div className={styles["password-generator"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"Password Generator"}</h1>
                 <p>{"Generate strong and secure passwords"}</p>
             </div>
 
-            <div className="generator-container">
-                <div className="password-display">
-                    <div className="password-field">
+            <div className={styles["generator-container"]}>
+                <div className={styles["password-display"]}>
+                    <div className={styles["password-field"]}>
                         <input
                             type="text"
                             value={password}
                             readOnly
-                            className="password-input"
+                            className={styles["password-input"]}
                         />
                         <button 
                             onClick={copyPassword}
-                            className={`copy-btn ${copied ? 'copied' : ''}`}
+                            className={`${styles["copy-btn"]} ${copied ? 'copied' : ''}`}
                             disabled={!password}
                         >
                             {copied ? '✓' : "Copy Password"}
                         </button>
                     </div>
                     {copied && (
-                        <div className="copied-message">
+                        <div className={styles["copied-message"]}>
                             {"Password copied to clipboard!"}
                         </div>
                     )}
                 </div>
 
-                <div className="strength-meter">
+                <div className={styles["strength-meter"]}>
                     <label>{"Password Strength"}:</label>
-                    <div className="strength-bars">
+                    <div className={styles["strength-bars"]}>
                         {[1, 2, 3, 4, 5].map(level => (
                             <div
                                 key={level}
-                                className={`strength-bar ${level <= strength.level ? 'active' : ''} ${strength.strength}`}
+                                className={`${styles["strength-bar"]} ${level <= strength.level ? 'active' : ''} ${strength.strength}`}
                             />
                         ))}
                     </div>
-                    <span className={`strength-text ${strength.strength}`}>
+                    <span className={`${styles["strength-text"]} ${strength.strength}`}>
                         {t(strength.strength)}
                     </span>
                 </div>
 
-                <div className="settings-section">
-                    <div className="setting-group">
+                <div className={styles["settings-section"]}>
+                    <div className={styles["setting-group"]}>
                         <label htmlFor="length">{"Password Length"}: {length}</label>
                         <input
                             id="length"
@@ -144,12 +144,12 @@ const PasswordGenerator = () => {
                             max="32"
                             value={length}
                             onChange={(e) => setLength(parseInt(e.target.value))}
-                            className="length-slider"
+                            className={styles["length-slider"]}
                         />
                     </div>
 
-                    <div className="checkbox-group">
-                        <label className="checkbox-label">
+                    <div className={styles["checkbox-group"]}>
+                        <label className={styles["checkbox-label"]}>
                             <input
                                 type="checkbox"
                                 checked={includeUppercase}
@@ -158,7 +158,7 @@ const PasswordGenerator = () => {
                             {"Include Uppercase Letters (A-Z)"}
                         </label>
 
-                        <label className="checkbox-label">
+                        <label className={styles["checkbox-label"]}>
                             <input
                                 type="checkbox"
                                 checked={includeLowercase}
@@ -167,7 +167,7 @@ const PasswordGenerator = () => {
                             {"Include Lowercase Letters (a-z)"}
                         </label>
 
-                        <label className="checkbox-label">
+                        <label className={styles["checkbox-label"]}>
                             <input
                                 type="checkbox"
                                 checked={includeNumbers}
@@ -176,7 +176,7 @@ const PasswordGenerator = () => {
                             {"Include Numbers (0-9)"}
                         </label>
 
-                        <label className="checkbox-label">
+                        <label className={styles["checkbox-label"]}>
                             <input
                                 type="checkbox"
                                 checked={includeSymbols}
@@ -185,7 +185,7 @@ const PasswordGenerator = () => {
                             {"Include Symbols (!@#$%^&*)"}
                         </label>
 
-                        <label className="checkbox-label">
+                        <label className={styles["checkbox-label"]}>
                             <input
                                 type="checkbox"
                                 checked={excludeSimilar}
@@ -194,7 +194,7 @@ const PasswordGenerator = () => {
                             {"Exclude Similar Characters (i, l, 1, L, o, 0, O)"}
                         </label>
 
-                        <label className="checkbox-label">
+                        <label className={styles["checkbox-label"]}>
                             <input
                                 type="checkbox"
                                 checked={excludeAmbiguous}
@@ -205,13 +205,13 @@ const PasswordGenerator = () => {
                     </div>
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={generatePassword} className="primary-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={generatePassword} className={styles["primary-btn"]}>
                         {"Regenerate"}
                     </button>
                 </div>
 
-                <div className="password-tips">
+                <div className={styles["password-tips"]}>
                     <h4>{"Password Security Tips"}</h4>
                     <ul>
                         <li>{"Use at least 12 characters"}</li>

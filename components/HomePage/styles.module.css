@@ -1,0 +1,14 @@
+.home-page {
+  min-height: 100vh;
+}
+
+/* Ensure proper spacing between sections */
+.home-page > section {
+  margin-bottom: 0;
+}
+
+/* Remove any default margins that might interfere */
+.main-content {
+  padding: 0;
+  margin: 0;
+}

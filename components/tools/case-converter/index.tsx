@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const CaseConverter = () => { // <-- i18next
     const [inputText, setInputText] = useState('');
@@ -41,61 +41,61 @@ const CaseConverter = () => { // <-- i18next
     };
 
     return (
-        <div className="case-converter">
-            <div className="converter-header">
+        <div className={styles["case-converter"]}>
+            <div className={styles["converter-header"]}>
                 <h1>{"Text Case Converter"}</h1>
                 <p>{"Convert text between different cases instantly"}</p>
             </div>
 
-            <div className="converter-container">
-                <div className="input-section">
+            <div className={styles["converter-container"]}>
+                <div className={styles["input-section"]}>
                     <label>{"Input Text"}</label>
                     <textarea
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
                         placeholder={"Enter your text here..."}
-                        className="text-input"
+                        className={styles["text-input"]}
                         // @ts-ignore
                         rows="6"
                     />
                 </div>
 
-                <div className="button-group">
-                    <button onClick={convertToUpperCase} className="convert-btn">
+                <div className={styles["button-group"]}>
+                    <button onClick={convertToUpperCase} className={styles["convert-btn"]}>
                         {"UPPERCASE"}
                     </button>
-                    <button onClick={convertToLowerCase} className="convert-btn">
+                    <button onClick={convertToLowerCase} className={styles["convert-btn"]}>
                         {"lowercase"}
                     </button>
-                    <button onClick={convertToSentenceCase} className="convert-btn">
+                    <button onClick={convertToSentenceCase} className={styles["convert-btn"]}>
                         {"Sentence case"}
                     </button>
-                    <button onClick={convertToTitleCase} className="convert-btn">
+                    <button onClick={convertToTitleCase} className={styles["convert-btn"]}>
                         {"Title Case"}
                     </button>
-                    <button onClick={clearText} className="clear-btn">
+                    <button onClick={clearText} className={styles["clear-btn"]}>
                         {"Clear"}
                     </button>
                 </div>
 
-                <div className="output-section">
+                <div className={styles["output-section"]}>
                     <label>{"Converted Text"}</label>
                     <textarea
                         value={convertedText}
                         readOnly
                         placeholder={"Converted text will appear here..."}
-                        className="text-output"
+                        className={styles["text-output"]}
                         // @ts-ignore
                         rows="6"
                     />
                 </div>
 
                 {convertedText && (
-                    <div className="action-buttons">
-                        <button onClick={copyToClipboard} className="copy-btn">
+                    <div className={styles["action-buttons"]}>
+                        <button onClick={copyToClipboard} className={styles["copy-btn"]}>
                             {"Copy to Clipboard"}
                         </button>
-                        <div className="text-stats">
+                        <div className={styles["text-stats"]}>
                             <span>{"Characters"}: {convertedText.length}</span>
                             <span>{"Words"}: {convertedText.split(/\s+/).filter(word => word.length > 0).length}</span>
                         </div>

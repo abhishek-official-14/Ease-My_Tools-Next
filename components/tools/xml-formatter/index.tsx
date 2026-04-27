@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const XMLFormatter = () => {
     const [inputXML, setInputXML] = useState('');
@@ -130,15 +130,15 @@ const XMLFormatter = () => {
     };
 
     return (
-        <div className="xml-formatter">
-            <div className="formatter-header">
+        <div className={styles["xml-formatter"]}>
+            <div className={styles["formatter-header"]}>
                 <h1>{"XML Formatter" || 'XML Formatter'}</h1>
                 <p>{"Format, validate, and minify XML data" || 'Format, validate, and minify XML data'}</p>
             </div>
 
-            <div className="formatter-container">
-                <div className="settings-panel">
-                    <div className="setting">
+            <div className={styles["formatter-container"]}>
+                <div className={styles["settings-panel"]}>
+                    <div className={styles["setting"]}>
                         <label>{"Indent Size" || 'Indent Size'}:</label>
                         <select value={indentSize} onChange={(e) => setIndentSize(parseInt(e.target.value))}>
                             <option value={2}>2 {"spaces" || 'spaces'}</option>
@@ -148,53 +148,53 @@ const XMLFormatter = () => {
                     </div>
                 </div>
 
-                <div className="input-section">
+                <div className={styles["input-section"]}>
                     <label>{"Input XML" || 'Input XML'}</label>
                     <textarea
                         value={inputXML}
                         onChange={(e) => setInputXML(e.target.value)}
                         placeholder={"Paste your XML data here..." || 'Paste your XML data here...'}
-                        className={`xml-input ${!isValid ? 'error' : ''}`}
+                        className={`${styles["xml-input"]} ${!isValid ? 'error' : ''}`}
                         rows="8"
                     />
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={formatXML} className="format-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={formatXML} className={styles["format-btn"]}>
                         {"Format XML" || 'Format XML'}
                     </button>
-                    <button onClick={minifyXML} className="minify-btn">
+                    <button onClick={minifyXML} className={styles["minify-btn"]}>
                         {"Minify XML" || 'Minify XML'}
                     </button>
-                    <button onClick={validateXML} className="validate-btn">
+                    <button onClick={validateXML} className={styles["validate-btn"]}>
                         {"Validate XML" || 'Validate XML'}
                     </button>
-                    <button onClick={clearAll} className="clear-btn">
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
                 {error && (
-                    <div className={`error-message ${isValid ? 'valid' : 'invalid'}`}>
+                    <div className={`${styles["error-message"]} ${isValid ? 'valid' : 'invalid'}`}>
                         {error}
                     </div>
                 )}
 
                 {formattedXML && (
-                    <div className="output-section">
+                    <div className={styles["output-section"]}>
                         <label>{"Formatted XML" || 'Formatted XML'}</label>
-                        <pre className="xml-output">
+                        <pre className={styles["xml-output"]}>
                             {formattedXML}
                         </pre>
-                        <div className="output-actions">
-                            <button onClick={() => copyToClipboard(formattedXML)} className="copy-btn">
+                        <div className={styles["output-actions"]}>
+                            <button onClick={() => copyToClipboard(formattedXML)} className={styles["copy-btn"]}>
                                 {"Copy to Clipboard" || 'Copy to Clipboard'}
                             </button>
                         </div>
                     </div>
                 )}
 
-                <div className="info-section">
+                <div className={styles["info-section"]}>
                     <h4>{"About XML" || 'About XML'}</h4>
                     <p>{"XML (eXtensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable." || 'XML (eXtensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable.'}</p>
                     

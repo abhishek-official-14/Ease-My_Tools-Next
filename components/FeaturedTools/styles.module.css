@@ -1,0 +1,201 @@
+/* =========================
+   Featured Tools Section
+========================= */
+
+.featured-tools {
+  padding: 4.25rem 1rem;
+  /* padding: 0rem 0rem; */
+  background: #f8fafc;
+}
+
+.dark .featured-tools {
+  background: #0f172a;
+}
+
+.featured-tools .container {
+  max-width: 1400px;
+  /* 👈 THIS is the key change */
+  margin: 0 auto;
+}
+
+/* =========================
+   Headings
+========================= */
+
+.featured-tools h2 {
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text-light);
+  letter-spacing: -0.02em;
+}
+
+.dark .featured-tools h2 {
+  color: var(--text-dark);
+}
+
+.section-subtitle {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 3.75rem;
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: #6b7280;
+}
+
+.dark .section-subtitle {
+  color: #9ca3af;
+}
+
+/* =========================
+   Grid Layout (Single Row)
+========================= */
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* always one row */
+  gap: 2.5rem;
+  /* more horizontal breathing room */
+}
+
+/* =========================
+   Tool Card
+========================= */
+
+.tool-card {
+  background: var(--card-light);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  /* padding: 2.25rem 2rem; */
+  padding: 1.25rem 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+
+  /* min-height: 320px; */
+  cursor: pointer;
+  position: relative;
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.dark .tool-card {
+  background: var(--card-dark);
+  border-color: #374151;
+}
+
+.tool-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.14);
+}
+
+.dark .tool-card:hover {
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================
+   Badge
+========================= */
+
+.tool-badge {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* =========================
+   Icon
+========================= */
+
+.tool-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2.4rem;
+  background: rgba(59, 130, 246, 0.08);
+  margin-bottom: 0.4rem;
+}
+
+/* =========================
+   Content
+========================= */
+
+.tool-card h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+  margin-bottom: 0.3rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
+.dark .tool-card h3 {
+  color: var(--text-dark);
+}
+
+.tool-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #6b7280;
+  text-align: center;
+  max-width: 280px;
+}
+
+.dark .tool-card p {
+  color: #9ca3af;
+}
+
+/* =========================
+   Button
+========================= */
+
+.tool-btn {
+  margin-top: auto;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 0.75rem 1.8rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tool-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateX(5px);
+}
+
+/* =========================
+   Responsive (Stack on Mobile)
+========================= */
+
+@media (max-width: 1024px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const ImageResizer = () => {
     const [originalImage, setOriginalImage] = useState(null);
@@ -144,60 +144,60 @@ const ImageResizer = () => {
     };
 
     return (
-        <div className="image-resizer">
-            <div className="resizer-header">
+        <div className={styles["image-resizer"]}>
+            <div className={styles["resizer-header"]}>
                 <h1>{"Image Resizer" || 'Image Resizer'}</h1>
                 <p>{"Resize images while maintaining quality" || 'Resize images while maintaining quality'}</p>
             </div>
 
-            <div className="resizer-container">
-                <div className="upload-section">
+            <div className={styles["resizer-container"]}>
+                <div className={styles["upload-section"]}>
                     <input
                         ref={fileInputRef}
                         type="file"
                         accept="image/*"
                         onChange={handleFileUpload}
-                        className="file-input"
+                        className={styles["file-input"]}
                         id="image-upload"
                     />
-                    <label htmlFor="image-upload" className="upload-label">
-                        <div className="upload-icon">🖼️</div>
-                        <div className="upload-text">
+                    <label htmlFor="image-upload" className={styles["upload-label"]}>
+                        <div className={styles["upload-icon"]}>🖼️</div>
+                        <div className={styles["upload-text"]}>
                             {"Click to upload image" || 'Click to upload image'}
                         </div>
-                        <div className="upload-hint">
+                        <div className={styles["upload-hint"]}>
                             {"Supported formats: JPG, PNG, GIF, BMP, WebP" || 'Supported formats: JPG, PNG, GIF, BMP, WebP'}
                         </div>
                     </label>
                 </div>
 
                 {originalImage && (
-                    <div className="resize-controls">
+                    <div className={styles["resize-controls"]}>
                         <h3>{"Resize Settings" || 'Resize Settings'}</h3>
                         
-                        <div className="preset-buttons">
+                        <div className={styles["preset-buttons"]}>
                             <h4>{"Quick Presets:" || 'Quick Presets:'}</h4>
-                            <div className="preset-grid">
-                                <button onClick={() => applyPreset('facebook')} className="preset-btn">
+                            <div className={styles["preset-grid"]}>
+                                <button onClick={() => applyPreset('facebook')} className={styles["preset-btn"]}>
                                     {"Facebook (1200×630)" || 'Facebook (1200×630)'}
                                 </button>
-                                <button onClick={() => applyPreset('instagram')} className="preset-btn">
+                                <button onClick={() => applyPreset('instagram')} className={styles["preset-btn"]}>
                                     {"Instagram (1080×1080)" || 'Instagram (1080×1080)'}
                                 </button>
-                                <button onClick={() => applyPreset('twitter')} className="preset-btn">
+                                <button onClick={() => applyPreset('twitter')} className={styles["preset-btn"]}>
                                     {"Twitter (1200×675)" || 'Twitter (1200×675)'}
                                 </button>
-                                <button onClick={() => applyPreset('thumbnail')} className="preset-btn">
+                                <button onClick={() => applyPreset('thumbnail')} className={styles["preset-btn"]}>
                                     {"Thumbnail (300×300)" || 'Thumbnail (300×300)'}
                                 </button>
-                                <button onClick={() => applyPreset('hd')} className="preset-btn">
+                                <button onClick={() => applyPreset('hd')} className={styles["preset-btn"]}>
                                     {"HD (1920×1080)" || 'HD (1920×1080)'}
                                 </button>
                             </div>
                         </div>
 
-                        <div className="size-controls">
-                            <div className="size-input">
+                        <div className={styles["size-controls"]}>
+                            <div className={styles["size-input"]}>
                                 <label>{"Width" || 'Width'}</label>
                                 <input
                                     type="number"
@@ -208,7 +208,7 @@ const ImageResizer = () => {
                                 />
                                 <span>px</span>
                             </div>
-                            <div className="size-input">
+                            <div className={styles["size-input"]}>
                                 <label>{"Height" || 'Height'}</label>
                                 <input
                                     type="number"
@@ -221,8 +221,8 @@ const ImageResizer = () => {
                             </div>
                         </div>
 
-                        <div className="settings-group">
-                            <label className="checkbox-label">
+                        <div className={styles["settings-group"]}>
+                            <label className={styles["checkbox-label"]}>
                                 <input
                                     type="checkbox"
                                     checked={maintainAspectRatio}
@@ -231,7 +231,7 @@ const ImageResizer = () => {
                                 {"Maintain aspect ratio" || 'Maintain aspect ratio'}
                             </label>
                             
-                            <div className="quality-control">
+                            <div className={styles["quality-control"]}>
                                 <label>{"Quality" || 'Quality'}: {Math.round(quality * 100)}%</label>
                                 <input
                                     type="range"
@@ -240,51 +240,51 @@ const ImageResizer = () => {
                                     step="0.1"
                                     value={quality}
                                     onChange={(e) => setQuality(parseFloat(e.target.value))}
-                                    className="quality-slider"
+                                    className={styles["quality-slider"]}
                                 />
                             </div>
                         </div>
 
-                        <button onClick={resizeImage} className="resize-btn">
+                        <button onClick={resizeImage} className={styles["resize-btn"]}>
                             {"Resize Image" || 'Resize Image'}
                         </button>
                     </div>
                 )}
 
-                <div className="preview-section">
+                <div className={styles["preview-section"]}>
                     {originalImage && (
-                        <div className="image-preview original">
+                        <div className={`${styles["image-preview"]} ${styles["original"]}`}>
                             <h4>{"Original" || 'Original'}</h4>
                             <img src={originalImage} alt="Original" />
-                            <div className="image-info">
+                            <div className={styles["image-info"]}>
                                 {originalSize.width} × {originalSize.height} px
                             </div>
                         </div>
                     )}
 
                     {resizedImage && (
-                        <div className="image-preview resized">
+                        <div className={`${styles["image-preview"]} ${styles["resized"]}`}>
                             <h4>{"Resized" || 'Resized'}</h4>
                             <img src={resizedImage} alt="Resized" />
-                            <div className="image-info">
+                            <div className={styles["image-info"]}>
                                 {width} × {height} px
                             </div>
-                            <button onClick={downloadResizedImage} className="download-btn">
+                            <button onClick={downloadResizedImage} className={styles["download-btn"]}>
                                 {"Download Resized Image" || 'Download Resized Image'}
                             </button>
                         </div>
                     )}
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={clearAll} className="clear-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
                 <canvas ref={canvasRef} style={{ display: 'none' }} />
 
-                <div className="info-section">
+                <div className={styles["info-section"]}>
                     <h4>{"About Image Resizing" || 'About Image Resizing'}</h4>
                     <p>{"Image resizing is the process of changing the dimensions of an image while maintaining its visual quality. This is useful for optimizing images for web, social media, or storage." || 'Image resizing is the process of changing the dimensions of an image while maintaining its visual quality. This is useful for optimizing images for web, social media, or storage.'}</p>
                     
