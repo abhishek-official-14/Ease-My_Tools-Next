@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import "./styles.css";
+import styles from './styles.module.css';
 
 const AgeCalculator = () => {
     const [birthDate, setBirthDate] = useState("");
@@ -62,69 +62,69 @@ const AgeCalculator = () => {
     };
 
     return (
-        <div className="age-calculator">
-            <div className="calculator-header">
+        <div className={styles["age-calculator"]}>
+            <div className={styles["calculator-header"]}>
                 <h1>Age Calculator</h1>
                 <p>Calculate your exact age in years, months, and days</p>
             </div>
 
-            <div className="calculator-container">
-                <div className="input-section">
+            <div className={styles["calculator-container"]}>
+                <div className={styles["input-section"]}>
                     <label>Your Birth Date</label>
                     <input
                         type="date"
                         value={birthDate}
                         onChange={(e) => setBirthDate(e.target.value)}
-                        className="date-input"
+                        className={styles["date-input"]}
                         max={new Date().toISOString().split("T")[0]}
                     />
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={calculateAge} className="calculate-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={calculateAge} className={styles["calculate-btn"]}>
                         Calculate Age
                     </button>
-                    <button onClick={clearAll} className="clear-btn">
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         Clear
                     </button>
                 </div>
 
                 {age && (
-                    <div className="results-section">
+                    <div className={styles["results-section"]}>
                         <h3>Your Age</h3>
-                        <div className="age-display">
-                            <div className="age-unit">
-                                <span className="age-number">{age.years}</span>
-                                <span className="age-label">Years</span>
+                        <div className={styles["age-display"]}>
+                            <div className={styles["age-unit"]}>
+                                <span className={styles["age-number"]}>{age.years}</span>
+                                <span className={styles["age-label"]}>Years</span>
                             </div>
-                            <div className="age-unit">
-                                <span className="age-number">{age.months}</span>
-                                <span className="age-label">Months</span>
+                            <div className={styles["age-unit"]}>
+                                <span className={styles["age-number"]}>{age.months}</span>
+                                <span className={styles["age-label"]}>Months</span>
                             </div>
-                            <div className="age-unit">
-                                <span className="age-number">{age.days}</span>
-                                <span className="age-label">Days</span>
+                            <div className={styles["age-unit"]}>
+                                <span className={styles["age-number"]}>{age.days}</span>
+                                <span className={styles["age-label"]}>Days</span>
                             </div>
                         </div>
 
-                        <div className="additional-stats">
-                            <div className="stat">
-                                <span className="stat-label">Total Days:</span>
-                                <span className="stat-value">
+                        <div className={styles["additional-stats"]}>
+                            <div className={styles["stat"]}>
+                                <span className={styles["stat-label"]}>Total Days:</span>
+                                <span className={styles["stat-value"]}>
                                     {age.totalDays.toLocaleString()}
                                 </span>
                             </div>
-                            <div className="stat">
-                                <span className="stat-label">Days until next birthday:</span>
-                                <span className="stat-value">{age.daysUntilBirthday}</span>
+                            <div className={styles["stat"]}>
+                                <span className={styles["stat-label"]}>Days until next birthday:</span>
+                                <span className={styles["stat-value"]}>{age.daysUntilBirthday}</span>
                             </div>
-                            <div className="stat">
-                                <span className="stat-label">Birth Day:</span>
-                                <span className="stat-value">{age.birthDayName}</span>
+                            <div className={styles["stat"]}>
+                                <span className={styles["stat-label"]}>Birth Day:</span>
+                                <span className={styles["stat-value"]}>{age.birthDayName}</span>
                             </div>
                         </div>
 
-                        <div className="fun-facts">
+                        <div className={styles["fun-facts"]}>
                             <h4>Fun Facts</h4>
                             <ul>
                                 <li>

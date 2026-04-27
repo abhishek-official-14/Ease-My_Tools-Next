@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const URLEncoder = () => {
     const [inputText, setInputText] = useState('');
@@ -63,29 +63,29 @@ const URLEncoder = () => {
     };
 
     return (
-        <div className="url-encoder">
-            <div className="encoder-header">
+        <div className={styles["url-encoder"]}>
+            <div className={styles["encoder-header"]}>
                 <h1>{"URL Encoder/Decoder" || 'URL Encoder/Decoder'}</h1>
                 <p>{"Encode and decode URL strings online" || 'Encode and decode URL strings online'}</p>
             </div>
 
-            <div className="encoder-container">
-                <div className="operation-selector">
+            <div className={styles["encoder-container"]}>
+                <div className={styles["operation-selector"]}>
                     <button 
-                        className={`op-btn ${operation === 'encode' ? 'active' : ''}`}
+                        className={`${styles["op-btn"]} ${operation === 'encode' ? 'active' : ''}`}
                         onClick={() => setOperation('encode')}
                     >
                         {"Encode" || 'Encode'}
                     </button>
                     <button 
-                        className={`op-btn ${operation === 'decode' ? 'active' : ''}`}
+                        className={`${styles["op-btn"]} ${operation === 'decode' ? 'active' : ''}`}
                         onClick={() => setOperation('decode')}
                     >
                         {"Decode" || 'Decode'}
                     </button>
                 </div>
 
-                <div className="input-section">
+                <div className={styles["input-section"]}>
                     <label>
                         {operation === 'encode' 
                             ? "Text to Encode" || 'Text to Encode'
@@ -100,45 +100,45 @@ const URLEncoder = () => {
                                 ? "Enter text to encode to URL format..." || 'Enter text to encode to URL format...'
                                 : "Enter URL to decode..." || 'Enter URL to decode...'
                         }
-                        className="text-input"
+                        className={styles["text-input"]}
                         rows="4"
                     />
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={processText} className="process-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={processText} className={styles["process-btn"]}>
                         {operation === 'encode' 
                             ? "Encode Component" || 'Encode Component'
                             : "Decode Component" || 'Decode Component'
                         }
                     </button>
-                    <button onClick={processFullURL} className="process-btn full">
+                    <button onClick={processFullURL} className={`${styles["process-btn"]} ${styles["full"]}`}>
                         {operation === 'encode' 
                             ? "Encode Full URL" || 'Encode Full URL'
                             : "Decode Full URL" || 'Decode Full URL'
                         }
                     </button>
-                    <button onClick={swapOperation} className="swap-btn">
+                    <button onClick={swapOperation} className={styles["swap-btn"]}>
                         {"Swap" || 'Swap'}
                     </button>
-                    <button onClick={clearAll} className="clear-btn">
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
                 {outputText && (
-                    <div className="output-section">
+                    <div className={styles["output-section"]}>
                         <label>
                             {operation === 'encode' 
                                 ? "Encoded Result" || 'Encoded Result'
                                 : "Decoded Result" || 'Decoded Result'
                             }
                         </label>
-                        <div className="output-container">
-                            <pre className="output-text">{outputText}</pre>
+                        <div className={styles["output-container"]}>
+                            <pre className={styles["output-text"]}>{outputText}</pre>
                             <button 
                                 onClick={() => copyToClipboard(outputText)} 
-                                className="copy-btn"
+                                className={styles["copy-btn"]}
                             >
                                 {"Copy" || 'Copy'}
                             </button>
@@ -146,7 +146,7 @@ const URLEncoder = () => {
                     </div>
                 )}
 
-                <div className="info-section">
+                <div className={styles["info-section"]}>
                     <h4>{"About URL Encoding" || 'About URL Encoding'}</h4>
                     <p><strong>{"encodeURIComponent()" || 'encodeURIComponent()'}:</strong> {"Encodes all characters except: A-Z a-z 0-9 - _ . ! ~ * ' ( )" || 'Encodes all characters except: A-Z a-z 0-9 - _ . ! ~ * \' ( )'}</p>
                     <p><strong>{"encodeURI()" || 'encodeURI()'}:</strong> {"Encodes a complete URL, preserving characters like : / ? & =" || 'Encodes a complete URL, preserving characters like : / ? & ='}</p>
@@ -159,12 +159,12 @@ const URLEncoder = () => {
                         <li>{"Handling user input in web applications" || 'Handling user input in web applications'}</li>
                     </ul>
 
-                    <div className="examples">
+                    <div className={styles["examples"]}>
                         <h5>{"Examples:" || 'Examples:'}</h5>
-                        <div className="example">
+                        <div className={styles["example"]}>
                             <strong>{"Encode:" || 'Encode:'}</strong> "hello world" → "hello%20world"
                         </div>
-                        <div className="example">
+                        <div className={styles["example"]}>
                             <strong>{"Decode:" || 'Decode:'}</strong> "hello%20world" → "hello world"
                         </div>
                     </div>

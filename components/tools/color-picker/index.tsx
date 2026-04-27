@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -56,65 +56,65 @@ const ColorPicker = () => { // <-- i18next
     };
 
     return (
-        <div className="color-picker">
-            <div className="picker-header">
+        <div className={styles["color-picker"]}>
+            <div className={styles["picker-header"]}>
                 <h1>{"Color Picker"}</h1>
                 <p>{"Pick colors and get their values in different formats"}</p>
             </div>
 
-            <div className="picker-container">
-                <div className="color-display-section">
-                    <div className="color-display" style={{ backgroundColor: selectedColor }}>
-                        <span className="color-text">{selectedColor.toUpperCase()}</span>
+            <div className={styles["picker-container"]}>
+                <div className={styles["color-display-section"]}>
+                    <div className={styles["color-display"]} style={{ backgroundColor: selectedColor }}>
+                        <span className={styles["color-text"]}>{selectedColor.toUpperCase()}</span>
                     </div>
 
-                    <div className="color-input">
+                    <div className={styles["color-input"]}>
                         <label>{"Select Color"}</label>
                         <input
                             type="color"
                             value={selectedColor}
                             onChange={handleColorChange}
-                            className="color-input-field"
+                            className={styles["color-input-field"]}
                         />
                         <input
                             type="text"
                             value={selectedColor}
                             onChange={(e) => setSelectedColor(e.target.value)}
-                            className="color-hex-input"
+                            className={styles["color-hex-input"]}
                             placeholder="#000000"
                         />
                     </div>
                 </div>
 
-                <div className="color-values">
+                <div className={styles["color-values"]}>
                     <h3>{"Color Values"}</h3>
-                    <div className="value-cards">
-                        <div className="value-card" onClick={() => copyToClipboard(colorValues.hex)}>
-                            <div className="value-type">HEX</div>
-                            <div className="value">{colorValues.hex}</div>
-                            <div className="copy-hint">{"Click to copy"}</div>
+                    <div className={styles["value-cards"]}>
+                        <div className={styles["value-card"]} onClick={() => copyToClipboard(colorValues.hex)}>
+                            <div className={styles["value-type"]}>HEX</div>
+                            <div className={styles["value"]}>{colorValues.hex}</div>
+                            <div className={styles["copy-hint"]}>{"Click to copy"}</div>
                         </div>
-                        <div className="value-card" onClick={() => copyToClipboard(colorValues.rgb)}>
-                            <div className="value-type">RGB</div>
-                            <div className="value">{colorValues.rgb}</div>
-                            <div className="copy-hint">{"Click to copy"}</div>
+                        <div className={styles["value-card"]} onClick={() => copyToClipboard(colorValues.rgb)}>
+                            <div className={styles["value-type"]}>RGB</div>
+                            <div className={styles["value"]}>{colorValues.rgb}</div>
+                            <div className={styles["copy-hint"]}>{"Click to copy"}</div>
                         </div>
-                        <div className="value-card" onClick={() => copyToClipboard(colorValues.hsl)}>
-                            <div className="value-type">HSL</div>
-                            <div className="value">{colorValues.hsl}</div>
-                            <div className="copy-hint">{"Click to copy"}</div>
+                        <div className={styles["value-card"]} onClick={() => copyToClipboard(colorValues.hsl)}>
+                            <div className={styles["value-type"]}>HSL</div>
+                            <div className={styles["value"]}>{colorValues.hsl}</div>
+                            <div className={styles["copy-hint"]}>{"Click to copy"}</div>
                         </div>
                     </div>
                 </div>
 
                 {colorHistory.length > 0 && (
-                    <div className="color-history">
+                    <div className={styles["color-history"]}>
                         <h3>{"Recent Colors"}</h3>
-                        <div className="history-grid">
+                        <div className={styles["history-grid"]}>
                             {colorHistory.map((color, index) => (
                                 <div
                                     key={index}
-                                    className="history-color"
+                                    className={styles["history-color"]}
                                     style={{ backgroundColor: color }}
                                     onClick={() => setSelectedColor(color)}
                                     title={color}

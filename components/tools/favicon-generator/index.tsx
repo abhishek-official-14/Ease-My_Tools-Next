@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const FaviconGenerator = () => {
   
@@ -181,33 +181,33 @@ const FaviconGenerator = () => {
   };
 
   return (
-    <div className="favicon-generator">
-      <div className="tool-header">
+    <div className={styles["favicon-generator"]}>
+      <div className={styles["tool-header"]}>
         <h1>{"Favicon Generator"}</h1>
         <p>{"Create professional favicons for your website in multiple formats and sizes"}</p>
       </div>
 
-      <div className="generator-container">
+      <div className={styles["generator-container"]}>
         {/* Upload Section */}
-        <div className="upload-section">
+        <div className={styles["upload-section"]}>
           <div 
-            className="upload-area"
+            className={styles["upload-area"]}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onClick={() => fileInputRef.current?.click()}
           >
             {!originalImage ? (
-              <div className="upload-content">
-                <div className="upload-icon">🖼️</div>
+              <div className={styles["upload-content"]}>
+                <div className={styles["upload-icon"]}>🖼️</div>
                 <h3>{"Upload Your Image"}</h3>
                 <p>{"Drag & drop your image here or click to browse"}</p>
                 <small>{"Supports: JPG, PNG, SVG, WebP"}</small>
                 <small>{"Max file size: 5MB"}</small>
               </div>
             ) : (
-              <div className="image-preview">
-                <img src={originalImage} alt="Uploaded" className="preview-image" />
-                <div className="image-info">
+              <div className={styles["image-preview"]}>
+                <img src={originalImage} alt="Uploaded" className={styles["preview-image"]} />
+                <div className={styles["image-info"]}>
                   <strong>{file.name}</strong>
                   <small>{(file.size / 1024).toFixed(2)} KB</small>
                 </div>
@@ -225,65 +225,65 @@ const FaviconGenerator = () => {
 
         {/* Settings Section */}
         {file && (
-          <div className="settings-section">
+          <div className={styles["settings-section"]}>
             <h3>{"Favicon Settings"}</h3>
             
-            <div className="settings-grid">
+            <div className={styles["settings-grid"]}>
               {/* Format Selection */}
-              <div className="setting-group">
+              <div className={styles["setting-group"]}>
                 <label>{"Output Format"}</label>
-                <div className="format-options">
+                <div className={styles["format-options"]}>
                   {formatOptions.map(format => (
                     <div
                       key={format.value}
-                      className={`format-option ${settings.format === format.value ? 'active' : ''}`}
+                      className={`${styles["format-option"]} ${settings.format === format.value ? 'active' : ''}`}
                       onClick={() => setSettings(prev => ({ ...prev, format: format.value }))}
                     >
-                      <div className="format-header">
-                        <span className="format-label">{format.label}</span>
-                        <span className="format-badge">{format.extensions.join(', ')}</span>
+                      <div className={styles["format-header"]}>
+                        <span className={styles["format-label"]}>{format.label}</span>
+                        <span className={styles["format-badge"]}>{format.extensions.join(', ')}</span>
                       </div>
-                      <p className="format-description">{format.description}</p>
+                      <p className={styles["format-description"]}>{format.description}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Size Selection */}
-              <div className="setting-group">
-                <div className="size-header">
+              <div className={styles["setting-group"]}>
+                <div className={styles["size-header"]}>
                   <label>{"Favicon Sizes"}</label>
-                  <div className="size-actions">
-                    <button type="button" onClick={selectAllSizes} className="size-action-btn">
+                  <div className={styles["size-actions"]}>
+                    <button type="button" onClick={selectAllSizes} className={styles["size-action-btn"]}>
                       {"Select All"}
                     </button>
-                    <button type="button" onClick={clearAllSizes} className="size-action-btn">
+                    <button type="button" onClick={clearAllSizes} className={styles["size-action-btn"]}>
                       {"Clear All"}
                     </button>
                   </div>
                 </div>
-                <div className="size-options">
+                <div className={styles["size-options"]}>
                   {sizeOptions.map(size => (
                     <div
                       key={size.value}
-                      className={`size-option ${settings.sizes.includes(size.value) ? 'selected' : ''}`}
+                      className={`${styles["size-option"]} ${settings.sizes.includes(size.value) ? 'selected' : ''}`}
                       onClick={() => toggleSize(size.value)}
                     >
-                      <div className="size-checkbox">
+                      <div className={styles["size-checkbox"]}>
                         {settings.sizes.includes(size.value) && '✓'}
                       </div>
-                      <span className="size-label">{size.label}</span>
-                      <span className="size-description">{size.description}</span>
+                      <span className={styles["size-label"]}>{size.label}</span>
+                      <span className={styles["size-description"]}>{size.description}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Advanced Options */}
-              <div className="setting-group">
+              <div className={styles["setting-group"]}>
                 <label>{"Advanced Options"}</label>
-                <div className="advanced-options">
-                  <div className="option-row">
+                <div className={styles["advanced-options"]}>
+                  <div className={styles["option-row"]}>
                     <label>{"Background Color"}</label>
                     <input
                       type="color"
@@ -295,7 +295,7 @@ const FaviconGenerator = () => {
                     />
                     <button
                       type="button"
-                      className={`transparent-btn ${settings.backgroundColor === 'transparent' ? 'active' : ''}`}
+                      className={`${styles["transparent-btn"]} ${settings.backgroundColor === 'transparent' ? 'active' : ''}`}
                       onClick={() => setSettings(prev => ({ 
                         ...prev, 
                         backgroundColor: 'transparent' 
@@ -305,7 +305,7 @@ const FaviconGenerator = () => {
                     </button>
                   </div>
 
-                  <div className="option-row">
+                  <div className={styles["option-row"]}>
                     <label>
                       {"Padding"}: {settings.padding}px
                     </label>
@@ -318,11 +318,11 @@ const FaviconGenerator = () => {
                         ...prev, 
                         padding: parseInt(e.target.value) 
                       }))}
-                      className="slider"
+                      className={styles["slider"]}
                     />
                   </div>
 
-                  <div className="option-row">
+                  <div className={styles["option-row"]}>
                     <label>
                       {"Border Radius"}: {settings.borderRadius}%
                     </label>
@@ -335,12 +335,12 @@ const FaviconGenerator = () => {
                         ...prev, 
                         borderRadius: parseInt(e.target.value) 
                       }))}
-                      className="slider"
+                      className={styles["slider"]}
                     />
                   </div>
 
-                  <div className="option-row checkbox-row">
-                    <label className="checkbox-label">
+                  <div className={`${styles["option-row"]} ${styles["checkbox-row"]}`}>
+                    <label className={styles["checkbox-label"]}>
                       <input
                         type="checkbox"
                         checked={settings.preserveAspectRatio}
@@ -357,15 +357,15 @@ const FaviconGenerator = () => {
             </div>
 
             {/* Generate Button */}
-            <div className="generate-section">
+            <div className={styles["generate-section"]}>
               <button 
                 onClick={generateFavicons}
-                className={`generate-btn ${processing ? 'processing' : ''}`}
+                className={`${styles["generate-btn"]} ${processing ? 'processing' : ''}`}
                 disabled={processing || settings.sizes.length === 0}
               >
                 {processing ? (
                   <>
-                    <span className="spinner"></span>
+                    <span className={styles["spinner"]}></span>
                     {"Generating..."}
                   </>
                 ) : (
@@ -378,33 +378,33 @@ const FaviconGenerator = () => {
 
         {/* Results Section */}
         {generatedIcons.length > 0 && (
-          <div className="results-section">
-            <div className="results-header">
+          <div className={styles["results-section"]}>
+            <div className={styles["results-header"]}>
               <h3>{"Generated Icons"}</h3>
-              <div className="results-actions">
-                <button onClick={copyHTMLCode} className="action-btn secondary">
+              <div className={styles["results-actions"]}>
+                <button onClick={copyHTMLCode} className={`${styles["action-btn"]} ${styles["secondary"]}`}>
                   📋 {"Copy HTML"}
                 </button>
-                <button onClick={downloadAllIcons} className="action-btn primary">
+                <button onClick={downloadAllIcons} className={`${styles["action-btn"]} ${styles["primary"]}`}>
                   📦 {"Download All"}
                 </button>
               </div>
             </div>
 
-            <div className="icons-grid">
+            <div className={styles["icons-grid"]}>
               {generatedIcons.map((icon, index) => (
-                <div key={index} className="icon-card">
-                  <div className="icon-preview">
+                <div key={index} className={styles["icon-card"]}>
+                  <div className={styles["icon-preview"]}>
                     <img src={originalImage} alt={`Favicon ${icon.size}x${icon.size}`} />
-                    <div className="icon-badge">{icon.size}×{icon.size}</div>
+                    <div className={styles["icon-badge"]}>{icon.size}×{icon.size}</div>
                   </div>
-                  <div className="icon-info">
-                    <span className="icon-format">{icon.format.toUpperCase()}</span>
-                    <span className="icon-size">{icon.size}px</span>
+                  <div className={styles["icon-info"]}>
+                    <span className={styles["icon-format"]}>{icon.format.toUpperCase()}</span>
+                    <span className={styles["icon-size"]}>{icon.size}px</span>
                   </div>
                   <button 
                     onClick={() => downloadIcon(icon)}
-                    className="download-icon-btn"
+                    className={styles["download-icon-btn"]}
                   >
                     ⬇️ {"Download"}
                   </button>
@@ -413,9 +413,9 @@ const FaviconGenerator = () => {
             </div>
 
             {/* HTML Code Preview */}
-            <div className="code-section">
+            <div className={styles["code-section"]}>
               <h4>{"HTML Implementation Code"}</h4>
-              <div className="code-preview">
+              <div className={styles["code-preview"]}>
                 <pre>
 {`<!-- Favicon HTML Code -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -429,32 +429,32 @@ ${generatedIcons.filter(icon => icon.format === 'png').map(icon =>
         )}
 
         {/* Tips Section */}
-        <div className="tips-section">
+        <div className={styles["tips-section"]}>
           <h3>💡 {"Best Practices & Tips"}</h3>
-          <div className="tips-list">
-            <div className="tip-item">
-              <span className="tip-icon">🎯</span>
+          <div className={styles["tips-list"]}>
+            <div className={styles["tip-item"]}>
+              <span className={styles["tip-icon"]}>🎯</span>
               <div>
                 <strong>{"Use Simple Designs"}</strong>
                 <p>{"Favicons are small - use simple, recognizable designs with good contrast"}</p>
               </div>
             </div>
-            <div className="tip-item">
-              <span className="tip-icon">📐</span>
+            <div className={styles["tip-item"]}>
+              <span className={styles["tip-icon"]}>📐</span>
               <div>
                 <strong>{"Square Format"}</strong>
                 <p>{"Always start with a square image for best results across all devices"}</p>
               </div>
             </div>
-            <div className="tip-item">
-              <span className="tip-icon">⚡</span>
+            <div className={styles["tip-item"]}>
+              <span className={styles["tip-icon"]}>⚡</span>
               <div>
                 <strong>{"Multiple Sizes"}</strong>
                 <p>{"Include multiple sizes (16x16, 32x32) for different devices and contexts"}</p>
               </div>
             </div>
-            <div className="tip-item">
-              <span className="tip-icon">🎨</span>
+            <div className={styles["tip-item"]}>
+              <span className={styles["tip-icon"]}>🎨</span>
               <div>
                 <strong>{"Test Your Favicon"}</strong>
                 <p>{"Test your favicon in different browsers and dark/light modes"}</p>
@@ -464,9 +464,9 @@ ${generatedIcons.filter(icon => icon.format === 'png').map(icon =>
         </div>
 
         {/* Status */}
-        <div className="status-section">
-          <div className="status-indicator">
-            <div className={`status-dot ${processing ? 'processing' : 'ready'}`}></div>
+        <div className={styles["status-section"]}>
+          <div className={styles["status-indicator"]}>
+            <div className={`${styles["status-dot"]} ${processing ? 'processing' : 'ready'}`}></div>
             <span>
               {processing ? "Generating your favicons..." : "Ready to generate favicons"}
             </span>

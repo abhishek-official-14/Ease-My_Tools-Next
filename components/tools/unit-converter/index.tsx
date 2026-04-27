@@ -2,7 +2,7 @@
 
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -100,19 +100,19 @@ const UnitConverter = () => { // <-- i18next
     const units = getUnits();
 
     return (
-        <div className="unit-converter">
-            <div className="converter-header">
+        <div className={styles["unit-converter"]}>
+            <div className={styles["converter-header"]}>
                 <h1>{"Unit Converter"}</h1>
                 <p>{"Convert between different units instantly"}</p>
             </div>
 
-            <div className="converter-container">
+            <div className={styles["converter-container"]}>
                 {/* Category Selection */}
-                <div className="category-selector">
+                <div className={styles["category-selector"]}>
                     {Object.entries(categories).map(([key, label]) => (
                         <button
                             key={key}
-                            className={`category-btn ${category === key ? 'active' : ''}`}
+                            className={`${styles["category-btn"]} ${category === key ? 'active' : ''}`}
                             onClick={() => handleCategoryChange(key)}
                         >
                             {label}
@@ -121,21 +121,21 @@ const UnitConverter = () => { // <-- i18next
                 </div>
 
                 {/* Conversion Interface */}
-                <div className="conversion-interface">
-                    <div className="input-section">
+                <div className={styles["conversion-interface"]}>
+                    <div className={styles["input-section"]}>
                         <label>{"From"}</label>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <input
                                 type="number"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                                 placeholder={"Enter value"}
-                                className="value-input"
+                                className={styles["value-input"]}
                             />
                             <select
                                 value={fromUnit}
                                 onChange={(e) => setFromUnit(e.target.value)}
-                                className="unit-select"
+                                className={styles["unit-select"]}
                                 disabled={!units.length}
                             >
                                 {units.map(unit => (
@@ -148,7 +148,7 @@ const UnitConverter = () => { // <-- i18next
                     </div>
 
                     <button
-                        className="swap-btn"
+                        className={styles["swap-btn"]}
                         onClick={swapUnits}
                         title={"Swap"}
                         disabled={!units.length}
@@ -156,20 +156,20 @@ const UnitConverter = () => { // <-- i18next
                         ⇄
                     </button>
 
-                    <div className="output-section">
+                    <div className={styles["output-section"]}>
                         <label>{"To"}</label>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <input
                                 type="text"
                                 value={result || ''}
                                 readOnly
-                                className="result-input"
+                                className={styles["result-input"]}
                                 placeholder={"Result"}
                             />
                             <select
                                 value={toUnit}
                                 onChange={(e) => setToUnit(e.target.value)}
-                                className="unit-select"
+                                className={styles["unit-select"]}
                                 disabled={!units.length}
                             >
                                 {units.map(unit => (
@@ -184,7 +184,7 @@ const UnitConverter = () => { // <-- i18next
 
                 {/* Result Display */}
                 {result && result !== 'Error' && (
-                    <div className="result-display">
+                    <div className={styles["result-display"]}>
                         <h3>{"Result"}:</h3>
                         <p>
                             {inputValue} {getUnitLabel(fromUnit)} =
@@ -194,13 +194,13 @@ const UnitConverter = () => { // <-- i18next
                 )}
 
                 {result === 'Error' && (
-                    <div className="error-display">
+                    <div className={styles["error-display"]}>
                         <p>⚠️ {"Conversion error. Please check your input."}</p>
                     </div>
                 )}
 
                 {isConverting && (
-                    <div className="loading-display">
+                    <div className={styles["loading-display"]}>
                         <p>⏳ {"Converting..."}</p>
                     </div>
                 )}

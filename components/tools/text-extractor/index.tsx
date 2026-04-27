@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const TextExtractor = () => {
     const [extractedText, setExtractedText] = useState('');
@@ -103,39 +103,39 @@ you would need to integrate with an OCR service like:
     };
 
     return (
-        <div className="text-extractor" onPaste={handlePaste}>
-            <div className="extractor-header">
+        <div className={styles["text-extractor"]} onPaste={handlePaste}>
+            <div className={styles["extractor-header"]}>
                 <h1>{"Text Extractor" || 'Text Extractor'}</h1>
                 <p>{"Extract text from images (OCR simulation)" || 'Extract text from images (OCR simulation)'}</p>
             </div>
 
-            <div className="extractor-container">
-                <div className="upload-section">
-                    <div className="upload-area">
+            <div className={styles["extractor-container"]}>
+                <div className={styles["upload-section"]}>
+                    <div className={styles["upload-area"]}>
                         <input
                             ref={fileInputRef}
                             type="file"
                             accept="image/*"
                             onChange={handleFileUpload}
-                            className="file-input"
+                            className={styles["file-input"]}
                             id="file-upload"
                         />
-                        <label htmlFor="file-upload" className="upload-label">
-                            <div className="upload-icon">📁</div>
-                            <div className="upload-text">
+                        <label htmlFor="file-upload" className={styles["upload-label"]}>
+                            <div className={styles["upload-icon"]}>📁</div>
+                            <div className={styles["upload-text"]}>
                                 {"Click to upload image" || 'Click to upload image'}
                             </div>
-                            <div className="upload-hint">
+                            <div className={styles["upload-hint"]}>
                                 {"or paste image from clipboard" || 'or paste image from clipboard'}
                             </div>
-                            <div className="supported-formats">
+                            <div className={styles["supported-formats"]}>
                                 {"Supported formats: JPG, PNG, GIF, BMP" || 'Supported formats: JPG, PNG, GIF, BMP'}
                             </div>
                         </label>
                     </div>
 
                     {uploadedImage && (
-                        <div className="image-preview">
+                        <div className={styles["image-preview"]}>
                             <h4>{"Image Preview" || 'Image Preview'}</h4>
                             <img src={uploadedImage} alt="Uploaded preview" />
                         </div>
@@ -143,36 +143,36 @@ you would need to integrate with an OCR service like:
                 </div>
 
                 {isProcessing && (
-                    <div className="processing-indicator">
-                        <div className="spinner"></div>
+                    <div className={styles["processing-indicator"]}>
+                        <div className={styles["spinner"]}></div>
                         <p>{"Processing image..." || 'Processing image...'}</p>
                     </div>
                 )}
 
                 {extractedText && (
-                    <div className="result-section">
+                    <div className={styles["result-section"]}>
                         <h3>{"Extracted Text" || 'Extracted Text'}</h3>
-                        <div className="text-output">
+                        <div className={styles["text-output"]}>
                             <pre>{extractedText}</pre>
                         </div>
-                        <div className="result-actions">
-                            <button onClick={copyToClipboard} className="copy-btn">
+                        <div className={styles["result-actions"]}>
+                            <button onClick={copyToClipboard} className={styles["copy-btn"]}>
                                 {"Copy Text" || 'Copy Text'}
                             </button>
-                            <button onClick={downloadText} className="download-btn">
+                            <button onClick={downloadText} className={styles["download-btn"]}>
                                 {"Download Text" || 'Download Text'}
                             </button>
                         </div>
                     </div>
                 )}
 
-                <div className="action-buttons">
-                    <button onClick={clearAll} className="clear-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
-                <div className="info-section">
+                <div className={styles["info-section"]}>
                     <h4>{"About OCR Technology" || 'About OCR Technology'}</h4>
                     <p>{"OCR (Optical Character Recognition) technology converts different types of documents, such as scanned paper documents, PDF files or images captured by a digital camera into editable and searchable data." || 'OCR (Optical Character Recognition) technology converts different types of documents, such as scanned paper documents, PDF files or images captured by a digital camera into editable and searchable data.'}</p>
                     
@@ -184,7 +184,7 @@ you would need to integrate with an OCR service like:
                         <li>{"Processing business cards" || 'Processing business cards'}</li>
                     </ul>
 
-                    <div className="limitations">
+                    <div className={styles["limitations"]}>
                         <h5>{"Limitations:" || 'Limitations:'}</h5>
                         <p>{"Note: This is a simulation. For production use, consider:" || 'Note: This is a simulation. For production use, consider:'}</p>
                         <ul>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const JSONFormatter = () => { // <-- i18next
     const [inputJSON, setInputJSON] = useState('');
@@ -76,51 +76,51 @@ const JSONFormatter = () => { // <-- i18next
     };
 
     return (
-        <div className="json-formatter">
-            <div className="formatter-header">
+        <div className={styles["json-formatter"]}>
+            <div className={styles["formatter-header"]}>
                 <h1>{"JSON Formatter"}</h1>
                 <p>{"Format, validate, and minify JSON data"}</p>
             </div>
 
-            <div className="formatter-container">
-                <div className="input-section">
+            <div className={styles["formatter-container"]}>
+                <div className={styles["input-section"]}>
                     <label>{"Input JSON"}</label>
                     <textarea
                         value={inputJSON}
                         onChange={(e) => setInputJSON(e.target.value)}
                         placeholder={"Paste your JSON here..."}
-                        className={`json-input ${!isValid ? 'error' : ''}`}
+                        className={`${styles["json-input"]} ${!isValid ? 'error' : ''}`}
                         // @ts-ignore
                         rows="8"
                     />
                 </div>
 
-                <div className="button-group">
-                    <button onClick={formatJSON} className="format-btn">
+                <div className={styles["button-group"]}>
+                    <button onClick={formatJSON} className={styles["format-btn"]}>
                         {"Format JSON"}
                     </button>
-                    <button onClick={minifyJSON} className="minify-btn">
+                    <button onClick={minifyJSON} className={styles["minify-btn"]}>
                         {"Minify JSON"}
                     </button>
-                    <button onClick={validateJSON} className="validate-btn">
+                    <button onClick={validateJSON} className={styles["validate-btn"]}>
                         {"Validate JSON"}
                     </button>
-                    <button onClick={clearAll} className="clear-btn">
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         {"Clear All"}
                     </button>
                 </div>
 
                 {error && (
-                    <div className={`error-message ${isValid ? 'valid' : 'invalid'}`}>
+                    <div className={`${styles["error-message"]} ${isValid ? 'valid' : 'invalid'}`}>
                         {error}
                     </div>
                 )}
 
                 {formattedJSON && (
-                    <div className="output-section">
+                    <div className={styles["output-section"]}>
                         <label>{"Formatted JSON"}</label>
-                        <pre className="json-output">{formattedJSON}</pre>
-                        <button onClick={copyToClipboard} className="copy-btn">
+                        <pre className={styles["json-output"]}>{formattedJSON}</pre>
+                        <button onClick={copyToClipboard} className={styles["copy-btn"]}>
                             {"Copy to Clipboard"}
                         </button>
                     </div>

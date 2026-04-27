@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const DataUriGenerator = () => {
     const [inputType, setInputType] = useState('text');
@@ -99,28 +99,28 @@ const DataUriGenerator = () => {
         if (!dataUri) return null;
 
         if (dataUri.startsWith('data:image/')) {
-            return <img src={dataUri} alt="Preview" className="image-preview" />;
+            return <img src={dataUri} alt="Preview" className={styles["image-preview"]} />;
         } else if (dataUri.startsWith('data:text/') || dataUri.startsWith('data:application/')) {
             const content = decodeURIComponent(dataUri.split(',')[1]);
             return (
-                <pre className="text-preview">
+                <pre className={styles["text-preview"]}>
                     {content.length > 1000 ? content.substring(0, 1000) + '...' : content}
                 </pre>
             );
         }
-        return <div className="no-preview">No preview available</div>;
+        return <div className={styles["no-preview"]}>No preview available</div>;
     };
 
     return (
-        <div className="data-uri-generator">
-            <div className="tool-header">
+        <div className={styles["data-uri-generator"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"Data URI Generator"}</h1>
                 <p>{"Convert files and text to Data URIs"}</p>
             </div>
 
-            <div className="generator-container">
-                <div className="input-section">
-                    <div className="input-type-selector">
+            <div className={styles["generator-container"]}>
+                <div className={styles["input-section"]}>
+                    <div className={styles["input-type-selector"]}>
                         <label>
                             <input
                                 type="radio"
@@ -142,8 +142,8 @@ const DataUriGenerator = () => {
                     </div>
 
                     {inputType === 'text' && (
-                        <div className="text-input-section">
-                            <div className="text-type-selector">
+                        <div className={styles["text-input-section"]}>
+                            <div className={styles["text-type-selector"]}>
                                 <label>{"Text Type"}:</label>
                                 <select value={textType} onChange={(e) => setTextType(e.target.value)}>
                                     <option value="plainText">{"Plain Text"}</option>
@@ -165,22 +165,22 @@ const DataUriGenerator = () => {
                     )}
 
                     {inputType === 'file' && (
-                        <div className="file-input-section">
-                            <div className="file-selector">
+                        <div className={styles["file-input-section"]}>
+                            <div className={styles["file-selector"]}>
                                 <input
                                     ref={fileInputRef}
                                     type="file"
                                     onChange={handleFileSelect}
-                                    className="file-input"
+                                    className={styles["file-input"]}
                                 />
-                                <div className="file-info">
+                                <div className={styles["file-info"]}>
                                     {file ? (
-                                        <div className="file-details">
+                                        <div className={styles["file-details"]}>
                                             <strong>{file.name}</strong>
                                             <span>({formatFileSize(file.size)})</span>
                                         </div>
                                     ) : (
-                                        <span className="no-file">{"No file selected"}</span>
+                                        <span className={styles["no-file"]}>{"No file selected"}</span>
                                     )}
                                 </div>
                             </div>
@@ -188,41 +188,41 @@ const DataUriGenerator = () => {
                     )}
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={generateDataUri} className="primary-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={generateDataUri} className={styles["primary-btn"]}>
                         {"Generate Data URI"}
                     </button>
-                    <button onClick={clearAll} className="secondary-btn">
+                    <button onClick={clearAll} className={styles["secondary-btn"]}>
                         {"Clear"}
                     </button>
                 </div>
 
                 {fileInfo && (
-                    <div className="file-info-section">
+                    <div className={styles["file-info-section"]}>
                         <h3>{"File Information"}</h3>
-                        <div className="info-grid">
-                            <div className="info-item">
-                                <span className="info-label">{"File Name"}:</span>
-                                <span className="info-value">{fileInfo.name}</span>
+                        <div className={styles["info-grid"]}>
+                            <div className={styles["info-item"]}>
+                                <span className={styles["info-label"]}>{"File Name"}:</span>
+                                <span className={styles["info-value"]}>{fileInfo.name}</span>
                             </div>
-                            <div className="info-item">
-                                <span className="info-label">{"File Size"}:</span>
-                                <span className="info-value">{formatFileSize(fileInfo.size)}</span>
+                            <div className={styles["info-item"]}>
+                                <span className={styles["info-label"]}>{"File Size"}:</span>
+                                <span className={styles["info-value"]}>{formatFileSize(fileInfo.size)}</span>
                             </div>
-                            <div className="info-item">
-                                <span className="info-label">{"MIME Type"}:</span>
-                                <span className="info-value">{fileInfo.type}</span>
+                            <div className={styles["info-item"]}>
+                                <span className={styles["info-label"]}>{"MIME Type"}:</span>
+                                <span className={styles["info-value"]}>{fileInfo.type}</span>
                             </div>
                             {fileInfo.characterCount && (
-                                <div className="info-item">
-                                    <span className="info-label">{"Character Count"}:</span>
-                                    <span className="info-value">{fileInfo.characterCount.toLocaleString()}</span>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Character Count"}:</span>
+                                    <span className={styles["info-value"]}>{fileInfo.characterCount.toLocaleString()}</span>
                                 </div>
                             )}
                             {fileInfo.uriLength && (
-                                <div className="info-item">
-                                    <span className="info-label">{"URI Length"}:</span>
-                                    <span className="info-value">{fileInfo.uriLength.toLocaleString()} characters</span>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"URI Length"}:</span>
+                                    <span className={styles["info-value"]}>{fileInfo.uriLength.toLocaleString()} characters</span>
                                 </div>
                             )}
                         </div>
@@ -230,13 +230,13 @@ const DataUriGenerator = () => {
                 )}
 
                 {dataUri && (
-                    <div className="results-section">
-                        <div className="data-uri-output">
-                            <div className="output-header">
+                    <div className={styles["results-section"]}>
+                        <div className={styles["data-uri-output"]}>
+                            <div className={styles["output-header"]}>
                                 <h3>{"Data URI"}</h3>
                                 <button 
                                     onClick={copyUri}
-                                    className={`copy-btn ${copied ? 'copied' : ''}`}
+                                    className={`${styles["copy-btn"]} ${copied ? 'copied' : ''}`}
                                 >
                                     {copied ? '✓' : "Copy URI"}
                                 </button>
@@ -245,25 +245,25 @@ const DataUriGenerator = () => {
                                 value={dataUri}
                                 readOnly
                                 rows="4"
-                                className="uri-output"
+                                className={styles["uri-output"]}
                             />
                             {copied && (
-                                <div className="copied-message">
+                                <div className={styles["copied-message"]}>
                                     {"URI copied to clipboard!"}
                                 </div>
                             )}
                         </div>
 
-                        <div className="preview-section">
+                        <div className={styles["preview-section"]}>
                             <h3>{"Preview"}</h3>
-                            <div className="preview-container">
+                            <div className={styles["preview-container"]}>
                                 {getPreview()}
                             </div>
                         </div>
                     </div>
                 )}
 
-                <div className="data-uri-info">
+                <div className={styles["data-uri-info"]}>
                     <h4>{"Data URI Information"}</h4>
                     <ul>
                         <li>{"Data URIs allow embedding data directly in web pages"}</li>

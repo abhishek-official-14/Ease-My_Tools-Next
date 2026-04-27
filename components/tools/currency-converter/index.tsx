@@ -3,7 +3,7 @@
 // import React, { useState, useEffect, useCallback, useRef } from 'react';
 // 
 // import { useTheme } from 'next-themes';
-// import './styles.css';
+// import styles from './styles.module.css';
 
 // const CurrencyConverter = () => {
 //     const { t } = useTranslation('currencyConverter');
@@ -229,19 +229,19 @@
 //     const filteredCurrencies = getFilteredCurrencies();
 
 //     return (
-//         <div className="currency-converter">
-//             <div className="tool-header">
+//         <div className={styles["currency-converter"]}>
+//             <div className={styles["tool-header"]}>
 //                 <h1>{"Currency Converter"}</h1>
 //                 <p>{"Real-time exchange rates with historical data"}</p>
 //             </div>
 
-//             <div className="converter-container">
+//             <div className={styles["converter-container"]}>
 //                 {/* Main Conversion Card */}
-//                 <div className="conversion-card">
-//                     <div className="conversion-form">
-//                         <div className="amount-section">
+//                 <div className={styles["conversion-card"]}>
+//                     <div className={styles["conversion-form"]}>
+//                         <div className={styles["amount-section"]}>
 //                             <label>{"Amount"}</label>
-//                             <div className="amount-input-container">
+//                             <div className={styles["amount-input-container"]}>
 //                                 <input
 //                                     type="number"
 //                                     value={conversion.amount}
@@ -249,21 +249,21 @@
 //                                     placeholder="0.00"
 //                                     min="0"
 //                                     step="0.01"
-//                                     className="amount-input"
+//                                     className={styles["amount-input"]}
 //                                 />
-//                                 <span className="currency-symbol">
+//                                 <span className={styles["currency-symbol"]}>
 //                                     {conversion.from}
 //                                 </span>
 //                             </div>
 //                         </div>
 
-//                         <div className="currency-selection">
-//                             <div className="currency-group">
+//                         <div className={styles["currency-selection"]}>
+//                             <div className={styles["currency-group"]}>
 //                                 <label>{"From"}</label>
 //                                 <select
 //                                     value={conversion.from}
 //                                     onChange={(e) => handleCurrencyChange('from', e.target.value)}
-//                                     className="currency-select"
+//                                     className={styles["currency-select"]}
 //                                 >
 //                                     {currencies.map(currency => (
 //                                         <option key={currency.code} value={currency.code}>
@@ -274,19 +274,19 @@
 //                             </div>
 
 //                             <button 
-//                                 className="swap-btn"
+//                                 className={styles["swap-btn"]}
 //                                 onClick={swapCurrencies}
 //                                 title={"Swap Currencies"}
 //                             >
 //                                 ⇄
 //                             </button>
 
-//                             <div className="currency-group">
+//                             <div className={styles["currency-group"]}>
 //                                 <label>{"To"}</label>
 //                                 <select
 //                                     value={conversion.to}
 //                                     onChange={(e) => handleCurrencyChange('to', e.target.value)}
-//                                     className="currency-select"
+//                                     className={styles["currency-select"]}
 //                                 >
 //                                     {currencies.map(currency => (
 //                                         <option key={currency.code} value={currency.code}>
@@ -298,18 +298,18 @@
 //                         </div>
 
 //                         {loading && (
-//                             <div className="loading-indicator">
-//                                 <div className="spinner"></div>
+//                             <div className={styles["loading-indicator"]}>
+//                                 <div className={styles["spinner"]}></div>
 //                                 <span>{"Calculating..."}</span>
 //                             </div>
 //                         )}
 
 //                         {error && (
-//                             <div className="error-message">
+//                             <div className={styles["error-message"]}>
 //                                 <span>{error}</span>
 //                                 <button 
 //                                     onClick={() => fetchCurrencies(conversion.from)}
-//                                     className="retry-btn"
+//                                     className={styles["retry-btn"]}
 //                                 >
 //                                     {"Retry"}
 //                                 </button>
@@ -317,30 +317,30 @@
 //                         )}
 
 //                         {conversion.result > 0 && !loading && !error && (
-//                             <div className="conversion-result">
-//                                 <div className="result-main">
-//                                     <span className="result-amount">
+//                             <div className={styles["conversion-result"]}>
+//                                 <div className={styles["result-main"]}>
+//                                     <span className={styles["result-amount"]}>
 //                                         {formatCurrency(conversion.result, conversion.to)}
 //                                     </span>
-//                                     <span className="result-label">
+//                                     <span className={styles["result-label"]}>
 //                                         {"Converted Amount"}
 //                                     </span>
 //                                 </div>
                                 
-//                                 <div className="conversion-details">
-//                                     <div className="rate-info">
-//                                         <span className="rate-label">{"Exchange Rate"}:</span>
-//                                         <span className="rate-value">
+//                                 <div className={styles["conversion-details"]}>
+//                                     <div className={styles["rate-info"]}>
+//                                         <span className={styles["rate-label"]}>{"Exchange Rate"}:</span>
+//                                         <span className={styles["rate-value"]}>
 //                                             1 {conversion.from} = {formatNumber(conversion.rate)} {conversion.to}
 //                                         </span>
 //                                     </div>
                                     
 //                                     {conversion.lastUpdated && (
-//                                         <div className="update-info">
-//                                             <span className="update-label">{"Last Updated"}:</span>
-//                                             <span className="update-value">
+//                                         <div className={styles["update-info"]}>
+//                                             <span className={styles["update-label"]}>{"Last Updated"}:</span>
+//                                             <span className={styles["update-value"]}>
 //                                                 {conversion.lastUpdated}
-//                                                 {conversion.cached && <span className="cached-badge">Cached</span>}
+//                                                 {conversion.cached && <span className={styles["cached-badge"]}>Cached</span>}
 //                                             </span>
 //                                         </div>
 //                                     )}
@@ -351,13 +351,13 @@
 //                 </div>
 
 //                 {/* Popular Currencies */}
-//                 <div className="popular-currencies">
+//                 <div className={styles["popular-currencies"]}>
 //                     <h3>{"Popular Currencies"}</h3>
-//                     <div className="popular-grid">
+//                     <div className={styles["popular-grid"]}>
 //                         {popularCurrencies.map(currencyCode => (
 //                             <button
 //                                 key={currencyCode}
-//                                 className={`currency-chip ${conversion.to === currencyCode ? 'active' : ''}`}
+//                                 className={`${styles["currency-chip"]} ${conversion.to === currencyCode ? 'active' : ''}`}
 //                                 onClick={() => handleCurrencyChange('to', currencyCode)}
 //                             >
 //                                 {currencyCode}
@@ -367,32 +367,32 @@
 //                 </div>
 
 //                 {/* Currency List */}
-//                 <div className="currency-list-section">
-//                     <div className="section-header">
+//                 <div className={styles["currency-list-section"]}>
+//                     <div className={styles["section-header"]}>
 //                         <h3>{"All Currencies"}</h3>
-//                         <div className="search-box">
+//                         <div className={styles["search-box"]}>
 //                             <input
 //                                 type="text"
 //                                 placeholder={"Search currency..."}
 //                                 value={searchTerm}
 //                                 onChange={(e) => setSearchTerm(e.target.value)}
-//                                 className="search-input"
+//                                 className={styles["search-input"]}
 //                             />
 //                         </div>
 //                     </div>
                     
-//                     <div className="currency-list">
+//                     <div className={styles["currency-list"]}>
 //                         {filteredCurrencies.slice(0, 50).map(currency => (
 //                             <div
 //                                 key={currency.code}
-//                                 className={`currency-item ${conversion.to === currency.code ? 'selected' : ''}`}
+//                                 className={`${styles["currency-item"]} ${conversion.to === currency.code ? 'selected' : ''}`}
 //                                 onClick={() => handleCurrencyChange('to', currency.code)}
 //                             >
-//                                 <div className="currency-info">
-//                                     <span className="currency-code">{currency.code}</span>
-//                                     <span className="currency-name">{currency.name}</span>
+//                                 <div className={styles["currency-info"]}>
+//                                     <span className={styles["currency-code"]}>{currency.code}</span>
+//                                     <span className={styles["currency-name"]}>{currency.name}</span>
 //                                 </div>
-//                                 <div className="currency-rate">
+//                                 <div className={styles["currency-rate"]}>
 //                                     {formatNumber(currency.rate)}
 //                                 </div>
 //                             </div>
@@ -401,14 +401,14 @@
 //                 </div>
 
 //                 {/* Tips Section */}
-//                 <div className="tips-section">
+//                 <div className={styles["tips-section"]}>
 //                     <h3>💡 {"Conversion Tips"}</h3>
-//                     <div className="tips-list">
-//                         <div className="tip-item">{"Rates are updated every 10 minutes"}</div>
-//                         <div className="tip-item">{"Click swap to quickly reverse conversion"}</div>
-//                         <div className="tip-item">{"Use historical data to track trends"}</div>
-//                         <div className="tip-item">{"Bookmark frequently used conversions"}</div>
-//                         <div className="tip-item">{"All rates are for informational purposes"}</div>
+//                     <div className={styles["tips-list"]}>
+//                         <div className={styles["tip-item"]}>{"Rates are updated every 10 minutes"}</div>
+//                         <div className={styles["tip-item"]}>{"Click swap to quickly reverse conversion"}</div>
+//                         <div className={styles["tip-item"]}>{"Use historical data to track trends"}</div>
+//                         <div className={styles["tip-item"]}>{"Bookmark frequently used conversions"}</div>
+//                         <div className={styles["tip-item"]}>{"All rates are for informational purposes"}</div>
 //                     </div>
 //                 </div>
 //             </div>
@@ -425,7 +425,7 @@
 
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -680,19 +680,19 @@ const CurrencyConverter = () => {
     const trendText = getTrendText();
 
     return (
-        <div className="currency-converter">
-            <div className="tool-header">
+        <div className={styles["currency-converter"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"Currency Converter"}</h1>
                 <p>{"Real-time exchange rates with historical data"}</p>
             </div>
 
-            <div className="converter-container">
+            <div className={styles["converter-container"]}>
                 {/* Main Conversion Card */}
-                <div className="conversion-card">
-                    <div className="conversion-form">
-                        <div className="amount-section">
+                <div className={styles["conversion-card"]}>
+                    <div className={styles["conversion-form"]}>
+                        <div className={styles["amount-section"]}>
                             <label>{"Amount"}</label>
-                            <div className="amount-input-container">
+                            <div className={styles["amount-input-container"]}>
                                 <input
                                     type="number"
                                     value={conversion.amount}
@@ -700,21 +700,21 @@ const CurrencyConverter = () => {
                                     placeholder="0.00"
                                     min="0"
                                     step="0.01"
-                                    className="amount-input"
+                                    className={styles["amount-input"]}
                                 />
-                                <span className="currency-symbol">
+                                <span className={styles["currency-symbol"]}>
                                     {conversion.from}
                                 </span>
                             </div>
                         </div>
 
-                        <div className="currency-selection">
-                            <div className="currency-group">
+                        <div className={styles["currency-selection"]}>
+                            <div className={styles["currency-group"]}>
                                 <label>{"From"}</label>
                                 <select
                                     value={conversion.from}
                                     onChange={(e) => handleCurrencyChange('from', e.target.value)}
-                                    className="currency-select"
+                                    className={styles["currency-select"]}
                                 >
                                     {currencies.map(currency => (
                                         <option key={currency.code} value={currency.code}>
@@ -725,7 +725,7 @@ const CurrencyConverter = () => {
                             </div>
 
                             <button 
-                                className="swap-btn"
+                                className={styles["swap-btn"]}
                                 onClick={swapCurrencies}
                                 title={"Swap Currencies"}
                                 disabled={loading}
@@ -733,12 +733,12 @@ const CurrencyConverter = () => {
                                 ⇄
                             </button>
 
-                            <div className="currency-group">
+                            <div className={styles["currency-group"]}>
                                 <label>{"To"}</label>
                                 <select
                                     value={conversion.to}
                                     onChange={(e) => handleCurrencyChange('to', e.target.value)}
-                                    className="currency-select"
+                                    className={styles["currency-select"]}
                                 >
                                     {currencies.map(currency => (
                                         <option key={currency.code} value={currency.code}>
@@ -750,18 +750,18 @@ const CurrencyConverter = () => {
                         </div>
 
                         {loading && (
-                            <div className="loading-indicator">
-                                <div className="spinner"></div>
+                            <div className={styles["loading-indicator"]}>
+                                <div className={styles["spinner"]}></div>
                                 <span>{"Calculating..."}</span>
                             </div>
                         )}
 
                         {error && (
-                            <div className="error-message">
+                            <div className={styles["error-message"]}>
                                 <span>{error}</span>
                                 <button 
                                     onClick={() => fetchCurrencies(conversion.from)}
-                                    className="retry-btn"
+                                    className={styles["retry-btn"]}
                                 >
                                     {"Retry"}
                                 </button>
@@ -769,35 +769,35 @@ const CurrencyConverter = () => {
                         )}
 
                         {conversion.result > 0 && !loading && !error && (
-                            <div className="conversion-result">
-                                <div className="result-main">
-                                    <span className="result-amount">
+                            <div className={styles["conversion-result"]}>
+                                <div className={styles["result-main"]}>
+                                    <span className={styles["result-amount"]}>
                                         {formatCurrency(conversion.result, conversion.to)}
                                     </span>
-                                    <span className="result-label">
+                                    <span className={styles["result-label"]}>
                                         {"Converted Amount"}
                                     </span>
                                 </div>
                                 
-                                <div className="conversion-details">
-                                    <div className="rate-info">
-                                        <span className="rate-label">{"Exchange Rate"}:</span>
-                                        <span className="rate-value">
+                                <div className={styles["conversion-details"]}>
+                                    <div className={styles["rate-info"]}>
+                                        <span className={styles["rate-label"]}>{"Exchange Rate"}:</span>
+                                        <span className={styles["rate-value"]}>
                                             1 {conversion.from} = {formatNumber(conversion.rate)} {conversion.to}
                                         </span>
                                     </div>
                                     
-                                    <div className="cache-info">
-                                        <span className="cache-label">{"Last Updated"}:</span>
-                                        <span className="cache-value">
+                                    <div className={styles["cache-info"]}>
+                                        <span className={styles["cache-label"]}>{"Last Updated"}:</span>
+                                        <span className={styles["cache-value"]}>
                                             {new Date().toLocaleTimeString()}
-                                            {conversion.cached && <span className="cached-badge">Cached</span>}
+                                            {conversion.cached && <span className={styles["cached-badge"]}>Cached</span>}
                                         </span>
                                     </div>
                                 </div>
 
                                 <button 
-                                    className="history-toggle-btn"
+                                    className={styles["history-toggle-btn"]}
                                     onClick={toggleHistory}
                                 >
                                     {showHistory ? "Hide History" : "View History"}
@@ -808,35 +808,35 @@ const CurrencyConverter = () => {
 
                     {/* Historical Data Section */}
                     {showHistory && historicalData.length > 0 && (
-                        <div className="historical-section">
+                        <div className={styles["historical-section"]}>
                             <h3>{"Historical Trend (7 Days)"}</h3>
-                            <div className="trend-indicator">
-                                <span className="trend-icon">{trendIcon}</span>
-                                <span className="trend-text">{trendText}</span>
+                            <div className={styles["trend-indicator"]}>
+                                <span className={styles["trend-icon"]}>{trendIcon}</span>
+                                <span className={styles["trend-text"]}>{trendText}</span>
                             </div>
-                            <div className="history-chart">
+                            <div className={styles["history-chart"]}>
                                 {historicalData.map((day, index) => (
-                                    <div key={day.date} className="history-bar">
+                                    <div key={day.date} className={styles["history-bar"]}>
                                         <div 
-                                            className="bar-fill"
+                                            className={styles["bar-fill"]}
                                             style={{
                                                 height: `${(day.rate / Math.max(...historicalData.map(d => d.rate))) * 80}%`
                                             }}
                                         ></div>
-                                        <div className="bar-label">
+                                        <div className={styles["bar-label"]}>
                                             <small>{new Date(day.date).toLocaleDateString()}</small>
                                             <small>{formatNumber(day.rate)}</small>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                            <div className="history-table">
+                            <div className={styles["history-table"]}>
                                 {historicalData.slice(-7).map(day => (
-                                    <div key={day.date} className="history-row">
-                                        <span className="history-date">
+                                    <div key={day.date} className={styles["history-row"]}>
+                                        <span className={styles["history-date"]}>
                                             {new Date(day.date).toLocaleDateString()}
                                         </span>
-                                        <span className="history-rate">
+                                        <span className={styles["history-rate"]}>
                                             {formatNumber(day.rate)}
                                         </span>
                                     </div>
@@ -846,20 +846,20 @@ const CurrencyConverter = () => {
                     )}
 
                     {showHistory && historicalData.length === 0 && !loading && (
-                        <div className="no-history">
+                        <div className={styles["no-history"]}>
                             <p>{"No historical data available"}</p>
                         </div>
                     )}
                 </div>
 
                 {/* Popular Currencies */}
-                <div className="popular-currencies">
+                <div className={styles["popular-currencies"]}>
                     <h3>{"Popular Currencies"}</h3>
-                    <div className="popular-grid">
+                    <div className={styles["popular-grid"]}>
                         {popularCurrencies.map(currencyCode => (
                             <button
                                 key={currencyCode}
-                                className={`currency-chip ${conversion.to === currencyCode ? 'active' : ''}`}
+                                className={`${styles["currency-chip"]} ${conversion.to === currencyCode ? 'active' : ''}`}
                                 onClick={() => handleCurrencyChange('to', currencyCode)}
                                 disabled={loading}
                             >
@@ -870,32 +870,32 @@ const CurrencyConverter = () => {
                 </div>
 
                 {/* Currency List */}
-                <div className="currency-list-section">
-                    <div className="section-header">
+                <div className={styles["currency-list-section"]}>
+                    <div className={styles["section-header"]}>
                         <h3>{"All Currencies"}</h3>
-                        <div className="search-box">
+                        <div className={styles["search-box"]}>
                             <input
                                 type="text"
                                 placeholder={"Search currency..."}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="search-input"
+                                className={styles["search-input"]}
                             />
                         </div>
                     </div>
                     
-                    <div className="currency-list">
+                    <div className={styles["currency-list"]}>
                         {filteredCurrencies.slice(0, 50).map(currency => (
                             <div
                                 key={currency.code}
-                                className={`currency-item ${conversion.to === currency.code ? 'selected' : ''}`}
+                                className={`${styles["currency-item"]} ${conversion.to === currency.code ? 'selected' : ''}`}
                                 onClick={() => handleCurrencyChange('to', currency.code)}
                             >
-                                <div className="currency-info">
-                                    <span className="currency-code">{currency.code}</span>
-                                    <span className="currency-name">{currency.name}</span>
+                                <div className={styles["currency-info"]}>
+                                    <span className={styles["currency-code"]}>{currency.code}</span>
+                                    <span className={styles["currency-name"]}>{currency.name}</span>
                                 </div>
-                                <div className="currency-rate">
+                                <div className={styles["currency-rate"]}>
                                     {formatNumber(currency.rate)}
                                 </div>
                             </div>
@@ -904,14 +904,14 @@ const CurrencyConverter = () => {
                 </div>
 
                 {/* Tips Section */}
-                <div className="tips-section">
+                <div className={styles["tips-section"]}>
                     <h3>💡 {"Conversion Tips"}</h3>
-                    <div className="tips-list">
-                        <div className="tip-item">{"Rates are updated every 10 minutes"}</div>
-                        <div className="tip-item">{"Click swap to quickly reverse conversion"}</div>
-                        <div className="tip-item">{"Use historical data to track trends"}</div>
-                        <div className="tip-item">{"Bookmark frequently used conversions"}</div>
-                        <div className="tip-item">{"All rates are for informational purposes"}</div>
+                    <div className={styles["tips-list"]}>
+                        <div className={styles["tip-item"]}>{"Rates are updated every 10 minutes"}</div>
+                        <div className={styles["tip-item"]}>{"Click swap to quickly reverse conversion"}</div>
+                        <div className={styles["tip-item"]}>{"Use historical data to track trends"}</div>
+                        <div className={styles["tip-item"]}>{"Bookmark frequently used conversions"}</div>
+                        <div className={styles["tip-item"]}>{"All rates are for informational purposes"}</div>
                     </div>
                 </div>
             </div>

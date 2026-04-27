@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const t = (key, fallback) => fallback ?? key;
 
@@ -93,17 +93,17 @@ const SslChecker = () => {
     };
 
     return (
-        <div className="ssl-checker">
-            <div className="tool-header">
+        <div className={styles["ssl-checker"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"SSL Certificate Checker"}</h1>
                 <p>{"Check SSL certificate information for any domain"}</p>
             </div>
 
-            <div className="checker-container">
-                <div className="input-section">
+            <div className={styles["checker-container"]}>
+                <div className={styles["input-section"]}>
                     <label>{"Domain Name"}</label>
-                    <div className="domain-input-group">
-                        <span className="protocol">https://</span>
+                    <div className={styles["domain-input-group"]}>
+                        <span className={styles["protocol"]}>https://</span>
                         <input
                             type="text"
                             value={domain}
@@ -114,99 +114,99 @@ const SslChecker = () => {
                     </div>
                 </div>
 
-                <div className="action-buttons">
+                <div className={styles["action-buttons"]}>
                     <button 
                         onClick={checkCertificate} 
-                        className="primary-btn"
+                        className={styles["primary-btn"]}
                         disabled={loading}
                     >
                         {loading ? "Checking certificate..." : "Check Certificate"}
                     </button>
-                    <button onClick={clearAll} className="secondary-btn">
+                    <button onClick={clearAll} className={styles["secondary-btn"]}>
                         {"Clear"}
                     </button>
                 </div>
 
                 {error && (
-                    <div className="error-message">
+                    <div className={styles["error-message"]}>
                         {error}
                     </div>
                 )}
 
                 {certificate && (
-                    <div className="results-section">
-                        <div className="certificate-status">
-                            <div className={`status-badge ${getStatus()}`}>
+                    <div className={styles["results-section"]}>
+                        <div className={styles["certificate-status"]}>
+                            <div className={`${styles["status-badge"]} ${getStatus()}`}>
                                 {t(getStatus())}
                             </div>
                             {certificate.daysRemaining > 0 && (
-                                <div className="days-remaining">
+                                <div className={styles["days-remaining"]}>
                                     {certificate.daysRemaining} {"Days Remaining"}
                                 </div>
                             )}
                         </div>
 
-                        <div className="certificate-details">
+                        <div className={styles["certificate-details"]}>
                             <h3>{"Certificate Information"}</h3>
-                            <div className="details-grid">
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Domain"}:</span>
-                                    <span className="detail-value">{certificate.domain}</span>
+                            <div className={styles["details-grid"]}>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Domain"}:</span>
+                                    <span className={styles["detail-value"]}>{certificate.domain}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Issuer"}:</span>
-                                    <span className="detail-value">{certificate.issuer}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Issuer"}:</span>
+                                    <span className={styles["detail-value"]}>{certificate.issuer}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Subject"}:</span>
-                                    <span className="detail-value">{certificate.subject}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Subject"}:</span>
+                                    <span className={styles["detail-value"]}>{certificate.subject}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Valid From"}:</span>
-                                    <span className="detail-value">{formatDate(certificate.validFrom)}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Valid From"}:</span>
+                                    <span className={styles["detail-value"]}>{formatDate(certificate.validFrom)}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Valid Until"}:</span>
-                                    <span className="detail-value">{formatDate(certificate.validUntil)}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Valid Until"}:</span>
+                                    <span className={styles["detail-value"]}>{formatDate(certificate.validUntil)}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Serial Number"}:</span>
-                                    <span className="detail-value serial">{certificate.serialNumber}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Serial Number"}:</span>
+                                    <span className={`${styles["detail-value"]} ${styles["serial"]}`}>{certificate.serialNumber}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Signature Algorithm"}:</span>
-                                    <span className="detail-value">{certificate.signatureAlgorithm}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Signature Algorithm"}:</span>
+                                    <span className={styles["detail-value"]}>{certificate.signatureAlgorithm}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Key Algorithm"}:</span>
-                                    <span className="detail-value">{certificate.keyAlgorithm}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Key Algorithm"}:</span>
+                                    <span className={styles["detail-value"]}>{certificate.keyAlgorithm}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"Key Size"}:</span>
-                                    <span className="detail-value">{certificate.keySize} bits</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"Key Size"}:</span>
+                                    <span className={styles["detail-value"]}>{certificate.keySize} bits</span>
                                 </div>
                                 {certificate.san && certificate.san.length > 0 && (
-                                    <div className="detail-item">
-                                        <span className="detail-label">{"Subject Alternative Names"}:</span>
-                                        <span className="detail-value">
+                                    <div className={styles["detail-item"]}>
+                                        <span className={styles["detail-label"]}>{"Subject Alternative Names"}:</span>
+                                        <span className={styles["detail-value"]}>
                                             {certificate.san.join(', ')}
                                         </span>
                                     </div>
                                 )}
-                                <div className="detail-item">
-                                    <span className="detail-label">{"OCSP"}:</span>
-                                    <span className="detail-value url">{certificate.ocsp}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"OCSP"}:</span>
+                                    <span className={`${styles["detail-value"]} ${styles["url"]}`}>{certificate.ocsp}</span>
                                 </div>
-                                <div className="detail-item">
-                                    <span className="detail-label">{"CRL"}:</span>
-                                    <span className="detail-value url">{certificate.crl}</span>
+                                <div className={styles["detail-item"]}>
+                                    <span className={styles["detail-label"]}>{"CRL"}:</span>
+                                    <span className={`${styles["detail-value"]} ${styles["url"]}`}>{certificate.crl}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
 
-                <div className="certificate-tips">
+                <div className={styles["certificate-tips"]}>
                     <h4>{"SSL Certificate Tips"}</h4>
                     <ul>
                         <li>{"SSL certificates typically expire after 1 year"}</li>
