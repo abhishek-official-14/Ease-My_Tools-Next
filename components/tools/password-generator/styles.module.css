@@ -4,12 +4,12 @@
     margin: 0 auto;
 }
 
-.light .password-generator {
+:global(.light) .password-generator {
     background: var(--bg-light);
     color: var(--text-light);
 }
 
-.dark .password-generator {
+:global(.dark) .password-generator {
     background: var(--bg-dark);
     color: var(--text-dark);
 }
@@ -41,7 +41,7 @@
     background: var(--card-light);
 }
 
-.dark .password-input {
+:global(.dark) .password-input {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -88,7 +88,7 @@
     border-radius: 8px;
 }
 
-.dark .strength-meter {
+:global(.dark) .strength-meter {
     background: var(--card-dark);
 }
 
@@ -106,7 +106,7 @@
     transition: all 0.3s;
 }
 
-.dark .strength-bar {
+:global(.dark) .strength-bar {
     background: #374151;
 }
 
@@ -176,7 +176,7 @@
     outline: none;
 }
 
-.dark .length-slider {
+:global(.dark) .length-slider {
     background: #374151;
 }
 
@@ -246,7 +246,7 @@
     margin-top: 20px;
 }
 
-.dark .password-tips {
+:global(.dark) .password-tips {
     background: var(--card-dark);
 }
 

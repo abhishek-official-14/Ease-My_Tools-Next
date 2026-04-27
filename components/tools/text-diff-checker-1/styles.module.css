@@ -61,7 +61,7 @@
     color: var(--text-light);
 }
 
-.dark .diff-result {
+:global(.dark) .diff-result {
     border: 1px solid #374151;
     background-color: var(--card-dark);
     color: var(--text-dark);

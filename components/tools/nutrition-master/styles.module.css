@@ -26,7 +26,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.dark .master-container {
+:global(.dark) .master-container {
     background: var(--card-dark);
 }
 
@@ -52,7 +52,7 @@
     transition: border-color 0.2s;
 }
 
-.dark .search-input {
+:global(.dark) .search-input {
     border-color: #4b5563;
     background: #374151;
     color: var(--text-dark);
@@ -87,7 +87,7 @@
     background: white;
 }
 
-.dark .filter-group select {
+:global(.dark) .filter-group select {
     border-color: #4b5563;
     background: #374151;
     color: var(--text-dark);
@@ -121,7 +121,7 @@
     position: relative;
 }
 
-.dark .food-card {
+:global(.dark) .food-card {
     background: #374151;
     border-color: #4b5563;
 }
@@ -137,7 +137,7 @@
     background: #f0f9ff;
 }
 
-.dark .food-card.selected {
+:global(.dark) .food-card.selected {
     background: #1e3a8a;
 }
 
@@ -154,7 +154,7 @@
     font-size: 1.2rem;
 }
 
-.dark .food-header h3 {
+:global(.dark) .food-header h3 {
     color: var(--text-dark);
 }
 
@@ -168,7 +168,7 @@
     font-weight: 600;
 }
 
-.dark .food-category {
+:global(.dark) .food-category {
     background: #4b5563;
 }
 
@@ -241,17 +241,17 @@
     color: #1e40af;
 }
 
-.dark .goal-tag.weightGain {
+:global(.dark) .goal-tag.weightGain {
     background: #78350f;
     color: #fef3c7;
 }
 
-.dark .goal-tag.weightLoss {
+:global(.dark) .goal-tag.weightLoss {
     background: #064e3b;
     color: #dcfce7;
 }
 
-.dark .goal-tag.maintenance {
+:global(.dark) .goal-tag.maintenance {
     background: #1e3a8a;
     color: #dbeafe;
 }
@@ -284,7 +284,7 @@
     margin-top: 2rem;
 }
 
-.dark .detail-section {
+:global(.dark) .detail-section {
     border-color: #374151;
 }
 
@@ -344,7 +344,7 @@
     border: 1px solid #e2e8f0;
 }
 
-.dark .fact-item {
+:global(.dark) .fact-item {
     background: #374151;
     border-color: #4b5563;
 }
@@ -354,7 +354,7 @@
     color: var(--text-light);
 }
 
-.dark .fact-label {
+:global(.dark) .fact-label {
     color: var(--text-dark);
 }
 
@@ -382,8 +382,8 @@
     border: 1px solid #e2e8f0;
 }
 
-.dark .vitamin-item,
-.dark .mineral-item {
+:global(.dark) .vitamin-item,
+:global(.dark) .mineral-item {
     background: #374151;
     border-color: #4b5563;
 }
@@ -404,8 +404,8 @@
     overflow: hidden;
 }
 
-.dark .vitamin-bar,
-.dark .mineral-bar {
+:global(.dark) .vitamin-bar,
+:global(.dark) .mineral-bar {
     background: #4b5563;
 }
 
@@ -442,7 +442,7 @@
     font-weight: 600;
 }
 
-.dark .antioxidant-tag {
+:global(.dark) .antioxidant-tag {
     background: #1e3a8a;
     border-color: #3b82f6;
     color: #dbeafe;
@@ -462,7 +462,7 @@
     border-left: 4px solid var(--primary);
 }
 
-.dark .benefits-list li {
+:global(.dark) .benefits-list li {
     background: #1e3a8a;
 }
 
@@ -473,7 +473,7 @@
     margin-top: 2rem;
 }
 
-.dark .compare-section {
+:global(.dark) .compare-section {
     border-color: #374151;
 }
 
@@ -496,7 +496,7 @@
     position: relative;
 }
 
-.dark .compare-card {
+:global(.dark) .compare-card {
     background: #374151;
     border-color: #4b5563;
 }
@@ -523,7 +523,7 @@
     color: var(--text-light);
 }
 
-.dark .compare-card h4 {
+:global(.dark) .compare-card h4 {
     color: var(--text-dark);
 }
 

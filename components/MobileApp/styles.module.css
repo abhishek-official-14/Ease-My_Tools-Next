@@ -4,7 +4,7 @@
   color: var(--text-light);
 }
 
-.dark .mobile-app-page {
+:global(.dark) .mobile-app-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -37,7 +37,7 @@
   line-height: 1.6;
 }
 
-.dark .subtitle {
+:global(.dark) .subtitle {
   color: #9ca3af;
 }
 
@@ -60,7 +60,7 @@
   min-width: 200px;
 }
 
-.dark .app-badge {
+:global(.dark) .app-badge {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -71,7 +71,7 @@
   border-color: var(--primary);
 }
 
-.dark .app-badge:hover {
+:global(.dark) .app-badge:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
@@ -91,7 +91,7 @@
   margin-bottom: 0.25rem;
 }
 
-.dark .available {
+:global(.dark) .available {
   color: #9ca3af;
 }
 
@@ -123,7 +123,7 @@
   position: relative;
 }
 
-.dark .phone-screen {
+:global(.dark) .phone-screen {
   background: #374151;
 }
 
@@ -167,7 +167,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .tool-item {
+:global(.dark) .tool-item {
   background: #4b5563;
   color: #d1d5db;
 }
@@ -204,7 +204,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .feature-card {
+:global(.dark) .feature-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -214,7 +214,7 @@
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.dark .feature-card:hover {
+:global(.dark) .feature-card:hover {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -229,7 +229,7 @@
   color: var(--text-light);
 }
 
-.dark .feature-card h3 {
+:global(.dark) .feature-card h3 {
   color: var(--text-dark);
 }
 
@@ -238,7 +238,7 @@
   line-height: 1.6;
 }
 
-.dark .feature-card p {
+:global(.dark) .feature-card p {
   color: #9ca3af;
 }
 

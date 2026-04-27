@@ -26,7 +26,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.dark .converter-container {
+:global(.dark) .converter-container {
     background: var(--card-dark);
 }
 
@@ -45,7 +45,7 @@
     background: #f8fafc;
 }
 
-.dark .upload-area {
+:global(.dark) .upload-area {
     border-color: #374151;
     background: #1f2937;
 }
@@ -55,7 +55,7 @@
     background: #f0f9ff;
 }
 
-.dark .upload-area:hover {
+:global(.dark) .upload-area:hover {
     background: #1e3a8a;
 }
 
@@ -69,7 +69,7 @@
     color: var(--text-light);
 }
 
-.dark .upload-content h3 {
+:global(.dark) .upload-content h3 {
     color: var(--text-dark);
 }
 
@@ -92,7 +92,7 @@
     border-left: 4px solid var(--primary);
 }
 
-.dark .file-info {
+:global(.dark) .file-info {
     background: #334155;
 }
 
@@ -104,7 +104,7 @@
     border-radius: 8px;
 }
 
-.dark .settings-section {
+:global(.dark) .settings-section {
     background: #1f2937;
 }
 
@@ -139,8 +139,8 @@
     background: white;
 }
 
-.dark .setting-group select,
-.dark .setting-group input[type="range"] {
+:global(.dark) .setting-group select,
+:global(.dark) .setting-group input[type="range"] {
     border-color: #4b5563;
     background: #374151;
     color: var(--text-dark);
@@ -169,7 +169,7 @@
     padding-top: 1rem;
 }
 
-.dark .advanced-options {
+:global(.dark) .advanced-options {
     border-color: #374151;
 }
 
@@ -193,7 +193,7 @@
     border-radius: 6px;
 }
 
-.dark .advanced-grid {
+:global(.dark) .advanced-grid {
     background: #374151;
 }
 
@@ -246,7 +246,7 @@
     padding-top: 2rem;
 }
 
-.dark .preview-section {
+:global(.dark) .preview-section {
     border-color: #374151;
 }
 
@@ -277,8 +277,8 @@
     object-fit: contain;
 }
 
-.dark .preview-image,
-.dark .preview-svg {
+:global(.dark) .preview-image,
+:global(.dark) .preview-svg {
     border-color: #374151;
     background: #374151;
 }
@@ -297,7 +297,7 @@
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
-.dark .preview-svg {
+:global(.dark) .preview-svg {
     background: 
         linear-gradient(45deg, #374151 25%, transparent 25%),
         linear-gradient(-45deg, #374151 25%, transparent 25%),
@@ -372,7 +372,7 @@
     overflow-y: auto;
 }
 
-.dark .svg-code {
+:global(.dark) .svg-code {
     background: #111827;
 }
 

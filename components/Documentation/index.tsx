@@ -133,7 +133,7 @@ ${"This example shows how to automate image processing for a folder of images."}
                 {sections.map((section) => (
                   <li key={section.id}>
                     <button
-                      className={`${styles["nav-item"]} ${activeSection === section.id ? 'active' : ''}`}
+                      className={`${styles["nav-item"]} ${activeSection === section.id ? styles["active"] : ""}`}
                       onClick={() => setActiveSection(section.id)}
                     >
                       {section.title}

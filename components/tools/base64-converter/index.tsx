@@ -67,13 +67,13 @@ const Base64Converter = () => {
 
             <div className={styles["mode-selector"]}>
                 <button
-                    className={mode === "encode" ? "active" : ""}
+                    className={mode === "encode" ? styles["active"] : ""}
                     onClick={() => setMode("encode")}
                 >
                     {"Encode"}
                 </button>
                 <button
-                    className={mode === "decode" ? "active" : ""}
+                    className={mode === "decode" ? styles["active"] : ""}
                     onClick={() => setMode("decode")}
                 >
                     {"Decode"}

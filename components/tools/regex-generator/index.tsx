@@ -198,7 +198,7 @@ const RegexGenerator = () => {
                     <div className={styles["action-buttons"]}>
                         <button 
                             onClick={generateRegex}
-                            className={`${styles["primary-btn"]} ${isGenerating ? 'generating' : ''}`}
+                            className={`${styles["primary-btn"]} ${isGenerating ? styles["generating"] : ""}`}
                             disabled={isGenerating || !description.trim()}
                         >
                             {isGenerating ? "Generating..." : "Generate Regex"}
@@ -863,7 +863,7 @@ export default RegexGenerator;
 //                         {activeMode === 'generate' && (
 //                             <button 
 //                                 onClick={generateRegex}
-//                                 className={`${styles["primary-btn"]} ${isGenerating ? 'generating' : ''}`}
+//                                 className={`${styles["primary-btn"]} ${isGenerating ? styles["generating"] : ""}`}
 //                                 disabled={isGenerating || !description.trim()}
 //                             >
 //                                 {isGenerating ? "Generating..." : "Generate Regex"}

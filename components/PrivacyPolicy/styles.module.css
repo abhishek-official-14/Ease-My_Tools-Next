@@ -5,7 +5,7 @@
   padding: 2rem 1rem;
 }
 
-.dark .privacy-policy {
+:global(.dark) .privacy-policy {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -19,7 +19,7 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.dark .privacy-container {
+:global(.dark) .privacy-container {
   background: var(--card-dark);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
@@ -31,7 +31,7 @@
   padding-bottom: 2rem;
 }
 
-.dark .privacy-header {
+:global(.dark) .privacy-header {
   border-color: #374151;
 }
 
@@ -46,7 +46,7 @@
   font-size: 0.9rem;
 }
 
-.dark .last-updated {
+:global(.dark) .last-updated {
   color: #9ca3af;
 }
 
@@ -72,7 +72,7 @@
   color: var(--text-light);
 }
 
-.dark .policy-section h3 {
+:global(.dark) .policy-section h3 {
   color: var(--text-dark);
 }
 
@@ -81,7 +81,7 @@
   color: #4b5563;
 }
 
-.dark .policy-section p {
+:global(.dark) .policy-section p {
   color: #d1d5db;
 }
 
@@ -95,7 +95,7 @@
   color: #4b5563;
 }
 
-.dark .policy-section li {
+:global(.dark) .policy-section li {
   color: #d1d5db;
 }
 
@@ -104,7 +104,7 @@
   font-weight: 600;
 }
 
-.dark .policy-section strong {
+:global(.dark) .policy-section strong {
   color: var(--text-dark);
 }
 
@@ -116,7 +116,7 @@
   margin-top: 1rem;
 }
 
-.dark .contact-info {
+:global(.dark) .contact-info {
   background: #1f2937;
 }
 
@@ -125,7 +125,7 @@
   color: #4b5563;
 }
 
-.dark .contact-info p {
+:global(.dark) .contact-info p {
   color: #d1d5db;
 }
 
@@ -138,7 +138,7 @@
   border-top: 2px solid #e5e7eb;
 }
 
-.dark .privacy-actions {
+:global(.dark) .privacy-actions {
   border-color: #374151;
 }
 

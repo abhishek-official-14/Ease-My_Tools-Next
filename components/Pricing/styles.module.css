@@ -5,7 +5,7 @@
   padding: 2rem 1rem;
 }
 
-.dark .pricing-page {
+:global(.dark) .pricing-page {
   background: var(--bg-dark);
   color: var(--text-dark);
 }
@@ -33,7 +33,7 @@
   margin: 0 auto;
 }
 
-.dark .pricing-subtitle {
+:global(.dark) .pricing-subtitle {
   color: #9ca3af;
 }
 
@@ -53,7 +53,7 @@
   transition: all 0.3s ease;
 }
 
-.dark .pricing-card {
+:global(.dark) .pricing-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -64,7 +64,7 @@
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
 }
 
-.dark .pricing-card.highlighted {
+:global(.dark) .pricing-card.highlighted {
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
 }
 
@@ -92,7 +92,7 @@
   color: var(--text-light);
 }
 
-.dark .plan-header h3 {
+:global(.dark) .plan-header h3 {
   color: var(--text-dark);
 }
 
@@ -111,7 +111,7 @@
   color: #6b7280;
 }
 
-.dark .period {
+:global(.dark) .period {
   color: #9ca3af;
 }
 
@@ -120,7 +120,7 @@
   font-size: 0.9rem;
 }
 
-.dark .plan-description {
+:global(.dark) .plan-description {
   color: #9ca3af;
 }
 
@@ -137,7 +137,7 @@
   color: #4b5563;
 }
 
-.dark .plan-features li {
+:global(.dark) .plan-features li {
   color: #d1d5db;
 }
 
@@ -186,7 +186,7 @@
   margin-top: 4rem;
 }
 
-.dark .pricing-faq {
+:global(.dark) .pricing-faq {
   background: var(--card-dark);
 }
 
@@ -209,7 +209,7 @@
   font-size: 1.1rem;
 }
 
-.dark .faq-item h3 {
+:global(.dark) .faq-item h3 {
   color: var(--text-dark);
 }
 
@@ -218,7 +218,7 @@
   line-height: 1.6;
 }
 
-.dark .faq-item p {
+:global(.dark) .faq-item p {
   color: #9ca3af;
 }
 

@@ -125,11 +125,11 @@ const PasswordGenerator = () => {
                         {[1, 2, 3, 4, 5].map(level => (
                             <div
                                 key={level}
-                                className={`${styles["strength-bar"]} ${level <= strength.level ? 'active' : ''} ${strength.strength}`}
+                                className={`${styles["strength-bar"]} ${level <= strength.level ? styles["active"] : ""} ${styles[strength.strength]}`}
                             />
                         ))}
                     </div>
-                    <span className={`${styles["strength-text"]} ${strength.strength}`}>
+                    <span className={`${styles["strength-text"]} ${styles[strength.strength]}`}>
                         {t(strength.strength)}
                     </span>
                 </div>

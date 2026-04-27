@@ -72,13 +72,13 @@ const URLEncoder = () => {
             <div className={styles["encoder-container"]}>
                 <div className={styles["operation-selector"]}>
                     <button 
-                        className={`${styles["op-btn"]} ${operation === 'encode' ? 'active' : ''}`}
+                        className={`${styles["op-btn"]} ${operation === 'encode' ? styles["active"] : ""}`}
                         onClick={() => setOperation('encode')}
                     >
                         {"Encode" || 'Encode'}
                     </button>
                     <button 
-                        className={`${styles["op-btn"]} ${operation === 'decode' ? 'active' : ''}`}
+                        className={`${styles["op-btn"]} ${operation === 'decode' ? styles["active"] : ""}`}
                         onClick={() => setOperation('decode')}
                     >
                         {"Decode" || 'Decode'}

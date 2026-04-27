@@ -138,7 +138,7 @@ const Navbar = () => {
           {/* Mobile Hamburger Button */}
           <button
             ref={hamburgerRef}
-            className={`${styles["mobile-hamburger"]} ${isMenuOpen ? "active" : ""}`}
+            className={`${styles["mobile-hamburger"]} ${isMenuOpen ? styles["active"] : ""}`}
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
@@ -165,7 +165,7 @@ const Navbar = () => {
               <div className={styles["mobile-menu-content"]}>
                 {menus.map((menu, index) => (
                   <div
-                    className={`${styles["mobile-menu-item"]} ${activeDropdown === index ? "active" : ""
+                    className={`${styles["mobile-menu-item"]} ${activeDropdown === index ? styles["active"] : ""
                       }`}
                     key={index}
                   >

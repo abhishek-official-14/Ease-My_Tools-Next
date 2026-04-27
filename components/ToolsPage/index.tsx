@@ -214,7 +214,7 @@ const ToolsPage = () => {
                         {Array.from({ length: realSlides }).map((_, i) => (
                             <button
                                 key={i}
-                                className={`${styles["dot"]} ${currentIndex === i + 1 ? "active" : ""}`}
+                                className={`${styles["dot"]} ${currentIndex === i + 1 ? styles["active"] : ""}`}
                                 onClick={() => {
                                     setEnableTransition(true);
                                     setCurrentIndex(i + 1);

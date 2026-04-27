@@ -15,7 +15,7 @@
     color: var(--text-light);
 }
 
-.dark .calculator-header h1 {
+:global(.dark) .calculator-header h1 {
     color: var(--text-dark);
 }
 
@@ -24,7 +24,7 @@
     font-size: 1.1rem;
 }
 
-.dark .calculator-header p {
+:global(.dark) .calculator-header p {
     color: #9ca3af;
 }
 
@@ -43,7 +43,7 @@
     overflow-y: auto;
 }
 
-.dark .input-panel {
+:global(.dark) .input-panel {
     background: var(--card-dark);
 }
 
@@ -59,7 +59,7 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .input-section {
+:global(.dark) .input-section {
     border-bottom-color: #374151;
 }
 
@@ -85,7 +85,7 @@
     color: var(--text-light);
 }
 
-.dark .input-group label {
+:global(.dark) .input-group label {
     color: var(--text-dark);
 }
 
@@ -100,8 +100,8 @@
     color: var(--text-light);
 }
 
-.dark .input-group input,
-.dark .input-group select {
+:global(.dark) .input-group input,
+:global(.dark) .input-group select {
     background: #374151;
     border-color: #4b5563;
     color: var(--text-dark);
@@ -131,7 +131,7 @@
     transition: all 0.2s;
 }
 
-.dark .checkbox-label {
+:global(.dark) .checkbox-label {
     background: #1f2937;
     border-color: #374151;
 }
@@ -151,7 +151,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.dark .cost-summary {
+:global(.dark) .cost-summary {
     background: var(--card-dark);
 }
 
@@ -191,7 +191,7 @@
     color: var(--text-light);
 }
 
-.dark .cost-breakdown h4 {
+:global(.dark) .cost-breakdown h4 {
     color: var(--text-dark);
 }
 
@@ -203,7 +203,7 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .breakdown-item {
+:global(.dark) .breakdown-item {
     border-bottom-color: #374151;
 }
 
@@ -216,7 +216,7 @@
     font-weight: 500;
 }
 
-.dark .breakdown-item .category {
+:global(.dark) .breakdown-item .category {
     color: var(--text-dark);
 }
 
@@ -268,8 +268,8 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.dark .assumptions-section,
-.dark .feature-impact {
+:global(.dark) .assumptions-section,
+:global(.dark) .feature-impact {
     background: var(--card-dark);
 }
 
@@ -290,7 +290,7 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .assumptions-section li {
+:global(.dark) .assumptions-section li {
     color: var(--text-dark);
     border-bottom-color: #374151;
 }
@@ -322,7 +322,7 @@
     border-left: 4px solid #10b981;
 }
 
-.dark .impact-item {
+:global(.dark) .impact-item {
     background: #064e3b;
 }
 
@@ -331,7 +331,7 @@
     font-weight: 500;
 }
 
-.dark .impact-item span:first-child {
+:global(.dark) .impact-item span:first-child {
     color: var(--text-dark);
 }
 

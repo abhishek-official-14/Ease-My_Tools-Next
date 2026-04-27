@@ -5,12 +5,12 @@
   margin-top: auto;
 }
 
-.light .footer {
+:global(.light) .footer {
   background: var(--bg-light);
   color: var(--text-light);
 }
 
-.dark .footer {
+:global(.dark) .footer {
   background: var(--bg-dark);
   color: var(--text-dark);
 }

@@ -86,13 +86,13 @@ const TimeCalculator = () => {
             <div className={styles["calculator-container"]}>
                 <div className={styles["calculation-types"]}>
                     <button 
-                        className={`${styles["type-btn"]} ${calculationType === 'add' ? 'active' : ''}`}
+                        className={`${styles["type-btn"]} ${calculationType === 'add' ? styles["active"] : ""}`}
                         onClick={() => setCalculationType('add')}
                     >
                         {"Add/Subtract Time" || 'Add/Subtract Time'}
                     </button>
                     <button 
-                        className={`${styles["type-btn"]} ${calculationType === 'date' ? 'active' : ''}`}
+                        className={`${styles["type-btn"]} ${calculationType === 'date' ? styles["active"] : ""}`}
                         onClick={() => setCalculationType('date')}
                     >
                         {"Date Difference" || 'Date Difference'}
@@ -137,13 +137,13 @@ const TimeCalculator = () => {
 
                             <div className={styles["operation-selector"]}>
                                 <button 
-                                    className={`${styles["op-btn"]} ${calculationType === 'add' ? 'active' : ''}`}
+                                    className={`${styles["op-btn"]} ${calculationType === 'add' ? styles["active"] : ""}`}
                                     onClick={() => setCalculationType('add')}
                                 >
                                     +
                                 </button>
                                 <button 
-                                    className={`${styles["op-btn"]} ${calculationType === 'subtract' ? 'active' : ''}`}
+                                    className={`${styles["op-btn"]} ${calculationType === 'subtract' ? styles["active"] : ""}`}
                                     onClick={() => setCalculationType('subtract')}
                                 >
                                     -

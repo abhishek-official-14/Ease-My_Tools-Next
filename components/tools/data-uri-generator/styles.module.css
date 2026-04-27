@@ -4,12 +4,12 @@
     margin: 0 auto;
 }
 
-.light .data-uri-generator {
+:global(.light) .data-uri-generator {
     background: var(--bg-light);
     color: var(--text-light);
 }
 
-.dark .data-uri-generator {
+:global(.dark) .data-uri-generator {
     background: var(--bg-dark);
     color: var(--text-dark);
 }
@@ -67,7 +67,7 @@
     background: white;
 }
 
-.dark .text-type-selector select {
+:global(.dark) .text-type-selector select {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -89,7 +89,7 @@
     outline: none;
 }
 
-.dark .text-input-section textarea {
+:global(.dark) .text-input-section textarea {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -108,7 +108,7 @@
     background: var(--card-light);
 }
 
-.dark .file-input {
+:global(.dark) .file-input {
     background: var(--card-dark);
     border-color: #374151;
 }
@@ -120,7 +120,7 @@
     border: 1px solid #e5e7eb;
 }
 
-.dark .file-info {
+:global(.dark) .file-info {
     background: var(--card-dark);
     border-color: #374151;
 }
@@ -176,7 +176,7 @@
     border-radius: 8px;
 }
 
-.dark .file-info-section {
+:global(.dark) .file-info-section {
     background: var(--card-dark);
 }
 
@@ -199,7 +199,7 @@
     border-bottom: 1px solid #e5e7eb;
 }
 
-.dark .info-item {
+:global(.dark) .info-item {
     border-bottom-color: #374151;
 }
 
@@ -225,7 +225,7 @@
     padding: 20px;
 }
 
-.dark .data-uri-output {
+:global(.dark) .data-uri-output {
     background: var(--card-dark);
 }
 
@@ -273,7 +273,7 @@
     background: var(--bg-light);
 }
 
-.dark .uri-output {
+:global(.dark) .uri-output {
     background: var(--bg-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -292,7 +292,7 @@
     padding: 20px;
 }
 
-.dark .preview-section {
+:global(.dark) .preview-section {
     background: var(--card-dark);
 }
 
@@ -311,7 +311,7 @@
     padding: 20px;
 }
 
-.dark .preview-container {
+:global(.dark) .preview-container {
     border-color: #374151;
 }
 
@@ -334,7 +334,7 @@
     white-space: pre-wrap;
 }
 
-.dark .text-preview {
+:global(.dark) .text-preview {
     background: var(--bg-dark);
 }
 
@@ -350,7 +350,7 @@
     margin-top: 20px;
 }
 
-.dark .data-uri-info {
+:global(.dark) .data-uri-info {
     background: var(--card-dark);
 }
 

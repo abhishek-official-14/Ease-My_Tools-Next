@@ -175,7 +175,7 @@ const XMLFormatter = () => {
                 </div>
 
                 {error && (
-                    <div className={`${styles["error-message"]} ${isValid ? 'valid' : 'invalid'}`}>
+                    <div className={`${styles["error-message"]} ${isValid ? styles["valid"] : styles["invalid"]}`}>
                         {error}
                     </div>
                 )}

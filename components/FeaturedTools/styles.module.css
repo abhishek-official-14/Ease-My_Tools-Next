@@ -8,7 +8,7 @@
   background: #f8fafc;
 }
 
-.dark .featured-tools {
+:global(.dark) .featured-tools {
   background: #0f172a;
 }
 
@@ -31,7 +31,7 @@
   letter-spacing: -0.02em;
 }
 
-.dark .featured-tools h2 {
+:global(.dark) .featured-tools h2 {
   color: var(--text-dark);
 }
 
@@ -44,7 +44,7 @@
   color: #6b7280;
 }
 
-.dark .section-subtitle {
+:global(.dark) .section-subtitle {
   color: #9ca3af;
 }
 
@@ -83,7 +83,7 @@
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.dark .tool-card {
+:global(.dark) .tool-card {
   background: var(--card-dark);
   border-color: #374151;
 }
@@ -93,7 +93,7 @@
   box-shadow: 0 22px 40px rgba(0, 0, 0, 0.14);
 }
 
-.dark .tool-card:hover {
+:global(.dark) .tool-card:hover {
   box-shadow: 0 22px 40px rgba(0, 0, 0, 0.4);
 }
 
@@ -145,7 +145,7 @@
   text-align: center;
 }
 
-.dark .tool-card h3 {
+:global(.dark) .tool-card h3 {
   color: var(--text-dark);
 }
 
@@ -157,7 +157,7 @@
   max-width: 280px;
 }
 
-.dark .tool-card p {
+:global(.dark) .tool-card p {
   color: #9ca3af;
 }
 

@@ -445,7 +445,7 @@ const FileRenameTool = () => {
                   ].map(method => (
                     <div
                       key={method.value}
-                      className={`${styles["method-option"]} ${namingStrategy.method === method.value ? 'active' : ''}`}
+                      className={`${styles["method-option"]} ${namingStrategy.method === method.value ? styles["active"] : ""}`}
                       onClick={() => setNamingStrategy(prev => ({ ...prev, method: method.value }))}
                     >
                       <span className={styles["method-icon"]}>{method.icon}</span>
@@ -521,7 +521,7 @@ const FileRenameTool = () => {
                   ].map(caseOption => (
                     <button
                       key={caseOption.value}
-                      className={`${styles["case-btn"]} ${namingStrategy.case === caseOption.value ? 'active' : ''}`}
+                      className={`${styles["case-btn"]} ${namingStrategy.case === caseOption.value ? styles["active"] : ""}`}
                       onClick={() => setNamingStrategy(prev => ({ ...prev, case: caseOption.value }))}
                     >
                       {caseOption.label}

@@ -1155,35 +1155,35 @@ const RemoveBackground = () => {
       <div className={styles["top-toolbar"]}>
         <div className={styles["left-tools"]}>
           <button 
-            className={`${styles["tool-btn"]} ${activeTab === 'cutout' ? 'active' : ''}`}
+            className={`${styles["tool-btn"]} ${activeTab === 'cutout' ? styles["active"] : ""}`}
             onClick={() => setActiveTab('cutout')}
             disabled={processing}
           >
             🎯 {t('cutout')}
           </button>
           <button 
-            className={`${styles["tool-btn"]} ${activeTab === 'background' ? 'active' : ''}`}
+            className={`${styles["tool-btn"]} ${activeTab === 'background' ? styles["active"] : ""}`}
             onClick={() => setActiveTab('background')}
             disabled={processing}
           >
             🎨 {t('background')}
           </button>
           <button 
-            className={`${styles["tool-btn"]} ${activeTab === 'effects' ? 'active' : ''}`}
+            className={`${styles["tool-btn"]} ${activeTab === 'effects' ? styles["active"] : ""}`}
             onClick={() => setActiveTab('effects')}
             disabled={processing}
           >
             ✨ {t('effects')}
           </button>
           <button 
-            className={`${styles["tool-btn"]} ${activeTab === 'adjust' ? 'active' : ''}`}
+            className={`${styles["tool-btn"]} ${activeTab === 'adjust' ? styles["active"] : ""}`}
             onClick={() => setActiveTab('adjust')}
             disabled={processing}
           >
             ⚙️ {t('adjust')}
           </button>
           <button 
-            className={`${styles["tool-btn"]} ${activeTab === 'design' ? 'active' : ''}`}
+            className={`${styles["tool-btn"]} ${activeTab === 'design' ? styles["active"] : ""}`}
             onClick={() => setActiveTab('design')}
             disabled={processing}
           >
@@ -1263,7 +1263,7 @@ const RemoveBackground = () => {
             {['cutout', 'background', 'effects', 'adjust', 'design'].map((tab) => (
               <button
                 key={tab}
-                className={`${styles["tab"]} ${activeTab === tab ? 'active' : ''}`}
+                className={`${styles["tab"]} ${activeTab === tab ? styles["active"] : ""}`}
                 onClick={() => setActiveTab(tab)}
                 disabled={processing}
               >
@@ -1298,19 +1298,19 @@ const RemoveBackground = () => {
                   <label>{t('backgroundType')}</label>
                   <div className={styles["bg-type-buttons"]}>
                     <button
-                      className={`${styles["bg-type-btn"]} ${bgMode === 'transparent' ? 'active' : ''}`}
+                      className={`${styles["bg-type-btn"]} ${bgMode === 'transparent' ? styles["active"] : ""}`}
                       onClick={() => setBgMode('transparent')}
                     >
                       Transparent
                     </button>
                     <button
-                      className={`${styles["bg-type-btn"]} ${bgMode === 'color' ? 'active' : ''}`}
+                      className={`${styles["bg-type-btn"]} ${bgMode === 'color' ? styles["active"] : ""}`}
                       onClick={() => setBgMode('color')}
                     >
                       Color
                     </button>
                     <button
-                      className={`${styles["bg-type-btn"]} ${bgMode === 'photo' ? 'active' : ''}`}
+                      className={`${styles["bg-type-btn"]} ${bgMode === 'photo' ? styles["active"] : ""}`}
                       onClick={() => setBgMode('photo')}
                     >
                       Photo

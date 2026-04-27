@@ -4,12 +4,12 @@
     transition: all 0.3s ease;
 }
 
-.light .csv-json-converter {
+:global(.light) .csv-json-converter {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     color: #2d3748;
 }
 
-.dark .csv-json-converter {
+:global(.dark) .csv-json-converter {
     background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     color: #f1f5f9;
 }
@@ -43,7 +43,7 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.dark .csv-json-converter .converter-container {
+:global(.dark) .csv-json-converter .converter-container {
     background: var(--card-dark);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
@@ -58,7 +58,7 @@
     flex-wrap: wrap;
 }
 
-.dark .csv-json-converter .settings-panel {
+:global(.dark) .csv-json-converter .settings-panel {
     background: #1f2937;
 }
 
@@ -81,7 +81,7 @@
     cursor: pointer;
 }
 
-.dark .csv-json-converter .setting select {
+:global(.dark) .csv-json-converter .setting select {
     background: #1f2937;
     border-color: #4b5563;
     color: #f9fafb;
@@ -125,8 +125,8 @@
     line-height: 1.4;
 }
 
-.dark .csv-json-converter .text-input,
-.dark .csv-json-converter .text-output {
+:global(.dark) .csv-json-converter .text-input,
+:global(.dark) .csv-json-converter .text-output {
     background: #1f2937;
     border-color: #4b5563;
     color: #f9fafb;
@@ -143,7 +143,7 @@
     cursor: not-allowed;
 }
 
-.dark .csv-json-converter .text-output {
+:global(.dark) .csv-json-converter .text-output {
     background: #374151;
 }
 
@@ -243,7 +243,7 @@
     border-left: 4px solid #667eea;
 }
 
-.dark .csv-json-converter .info-section {
+:global(.dark) .csv-json-converter .info-section {
     background: #1f2937;
 }
 
@@ -327,12 +327,12 @@
     margin: 0 auto;
 }
 
-.light .csv-to-json {
+:global(.light) .csv-to-json {
     background: var(--bg-light);
     color: var(--text-light);
 }
 
-.dark .csv-to-json {
+:global(.dark) .csv-to-json {
     background: var(--bg-dark);
     color: var(--text-dark);
 }
@@ -367,12 +367,12 @@
     background: #eff6ff;
 }
 
-.dark .drop-zone {
+:global(.dark) .drop-zone {
     background: var(--card-dark);
     border-color: #374151;
 }
 
-.dark .drop-zone.dragging {
+:global(.dark) .drop-zone.dragging {
     background: #1e3a8a;
 }
 
@@ -423,7 +423,7 @@
     outline: none;
 }
 
-.dark .csv-input-section textarea {
+:global(.dark) .csv-input-section textarea {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -452,7 +452,7 @@
     background: white;
 }
 
-.dark .setting-group select {
+:global(.dark) .setting-group select {
     background: var(--card-dark);
     border-color: #374151;
     color: var(--text-dark);
@@ -510,7 +510,7 @@
     border-radius: 8px;
 }
 
-.dark .conversion-info {
+:global(.dark) .conversion-info {
     background: var(--card-dark);
 }
 
@@ -547,7 +547,7 @@
     padding: 20px;
 }
 
-.dark .output-section {
+:global(.dark) .output-section {
     background: var(--card-dark);
 }
 
@@ -612,7 +612,7 @@
     white-space: pre-wrap;
 }
 
-.dark .json-output {
+:global(.dark) .json-output {
     background: var(--bg-dark);
     border-color: #374151;
 }
@@ -624,7 +624,7 @@
     margin-top: 20px;
 }
 
-.dark .csv-tips {
+:global(.dark) .csv-tips {
     background: var(--card-dark);
 }
 

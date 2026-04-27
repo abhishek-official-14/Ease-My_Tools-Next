@@ -66,7 +66,7 @@ const Pricing = () => {
           {plans.map((plan, index) => (
             <div 
               key={index} 
-              className={`${styles["pricing-card"]} ${plan.highlighted ? 'highlighted' : ''}`}
+              className={`${styles["pricing-card"]} ${plan.highlighted ? styles["highlighted"] : ""}`}
             >
               {plan.highlighted && (
                 <div className={styles["popular-badge"]}>
@@ -93,7 +93,7 @@ const Pricing = () => {
               </ul>
 
               <button 
-                className={`${styles["plan-button"]} ${plan.highlighted ? 'primary' : 'secondary'}`}
+                className={`${styles["plan-button"]} ${plan.highlighted ? styles["primary"] : styles["secondary"]}`}
                 onClick={() => window.location.href = plan.highlighted ? '/signup' : '/tools'}
               >
                 {plan.cta}
