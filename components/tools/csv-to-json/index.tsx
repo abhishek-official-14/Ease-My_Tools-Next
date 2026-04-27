@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const CSVtoJSON = () => {
     const [csvInput, setCsvInput] = useState('');
@@ -148,15 +148,15 @@ const CSVtoJSON = () => {
     };
 
     return (
-        <div className="csv-json-converter">
-            <div className="converter-header">
+        <div className={styles["csv-json-converter"]}>
+            <div className={styles["converter-header"]}>
                 <h1>{"CSV to JSON Converter" || 'CSV to JSON Converter'}</h1>
                 <p>{"Convert between CSV and JSON formats" || 'Convert between CSV and JSON formats'}</p>
             </div>
 
-            <div className="converter-container">
-                <div className="settings-panel">
-                    <div className="setting">
+            <div className={styles["converter-container"]}>
+                <div className={styles["settings-panel"]}>
+                    <div className={styles["setting"]}>
                         <label>{"Delimiter" || 'Delimiter'}</label>
                         <select value={delimiter} onChange={(e) => setDelimiter(e.target.value)}>
                             <option value=",">, {"Comma" || 'Comma'}</option>
@@ -165,7 +165,7 @@ const CSVtoJSON = () => {
                             <option value="|">| {"Pipe" || 'Pipe'}</option>
                         </select>
                     </div>
-                    <div className="setting">
+                    <div className={styles["setting"]}>
                         <label>
                             <input
                                 type="checkbox"
@@ -177,62 +177,62 @@ const CSVtoJSON = () => {
                     </div>
                 </div>
 
-                <div className="input-output-section">
-                    <div className="input-section">
+                <div className={styles["input-output-section"]}>
+                    <div className={styles["input-section"]}>
                         <label>{"CSV Input" || 'CSV Input'}</label>
                         <textarea
                             value={csvInput}
                             onChange={(e) => setCsvInput(e.target.value)}
                             placeholder={"Paste your CSV data here..." || 'Paste your CSV data here...'}
-                            className="text-input"
+                            className={styles["text-input"]}
                             rows="8"
                         />
-                        <div className="input-actions">
-                            <button onClick={downloadCSV} className="download-btn" disabled={!csvInput}>
+                        <div className={styles["input-actions"]}>
+                            <button onClick={downloadCSV} className={styles["download-btn"]} disabled={!csvInput}>
                                 {"Download CSV" || 'Download CSV'}
                             </button>
-                            <button onClick={() => copyToClipboard(csvInput)} className="copy-btn" disabled={!csvInput}>
+                            <button onClick={() => copyToClipboard(csvInput)} className={styles["copy-btn"]} disabled={!csvInput}>
                                 {"Copy CSV" || 'Copy CSV'}
                             </button>
                         </div>
                     </div>
 
-                    <div className="conversion-buttons">
-                        <button onClick={convertCSVtoJSON} className="convert-btn">
+                    <div className={styles["conversion-buttons"]}>
+                        <button onClick={convertCSVtoJSON} className={styles["convert-btn"]}>
                             {"CSV → JSON" || 'CSV → JSON'}
                         </button>
-                        <button onClick={convertJSONtoCSV} className="convert-btn">
+                        <button onClick={convertJSONtoCSV} className={styles["convert-btn"]}>
                             {"JSON → CSV" || 'JSON → CSV'}
                         </button>
                     </div>
 
-                    <div className="output-section">
+                    <div className={styles["output-section"]}>
                         <label>{"JSON Output" || 'JSON Output'}</label>
                         <textarea
                             value={jsonOutput}
                             onChange={(e) => setJsonOutput(e.target.value)}
                             placeholder={"JSON output will appear here..." || 'JSON output will appear here...'}
-                            className="text-output"
+                            className={styles["text-output"]}
                             rows="8"
                         />
-                        <div className="output-actions">
-                            <button onClick={downloadJSON} className="download-btn" disabled={!jsonOutput}>
+                        <div className={styles["output-actions"]}>
+                            <button onClick={downloadJSON} className={styles["download-btn"]} disabled={!jsonOutput}>
                                 {"Download JSON" || 'Download JSON'}
                             </button>
-                            <button onClick={() => copyToClipboard(jsonOutput)} className="copy-btn" disabled={!jsonOutput}>
+                            <button onClick={() => copyToClipboard(jsonOutput)} className={styles["copy-btn"]} disabled={!jsonOutput}>
                                 {"Copy JSON" || 'Copy JSON'}
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={clearAll} className="clear-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={clearAll} className={styles["clear-btn"]}>
                         {"Clear All" || 'Clear All'}
                     </button>
                 </div>
 
-                <div className="info-section">
+                <div className={styles["info-section"]}>
                     <h4>{"About CSV and JSON" || 'About CSV and JSON'}</h4>
                     <p><strong>CSV</strong> {"(Comma-Separated Values) is a simple file format used to store tabular data." || '(Comma-Separated Values) is a simple file format used to store tabular data.'}</p>
                     <p><strong>JSON</strong> {"(JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write." || '(JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write.'}</p>
@@ -257,7 +257,7 @@ export default CSVtoJSON;
 // import React, { useState, useRef } from 'react';
 // 
 // import { useTheme } from 'next-themes';
-// import './styles.css';
+// import styles from './styles.module.css';
 
 // const CsvToJson = () => {
 //     const { t } = useTranslation('csvToJson');
@@ -386,17 +386,17 @@ export default CSVtoJSON;
 //     };
 
 //     return (
-//         <div className="csv-to-json">
-//             <div className="tool-header">
+//         <div className={styles["csv-to-json"]}>
+//             <div className={styles["tool-header"]}>
 //                 <h1>{"CSV to JSON Converter"}</h1>
 //                 <p>{"Convert between CSV and JSON formats"}</p>
 //             </div>
 
-//             <div className="converter-container">
-//                 <div className="input-section">
-//                     <div className="upload-section">
+//             <div className={styles["converter-container"]}>
+//                 <div className={styles["input-section"]}>
+//                     <div className={styles["upload-section"]}>
 //                         <div 
-//                             className={`drop-zone ${isDragging ? 'dragging' : ''}`}
+//                             className={`${styles["drop-zone"]} ${isDragging ? 'dragging' : ''}`}
 //                             onDragOver={handleDragOver}
 //                             onDragLeave={handleDragLeave}
 //                             onDrop={handleDrop}
@@ -406,17 +406,17 @@ export default CSVtoJSON;
 //                                 type="file"
 //                                 accept=".csv"
 //                                 onChange={handleFileSelect}
-//                                 className="file-input"
+//                                 className={styles["file-input"]}
 //                             />
-//                             <div className="upload-text">
-//                                 <span className="upload-icon">📁</span>
+//                             <div className={styles["upload-text"]}>
+//                                 <span className={styles["upload-icon"]}>📁</span>
 //                                 <span>{t('uploadCsv')}</span>
-//                                 <span className="drag-text">{t('dragDrop')}</span>
+//                                 <span className={styles["drag-text"]}>{t('dragDrop')}</span>
 //                             </div>
 //                         </div>
 //                     </div>
 
-//                     <div className="csv-input-section">
+//                     <div className={styles["csv-input-section"]}>
 //                         <label>{"CSV Input"}</label>
 //                         <textarea
 //                             value={csvInput}
@@ -427,8 +427,8 @@ export default CSVtoJSON;
 //                     </div>
 //                 </div>
 
-//                 <div className="settings-section">
-//                     <div className="setting-group">
+//                 <div className={styles["settings-section"]}>
+//                     <div className={styles["setting-group"]}>
 //                         <label>{"Delimiter"}</label>
 //                         <select value={delimiter} onChange={(e) => setDelimiter(e.target.value)}>
 //                             {Object.entries(delimiters).map(([value, label]) => (
@@ -437,8 +437,8 @@ export default CSVtoJSON;
 //                         </select>
 //                     </div>
 
-//                     <div className="setting-group">
-//                         <label className="checkbox-label">
+//                     <div className={styles["setting-group"]}>
+//                         <label className={styles["checkbox-label"]}>
 //                             <input
 //                                 type="checkbox"
 //                                 checked={firstRowHeader}
@@ -449,49 +449,49 @@ export default CSVtoJSON;
 //                     </div>
 //                 </div>
 
-//                 <div className="action-buttons">
-//                     <button onClick={convertToJson} className="primary-btn">
+//                 <div className={styles["action-buttons"]}>
+//                     <button onClick={convertToJson} className={styles["primary-btn"]}>
 //                         {t('convert')}
 //                     </button>
-//                     <button onClick={clearAll} className="secondary-btn">
+//                     <button onClick={clearAll} className={styles["secondary-btn"]}>
 //                         {t('clear')}
 //                     </button>
 //                 </div>
 
 //                 {conversionInfo && (
-//                     <div className="conversion-info">
+//                     <div className={styles["conversion-info"]}>
 //                         <h3>{t('conversionInfo')}</h3>
-//                         <div className="info-grid">
-//                             <div className="info-item">
-//                                 <span className="info-label">{t('rowsConverted')}:</span>
-//                                 <span className="info-value">{conversionInfo.rowsConverted}</span>
+//                         <div className={styles["info-grid"]}>
+//                             <div className={styles["info-item"]}>
+//                                 <span className={styles["info-label"]}>{t('rowsConverted')}:</span>
+//                                 <span className={styles["info-value"]}>{conversionInfo.rowsConverted}</span>
 //                             </div>
-//                             <div className="info-item">
-//                                 <span className="info-label">{t('columnsDetected')}:</span>
-//                                 <span className="info-value">{conversionInfo.columnsDetected}</span>
+//                             <div className={styles["info-item"]}>
+//                                 <span className={styles["info-label"]}>{t('columnsDetected')}:</span>
+//                                 <span className={styles["info-value"]}>{conversionInfo.columnsDetected}</span>
 //                             </div>
 //                         </div>
 //                     </div>
 //                 )}
 
 //                 {jsonOutput && (
-//                     <div className="output-section">
-//                         <div className="output-header">
+//                     <div className={styles["output-section"]}>
+//                         <div className={styles["output-header"]}>
 //                             <h3>{"JSON Output"}</h3>
-//                             <div className="output-actions">
-//                                 <button onClick={copyJson} className="copy-btn">
+//                             <div className={styles["output-actions"]}>
+//                                 <button onClick={copyJson} className={styles["copy-btn"]}>
 //                                     {t('copyJson')}
 //                                 </button>
-//                                 <button onClick={downloadJson} className="download-btn">
+//                                 <button onClick={downloadJson} className={styles["download-btn"]}>
 //                                     {t('downloadJson')}
 //                                 </button>
 //                             </div>
 //                         </div>
-//                         <pre className="json-output">{jsonOutput}</pre>
+//                         <pre className={styles["json-output"]}>{jsonOutput}</pre>
 //                     </div>
 //                 )}
 
-//                 <div className="csv-tips">
+//                 <div className={styles["csv-tips"]}>
 //                     <h4>{t('csvTips')}</h4>
 //                     <ul>
 //                         <li>{t('tip1')}</li>

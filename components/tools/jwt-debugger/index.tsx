@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const JwtDebugger = () => {
     const [jwtToken, setJwtToken] = useState('');
@@ -73,14 +73,14 @@ const JwtDebugger = () => {
     };
 
     return (
-        <div className="jwt-debugger">
-            <div className="tool-header">
+        <div className={styles["jwt-debugger"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"JWT Debugger"}</h1>
                 <p>{"Decode and verify JSON Web Tokens"}</p>
             </div>
 
-            <div className="debugger-container">
-                <div className="input-section">
+            <div className={styles["debugger-container"]}>
+                <div className={styles["input-section"]}>
                     <label>{"JWT Token"}</label>
                     <textarea
                         value={jwtToken}
@@ -91,103 +91,103 @@ const JwtDebugger = () => {
                     />
                 </div>
 
-                <div className="action-buttons">
-                    <button onClick={decodeJWT} className="primary-btn">
+                <div className={styles["action-buttons"]}>
+                    <button onClick={decodeJWT} className={styles["primary-btn"]}>
                         {"Decode JWT"}
                     </button>
-                    <button onClick={clearAll} className="secondary-btn">
+                    <button onClick={clearAll} className={styles["secondary-btn"]}>
                         {"Clear"}
                     </button>
                 </div>
 
                 {error && (
-                    <div className="error-message">
+                    <div className={styles["error-message"]}>
                         {error}
                     </div>
                 )}
 
                 {decoded && (
-                    <div className="results-section">
-                        <div className="token-info">
+                    <div className={styles["results-section"]}>
+                        <div className={styles["token-info"]}>
                             <h3>{"Token Information"}</h3>
-                            <div className="info-grid">
-                                <div className="info-item">
-                                    <span className="info-label">{"Algorithm"}:</span>
-                                    <span className="info-value">{decoded.header.alg || 'N/A'}</span>
+                            <div className={styles["info-grid"]}>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Algorithm"}:</span>
+                                    <span className={styles["info-value"]}>{decoded.header.alg || 'N/A'}</span>
                                 </div>
-                                <div className="info-item">
-                                    <span className="info-label">{"Token Type"}:</span>
-                                    <span className="info-value">{decoded.header.typ || 'N/A'}</span>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Token Type"}:</span>
+                                    <span className={styles["info-value"]}>{decoded.header.typ || 'N/A'}</span>
                                 </div>
-                                <div className="info-item">
-                                    <span className="info-label">{"Expiration"}:</span>
-                                    <span className={`info-value ${decoded.isExpired ? 'expired' : ''}`}>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Expiration"}:</span>
+                                    <span className={`${styles["info-value"]} ${decoded.isExpired ? 'expired' : ''}`}>
                                         {formatTimestamp(decoded.payload.exp)}
                                         {decoded.expiresIn && (
-                                            <span className="time-remaining">
+                                            <span className={styles["time-remaining"]}>
                                                 ({formatTimeRemaining(decoded.expiresIn)})
                                             </span>
                                         )}
                                     </span>
                                 </div>
-                                <div className="info-item">
-                                    <span className="info-label">{"Issued At"}:</span>
-                                    <span className="info-value">{formatTimestamp(decoded.payload.iat)}</span>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Issued At"}:</span>
+                                    <span className={styles["info-value"]}>{formatTimestamp(decoded.payload.iat)}</span>
                                 </div>
-                                <div className="info-item">
-                                    <span className="info-label">{"Issuer"}:</span>
-                                    <span className="info-value">{decoded.payload.iss || 'N/A'}</span>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Issuer"}:</span>
+                                    <span className={styles["info-value"]}>{decoded.payload.iss || 'N/A'}</span>
                                 </div>
-                                <div className="info-item">
-                                    <span className="info-label">{"Subject"}:</span>
-                                    <span className="info-value">{decoded.payload.sub || 'N/A'}</span>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Subject"}:</span>
+                                    <span className={styles["info-value"]}>{decoded.payload.sub || 'N/A'}</span>
                                 </div>
-                                <div className="info-item">
-                                    <span className="info-label">{"Audience"}:</span>
-                                    <span className="info-value">{decoded.payload.aud || 'N/A'}</span>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Audience"}:</span>
+                                    <span className={styles["info-value"]}>{decoded.payload.aud || 'N/A'}</span>
                                 </div>
-                                <div className="info-item">
-                                    <span className="info-label">{"Token ID"}:</span>
-                                    <span className="info-value">{decoded.payload.jti || 'N/A'}</span>
+                                <div className={styles["info-item"]}>
+                                    <span className={styles["info-label"]}>{"Token ID"}:</span>
+                                    <span className={styles["info-value"]}>{decoded.payload.jti || 'N/A'}</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="jwt-parts">
-                            <div className="jwt-part">
-                                <div className="part-header">
+                        <div className={styles["jwt-parts"]}>
+                            <div className={styles["jwt-part"]}>
+                                <div className={styles["part-header"]}>
                                     <h4>{"Header"}</h4>
                                     <button 
                                         onClick={() => copyToClipboard(decoded.header)}
-                                        className="copy-btn-small"
+                                        className={styles["copy-btn-small"]}
                                     >
                                         {"Copy Header"}
                                     </button>
                                 </div>
-                                <pre className="json-output">{JSON.stringify(decoded.header, null, 2)}</pre>
+                                <pre className={styles["json-output"]}>{JSON.stringify(decoded.header, null, 2)}</pre>
                             </div>
 
-                            <div className="jwt-part">
-                                <div className="part-header">
+                            <div className={styles["jwt-part"]}>
+                                <div className={styles["part-header"]}>
                                     <h4>{"Payload"}</h4>
                                     <button 
                                         onClick={() => copyToClipboard(decoded.payload)}
-                                        className="copy-btn-small"
+                                        className={styles["copy-btn-small"]}
                                     >
                                         {"Copy Payload"}
                                     </button>
                                 </div>
-                                <pre className="json-output">{JSON.stringify(decoded.payload, null, 2)}</pre>
+                                <pre className={styles["json-output"]}>{JSON.stringify(decoded.payload, null, 2)}</pre>
                             </div>
 
-                            <div className="jwt-part">
-                                <div className="part-header">
+                            <div className={styles["jwt-part"]}>
+                                <div className={styles["part-header"]}>
                                     <h4>{"Signature"}</h4>
-                                    <span className={`verification ${decoded.signature ? 'verified' : 'not-verified'}`}>
+                                    <span className={`${styles["verification"]} ${decoded.signature ? 'verified' : 'not-verified'}`}>
                                         {decoded.signature ? "Verified" : "Not Verified"}
                                     </span>
                                 </div>
-                                <div className="signature-output">
+                                <div className={styles["signature-output"]}>
                                     {decoded.signature}
                                 </div>
                             </div>
@@ -195,7 +195,7 @@ const JwtDebugger = () => {
                     </div>
                 )}
 
-                <div className="jwt-info">
+                <div className={styles["jwt-info"]}>
                     <h4>JWT Information</h4>
                     <ul>
                         <li>{"JWT consists of three parts: header, payload, and signature"}</li>

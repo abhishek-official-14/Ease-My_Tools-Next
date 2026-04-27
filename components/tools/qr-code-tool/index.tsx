@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import jsQR from "jsqr";
-import './styles.css';
+import styles from './styles.module.css';
 
 const QRCodeTool = () => {
     const [inputText, setInputText] = useState("");
@@ -58,10 +58,10 @@ const QRCodeTool = () => {
     };
 
     return (
-        <div className="qr-container">
+        <div className={styles["qr-container"]}>
             <h2>QR Code Generator & Decoder</h2>
 
-            <div className="generator" ref={svgRef}>
+            <div className={styles["generator"]} ref={svgRef}>
                 <h3>Generate QR Code</h3>
                 <input
                     type="text"
@@ -71,20 +71,20 @@ const QRCodeTool = () => {
                 />
                 {inputText && (
                     <>
-                        <div className="qr-preview">
+                        <div className={styles["qr-preview"]}>
                             <QRCodeSVG value={inputText} size={200} />
                         </div>
-                        <button className="download-btn" onClick={handleDownload}>
+                        <button className={styles["download-btn"]} onClick={handleDownload}>
                             Download QR Code
                         </button>
                     </>
                 )}
             </div>
 
-            <div className="decoder">
+            <div className={styles["decoder"]}>
                 <h3>Decode QR Code</h3>
                 <input type="file" accept="image/*" onChange={handleDecode} />
-                {fileError && <p className="error">{fileError}</p>}
+                {fileError && <p className={styles["error"]}>{fileError}</p>}
                 {decodedText && (
                     <p>
                         <strong>Decoded Text:</strong> {decodedText}

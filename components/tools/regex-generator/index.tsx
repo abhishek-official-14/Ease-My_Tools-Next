@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from 'react';
-import './styles.css';
+import styles from './styles.module.css';
 
 const RegexGenerator = () => {
     
@@ -175,16 +175,16 @@ const RegexGenerator = () => {
     }, []);
 
     return (
-        <div className="regex-generator">
-            <div className="tool-header">
+        <div className={styles["regex-generator"]}>
+            <div className={styles["tool-header"]}>
                 <h1>{"Regex Generator"}</h1>
                 <p>{"Generate regular expressions from natural language descriptions"}</p>
             </div>
 
-            <div className="regex-container">
+            <div className={styles["regex-container"]}>
                 {/* Input Section */}
-                <div className="input-section">
-                    <div className="input-group">
+                <div className={styles["input-section"]}>
+                    <div className={styles["input-group"]}>
                         <label htmlFor="description">{"Describe what pattern you want to match..."}</label>
                         <textarea
                             id="description"
@@ -195,28 +195,28 @@ const RegexGenerator = () => {
                         />
                     </div>
 
-                    <div className="action-buttons">
+                    <div className={styles["action-buttons"]}>
                         <button 
                             onClick={generateRegex}
-                            className={`primary-btn ${isGenerating ? 'generating' : ''}`}
+                            className={`${styles["primary-btn"]} ${isGenerating ? 'generating' : ''}`}
                             disabled={isGenerating || !description.trim()}
                         >
                             {isGenerating ? "Generating..." : "Generate Regex"}
                         </button>
-                        <button onClick={clearAll} className="secondary-btn">
+                        <button onClick={clearAll} className={styles["secondary-btn"]}>
                             {"Clear"}
                         </button>
                     </div>
                 </div>
 
                 {/* Examples Section */}
-                <div className="examples-section">
+                <div className={styles["examples-section"]}>
                     <h3>{"Examples"}</h3>
-                    <div className="examples-grid">
+                    <div className={styles["examples-grid"]}>
                         {examples.map((example, index) => (
                             <button
                                 key={index}
-                                className="example-btn"
+                                className={styles["example-btn"]}
                                 onClick={() => useExample(example.prompt)}
                                 title={example.description}
                             >
@@ -228,22 +228,22 @@ const RegexGenerator = () => {
 
                 {/* Results Section */}
                 {(regex || error) && (
-                    <div className="results-section">
+                    <div className={styles["results-section"]}>
                         {error && (
-                            <div className="error-message">
+                            <div className={styles["error-message"]}>
                                 {error}
                             </div>
                         )}
                         
                         {regex && (
                             <>
-                                <div className="result-group">
+                                <div className={styles["result-group"]}>
                                     <label>Generated Regex</label>
-                                    <div className="regex-display">
+                                    <div className={styles["regex-display"]}>
                                         <code>{regex}</code>
                                         <button 
                                             onClick={() => copyToClipboard(regex)}
-                                            className="copy-btn"
+                                            className={styles["copy-btn"]}
                                         >
                                             {"Copy"}
                                         </button>
@@ -251,9 +251,9 @@ const RegexGenerator = () => {
                                 </div>
 
                                 {explanation && (
-                                    <div className="result-group">
+                                    <div className={styles["result-group"]}>
                                         <label>{"Explanation"}</label>
-                                        <div className="explanation-box">
+                                        <div className={styles["explanation-box"]}>
                                             {explanation}
                                         </div>
                                     </div>
@@ -265,9 +265,9 @@ const RegexGenerator = () => {
 
                 {/* Test Section */}
                 {regex && (
-                    <div className="test-section">
+                    <div className={styles["test-section"]}>
                         <h3>{"Test Your Regex"}</h3>
-                        <div className="input-group">
+                        <div className={styles["input-group"]}>
                             <textarea
                                 value={testText}
                                 onChange={(e) => setTestText(e.target.value)}
@@ -278,19 +278,19 @@ const RegexGenerator = () => {
                         </div>
                         
                         {matches.length > 0 ? (
-                            <div className="matches-section">
+                            <div className={styles["matches-section"]}>
                                 <h4>{"Matches"} ({matches.length})</h4>
-                                <div className="matches-list">
+                                <div className={styles["matches-list"]}>
                                     {matches.map((match, index) => (
-                                        <div key={index} className="match-item">
-                                            <span className="match-text">"{match.text}"</span>
-                                            <span className="match-position">at position {match.index}</span>
+                                        <div key={index} className={styles["match-item"]}>
+                                            <span className={styles["match-text"]}>"{match.text}"</span>
+                                            <span className={styles["match-position"]}>at position {match.index}</span>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         ) : testText && (
-                            <div className="no-matches">
+                            <div className={styles["no-matches"]}>
                                 {"No matches found"}
                             </div>
                         )}
@@ -298,11 +298,11 @@ const RegexGenerator = () => {
                 )}
 
                 {/* Cheatsheet Section */}
-                <div className="cheatsheet-section">
+                <div className={styles["cheatsheet-section"]}>
                     <h3>{"Regex Cheatsheet"}</h3>
-                    <div className="cheatsheet-grid">
+                    <div className={styles["cheatsheet-grid"]}>
                         {cheatsheetItems.map((item, index) => (
-                            <div key={index} className="cheatsheet-item">
+                            <div key={index} className={styles["cheatsheet-item"]}>
                                 {item}
                             </div>
                         ))}
@@ -320,7 +320,7 @@ export default RegexGenerator;
 // import React, { useState, useCallback, useEffect } from 'react';
 // 
 // import { useTheme } from 'next-themes';
-// import './styles.css';
+// import styles from './styles.module.css';
 
 // const RegexGenerator = () => {
 //     const { t } = useTranslation('regexGenerator');
@@ -664,8 +664,8 @@ export default RegexGenerator;
 //         switch (activeTool) {
 //             case 'tester':
 //                 return (
-//                     <div className="tool-panel">
-//                         <div className="input-group">
+//                     <div className={styles["tool-panel"]}>
+//                         <div className={styles["input-group"]}>
 //                             <label>Test Text</label>
 //                             <textarea
 //                                 value={testText}
@@ -676,17 +676,17 @@ export default RegexGenerator;
 //                         </div>
                         
 //                         {matches.length > 0 ? (
-//                             <div className="matches-section">
+//                             <div className={styles["matches-section"]}>
 //                                 <h4>{"Matches"} ({matches.length})</h4>
-//                                 <div className="matches-list">
+//                                 <div className={styles["matches-list"]}>
 //                                     {matches.map((match, index) => (
-//                                         <div key={index} className="match-item">
-//                                             <span className="match-text">"{match.text}"</span>
-//                                             <span className="match-position">at position {match.index}</span>
+//                                         <div key={index} className={styles["match-item"]}>
+//                                             <span className={styles["match-text"]}>"{match.text}"</span>
+//                                             <span className={styles["match-position"]}>at position {match.index}</span>
 //                                             {match.groups.length > 0 && (
-//                                                 <div className="capture-groups">
+//                                                 <div className={styles["capture-groups"]}>
 //                                                     {match.groups.map((group, groupIndex) => (
-//                                                         <span key={groupIndex} className="capture-group">
+//                                                         <span key={groupIndex} className={styles["capture-group"]}>
 //                                                             Group {group.number}: "{group.text}"
 //                                                         </span>
 //                                                     ))}
@@ -697,7 +697,7 @@ export default RegexGenerator;
 //                                 </div>
 //                             </div>
 //                         ) : testText && (
-//                             <div className="no-matches">
+//                             <div className={styles["no-matches"]}>
 //                                 {"No matches found"}
 //                             </div>
 //                         )}
@@ -706,8 +706,8 @@ export default RegexGenerator;
 
 //             case 'replacer':
 //                 return (
-//                     <div className="tool-panel">
-//                         <div className="input-group">
+//                     <div className={styles["tool-panel"]}>
+//                         <div className={styles["input-group"]}>
 //                             <label>Replacement Text</label>
 //                             <input
 //                                 type="text"
@@ -716,14 +716,14 @@ export default RegexGenerator;
 //                                 placeholder="Enter replacement text..."
 //                             />
 //                         </div>
-//                         <button onClick={performReplace} className="primary-btn">
+//                         <button onClick={performReplace} className={styles["primary-btn"]}>
 //                             Perform Replace
 //                         </button>
                         
 //                         {replacedResult && (
-//                             <div className="result-section">
+//                             <div className={styles["result-section"]}>
 //                                 <h4>Replaced Result</h4>
-//                                 <div className="result-box">
+//                                 <div className={styles["result-box"]}>
 //                                     {replacedResult}
 //                                 </div>
 //                             </div>
@@ -733,17 +733,17 @@ export default RegexGenerator;
 
 //             case 'splitter':
 //                 return (
-//                     <div className="tool-panel">
-//                         <button onClick={splitText} className="primary-btn">
+//                     <div className={styles["tool-panel"]}>
+//                         <button onClick={splitText} className={styles["primary-btn"]}>
 //                             Split Text
 //                         </button>
                         
 //                         {splitResults.length > 0 && (
-//                             <div className="split-results">
+//                             <div className={styles["split-results"]}>
 //                                 <h4>Split Results ({splitResults.length} parts)</h4>
-//                                 <div className="split-list">
+//                                 <div className={styles["split-list"]}>
 //                                     {splitResults.map((result, index) => (
-//                                         <div key={index} className="split-item">
+//                                         <div key={index} className={styles["split-item"]}>
 //                                             Part {index + 1}: "{result}"
 //                                         </div>
 //                                     ))}
@@ -755,13 +755,13 @@ export default RegexGenerator;
 
 //             case 'visualizer':
 //                 return (
-//                     <div className="tool-panel">
+//                     <div className={styles["tool-panel"]}>
 //                         <h4>Regex Structure Tree</h4>
-//                         <div className="regex-tree">
+//                         <div className={styles["regex-tree"]}>
 //                             {regexTree.map((node, index) => (
-//                                 <div key={index} className={`tree-node ${node.type}`}>
-//                                     <span className="node-type">{node.type}</span>
-//                                     <span className="node-value">{node.value}</span>
+//                                 <div key={index} className={`${styles["tree-node"]} ${node.type}`}>
+//                                     <span className={styles["node-type"]}>{node.type}</span>
+//                                     <span className={styles["node-value"]}>{node.value}</span>
 //                                 </div>
 //                             ))}
 //                         </div>
@@ -770,22 +770,22 @@ export default RegexGenerator;
 
 //             case 'validator':
 //                 return (
-//                     <div className="tool-panel">
-//                         <div className="validation-results">
+//                     <div className={styles["tool-panel"]}>
+//                         <div className={styles["validation-results"]}>
 //                             <h4>Pattern Validation</h4>
-//                             <div className="validation-item">
+//                             <div className={styles["validation-item"]}>
 //                                 <span>Syntax:</span>
-//                                 <span className="valid">✓ Valid</span>
+//                                 <span className={styles["valid"]}>✓ Valid</span>
 //                             </div>
 //                             {performanceStats && (
 //                                 <>
-//                                     <div className="validation-item">
+//                                     <div className={styles["validation-item"]}>
 //                                         <span>Performance:</span>
-//                                         <span className="valid">
+//                                         <span className={styles["valid"]}>
 //                                             ✓ {performanceStats.executionTime.toFixed(2)}ms
 //                                         </span>
 //                                     </div>
-//                                     <div className="validation-item">
+//                                     <div className={styles["validation-item"]}>
 //                                         <span>Matches:</span>
 //                                         <span className={performanceStats.matchesCount > 0 ? 'valid' : 'warning'}>
 //                                             {performanceStats.matchesCount} found
@@ -803,30 +803,30 @@ export default RegexGenerator;
 //     };
 
 //     return (
-//         <div className="regex-generator enhanced">
-//             <div className="tool-header">
+//         <div className={`${styles["regex-generator"]} ${styles["enhanced"]}`}>
+//             <div className={styles["tool-header"]}>
 //                 <h1>{"Regex Generator"}</h1>
 //                 <p>{"Generate regular expressions from natural language descriptions"}</p>
 //             </div>
 
 //             {/* Mode Selector */}
-//             <div className="mode-selector">
+//             <div className={styles["mode-selector"]}>
 //                 {modes.map(mode => (
 //                     <button
 //                         key={mode.id}
-//                         className={`mode-btn ${activeMode === mode.id ? 'active' : ''}`}
+//                         className={`${styles["mode-btn"]} ${activeMode === mode.id ? 'active' : ''}`}
 //                         onClick={() => setActiveMode(mode.id)}
 //                     >
-//                         <span className="mode-icon">{mode.icon}</span>
+//                         <span className={styles["mode-icon"]}>{mode.icon}</span>
 //                         {mode.label}
 //                     </button>
 //                 ))}
 //             </div>
 
-//             <div className="regex-container">
+//             <div className={styles["regex-container"]}>
 //                 {/* Main Input Section */}
-//                 <div className="main-input-section">
-//                     <div className="input-group">
+//                 <div className={styles["main-input-section"]}>
+//                     <div className={styles["input-group"]}>
 //                         <label>
 //                             {activeMode === 'generate' ? 'Describe your pattern:' : 
 //                              activeMode === 'analyze' ? 'Enter regex to analyze:' : 'Learn regex concepts:'}
@@ -840,11 +840,11 @@ export default RegexGenerator;
 //                     </div>
 
 //                     {/* Regex Flags */}
-//                     <div className="flags-section">
+//                     <div className={styles["flags-section"]}>
 //                         <label>Regex Flags:</label>
-//                         <div className="flags-grid">
+//                         <div className={styles["flags-grid"]}>
 //                             {flags.map(flag => (
-//                                 <label key={flag.id} className="flag-checkbox">
+//                                 <label key={flag.id} className={styles["flag-checkbox"]}>
 //                                     <input
 //                                         type="checkbox"
 //                                         checked={regexFlags[flag.id]}
@@ -859,11 +859,11 @@ export default RegexGenerator;
 //                         </div>
 //                     </div>
 
-//                     <div className="action-buttons">
+//                     <div className={styles["action-buttons"]}>
 //                         {activeMode === 'generate' && (
 //                             <button 
 //                                 onClick={generateRegex}
-//                                 className={`primary-btn ${isGenerating ? 'generating' : ''}`}
+//                                 className={`${styles["primary-btn"]} ${isGenerating ? 'generating' : ''}`}
 //                                 disabled={isGenerating || !description.trim()}
 //                             >
 //                                 {isGenerating ? "Generating..." : "Generate Regex"}
@@ -872,7 +872,7 @@ export default RegexGenerator;
 //                         {activeMode === 'analyze' && (
 //                             <button 
 //                                 onClick={analyzeRegex}
-//                                 className="primary-btn"
+//                                 className={styles["primary-btn"]}
 //                             >
 //                                 Analyze Pattern
 //                             </button>
@@ -886,7 +886,7 @@ export default RegexGenerator;
 //                             setMatches([]);
 //                             setSplitResults([]);
 //                             setError('');
-//                         }} className="secondary-btn">
+//                         }} className={styles["secondary-btn"]}>
 //                             {"Clear"}
 //                         </button>
 //                     </div>
@@ -894,27 +894,27 @@ export default RegexGenerator;
 
 //                 {/* Generated Regex Display */}
 //                 {regex && (
-//                     <div className="regex-display-section">
-//                         <div className="result-group">
+//                     <div className={styles["regex-display-section"]}>
+//                         <div className={styles["result-group"]}>
 //                             <label>Generated Regex</label>
-//                             <div className="regex-display">
+//                             <div className={styles["regex-display"]}>
 //                                 <code>/ {regex} /</code>
-//                                 <div className="regex-actions">
+//                                 <div className={styles["regex-actions"]}>
 //                                     <button 
 //                                         onClick={() => copyToClipboard(regex)}
-//                                         className="copy-btn"
+//                                         className={styles["copy-btn"]}
 //                                     >
 //                                         {"Copy"}
 //                                     </button>
 //                                     <button 
 //                                         onClick={escapeRegex}
-//                                         className="secondary-btn small"
+//                                         className={`${styles["secondary-btn"]} ${styles["small"]}`}
 //                                     >
 //                                         Escape
 //                                     </button>
 //                                     <button 
 //                                         onClick={minimizeRegex}
-//                                         className="secondary-btn small"
+//                                         className={`${styles["secondary-btn"]} ${styles["small"]}`}
 //                                     >
 //                                         Minimize
 //                                     </button>
@@ -923,9 +923,9 @@ export default RegexGenerator;
 //                         </div>
 
 //                         {explanation && (
-//                             <div className="result-group">
+//                             <div className={styles["result-group"]}>
 //                                 <label>{"Explanation"}</label>
-//                                 <div className="explanation-box">
+//                                 <div className={styles["explanation-box"]}>
 //                                     {explanation}
 //                                 </div>
 //                             </div>
@@ -934,14 +934,14 @@ export default RegexGenerator;
 //                 )}
 
 //                 {/* Tools Navigation */}
-//                 <div className="tools-navigation">
+//                 <div className={styles["tools-navigation"]}>
 //                     {tools.map(tool => (
 //                         <button
 //                             key={tool.id}
-//                             className={`tool-btn ${activeTool === tool.id ? 'active' : ''}`}
+//                             className={`${styles["tool-btn"]} ${activeTool === tool.id ? 'active' : ''}`}
 //                             onClick={() => setActiveTool(tool.id)}
 //                         >
-//                             <span className="tool-icon">{tool.icon}</span>
+//                             <span className={styles["tool-icon"]}>{tool.icon}</span>
 //                             {tool.label}
 //                         </button>
 //                     ))}
@@ -949,31 +949,31 @@ export default RegexGenerator;
 
 //                 {/* Active Tool Panel */}
 //                 {regex && (
-//                     <div className="active-tool-container">
+//                     <div className={styles["active-tool-container"]}>
 //                         {renderActiveTool()}
 //                     </div>
 //                 )}
 
 //                 {/* Examples Section */}
-//                 <div className="examples-section">
+//                 <div className={styles["examples-section"]}>
 //                     <h3>{"Examples"}</h3>
-//                     <div className="examples-grid">
+//                     <div className={styles["examples-grid"]}>
 //                         {advancedExamples.map((example, index) => (
-//                             <div key={index} className="example-card">
-//                                 <div className="example-header">
+//                             <div key={index} className={styles["example-card"]}>
+//                                 <div className={styles["example-header"]}>
 //                                     <h4>{example.name}</h4>
 //                                     <button 
 //                                         onClick={() => {
 //                                             setRegex(example.pattern);
 //                                             setExplanation(example.description);
 //                                         }}
-//                                         className="use-example-btn"
+//                                         className={styles["use-example-btn"]}
 //                                     >
 //                                         Use
 //                                     </button>
 //                                 </div>
-//                                 <code className="example-pattern">{example.pattern}</code>
-//                                 <p className="example-desc">{example.description}</p>
+//                                 <code className={styles["example-pattern"]}>{example.pattern}</code>
+//                                 <p className={styles["example-desc"]}>{example.description}</p>
 //                             </div>
 //                         ))}
 //                     </div>
@@ -981,18 +981,18 @@ export default RegexGenerator;
 
 //                 {/* Performance Stats */}
 //                 {performanceStats && (
-//                     <div className="performance-stats">
+//                     <div className={styles["performance-stats"]}>
 //                         <h4>Performance</h4>
-//                         <div className="stats-grid">
-//                             <div className="stat">
+//                         <div className={styles["stats-grid"]}>
+//                             <div className={styles["stat"]}>
 //                                 <span>Execution Time:</span>
 //                                 <span>{performanceStats.executionTime.toFixed(2)}ms</span>
 //                             </div>
-//                             <div className="stat">
+//                             <div className={styles["stat"]}>
 //                                 <span>Matches Found:</span>
 //                                 <span>{performanceStats.matchesCount}</span>
 //                             </div>
-//                             <div className="stat">
+//                             <div className={styles["stat"]}>
 //                                 <span>Capture Groups:</span>
 //                                 <span>{performanceStats.groupsCount}</span>
 //                             </div>

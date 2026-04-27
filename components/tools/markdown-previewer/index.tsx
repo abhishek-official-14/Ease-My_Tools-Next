@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import './styles.css';
+import styles from './styles.module.css';
 import { marked } from "marked";
 
 const MarkdownPreviewer = () => {
@@ -25,15 +25,15 @@ console.log("Hello World");
     const handleChange = (e) => setMarkdown(e.target.value);
 
     return (
-        <div className="markdown-container">
+        <div className={styles["markdown-container"]}>
             <textarea
-                className="markdown-input"
+                className={styles["markdown-input"]}
                 value={markdown}
                 onChange={handleChange}
                 placeholder="Type Markdown here..."
             />
             <div
-                className="markdown-preview"
+                className={styles["markdown-preview"]}
                 dangerouslySetInnerHTML={{ __html: marked(markdown) }}
             />
         </div>

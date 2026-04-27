@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import './styles.css';
+import styles from './styles.module.css';
 import { diffWords } from "diff";
 
 const TextDiffChecker = () => {
@@ -15,9 +15,9 @@ const TextDiffChecker = () => {
     };
 
     return (
-        <div className="diff-container">
+        <div className={styles["diff-container"]}>
             <h2>Text Diff Checker</h2>
-            <div className="inputs">
+            <div className={styles["inputs"]}>
                 <textarea
                     placeholder="Enter Text A"
                     value={textA}
@@ -31,7 +31,7 @@ const TextDiffChecker = () => {
             </div>
             <button onClick={handleCompare}>Compare</button>
 
-            <div className="diff-result">
+            <div className={styles["diff-result"]}>
                 {diffResult.map((part, index) => {
                     let className = "";
                     if (part.added) className = "added";
