@@ -7,8 +7,8 @@
     margin: auto;
 }
 
-input[type="text"],
-input[type="file"] {
+.qr-container input[type="text"],
+.qr-container input[type="file"] {
     width: 100%;
     padding: 0.5rem;
     border-radius: 6px;
@@ -16,8 +16,8 @@ input[type="file"] {
     font-size: 14px;
 }
 
-.dark input[type="text"],
-.dark input[type="file"] {
+:global(.dark) .qr-container input[type="text"],
+:global(.dark) .qr-container input[type="file"] {
     background-color: var(--card-dark);
     color: var(--text-dark);
     border: 1px solid #374151;

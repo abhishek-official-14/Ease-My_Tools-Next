@@ -17,7 +17,7 @@
     }
 }
 
-textarea {
+.diff-container textarea {
     flex: 1;
     min-height: 150px;
     padding: 0.75rem;
@@ -29,13 +29,13 @@ textarea {
     transition: border 0.3s;
 }
 
-.dark textarea {
+:global(.dark) .diff-container textarea {
     border: 1px solid #374151;
     background-color: var(--card-dark);
     color: var(--text-dark);
 }
 
-button {
+.diff-container button {
     padding: 0.5rem 1rem;
     border-radius: 6px;
     border: none;
@@ -46,7 +46,7 @@ button {
     transition: background 0.2s;
 }
 
-button:hover {
+.diff-container button:hover {
     background-color: #2563eb;
 }
 
