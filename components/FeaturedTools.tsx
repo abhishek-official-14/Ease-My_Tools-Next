@@ -13,26 +13,26 @@ const FeaturedTools = () => {
       title: "Remove Background",
       description: "AI-powered background removal in seconds",
       badge: 'Popular',
-      path: '/remove-background'
+      path: '/tools/remove-background'
     },
     {
       icon: '📄',
       title: "PDF Converter",
       description: "Convert PDFs to various formats",
-      path: '/file-converter' // Update this to match your actual PDF tool route
+      path: '/tools/file-converter' // Update this to match your actual PDF tool route
     },
     {
       icon: '🎨',
       title: "Image Resizer",
       description: "Resize images without quality loss",
-      path: '/image-resizer'
+      path: '/tools/image-resizer'
     },
     {
       icon: '🔐',
       title: "Password Generator",
       description: "Create strong, secure passwords",
       badge: 'New',
-      path: '/password-generator'
+      path: '/tools/password-generator'
     }
   ];
 
