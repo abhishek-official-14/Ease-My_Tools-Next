@@ -258,16 +258,28 @@ const TimeCalculator = () => {
                                 <h4>{"Difference"}</h4>
                                 <div className={styles["date-result"]}>
                                     <div className={styles["result-grid"]}>
-                                        <div className={styles["result-item"]}><strong>{dateResult.days}</strong> Days</div>
-                                        <div className={styles["result-item"]}><strong>{dateResult.hours}</strong> Hours</div>
-                                        <div className={styles["result-item"]}><strong>{dateResult.minutes}</strong> Minutes</div>
-                                        <div className={styles["result-item"]}><strong>{dateResult.seconds}</strong> Seconds</div>
+                                        <div className={styles["result-item"]}>
+                                            <span className={styles["value"]}>{dateResult.days}</span>
+                                            <span className={styles["label"]}>{"Days"}</span>
+                                        </div>
+                                        <div className={styles["result-item"]}>
+                                            <span className={styles["value"]}>{dateResult.hours}</span>
+                                            <span className={styles["label"]}>{"hours"}</span>
+                                        </div>
+                                        <div className={styles["result-item"]}>
+                                            <span className={styles["value"]}>{dateResult.minutes}</span>
+                                            <span className={styles["label"]}>{"minutes"}</span>
+                                        </div>
+                                        <div className={styles["result-item"]}>
+                                            <span className={styles["value"]}>{dateResult.seconds}</span>
+                                            <span className={styles["label"]}>{"seconds"}</span>
+                                        </div>
                                     </div>
-                                    <div className={styles["totals"]}>
-                                        <p>Total Days: {dateResult.totalDays.toFixed(2)}</p>
-                                        <p>Total Hours: {dateResult.totalHours.toFixed(2)}</p>
-                                        <p>Total Minutes: {dateResult.totalMinutes.toFixed(2)}</p>
-                                        <p>Total Seconds: {dateResult.totalSeconds.toFixed(2)}</p>
+                                    <div className={styles["total-breakdown"]}>
+                                        <div>{"Total Days"}: {dateResult.totalDays.toFixed(2)}</div>
+                                        <div>{"Total Hours"}: {dateResult.totalHours.toFixed(2)}</div>
+                                        <div>{"Total Minutes"}: {dateResult.totalMinutes.toFixed(2)}</div>
+                                        <div>{"Total Seconds"}: {dateResult.totalSeconds.toFixed(2)}</div>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +288,7 @@ const TimeCalculator = () => {
                 )}
 
                 <button onClick={clearAll} className={styles["clear-btn"]}>
-                    Clear All
+                    {"Clear All"}
                 </button>
             </div>
         </div>
