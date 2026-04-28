@@ -38,7 +38,7 @@ const JwtDebugger = () => {
                 expiresIn
             });
         } catch (err) {
-            setError(err.message);
+            if (err instanceof Error) setError(err.message);
             setDecoded(null);
         }
     };

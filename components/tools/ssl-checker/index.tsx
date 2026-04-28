@@ -65,7 +65,7 @@ const SslChecker = () => {
 
             setCertificate(mockCertificate);
         } catch (err) {
-            setError(err.message);
+            if (err instanceof Error) setError(err.message);
         } finally {
             setLoading(false);
         }
