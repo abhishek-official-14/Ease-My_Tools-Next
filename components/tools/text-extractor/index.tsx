@@ -15,7 +15,7 @@ const TextExtractor = () => {
 
         // Check if file is an image
         if (!file.type.startsWith('image/')) {
-            alert("Please select an image file" || 'Please select an image file');
+            alert("Please select an image file");
             return;
         }
 
@@ -93,7 +93,7 @@ you would need to integrate with an OCR service like:
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(extractedText);
-        alert("Text copied to clipboard!" || 'Text copied to clipboard!');
+        alert("Text copied to clipboard!");
     };
 
     const downloadText = () => {

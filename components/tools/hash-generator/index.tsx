@@ -10,7 +10,7 @@ const HashGenerator = () => {
 
     const generateHashes = async () => {
         if (!inputText.trim()) {
-            alert("Please enter some text" || 'Please enter some text');
+            alert("Please enter some text");
             return;
         }
 
@@ -46,7 +46,7 @@ const HashGenerator = () => {
 
     const copyToClipboard = (hash) => {
         navigator.clipboard.writeText(hash);
-        alert("Copied to clipboard!" || 'Copied to clipboard!');
+        alert("Copied to clipboard!");
     };
 
     return (
@@ -70,7 +70,7 @@ const HashGenerator = () => {
 
                 <div className={styles["action-buttons"]}>
                     <button onClick={generateHashes} className={styles["generate-btn"]} disabled={isProcessing}>
-                        {isProcessing ? "Generating..." || 'Generating...' : "Generate Hashes" || 'Generate Hashes'}
+                        {isProcessing ? "Generating..." : "Generate Hashes"}
                     </button>
                     <button onClick={clearAll} className={styles["clear-btn"]}>
                         {"Clear All"}

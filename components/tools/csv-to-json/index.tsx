@@ -11,7 +11,7 @@ const CSVtoJSON = () => {
 
     const convertCSVtoJSON = () => {
         if (!csvInput.trim()) {
-            alert("Please enter CSV data" || 'Please enter CSV data');
+            alert("Please enter CSV data");
             return;
         }
 
@@ -21,10 +21,10 @@ const CSVtoJSON = () => {
             
             let headers = [];
             if (hasHeaders) {
-                headers = lines[0].split(delimiter).map(header => header.trim());
+                headers = lines?.[0].split(delimiter).map(header => header.trim());
             } else {
                 // Generate headers like col1, col2, col3...
-                headers = lines[0].split(delimiter).map((_, index) => `col${index + 1}`);
+                headers = lines?.[0].split(delimiter).map((_, index) => `col${index + 1}`);
             }
 
             const startLine = hasHeaders ? 1 : 0;
@@ -58,20 +58,20 @@ const CSVtoJSON = () => {
 
             setJsonOutput(JSON.stringify(result, null, 2));
         } catch (error) {
-            alert("Error converting CSV to JSON" || 'Error converting CSV to JSON: ' + error.message);
+            alert("Error converting CSV to JSON" + error.message);
         }
     };
 
     const convertJSONtoCSV = () => {
         if (!jsonOutput.trim()) {
-            alert("Please enter JSON data" || 'Please enter JSON data');
+            alert("Please enter JSON data");
             return;
         }
 
         try {
             const data = JSON.parse(jsonOutput);
             if (!Array.isArray(data)) {
-                alert("JSON must be an array of objects" || 'JSON must be an array of objects');
+                alert("JSON must be an array of objects");
                 return;
             }
 
@@ -111,7 +111,7 @@ const CSVtoJSON = () => {
 
             setCsvInput(csv.trim());
         } catch (error) {
-            alert("Invalid JSON" || 'Invalid JSON: ' + error.message);
+            alert("Invalid JSON" + error.message);
         }
     };
 
@@ -122,7 +122,7 @@ const CSVtoJSON = () => {
 
     const copyToClipboard = (text) => {
         navigator.clipboard.writeText(text);
-        alert("Copied to clipboard!" || 'Copied to clipboard!');
+        alert("Copied to clipboard!");
     };
 
     const downloadFile = (content, filename, contentType) => {
@@ -282,8 +282,8 @@ export default CSVtoJSON;
 //         if (lines.length === 0) return [];
 
 //         const headers = firstRowHeader 
-//             ? lines[0].split(delimiter).map(header => header.trim())
-//             : lines[0].split(delimiter).map((_, index) => `column${index + 1}`);
+//             ? lines?.[0].split(delimiter).map(header => header.trim())
+//             : lines?.[0].split(delimiter).map((_, index) => `column${index + 1}`);
 
 //         const startIndex = firstRowHeader ? 1 : 0;
 //         const result = [];

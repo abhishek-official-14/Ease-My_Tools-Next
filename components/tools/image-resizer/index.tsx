@@ -19,7 +19,7 @@ const ImageResizer = () => {
         if (!file) return;
 
         if (!file.type.startsWith('image/')) {
-            alert("Please select an image file" || 'Please select an image file');
+            alert("Please select an image file");
             return;
         }
 
@@ -40,7 +40,7 @@ const ImageResizer = () => {
 
     const resizeImage = () => {
         if (!originalImage) {
-            alert("Please upload an image first" || 'Please upload an image first');
+            alert("Please upload an image first");
             return;
         }
 

@@ -22,7 +22,7 @@ const URLEncoder = () => {
                 const decoded = decodeURIComponent(inputText);
                 setOutputText(decoded);
             }
-        } catch {
+        } catch (error) {
             alert("Invalid input for the selected operation");
         }
     };
@@ -57,7 +57,7 @@ const URLEncoder = () => {
                 const decoded = decodeURI(inputText);
                 setOutputText(decoded);
             }
-        } catch {
+        } catch (error) {
             alert("Invalid URL for the selected operation");
         }
     };

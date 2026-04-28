@@ -69,7 +69,7 @@
 //         const lines = text.trim().split('\n');
 //         if (lines.length === 0) return { data: [], headers: [] };
         
-//         const headers = lines[0].split(delimiter).map(h => h.trim());
+//         const headers = lines?.[0].split(delimiter).map(h => h.trim());
 //         const data = lines.slice(1).map(line => {
 //             const values = line.split(delimiter).map(v => v.trim());
 //             const row = {};

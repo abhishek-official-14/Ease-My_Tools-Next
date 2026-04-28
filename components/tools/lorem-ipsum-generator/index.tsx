@@ -78,7 +78,7 @@ const LoremIpsumGenerator = () => {
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(generatedText);
-        alert("Text copied to clipboard!" || 'Text copied to clipboard!');
+        alert("Text copied to clipboard!");
     };
 
     const clearText = () => {

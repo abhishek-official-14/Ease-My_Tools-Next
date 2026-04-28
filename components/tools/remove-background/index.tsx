@@ -375,12 +375,12 @@
 //     if (!uploadedFile) return;
 
 //     if (uploadedFile.size > 15 * 1024 * 1024) {
-//       alert("File is too large. Maximum size is 10MB" || 'File too large (max 15MB)');
+//       alert("File is too large. Maximum size is 10MB");
 //       return;
 //     }
 
 //     if (!uploadedFile.type.startsWith('image/')) {
-//       alert("Please upload a valid image file" || 'Invalid file type');
+//       alert("Please upload a valid image file");
 //       return;
 //     }
 
@@ -411,7 +411,7 @@
 
 //   const callApi = async () => {
 //     if (!file) {
-//       alert("Please select a file first" || 'Please upload an image first');
+//       alert("Please select a file first");
 //       return;
 //     }
 
@@ -444,7 +444,7 @@
 //       setProcessedImage(url);
 //     } catch (err) {
 //       console.error(err);
-//       alert(err.message || "Failed to remove background" || 'Error processing image');
+//       alert(err.message || "Failed to remove background");
 //     } finally {
 //       setProcessing(false);
 //     }
@@ -598,7 +598,7 @@
 //               className={`${styles["primary-btn"]} ${processing ? 'processing' : ''}`}
 //               disabled={processing}
 //             >
-//               {processing ? ("Processing..." || 'Processing...') : ("Remove Background" || 'Apply')}
+//               {processing ? ("Processing...") : ("Remove Background")}
 //             </button>
 //             <button onClick={clearAll} className={styles["secondary-btn"]}>
 //               {"Clear"}

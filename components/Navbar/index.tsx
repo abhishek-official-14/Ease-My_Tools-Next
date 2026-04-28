@@ -76,7 +76,7 @@ const Navbar = () => {
     <header className={styles["navbar"]}>
       <div className={styles["navbar-container"]}>
         {/* Logo */}
-        <Link href="/" className={styles["navbar-logo"]} style={{ textDecoration: "None" }}>
+        <Link href={"/" as any} className={styles["navbar-logo"]} style={{ textDecoration: "None" }}>
           EaseMyTools
         </Link>
 
@@ -127,7 +127,7 @@ const Navbar = () => {
         <div className={`flex`}>
           {/* Desktop Action Buttons */}
           <div className={styles["navbar-actions"]}>
-            <Link href="/login" className={styles["signin-btn"]}>
+            <Link href={"/login" as any} className={styles["signin-btn"]}>
               Sign In
             </Link>
             <button className={styles["theme-toggle-btn"]} onClick={handleThemeToggle}>

@@ -29,7 +29,7 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
           <p>{"The category \""}{categoryId}{"\" doesn't exist or has no tools."}</p>
           <button
             className={styles.backButton}
-            onClick={() => router.push("/tools")}
+            onClick={() => router.push("/tools" as any)}
             style={{ marginTop: "1rem" }}
           >
             Go to Tools Page
@@ -61,7 +61,7 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
               key={tool.name}
               className={`${styles.categoryToolCard} ${styles.floatingCard}`}
               style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() => router.push(`/tools/${tool.slug}` as Parameters<typeof router.push>[0])}
+              onClick={() => router.push(`/tools/${tool.slug}` as any)}
             >
               <div className={styles.toolCardContent}>
                 <IconComponent className={styles.toolCardIcon} />
