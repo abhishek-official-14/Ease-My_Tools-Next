@@ -5,7 +5,10 @@ import styles from './styles.module.css';
 
 const t = (key: string, fallback?: string) => fallback ?? key;
 
-const UnitConverter = () => { // <-- i18next
+type ConversionCategory = 'length' | 'weight' | 'temperature' | 'area' | 'volume' | 'speed';
+
+const UnitConverter = () => {
+
     const [category, setCategory] = useState<ConversionCategory>('length');
     const [fromUnit, setFromUnit] = useState('meter');
     const [toUnit, setToUnit] = useState('kilometer');
@@ -13,7 +16,6 @@ const UnitConverter = () => { // <-- i18next
     const [result, setResult] = useState('');
     const [isConverting, setIsConverting] = useState(false);
 
-    // Unit conversion formulas
     const conversionFormulas: Record<string, Record<string, number | ((val: number, toUnit: string) => number)>> = {
         length: { meter: 1, kilometer: 0.001, centimeter: 100, millimeter: 1000, mile: 0.000621371, yard: 1.09361, foot: 3.28084, inch: 39.3701 },
         weight: { kilogram: 1, gram: 1000, milligram: 1000000, pound: 2.20462, ounce: 35.274 },
@@ -27,16 +29,14 @@ const UnitConverter = () => { // <-- i18next
         speed: { meterPerSecond: 1, kilometerPerHour: 3.6, milePerHour: 2.23694, knot: 1.94384 }
     };
 
-    // Get categories in current language
     const getCategories = () => {
-        const categoryKeys = ['length', 'weight', 'temperature', 'area', 'volume', 'speed'];
+        const categoryKeys: ConversionCategory[] = ['length', 'weight', 'temperature', 'area', 'volume', 'speed'];
         return categoryKeys.reduce<Record<string, string>>((acc, key) => {
             acc[key] = t(`unitConverter:categories.${key}`, key.charAt(0).toUpperCase() + key.slice(1));
             return acc;
         }, {});
     };
 
-    // Get units for the current category in current language
     const getUnits = () => {
         const unitKeys = Object.keys(conversionFormulas[category] || {});
         return unitKeys.map((key) => ({
@@ -45,7 +45,8 @@ const UnitConverter = () => { // <-- i18next
         }));
     };
 
-    const getUnitLabel = (unitKey: string) => t(`unitConverter:units.${category}.${unitKey}`, unitKey);
+    const getUnitLabel = (unitKey: string) =>
+        t(`unitConverter:units.${category}.${unitKey}`, unitKey);
 
     const convertUnits = () => {
         if (!inputValue || isNaN(parseFloat(inputValue))) {
@@ -63,23 +64,26 @@ const UnitConverter = () => { // <-- i18next
             } else {
                 const fromFactor = conversionFormulas[category]?.[fromUnit] as number;
                 const toFactor = conversionFormulas[category]?.[toUnit] as number;
+
                 if (fromFactor && toFactor) {
                     const baseValue = value / fromFactor;
                     const convertedValue = baseValue * toFactor;
                     setResult(convertedValue.toFixed(6));
                 } else setResult('Error');
             }
-        } catch (err) {
-            console.error('Conversion error:', err);
+        } catch {
             setResult('Error');
         }
 
         setIsConverting(false);
     };
 
-    const swapUnits = () => { setFromUnit(toUnit); setToUnit(fromUnit); };
+    const swapUnits = () => {
+        setFromUnit(toUnit);
+        setToUnit(fromUnit);
+    };
 
-    const handleCategoryChange = (newCategory: string) => {
+    const handleCategoryChange = (newCategory: ConversionCategory) => {
         setCategory(newCategory);
         const units = Object.keys(conversionFormulas[newCategory] || {});
         setFromUnit(units[0] || '');
@@ -106,20 +110,18 @@ const UnitConverter = () => { // <-- i18next
             </div>
 
             <div className={styles["converter-container"]}>
-                {/* Category Selection */}
                 <div className={styles["category-selector"]}>
                     {Object.entries(categories).map(([key, label]) => (
                         <button
                             key={key}
                             className={`${styles["category-btn"]} ${category === key ? styles["active"] : ""}`}
-                            onClick={() => handleCategoryChange(key)}
+                            onClick={() => handleCategoryChange(key as ConversionCategory)}
                         >
                             {label}
                         </button>
                     ))}
                 </div>
 
-                {/* Conversion Interface */}
                 <div className={styles["conversion-interface"]}>
                     <div className={styles["input-section"]}>
                         <label>{"From"}</label>
@@ -181,7 +183,6 @@ const UnitConverter = () => { // <-- i18next
                     </div>
                 </div>
 
-                {/* Result Display */}
                 {result && result !== 'Error' && (
                     <div className={styles["result-display"]}>
                         <h3>{"Result"}:</h3>

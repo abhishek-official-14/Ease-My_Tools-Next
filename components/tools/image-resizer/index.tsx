@@ -11,11 +11,12 @@ const ImageResizer = () => {
     const [maintainAspectRatio, setMaintainAspectRatio] = useState(true);
     const [quality, setQuality] = useState(0.8);
     const [originalSize, setOriginalSize] = useState({ width: 0, height: 0 });
-    const fileInputRef = useRef(null);
-    const canvasRef = useRef(null);
 
-    const handleFileUpload = (event) => {
-        const file = event.target.files[0];
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
         if (!file) return;
 
         if (!file.type.startsWith('image/')) {
@@ -27,6 +28,7 @@ const ImageResizer = () => {
         reader.onload = (e) => {
             const result = e.target?.result;
             if (typeof result !== "string") return;
+
             const img = new Image();
             img.onload = () => {
                 setOriginalImage(result);
@@ -48,12 +50,13 @@ const ImageResizer = () => {
 
         const canvas = canvasRef.current;
         if (!canvas) return;
+
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
+
         const img = new Image();
 
         img.onload = () => {
-            // Calculate dimensions maintaining aspect ratio if enabled
             let newWidth = width;
             let newHeight = height;
 
@@ -69,12 +72,10 @@ const ImageResizer = () => {
             canvas.width = newWidth;
             canvas.height = newHeight;
 
-            // Draw image with high quality
             ctx.imageSmoothingEnabled = true;
             ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(img, 0, 0, newWidth, newHeight);
 
-            // Convert to data URL with specified quality
             const resizedDataURL = canvas.toDataURL('image/jpeg', quality);
             setResizedImage(resizedDataURL);
         };
@@ -82,7 +83,7 @@ const ImageResizer = () => {
         img.src = originalImage;
     };
 
-    const handleWidthChange = (newWidth) => {
+    const handleWidthChange = (newWidth: number) => {
         setWidth(newWidth);
         if (maintainAspectRatio && originalSize.width > 0) {
             const aspectRatio = originalSize.width / originalSize.height;
@@ -90,7 +91,7 @@ const ImageResizer = () => {
         }
     };
 
-    const handleHeightChange = (newHeight) => {
+    const handleHeightChange = (newHeight: number) => {
         setHeight(newHeight);
         if (maintainAspectRatio && originalSize.height > 0) {
             const aspectRatio = originalSize.width / originalSize.height;
@@ -104,6 +105,7 @@ const ImageResizer = () => {
         setWidth(800);
         setHeight(600);
         setOriginalSize({ width: 0, height: 0 });
+
         if (fileInputRef.current) {
             fileInputRef.current.value = '';
         }
@@ -120,7 +122,7 @@ const ImageResizer = () => {
         document.body.removeChild(link);
     };
 
-    const applyPreset = (preset) => {
+    const applyPreset = (preset: string) => {
         switch (preset) {
             case 'facebook':
                 setWidth(1200);
@@ -178,25 +180,15 @@ const ImageResizer = () => {
                 {originalImage && (
                     <div className={styles["resize-controls"]}>
                         <h3>{"Resize Settings"}</h3>
-                        
+
                         <div className={styles["preset-buttons"]}>
                             <h4>{"Quick Presets:"}</h4>
                             <div className={styles["preset-grid"]}>
-                                <button onClick={() => applyPreset('facebook')} className={styles["preset-btn"]}>
-                                    {"Facebook (1200×630)"}
-                                </button>
-                                <button onClick={() => applyPreset('instagram')} className={styles["preset-btn"]}>
-                                    {"Instagram (1080×1080)"}
-                                </button>
-                                <button onClick={() => applyPreset('twitter')} className={styles["preset-btn"]}>
-                                    {"Twitter (1200×675)"}
-                                </button>
-                                <button onClick={() => applyPreset('thumbnail')} className={styles["preset-btn"]}>
-                                    {"Thumbnail (300×300)"}
-                                </button>
-                                <button onClick={() => applyPreset('hd')} className={styles["preset-btn"]}>
-                                    {"HD (1920×1080)"}
-                                </button>
+                                <button onClick={() => applyPreset('facebook')} className={styles["preset-btn"]}>{"Facebook (1200×630)"}</button>
+                                <button onClick={() => applyPreset('instagram')} className={styles["preset-btn"]}>{"Instagram (1080×1080)"}</button>
+                                <button onClick={() => applyPreset('twitter')} className={styles["preset-btn"]}>{"Twitter (1200×675)"}</button>
+                                <button onClick={() => applyPreset('thumbnail')} className={styles["preset-btn"]}>{"Thumbnail (300×300)"}</button>
+                                <button onClick={() => applyPreset('hd')} className={styles["preset-btn"]}>{"HD (1920×1080)"}</button>
                             </div>
                         </div>
 
@@ -234,7 +226,7 @@ const ImageResizer = () => {
                                 />
                                 {"Maintain aspect ratio"}
                             </label>
-                            
+
                             <div className={styles["quality-control"]}>
                                 <label>{"Quality"}: {Math.round(quality * 100)}%</label>
                                 <input
@@ -291,7 +283,7 @@ const ImageResizer = () => {
                 <div className={styles["info-section"]}>
                     <h4>{"About Image Resizing"}</h4>
                     <p>{"Image resizing is the process of changing the dimensions of an image while maintaining its visual quality. This is useful for optimizing images for web, social media, or storage."}</p>
-                    
+
                     <h5>{"Tips:"}</h5>
                     <ul>
                         <li>{"Maintain aspect ratio to prevent distortion"}</li>

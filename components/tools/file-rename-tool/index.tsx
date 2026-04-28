@@ -1,3 +1,6 @@
+
+
+
 "use client";
 
 import React, { useState, useRef, useCallback } from 'react';
@@ -5,28 +8,47 @@ import styles from './styles.module.css';
 
 const t = (key: string, fallback?: string) => fallback ?? key;
 
+type RenameStatus = 'pending' | 'modified' | 'renamed';
+
+type FileItem = {
+  id: number;
+  originalName: string;
+  newName: string;
+  file: File;
+  extension: string;
+  nameWithoutExtension: string;
+  size: number;
+  type: string;
+  lastModified: number;
+  status: RenameStatus;
+};
+
+type RenameHistoryItem = {
+  id: number;
+  timestamp: string;
+  files: { original: string; new: string }[];
+};
+
 const FileRenameTool = () => {
-  
-  const [files, setFiles] = useState<any[]>([]);
-  const [originalFiles, setOriginalFiles] = useState<any[]>([]);
+
+  const [files, setFiles] = useState<FileItem[]>([]);
+  const [originalFiles, setOriginalFiles] = useState<FileItem[]>([]);
   const [processing, setProcessing] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
-  const [renameHistory, setRenameHistory] = useState<any[]>([]);
+  const [renameHistory, setRenameHistory] = useState<RenameHistoryItem[]>([]);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Renaming strategies
   const [namingStrategy, setNamingStrategy] = useState({
-    method: 'sequential', // sequential, custom, pattern, metadata
+    method: 'sequential',
     baseName: 'file',
     startNumber: 1,
     padding: 3,
     customPattern: '[name]_[counter]',
-    case: 'original', // original, lowercase, uppercase, titlecase
+    case: 'original',
     separator: '_'
   });
 
-  // Advanced options
   const [advancedOptions, setAdvancedOptions] = useState({
     removeSpaces: false,
     replaceSpacesWith: '_',
@@ -39,12 +61,11 @@ const FileRenameTool = () => {
     addTimestamp: false
   });
 
-  // Handle file upload
-  const handleFileUpload = useCallback((uploadedFiles) => {
+  const handleFileUpload = useCallback((uploadedFiles: FileList | null) => {
     if (!uploadedFiles || uploadedFiles.length === 0) return;
-    
-    const validFiles = Array.from(uploadedFiles).filter(file => 
-      file.size <= 100 * 1024 * 1024 // 100MB limit
+
+    const validFiles = Array.from(uploadedFiles).filter((file: File) =>
+      file.size <= 100 * 1024 * 1024
     );
 
     if (validFiles.length === 0) {
@@ -52,7 +73,7 @@ const FileRenameTool = () => {
       return;
     }
 
-    const fileObjects = validFiles.map((file, index) => ({
+    const fileObjects: FileItem[] = validFiles.map((file, index) => ({
       id: index + 1,
       originalName: file.name,
       newName: file.name,
@@ -68,52 +89,49 @@ const FileRenameTool = () => {
     setFiles(fileObjects);
     setOriginalFiles([...fileObjects]);
     generatePreview(fileObjects);
-  }, [t]);
+  }, []);
 
-  // Handle drag and drop
-  const handleDrop = useCallback((e) => {
+  const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const uploadedFiles = e.dataTransfer.files;
-    handleFileUpload(uploadedFiles);
+    handleFileUpload(e.dataTransfer.files);
   }, [handleFileUpload]);
 
-  const handleDragOver = useCallback((e) => {
+  const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   }, []);
 
-  // Generate new names based on strategy
-  const generateNewNames = useCallback((fileList) => {
+  const generateNewNames = useCallback((fileList: FileItem[]) => {
     return fileList.map((file, index) => {
       let newName = '';
-      const counter = (namingStrategy.startNumber + index).toString().padStart(namingStrategy.padding, '0');
-      
+      const counter = (namingStrategy.startNumber + index)
+        .toString()
+        .padStart(namingStrategy.padding, '0');
+
       switch (namingStrategy.method) {
         case 'sequential':
           newName = `${namingStrategy.baseName}${namingStrategy.separator}${counter}`;
           break;
-        
+
         case 'custom':
           newName = namingStrategy.customPattern
             .replace('[name]', file.nameWithoutExtension)
             .replace('[counter]', counter)
-            .replace('[date]', new Date().toISOString().split('T')[0])
+            .replace('[date]', new Date().toISOString().split('T')[0] ?? '')
             .replace('[timestamp]', Date.now().toString());
           break;
-        
+
         case 'pattern':
           newName = file.nameWithoutExtension;
           break;
-        
+
         case 'metadata':
-          // This would require additional metadata extraction
           newName = `${namingStrategy.baseName}_${counter}`;
           break;
-        
+
         default:
           newName = file.nameWithoutExtension;
       }
 
-      // Apply case transformation
       switch (namingStrategy.case) {
         case 'lowercase':
           newName = newName.toLowerCase();
@@ -122,16 +140,12 @@ const FileRenameTool = () => {
           newName = newName.toUpperCase();
           break;
         case 'titlecase':
-          newName = newName.replace(/\w\S*/g, (txt) => 
-            txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+          newName = newName.replace(/\w\S*/g, (txt) =>
+            txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()
           );
-          break;
-        default:
-          // Keep original case
           break;
       }
 
-      // Apply advanced transformations
       if (advancedOptions.removeSpaces) {
         newName = newName.replace(/\s+/g, advancedOptions.replaceSpacesWith);
       }
@@ -150,11 +164,9 @@ const FileRenameTool = () => {
       }
 
       if (advancedOptions.addTimestamp) {
-        const timestamp = new Date().getTime();
-        newName = `${newName}_${timestamp}`;
+        newName = `${newName}_${Date.now()}`;
       }
 
-      // Add extension
       if (advancedOptions.preserveExtension && file.extension) {
         newName += `.${file.extension}`;
       }
@@ -167,30 +179,23 @@ const FileRenameTool = () => {
     });
   }, [namingStrategy, advancedOptions]);
 
-  // Generate preview
-  const generatePreview = useCallback((fileList = files) => {
+  const generatePreview = useCallback((fileList: FileItem[] = files) => {
     const updatedFiles = generateNewNames(fileList);
     setFiles(updatedFiles);
     setPreviewMode(true);
   }, [files, generateNewNames]);
 
-  // Apply renaming
   const applyRenaming = async () => {
     if (files.length === 0) return;
 
     setProcessing(true);
 
     try {
-      // In a real application, this would be an API call to rename files on the server
-      // For this client-side demo, we'll simulate the process
-      
       const renamedFiles = files.map(file => ({
         ...file,
-        status: 'renamed',
-        originalName: file.originalName // Keep track of original name
+        status: 'renamed' as RenameStatus
       }));
 
-      // Add to history
       setRenameHistory(prev => [{
         id: Date.now(),
         timestamp: new Date().toISOString(),
@@ -201,10 +206,8 @@ const FileRenameTool = () => {
       }, ...prev]);
 
       setFiles(renamedFiles);
-      
-      // Create download package
       await createDownloadPackage(renamedFiles);
-      
+
     } catch (error) {
       console.error('Renaming error:', error);
       alert(t('renameError'));
@@ -213,9 +216,7 @@ const FileRenameTool = () => {
     }
   };
 
-  // Create downloadable package
-  const createDownloadPackage = async (renamedFiles) => {
-    // Create a JSON file with renaming instructions
+  const createDownloadPackage = async (renamedFiles: FileItem[]) => {
     const renameData = {
       timestamp: new Date().toISOString(),
       totalFiles: renamedFiles.length,
@@ -226,19 +227,10 @@ const FileRenameTool = () => {
       }))
     };
 
-    const dataStr = JSON.stringify(renameData, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    
-    // In a real application, you would:
-    // 1. Send files to server for actual renaming
-    // 2. Download renamed files or get a zip package
-    // 3. Handle actual file system operations
-    
     console.log('Renaming operations:', renameData);
     alert(t('renameComplete'));
   };
 
-  // Download rename report
   const downloadReport = () => {
     const report = {
       renameSession: {
@@ -254,24 +246,20 @@ const FileRenameTool = () => {
     };
 
     const dataStr = JSON.stringify(report, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `rename-report-${new Date().getTime()}.json`;
-    document.body.appendChild(link);
+    link.download = `rename-report-${Date.now()}.json`;
     link.click();
-    document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
 
-  // Reset to original names
   const resetNames = () => {
     setFiles([...originalFiles]);
     setPreviewMode(false);
   };
 
-  // Clear all files
   const clearAll = () => {
     setFiles([]);
     setOriginalFiles([]);
@@ -282,55 +270,39 @@ const FileRenameTool = () => {
     }
   };
 
-  // Manual name editing
-  const updateFileName = (fileId, newName) => {
-    setFiles(prev => prev.map(file => 
-      file.id === fileId 
+  const updateFileName = (fileId: number, newName: string) => {
+    setFiles(prev => prev.map(file =>
+      file.id === fileId
         ? { ...file, newName, status: newName !== file.originalName ? 'modified' : 'pending' }
         : file
     ));
   };
 
-  // Sort files
-  const sortFiles = (criteria) => {
-    const sortedFiles = [...files].sort((a, b) => {
-      switch (criteria) {
-        case 'name':
-          return a.originalName.localeCompare(b.originalName);
-        case 'size':
-          return a.size - b.size;
-        case 'date':
-          return a.lastModified - b.lastModified;
-        case 'type':
-          return a.type.localeCompare(b.type);
-        default:
-          return 0;
-      }
+  const sortFiles = (criteria: string) => {
+    const sorted = [...files].sort((a, b) => {
+      if (criteria === 'name') return a.originalName.localeCompare(b.originalName);
+      if (criteria === 'size') return a.size - b.size;
+      if (criteria === 'date') return a.lastModified - b.lastModified;
+      if (criteria === 'type') return a.type.localeCompare(b.type);
+      return 0;
     });
-    setFiles(sortedFiles);
+    setFiles(sorted);
   };
 
-  // Filter files by type
-  const filterFiles = (fileType) => {
-    if (fileType === 'all') {
-      setFiles([...originalFiles]);
-    } else {
-      const filteredFiles = originalFiles.filter(file => 
+  const filterFiles = (fileType: string) => {
+    if (fileType === 'all') setFiles([...originalFiles]);
+    else {
+      const filtered = originalFiles.filter(file =>
         file.type.startsWith(fileType) || file.extension === fileType
       );
-      setFiles(filteredFiles);
+      setFiles(filtered);
     }
   };
 
-  // Count files by status
-  const getStatusCounts = () => {
-    return files.reduce((acc, file) => {
-      acc[file.status] = (acc[file.status] || 0) + 1;
-      return acc;
-    }, {});
-  };
-
-  const statusCounts = getStatusCounts();
+  const statusCounts = files.reduce<Record<string, number>>((acc, file) => {
+    acc[file.status] = (acc[file.status] || 0) + 1;
+    return acc;
+  }, {});
 
   return (
     <div className={styles["file-rename-tool"]}>
@@ -342,7 +314,7 @@ const FileRenameTool = () => {
       <div className={styles["rename-container"]}>
         {/* Upload Section */}
         <div className={styles["upload-section"]}>
-          <div 
+          <div
             className={styles["upload-area"]}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
@@ -367,7 +339,7 @@ const FileRenameTool = () => {
                     <span>✅ {statusCounts.renamed || 0} {t('renamed')}</span>
                   </div>
                 </div>
-                <button 
+                <button
                   className={styles["clear-btn"]}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -392,26 +364,26 @@ const FileRenameTool = () => {
         {files.length > 0 && (
           <div className={styles["file-actions-section"]}>
             <div className={styles["action-buttons"]}>
-              <button 
+              <button
                 className={`${styles["btn"]} ${styles["secondary"]}`}
                 onClick={() => sortFiles('name')}
               >
                 🔤 {t('sortByName')}
               </button>
-              <button 
+              <button
                 className={`${styles["btn"]} ${styles["secondary"]}`}
                 onClick={() => sortFiles('size')}
               >
                 📊 {t('sortBySize')}
               </button>
-              <button 
+              <button
                 className={`${styles["btn"]} ${styles["secondary"]}`}
                 onClick={() => sortFiles('date')}
               >
                 📅 {t('sortByDate')}
               </button>
-              
-              <select 
+
+              <select
                 className={styles["filter-select"]}
                 onChange={(e) => filterFiles(e.target.value)}
                 defaultValue="all"
@@ -431,7 +403,7 @@ const FileRenameTool = () => {
         {files.length > 0 && (
           <div className={styles["strategy-section"]}>
             <h3>{t('namingStrategy')}</h3>
-            
+
             <div className={styles["strategy-grid"]}>
               {/* Method Selection */}
               <div className={styles["strategy-group"]}>
@@ -617,16 +589,16 @@ const FileRenameTool = () => {
 
             {/* Preview & Apply Buttons */}
             <div className={styles["action-section"]}>
-              <button 
+              <button
                 className={`${styles["btn"]} ${styles["primary"]} ${styles["preview-btn"]}`}
                 onClick={() => generatePreview()}
                 disabled={processing}
               >
                 👁️ {t('previewChanges')}
               </button>
-              
+
               {previewMode && (
-                <button 
+                <button
                   className={`${styles["btn"]} ${styles["success"]} ${styles["apply-btn"]}`}
                   onClick={applyRenaming}
                   disabled={processing}
@@ -641,8 +613,8 @@ const FileRenameTool = () => {
                   )}
                 </button>
               )}
-              
-              <button 
+
+              <button
                 className={`${styles["btn"]} ${styles["outline"]} ${styles["reset-btn"]}`}
                 onClick={resetNames}
                 disabled={processing}
@@ -659,7 +631,7 @@ const FileRenameTool = () => {
             <div className={styles["preview-header"]}>
               <h3>{t('preview')} ({files.length} {t('files')})</h3>
               <div className={styles["preview-actions"]}>
-                <button 
+                <button
                   className={`${styles["btn"]} ${styles["outline"]}`}
                   onClick={downloadReport}
                 >
@@ -672,13 +644,13 @@ const FileRenameTool = () => {
               {files.map((file) => (
                 <div key={file.id} className={`${styles["file-item"]} ${file.status}`}>
                   <div className={styles["file-icon"]}>
-                    {file.type.startsWith('image') ? '🖼️' : 
-                     file.type.startsWith('video') ? '🎥' : 
-                     file.type.startsWith('audio') ? '🎵' : 
-                     file.type.includes('pdf') ? '📄' : 
-                     file.type.includes('document') ? '📝' : '📁'}
+                    {file.type.startsWith('image') ? '🖼️' :
+                      file.type.startsWith('video') ? '🎥' :
+                        file.type.startsWith('audio') ? '🎵' :
+                          file.type.includes('pdf') ? '📄' :
+                            file.type.includes('document') ? '📝' : '📁'}
                   </div>
-                  
+
                   <div className={styles["file-names"]}>
                     <div className={styles["original-name"]}>
                       <span className={styles["name-label"]}>{t('original')}:</span>

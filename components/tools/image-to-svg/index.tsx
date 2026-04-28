@@ -74,8 +74,7 @@ const ImageToSvg = () => {
 
     // Simple color quantization function
     const quantize = (imageData, maxColors) => {
-        const pixels = [];
-        const colorMap = new Map();
+        const pixels: { r: number; g: number; b: number; a: number }[] = [];        const colorMap = new Map();
         
         for (let i = 0; i < imageData.data.length; i += 4) {
             const r = imageData.data[i];

@@ -11,6 +11,7 @@ const JwtDebugger = () => {
     const decodeJWT = () => {
         try {
             setError('');
+
             if (!jwtToken.trim()) {
                 setError("Invalid JWT token");
                 return;
@@ -21,11 +22,10 @@ const JwtDebugger = () => {
                 throw new Error("Invalid JWT token");
             }
 
-            const header = JSON.parse(atob(parts[0]));
-            const payload = JSON.parse(atob(parts[1]));
-            const signature = parts[2];
+            const header = JSON.parse(atob(parts?.[0] || ""));
+            const payload = JSON.parse(atob(parts?.[1] || ""));
+            const signature = parts?.[2] || "";
 
-            // Calculate expiration info
             const now = Math.floor(Date.now() / 1000);
             const isExpired = payload.exp && payload.exp < now;
             const expiresIn = payload.exp ? payload.exp - now : null;
@@ -49,24 +49,24 @@ const JwtDebugger = () => {
         setError('');
     };
 
-    const copyToClipboard = (text) => {
+    const copyToClipboard = (text: any) => {
         navigator.clipboard.writeText(JSON.stringify(text, null, 2));
     };
 
-    const formatTimestamp = (timestamp) => {
+    const formatTimestamp = (timestamp: number | undefined) => {
         if (!timestamp) return 'N/A';
         const date = new Date(timestamp * 1000);
         return date.toLocaleString();
     };
 
-    const formatTimeRemaining = (seconds) => {
+    const formatTimeRemaining = (seconds: number | null) => {
         if (!seconds) return 'N/A';
         if (seconds < 0) return 'Expired';
-        
+
         const days = Math.floor(seconds / (3600 * 24));
         const hours = Math.floor((seconds % (3600 * 24)) / 3600);
         const minutes = Math.floor((seconds % 3600) / 60);
-        
+
         if (days > 0) return `${days}d ${hours}h ${minutes}m`;
         if (hours > 0) return `${hours}h ${minutes}m`;
         return `${minutes}m`;
@@ -157,7 +157,7 @@ const JwtDebugger = () => {
                             <div className={styles["jwt-part"]}>
                                 <div className={styles["part-header"]}>
                                     <h4>{"Header"}</h4>
-                                    <button 
+                                    <button
                                         onClick={() => copyToClipboard(decoded.header)}
                                         className={styles["copy-btn-small"]}
                                     >
@@ -170,7 +170,7 @@ const JwtDebugger = () => {
                             <div className={styles["jwt-part"]}>
                                 <div className={styles["part-header"]}>
                                     <h4>{"Payload"}</h4>
-                                    <button 
+                                    <button
                                         onClick={() => copyToClipboard(decoded.payload)}
                                         className={styles["copy-btn-small"]}
                                     >

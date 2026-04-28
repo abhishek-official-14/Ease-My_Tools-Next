@@ -1,9 +1,7 @@
 "use client";
 
-// @ts-nocheck
-
 import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link"; // Added for SPA navigation
+import Link from "next/link";
 import styles from './styles.module.css';
 import { useTheme } from "next-themes";
 
@@ -12,22 +10,33 @@ const Navbar = () => {
 
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const rawMenus = [{"title":"PDF","items":[{"label":"Merge PDF","icon":"📑"},{"label":"Split PDF","icon":"✂️"},{"label":"Compress PDF","icon":"📉"}]},{"title":"Image","items":[{"label":"Remove BG","icon":"🖼️"},{"label":"Resize","icon":"📏"},{"label":"Convert","icon":"🔄"}]},{"title":"Video","items":[{"label":"Compress","icon":"🎥"},{"label":"Mute","icon":"🔇"},{"label":"Convert","icon":"🔄"}]},{"title":"File","items":[{"label":"Split Excel","icon":"📊"},{"label":"Word → PDF","icon":"📝"},{"label":"PPT → PDF","icon":"📽️"}]}];
-  const menus = Array.isArray(rawMenus) ? rawMenus : []; // defensive guard
+
+  const rawMenus = [
+    { title: "PDF", items: [{ label: "Merge PDF", icon: "📑" }, { label: "Split PDF", icon: "✂️" }, { label: "Compress PDF", icon: "📉" }] },
+    { title: "Image", items: [{ label: "Remove BG", icon: "🖼️" }, { label: "Resize", icon: "📏" }, { label: "Convert", icon: "🔄" }] },
+    { title: "Video", items: [{ label: "Compress", icon: "🎥" }, { label: "Mute", icon: "🔇" }, { label: "Convert", icon: "🔄" }] },
+    { title: "File", items: [{ label: "Split Excel", icon: "📊" }, { label: "Word → PDF", icon: "📝" }, { label: "PPT → PDF", icon: "📽️" }] }
+  ];
+
+  const menus = Array.isArray(rawMenus) ? rawMenus : [];
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<any | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+
   const menuRef = useRef<HTMLDivElement | null>(null);
   const hamburgerRef = useRef<HTMLButtonElement | null>(null);
 
   // Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
       if (
         isMenuOpen &&
         menuRef.current &&
-        !menuRef.current.contains(event.target) &&
+        !menuRef.current.contains(target) &&
         hamburgerRef.current &&
-        !hamburgerRef.current.contains(event.target)
+        !hamburgerRef.current.contains(target)
       ) {
         setIsMenuOpen(false);
         setActiveDropdown(null);
@@ -58,7 +67,7 @@ const Navbar = () => {
     }
   };
 
-  const toggleDropdown = (index) => {
+  const toggleDropdown = (index: number) => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
 
@@ -75,13 +84,11 @@ const Navbar = () => {
   return (
     <header className={styles["navbar"]}>
       <div className={styles["navbar-container"]}>
-        {/* Logo */}
+
         <Link href={"/" as any} className={styles["navbar-logo"]} style={{ textDecoration: "None" }}>
           EaseMyTools
         </Link>
 
-
-        {/* Desktop Navigation Menu */}
         <nav className={styles["navbar-desktop-nav"]}>
           {menus.map((menu, index) => (
             <div
@@ -99,14 +106,13 @@ const Navbar = () => {
                 <span className={styles["desktop-arrow"]}>▾</span>
               </button>
 
-              {/* Desktop Dropdown Panel */}
               {activeDropdown === index && (
                 <div className={styles["desktop-dropdown-panel"]}>
                   <div className={styles["desktop-dropdown-grid"]}>
-                    {menu.items.map((item, itemIndex) => (
+                    {menu.items.map((item: any, itemIndex: number) => (
                       <Link
                         key={itemIndex}
-                        href={`/${item.id || ""}`}
+                        href={`/${(item as any).id || ""}` as any}
                         className={styles["desktop-dropdown-item"]}
                         onClick={() => {
                           setIsMenuOpen(false);
@@ -125,7 +131,6 @@ const Navbar = () => {
         </nav>
 
         <div className={`flex`}>
-          {/* Desktop Action Buttons */}
           <div className={styles["navbar-actions"]}>
             <Link href={"/login" as any} className={styles["signin-btn"]}>
               Sign In
@@ -135,7 +140,6 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Hamburger Button */}
           <button
             ref={hamburgerRef}
             className={`${styles["mobile-hamburger"]} ${isMenuOpen ? styles["active"] : ""}`}
@@ -150,23 +154,19 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <>
             <div className={styles["mobile-menu-overlay"]} onClick={toggleMenu} />
             <nav ref={menuRef} className={styles["mobile-menu"]}>
               <div className={styles["mobile-menu-header"]}>
                 <div className={styles["mobile-menu-title"]}>Menu</div>
-                <button className={styles["mobile-close-btn"]} onClick={toggleMenu}>
-                  {/* ✕ */}
-                </button>
+                <button className={styles["mobile-close-btn"]} onClick={toggleMenu}></button>
               </div>
 
               <div className={styles["mobile-menu-content"]}>
                 {menus.map((menu, index) => (
                   <div
-                    className={`${styles["mobile-menu-item"]} ${activeDropdown === index ? styles["active"] : ""
-                      }`}
+                    className={`${styles["mobile-menu-item"]} ${activeDropdown === index ? styles["active"] : ""}`}
                     key={index}
                   >
                     <button
@@ -182,10 +182,10 @@ const Navbar = () => {
                     {activeDropdown === index && (
                       <div className={styles["mobile-dropdown-panel"]}>
                         <div className={styles["mobile-dropdown-grid"]}>
-                          {menu.items.map((item, itemIndex) => (
+                          {menu.items.map((item: any, itemIndex: number) => (
                             <Link
                               key={itemIndex}
-                              href={`/${item.id || ""}`}
+                              href={`/${(item as any).id || ""}` as any}
                               className={styles["mobile-dropdown-item"]}
                               onClick={() => {
                                 setIsMenuOpen(false);

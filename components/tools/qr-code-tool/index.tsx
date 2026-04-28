@@ -9,8 +9,8 @@ const QRCodeTool = () => {
     const [inputText, setInputText] = useState("");
     const [decodedText, setDecodedText] = useState("");
     const [fileError, setFileError] = useState("");
-    const canvasRef = useRef(null);
-    const svgRef = useRef(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const svgRef = useRef<HTMLDivElement | null>(null);
 
     const handleDecode = (e) => {
         const file = e.target.files?.[0];
@@ -47,6 +47,7 @@ const QRCodeTool = () => {
         if (!inputText || !svgRef.current) return;
 
         const svg = svgRef.current.querySelector("svg");
+        if(!svg) return;
         const svgData = new XMLSerializer().serializeToString(svg);
         const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
         const url = URL.createObjectURL(svgBlob);

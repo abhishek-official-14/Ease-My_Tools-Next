@@ -3,17 +3,26 @@
 import React, { useState, useRef } from 'react';
 import styles from './styles.module.css';
 
+interface FileInfo {
+    name: string;
+    size: number;
+    type: string;
+    lastModified?: number;
+    characterCount?: number;
+    uriLength?: number;
+}
+
 const DataUriGenerator = () => {
     const [inputType, setInputType] = useState('text');
     const [text, setText] = useState('');
-    const [file, setFile] = useState<any | null>(null);
+    const [file, setFile] = useState<File | null>(null);
     const [textType, setTextType] = useState('plainText');
     const [dataUri, setDataUri] = useState('');
-    const [fileInfo, setFileInfo] = useState<any | null>(null);
+    const [fileInfo, setFileInfo] = useState<FileInfo | null>(null);
     const [copied, setCopied] = useState(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const mimeTypes = {
+    const mimeTypes: Record<string, string> = {
         plainText: 'text/plain',
         html: 'text/html',
         css: 'text/css',
@@ -56,10 +65,13 @@ const DataUriGenerator = () => {
                     const uri = e.target?.result;
                     if (typeof uri === "string") {
                         setDataUri(uri);
-                        setFileInfo(prev => ({
-                            ...prev,
-                            uriLength: uri.length
-                        }));
+                        setFileInfo(prev => {
+                            if (!prev) return null;
+                            return {
+                                ...prev,
+                                uriLength: uri.length
+                            };
+                        });
                     }
                 };
                 reader.readAsDataURL(file);
@@ -103,7 +115,11 @@ const DataUriGenerator = () => {
         if (dataUri.startsWith('data:image/')) {
             return <img src={dataUri} alt="Preview" className={styles["image-preview"]} />;
         } else if (dataUri.startsWith('data:text/') || dataUri.startsWith('data:application/')) {
-            const content = decodeURIComponent(dataUri.split(',')[1]);
+            const parts = dataUri.split(',');
+            if (parts.length < 2 || !parts[1]) {
+                return <div className={styles["no-preview"]}>Invalid data URI</div>;
+            }
+            const content = decodeURIComponent(parts[1]);
             return (
                 <pre className={styles["text-preview"]}>
                     {content.length > 1000 ? content.substring(0, 1000) + '...' : content}
@@ -236,7 +252,7 @@ const DataUriGenerator = () => {
                         <div className={styles["data-uri-output"]}>
                             <div className={styles["output-header"]}>
                                 <h3>{"Data URI"}</h3>
-                                <button 
+                                <button
                                     onClick={copyUri}
                                     className={`${styles["copy-btn"]} ${copied ? 'copied' : ''}`}
                                 >
