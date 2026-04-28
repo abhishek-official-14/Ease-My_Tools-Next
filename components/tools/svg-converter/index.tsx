@@ -4,7 +4,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import styles from './styles.module.css';
 
 const SvgConverter = () => {
-    const [file, setFile] = useState<any | null>(null);
+    const [file, setFile] = useState<unknown | null>(null);
     const [originalSvg, setOriginalSvg] = useState('');
     const [convertedImage, setConvertedImage] = useState('');
     const [converting, setConverting] = useState(false);

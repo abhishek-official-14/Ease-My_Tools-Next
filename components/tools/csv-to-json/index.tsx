@@ -17,7 +17,7 @@ const CSVtoJSON = () => {
 
         try {
             const lines = csvInput.trim().split('\n');
-            const result: any[] = [];
+            const result: unknown[] = [];
 
             let headers: string[] = [];
             if (hasHeaders) {
@@ -33,10 +33,10 @@ const CSVtoJSON = () => {
                 if (!currentLine) continue;
 
                 const values = currentLine.split(delimiter);
-                const obj: any = {};
+                const obj: unknown = {};
 
                 headers.forEach((header: string, index: number) => {
-                    let value: any = values[index] ? values[index].trim() : '';
+                    let value: unknown = values[index] ? values[index].trim() : '';
 
                     if (!isNaN(Number(value)) && value !== '') {
                         value = Number(value);
@@ -69,7 +69,7 @@ const CSVtoJSON = () => {
         }
 
         try {
-            const data: any[] = JSON.parse(jsonOutput);
+            const data: unknown[] = JSON.parse(jsonOutput);
             if (!Array.isArray(data)) {
                 alert("JSON must be an array of objects");
                 return;
@@ -87,9 +87,9 @@ const CSVtoJSON = () => {
                 csv += headers.join(delimiter) + '\n';
             }
 
-            data.forEach((row: any) => {
+            data.forEach((row: unknown) => {
                 const values = headers.map((header) => {
-                    let value: any = row[header];
+                    let value: unknown = row[header];
                     if (value === null || value === undefined) {
                         value = '';
                     } else if (typeof value === 'object') {

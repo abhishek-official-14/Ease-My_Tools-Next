@@ -8,7 +8,7 @@ export default function BackButton() {
 
     return (
         <div style={{textAlign: 'center'}}>
-            <button className={styles["back-button"]} onClick={() => router.push('/' as any)}>
+            <button className={styles["back-button"]} onClick={() => router.push('/' as unknown)}>
                 ← Back to Home
             </button>
         </div>
