@@ -5,12 +5,6 @@ import styles from './styles.module.css';
 
 const t = (key: string, fallback?: string) => fallback ?? key;
 
-type ConversionCategory = 'length' | 'weight' | 'temperature' | 'area' | 'volume' | 'speed';
-
-type TemperatureFormula = (val: number, toUnit: string) => number;
-
-type ConversionFormulas = Record<string, Record<string, number | TemperatureFormula>>;
-
 const UnitConverter = () => { // <-- i18next
     const [category, setCategory] = useState<ConversionCategory>('length');
     const [fromUnit, setFromUnit] = useState('meter');
@@ -20,7 +14,7 @@ const UnitConverter = () => { // <-- i18next
     const [isConverting, setIsConverting] = useState(false);
 
     // Unit conversion formulas
-    const conversionFormulas: ConversionFormulas = {
+    const conversionFormulas: Record<string, Record<string, number | ((val: number, toUnit: string) => number)>> = {
         length: { meter: 1, kilometer: 0.001, centimeter: 100, millimeter: 1000, mile: 0.000621371, yard: 1.09361, foot: 3.28084, inch: 39.3701 },
         weight: { kilogram: 1, gram: 1000, milligram: 1000000, pound: 2.20462, ounce: 35.274 },
         temperature: {
@@ -35,7 +29,7 @@ const UnitConverter = () => { // <-- i18next
 
     // Get categories in current language
     const getCategories = () => {
-        const categoryKeys: ConversionCategory[] = ['length', 'weight', 'temperature', 'area', 'volume', 'speed'];
+        const categoryKeys = ['length', 'weight', 'temperature', 'area', 'volume', 'speed'];
         return categoryKeys.reduce<Record<string, string>>((acc, key) => {
             acc[key] = t(`unitConverter:categories.${key}`, key.charAt(0).toUpperCase() + key.slice(1));
             return acc;
@@ -64,8 +58,7 @@ const UnitConverter = () => { // <-- i18next
 
         try {
             if (category === 'temperature') {
-                const tempFormula = conversionFormulas.temperature[fromUnit] as TemperatureFormula;
-                const convertedValue = tempFormula(value, toUnit);
+                const convertedValue = (conversionFormulas.temperature[fromUnit] as (val: number, toUnit: string) => number)(value, toUnit);
                 setResult(convertedValue.toFixed(6));
             } else {
                 const fromFactor = conversionFormulas[category][fromUnit] as number;
@@ -87,7 +80,7 @@ const UnitConverter = () => { // <-- i18next
     const swapUnits = () => { setFromUnit(toUnit); setToUnit(fromUnit); };
 
     const handleCategoryChange = (newCategory: string) => {
-        setCategory(newCategory as ConversionCategory);
+        setCategory(newCategory);
         const units = Object.keys(conversionFormulas[newCategory] || {});
         setFromUnit(units[0] || '');
         setToUnit(units[1] || units[0] || '');
@@ -134,13 +127,13 @@ const UnitConverter = () => { // <-- i18next
                             <input
                                 type="number"
                                 value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
                                 placeholder={"Enter value"}
                                 className={styles["value-input"]}
                             />
                             <select
                                 value={fromUnit}
-                                onChange={(e) => setFromUnit(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFromUnit(e.target.value)}
                                 className={styles["unit-select"]}
                                 disabled={!units.length}
                             >
@@ -174,7 +167,7 @@ const UnitConverter = () => { // <-- i18next
                             />
                             <select
                                 value={toUnit}
-                                onChange={(e) => setToUnit(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setToUnit(e.target.value)}
                                 className={styles["unit-select"]}
                                 disabled={!units.length}
                             >

@@ -6,11 +6,11 @@ import styles from './styles.module.css';
 const TextExtractor = () => {
     const [extractedText, setExtractedText] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
-    const [uploadedImage, setUploadedImage] = useState(null);
-    const fileInputRef = useRef(null);
+    const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const handleFileUpload = (event) => {
-        const file = event.target.files[0];
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
         if (!file) return;
 
         // Check if file is an image
@@ -20,10 +20,13 @@ const TextExtractor = () => {
         }
 
         const reader = new FileReader();
-        reader.onload = (e) => {
-            setUploadedImage(e.target.result);
-            // Simulate OCR processing
-            simulateOCRProcessing();
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+            const result = e.target?.result;
+            if (typeof result === "string") {
+                setUploadedImage(result);
+                // Simulate OCR processing
+                simulateOCRProcessing();
+            }
         };
         reader.readAsDataURL(file);
     };
@@ -57,7 +60,7 @@ you would need to integrate with an OCR service like:
         }, 2000);
     };
 
-    const handlePaste = async (event) => {
+    const handlePaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
         const items = event.clipboardData?.items;
         if (!items) return;
 
@@ -66,9 +69,12 @@ you would need to integrate with an OCR service like:
                 const file = item.getAsFile();
                 if (file) {
                     const reader = new FileReader();
-                    reader.onload = (e) => {
-                        setUploadedImage(e.target.result);
-                        simulateOCRProcessing();
+                    reader.onload = (e: ProgressEvent<FileReader>) => {
+                        const result = e.target?.result;
+                        if (typeof result === "string") {
+                            setUploadedImage(result);
+                            simulateOCRProcessing();
+                        }
                     };
                     reader.readAsDataURL(file);
                 }

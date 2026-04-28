@@ -24,9 +24,7 @@ const XMLFormatter = () => {
             setError('');
         } catch (err) {
             setIsValid(false);
-            if (err instanceof Error) {
-                setError(err.message);
-            }
+            if (err instanceof Error) setError(err.message);
             setFormattedXML('');
         }
     };
@@ -97,9 +95,7 @@ const XMLFormatter = () => {
             setError("Valid XML!");
         } catch (err) {
             setIsValid(false);
-            if (err instanceof Error) {
-                setError(err.message);
-            }
+            if (err instanceof Error) setError(err.message);
         }
     };
 
@@ -116,9 +112,7 @@ const XMLFormatter = () => {
             setError('');
         } catch (err) {
             setIsValid(false);
-            if (err instanceof Error) {
-                setError(err.message);
-            }
+            if (err instanceof Error) setError(err.message);
         }
     };
 

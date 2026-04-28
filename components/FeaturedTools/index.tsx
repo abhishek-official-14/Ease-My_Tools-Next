@@ -36,7 +36,7 @@ const FeaturedTools = () => {
     }
   ];
 
-  const handleToolClick = (path) => {
+  const handleToolClick = (path: string) => {
     router.push(path);
   };
 

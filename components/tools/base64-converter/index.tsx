@@ -1,6 +1,5 @@
 "use client";
 
-//@ts-nocheck
 import React, { useState, useRef } from "react";
 import styles from './styles.module.css';
 
@@ -9,7 +8,7 @@ const Base64Converter = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [mode, setMode] = useState("encode");
-    const fileInputRef = useRef(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const handleEncode = () => {
         if (mode === "encode") {
@@ -17,26 +16,29 @@ const Base64Converter = () => {
         } else {
             try {
                 setOutput(decodeURIComponent(escape(atob(input))));
-            } catch (error) {
+            } catch {
                 setOutput("❌ Invalid Base64 string");
             }
         }
     };
 
-    const handleFileUpload = (file) => {
+    const handleFileUpload = (file: File) => {
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = (e: ProgressEvent<FileReader>) => {
             if (mode === "encode") {
-                const base64 = e.target.result.split(',')[1];
-                setOutput(base64);
+                const result = e.target?.result;
+                if (typeof result === "string") {
+                    const base64 = result.split(',')[1] || "";
+                    setOutput(base64);
+                }
             }
         };
         reader.readAsDataURL(file);
     };
 
-    const handleDrop = (e) => {
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        const file = e.dataTransfer.files[0];
+        const file = e.dataTransfer.files?.[0];
         if (file) handleFileUpload(file);
     };
 
@@ -83,7 +85,7 @@ const Base64Converter = () => {
             <div className={styles["input-section"]}>
                 <textarea
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInput(e.target.value)}
                     placeholder={"Enter text to encode/decode..."}
                     className={styles["text-area"]}
                     rows={6}
@@ -92,7 +94,7 @@ const Base64Converter = () => {
 
             <div
                 className={styles["file-drop-zone"]}
-                onDragOver={(e) => e.preventDefault()}
+                onDragOver={(e: React.DragEvent<HTMLDivElement>) => e.preventDefault()}
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
             >
@@ -100,7 +102,10 @@ const Base64Converter = () => {
                 <input
                     type="file"
                     ref={fileInputRef}
-                    onChange={(e) => handleFileUpload(e.target.files[0])}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleFileUpload(file);
+                    }}
                     hidden
                 />
             </div>

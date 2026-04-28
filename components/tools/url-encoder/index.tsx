@@ -94,7 +94,7 @@ const URLEncoder = () => {
                     </label>
                     <textarea
                         value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setInputText(e.target.value)}
                         placeholder={
                             operation === 'encode' 
                                 ? "Enter text to encode to URL format..."
