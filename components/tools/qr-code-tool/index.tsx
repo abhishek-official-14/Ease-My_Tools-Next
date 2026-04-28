@@ -22,7 +22,7 @@ const QRCodeTool = () => {
         const reader = new FileReader();
         reader.onload = (event) => {
             const img = new Image();
-            // @ts-ignore
+            // @ts-expect-error FileReader result is string data URL at runtime
             img.src = event.target.result;
             img.onload = () => {
                 const canvas = canvasRef.current;

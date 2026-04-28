@@ -162,10 +162,10 @@ const URLEncoder = () => {
                     <div className={styles["examples"]}>
                         <h5>{"Examples:" || 'Examples:'}</h5>
                         <div className={styles["example"]}>
-                            <strong>{"Encode:" || 'Encode:'}</strong> "hello world" → "hello%20world"
+                            <strong>{"Encode:" || 'Encode:'}</strong> {"\"hello world\" → \"hello%20world\""}
                         </div>
                         <div className={styles["example"]}>
-                            <strong>{"Decode:" || 'Decode:'}</strong> "hello%20world" → "hello world"
+                            <strong>{"Decode:" || 'Decode:'}</strong> {"\"hello%20world\" → \"hello world\""}
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,8 @@ const ColorPicker = () => { // <-- i18next
         const rNorm = r / 255, gNorm = g / 255, bNorm = b / 255;
         const max = Math.max(rNorm, gNorm, bNorm);
         const min = Math.min(rNorm, gNorm, bNorm);
-        let h, s, l = (max + min) / 2;
+        let h, s;
+        const l = (max + min) / 2;
 
         if (max === min) h = s = 0;
         else {

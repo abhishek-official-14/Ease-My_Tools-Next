@@ -729,9 +729,9 @@ const FileRenameTool = () => {
                   <div className={styles["history-preview"]}>
                     {record.files.slice(0, 3).map((file, idx) => (
                       <div key={idx} className={styles["history-file"]}>
-                        <span className={styles["original"]}>"{file.original}"</span>
+                        <span className={styles["original"]}>{"\""}{file.original}{"\""}</span>
                         <span className={styles["arrow"]}>→</span>
-                        <span className={styles["new"]}>"{file.new}"</span>
+                        <span className={styles["new"]}>{"\""}{file.new}{"\""}</span>
                       </div>
                     ))}
                     {record.files.length > 3 && (

@@ -167,7 +167,7 @@ const ImageToSvg = () => {
     const generateBlackWhiteSVG = (imageData) => {
         const { width, height } = imageData;
         const threshold = conversionSettings.threshold;
-        let paths = [];
+        const paths = [];
         
         // Simple edge detection and path generation
         for (let y = 0; y < height; y += 2) {
@@ -198,7 +198,7 @@ const ImageToSvg = () => {
     const generateGrayscaleSVG = (imageData) => {
         const { width, height } = imageData;
         const step = Math.max(1, Math.floor(conversionSettings.simplify));
-        let paths = [];
+        const paths = [];
         
         for (let y = 0; y < height; y += step) {
             for (let x = 0; x < width; x += step) {
@@ -258,7 +258,7 @@ const ImageToSvg = () => {
             .sort((a, b) => b[1].length - a[1].length)
             .slice(0, maxColors);
         
-        let paths = [];
+        const paths = [];
         
         sortedColors.forEach(([colorKey, points]) => {
             const [r, g, b] = colorKey.split(',').map(Number);

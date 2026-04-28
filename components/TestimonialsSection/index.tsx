@@ -31,7 +31,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div key={index} className={styles["testimonial-card"]}>
               <div className={styles["testimonial-content"]}>
-                <p>"{testimonial.text}"</p>
+                <p>{"\""}{testimonial.text}{"\""}</p>
               </div>
               <div className={styles["testimonial-author"]}>
                 <strong>{testimonial.name}</strong>

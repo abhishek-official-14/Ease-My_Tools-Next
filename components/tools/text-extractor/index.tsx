@@ -61,7 +61,7 @@ you would need to integrate with an OCR service like:
         const items = event.clipboardData?.items;
         if (!items) return;
 
-        for (let item of items) {
+        for (const item of items) {
             if (item.type.startsWith('image/')) {
                 const file = item.getAsFile();
                 if (file) {

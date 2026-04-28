@@ -180,7 +180,7 @@ const RegexGenerator = () => {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder={"Describe what pattern you want to match..."}
-                            rows="3"
+                            rows={3}
                         />
                     </div>
 
@@ -258,7 +258,7 @@ const RegexGenerator = () => {
                                 value={testText}
                                 onChange={(e) => setTestText(e.target.value)}
                                 placeholder={"Enter text to test the regex pattern..."}
-                                rows="3"
+                                rows={3}
                                 onBlur={testRegex}
                             />
                         </div>

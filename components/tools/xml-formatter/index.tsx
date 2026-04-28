@@ -38,7 +38,7 @@ const XMLFormatter = () => {
         xml = xml.replace(/>\s+</g, '><').trim();
         
         let inTag = false;
-        let inAttribute = false;
+        const inAttribute = false;
         let currentTag = '';
         let currentText = '';
 

@@ -26,7 +26,7 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
         <div className={styles.categoryHeader}>
           <BackButton />
           <h1>Category Not Found</h1>
-          <p>The category "{categoryId}" doesn't exist or has no tools.</p>
+          <p>{"The category \""}{categoryId}{"\" doesn't exist or has no tools."}</p>
           <button
             className={styles.backButton}
             onClick={() => router.push("/tools")}
