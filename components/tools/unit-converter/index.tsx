@@ -1,10 +1,9 @@
 "use client";
 
-// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 
-const t = (key, fallback) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key;
 
 const UnitConverter = () => { // <-- i18next
     const [category, setCategory] = useState('length');
@@ -15,13 +14,13 @@ const UnitConverter = () => { // <-- i18next
     const [isConverting, setIsConverting] = useState(false);
 
     // Unit conversion formulas
-    const conversionFormulas = {
+    const conversionFormulas: Record<string, Record<string, number | ((val: number, toUnit: string) => number)>> = {
         length: { meter: 1, kilometer: 0.001, centimeter: 100, millimeter: 1000, mile: 0.000621371, yard: 1.09361, foot: 3.28084, inch: 39.3701 },
         weight: { kilogram: 1, gram: 1000, milligram: 1000000, pound: 2.20462, ounce: 35.274 },
         temperature: {
-            celsius: (val, toUnit) => toUnit === 'fahrenheit' ? (val * 9 / 5) + 32 : toUnit === 'kelvin' ? val + 273.15 : val,
-            fahrenheit: (val, toUnit) => toUnit === 'celsius' ? (val - 32) * 5 / 9 : toUnit === 'kelvin' ? (val - 32) * 5 / 9 + 273.15 : val,
-            kelvin: (val, toUnit) => toUnit === 'celsius' ? val - 273.15 : toUnit === 'fahrenheit' ? (val - 273.15) * 9 / 5 + 32 : val,
+            celsius: (val: number, toUnit: string) => toUnit === 'fahrenheit' ? (val * 9 / 5) + 32 : toUnit === 'kelvin' ? val + 273.15 : val,
+            fahrenheit: (val: number, toUnit: string) => toUnit === 'celsius' ? (val - 32) * 5 / 9 : toUnit === 'kelvin' ? (val - 32) * 5 / 9 + 273.15 : val,
+            kelvin: (val: number, toUnit: string) => toUnit === 'celsius' ? val - 273.15 : toUnit === 'fahrenheit' ? (val - 273.15) * 9 / 5 + 32 : val,
         },
         area: { squareMeter: 1, squareKilometer: 0.000001, squareMile: 3.861e-7, squareYard: 1.19599, squareFoot: 10.7639, acre: 0.000247105, hectare: 0.0001 },
         volume: { liter: 1, milliliter: 1000, gallon: 0.264172, quart: 1.05669, pint: 2.11338, cubicMeter: 0.001, cubicFoot: 0.0353147 },
@@ -31,7 +30,7 @@ const UnitConverter = () => { // <-- i18next
     // Get categories in current language
     const getCategories = () => {
         const categoryKeys = ['length', 'weight', 'temperature', 'area', 'volume', 'speed'];
-        return categoryKeys.reduce((acc, key) => {
+        return categoryKeys.reduce<Record<string, string>>((acc, key) => {
             acc[key] = t(`unitConverter:categories.${key}`, key.charAt(0).toUpperCase() + key.slice(1));
             return acc;
         }, {});
@@ -40,13 +39,13 @@ const UnitConverter = () => { // <-- i18next
     // Get units for the current category in current language
     const getUnits = () => {
         const unitKeys = Object.keys(conversionFormulas[category] || {});
-        return unitKeys.map(key => ({
+        return unitKeys.map((key) => ({
             value: key,
             label: t(`unitConverter:units.${category}.${key}`, key.charAt(0).toUpperCase() + key.slice(1))
         }));
     };
 
-    const getUnitLabel = (unitKey) => t(`unitConverter:units.${category}.${unitKey}`, unitKey);
+    const getUnitLabel = (unitKey: string) => t(`unitConverter:units.${category}.${unitKey}`, unitKey);
 
     const convertUnits = () => {
         if (!inputValue || isNaN(parseFloat(inputValue))) {
@@ -59,11 +58,11 @@ const UnitConverter = () => { // <-- i18next
 
         try {
             if (category === 'temperature') {
-                const convertedValue = conversionFormulas.temperature[fromUnit](value, toUnit);
+                const convertedValue = (conversionFormulas.temperature[fromUnit] as (val: number, toUnit: string) => number)(value, toUnit);
                 setResult(convertedValue.toFixed(6));
             } else {
-                const fromFactor = conversionFormulas[category][fromUnit];
-                const toFactor = conversionFormulas[category][toUnit];
+                const fromFactor = conversionFormulas[category][fromUnit] as number;
+                const toFactor = conversionFormulas[category][toUnit] as number;
                 if (fromFactor && toFactor) {
                     const baseValue = value / fromFactor;
                     const convertedValue = baseValue * toFactor;
@@ -80,7 +79,7 @@ const UnitConverter = () => { // <-- i18next
 
     const swapUnits = () => { setFromUnit(toUnit); setToUnit(fromUnit); };
 
-    const handleCategoryChange = (newCategory) => {
+    const handleCategoryChange = (newCategory: string) => {
         setCategory(newCategory);
         const units = Object.keys(conversionFormulas[newCategory] || {});
         setFromUnit(units[0] || '');
@@ -128,13 +127,13 @@ const UnitConverter = () => { // <-- i18next
                             <input
                                 type="number"
                                 value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
                                 placeholder={"Enter value"}
                                 className={styles["value-input"]}
                             />
                             <select
                                 value={fromUnit}
-                                onChange={(e) => setFromUnit(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFromUnit(e.target.value)}
                                 className={styles["unit-select"]}
                                 disabled={!units.length}
                             >
@@ -168,7 +167,7 @@ const UnitConverter = () => { // <-- i18next
                             />
                             <select
                                 value={toUnit}
-                                onChange={(e) => setToUnit(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setToUnit(e.target.value)}
                                 className={styles["unit-select"]}
                                 disabled={!units.length}
                             >
