@@ -47,8 +47,8 @@ const SvgConverter = () => {
             const parser = new DOMParser();
             const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
             const svgElement = svgDoc.documentElement;
-            const width = parseInt(svgElement.getAttribute('width')) || 800;
-            const height = parseInt(svgElement.getAttribute('height')) || 600;
+            const width = parseInt(svgElement.getAttribute('width') ?? "") || 800;
+            const height = parseInt(svgElement.getAttribute('height') ?? "") || 600;
             
             originalDimensions.current = { width, height };
             
@@ -136,7 +136,7 @@ const SvgConverter = () => {
 
                 // Convert to desired format
                 let mimeType;
-                let quality = conversionSettings.quality / 100;
+                let quality: number | undefined = conversionSettings.quality / 100;
 
                 switch (conversionSettings.format) {
                     case 'jpg':
@@ -152,7 +152,7 @@ const SvgConverter = () => {
                         break;
                 }
 
-                const dataUrl = canvas.toDataURL(mimeType, quality);
+                const dataUrl = canvas.toDataURL(mimeType, quality ?? 1);
                 setConvertedImage(dataUrl);
                 setConverting(false);
                 

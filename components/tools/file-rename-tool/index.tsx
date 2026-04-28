@@ -100,7 +100,7 @@ const FileRenameTool = () => {
     e.preventDefault();
   }, []);
 
-  const generateNewNames = useCallback((fileList: FileItem[]) => {
+  const generateNewNames = useCallback((fileList: FileItem[]): FileItem[] => {
     return fileList.map((file, index) => {
       let newName = '';
       const counter = (namingStrategy.startNumber + index)
@@ -174,7 +174,7 @@ const FileRenameTool = () => {
       return {
         ...file,
         newName,
-        status: newName !== file.originalName ? 'modified' : 'pending'
+        status: (newName !== file.originalName ? 'modified' : 'pending') as RenameStatus
       };
     });
   }, [namingStrategy, advancedOptions]);

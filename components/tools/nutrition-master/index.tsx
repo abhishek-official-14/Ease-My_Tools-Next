@@ -1677,7 +1677,7 @@ const NutritionMaster = () => {
                                                         style={{ width: `${Math.min(getVitaminPercentage(vitamin, amount), 100)}%` }}
                                                     ></div>
                                                 </div>
-                                                <span className={styles["vitamin-amount"]}>{amount}%</span>
+                                                <span className={styles["vitamin-amount"]}>{String(amount)}%</span>
                                             </div>
                                         ))}
                                     </div>
@@ -1698,7 +1698,7 @@ const NutritionMaster = () => {
                                                         style={{ width: `${Math.min(getMineralPercentage(mineral, amount), 100)}%` }}
                                                     ></div>
                                                 </div>
-                                                <span className={styles["mineral-amount"]}>{amount}%</span>
+                                                <span className={styles["mineral-amount"]}>{String(amount)}%</span>
                                             </div>
                                         ))}
                                     </div>

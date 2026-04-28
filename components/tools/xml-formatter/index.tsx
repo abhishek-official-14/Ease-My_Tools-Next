@@ -88,7 +88,7 @@ const XMLFormatter = () => {
             const xmlDoc = parser.parseFromString(inputXML, "text/xml");
             
             if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0].textContent || 'Invalid XML');
+                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0]?.textContent || 'Invalid XML');
             }
             
             setIsValid(true);
