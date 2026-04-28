@@ -9,11 +9,11 @@
 //   const { t } = useTranslation('pdfImageExtractor');
 //   const { theme } = useTheme();
   
-//   const [file, setFile] = useState(null);
-//   const [originalFile, setOriginalFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
+//   const [originalFile, setOriginalFile] = useState<any | null>(null);
 //   const [processing, setProcessing] = useState(false);
-//   const [extractedImages, setExtractedImages] = useState([]);
-//   const [pdfInfo, setPdfInfo] = useState(null);
+//   const [extractedImages, setExtractedImages] = useState<any[]>([]);
+//   const [pdfInfo, setPdfInfo] = useState<any | null>(null);
 //   const [settings, setSettings] = useState({
 //     format: 'original',
 //     quality: 'high',
@@ -99,11 +99,11 @@
 //       // In real implementation, this would connect to your backend
 //       const formData = new FormData();
 //       formData.append('pdf', file);
-//       formData.append('format', settings.format);
-//       formData.append('quality', settings.quality);
-//       formData.append('extractAll', settings.extractAll);
-//       formData.append('includeThumbnails', settings.includeThumbnails);
-//       formData.append('maxSize', settings.maxSize);
+//       formData.append('format', String(settings.format));
+//       formData.append('quality', String(settings.quality));
+//       formData.append('extractAll', String(settings.extractAll));
+//       formData.append('includeThumbnails', String(settings.includeThumbnails));
+//       formData.append('maxSize', String(settings.maxSize));
 
 //       // Simulate processing delay
 //       await new Promise(resolve => setTimeout(resolve, 3000));
@@ -280,7 +280,7 @@
 //               ref={fileInputRef}
 //               type="file"
 //               accept=".pdf,application/pdf"
-//               onChange={(e) => handleFileUpload(e.target.files[0])}
+//               onChange={(e) => handleFileUpload(e.target.files?.[0])}
 //               style={{ display: 'none' }}
 //             />
 //           </div>
@@ -586,11 +586,11 @@
 //   const { t } = useTranslation('pdfImageExtractor');
 //   const { theme } = useTheme();
   
-//   const [file, setFile] = useState(null);
-//   const [originalFile, setOriginalFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
+//   const [originalFile, setOriginalFile] = useState<any | null>(null);
 //   const [processing, setProcessing] = useState(false);
-//   const [extractedImages, setExtractedImages] = useState([]);
-//   const [pdfInfo, setPdfInfo] = useState(null);
+//   const [extractedImages, setExtractedImages] = useState<any[]>([]);
+//   const [pdfInfo, setPdfInfo] = useState<any | null>(null);
 //   const [settings, setSettings] = useState({
 //     format: 'original',
 //     quality: 'high',
@@ -645,11 +645,11 @@
 //     try {
 //       const formData = new FormData();
 //       formData.append('pdf', file);
-//       formData.append('format', settings.format);
-//       formData.append('quality', settings.quality);
-//       formData.append('extractAll', settings.extractAll);
-//       formData.append('includeThumbnails', settings.includeThumbnails);
-//       formData.append('maxSize', settings.maxSize);
+//       formData.append('format', String(settings.format));
+//       formData.append('quality', String(settings.quality));
+//       formData.append('extractAll', String(settings.extractAll));
+//       formData.append('includeThumbnails', String(settings.includeThumbnails));
+//       formData.append('maxSize', String(settings.maxSize));
 
 //       const res = await fetch('http://localhost:8000/extract-pdf-images', {
 //         method: 'POST',
@@ -740,7 +740,7 @@
 //                 </div>
 //               </div>
 //             )}
-//             <input ref={fileInputRef} type="file" accept=".pdf,application/pdf" onChange={(e) => handleFileUpload(e.target.files[0])} style={{ display: 'none' }} />
+//             <input ref={fileInputRef} type="file" accept=".pdf,application/pdf" onChange={(e) => handleFileUpload(e.target.files?.[0])} style={{ display: 'none' }} />
 //           </div>
 //         </div>
 
@@ -838,11 +838,11 @@
 //   const { t } = useTranslation('pdfImageExtractor');
 //   const { theme } = useTheme();
   
-//   const [file, setFile] = useState(null);
-//   const [originalFile, setOriginalFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
+//   const [originalFile, setOriginalFile] = useState<any | null>(null);
 //   const [processing, setProcessing] = useState(false);
-//   const [extractedImages, setExtractedImages] = useState([]);
-//   const [pdfInfo, setPdfInfo] = useState(null);
+//   const [extractedImages, setExtractedImages] = useState<any[]>([]);
+//   const [pdfInfo, setPdfInfo] = useState<any | null>(null);
 //   const [settings, setSettings] = useState({
 //     format: 'original',
 //     quality: 'high',
@@ -924,8 +924,8 @@
 //     try {
 //       const formData = new FormData();
 //       formData.append('pdf', file);
-//       formData.append('format', settings.format);
-//       formData.append('quality', settings.quality);
+//       formData.append('format', String(settings.format));
+//       formData.append('quality', String(settings.quality));
 //       formData.append('extractAll', settings.extractAll.toString());
 //       formData.append('includeThumbnails', settings.includeThumbnails.toString());
 //       formData.append('maxSize', settings.maxSize.toString());
@@ -1107,7 +1107,7 @@
 //               ref={fileInputRef}
 //               type="file"
 //               accept=".pdf,application/pdf"
-//               onChange={(e) => handleFileUpload(e.target.files[0])}
+//               onChange={(e) => handleFileUpload(e.target.files?.[0])}
 //               style={{ display: 'none' }}
 //             />
 //           </div>
@@ -1442,15 +1442,15 @@
 import React, { useState, useRef, useCallback } from 'react';
 import styles from './styles.module.css';
 
-const t = (key, fallback) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key;
 
 const PDFImageExtractor = () => {
   
-  const [file, setFile] = useState(null);
-  const [originalFile, setOriginalFile] = useState(null);
+  const [file, setFile] = useState<any | null>(null);
+  const [originalFile, setOriginalFile] = useState<any | null>(null);
   const [processing, setProcessing] = useState(false);
-  const [extractedImages, setExtractedImages] = useState([]);
-  const [pdfInfo, setPdfInfo] = useState(null);
+  const [extractedImages, setExtractedImages] = useState<any[]>([]);
+  const [pdfInfo, setPdfInfo] = useState<any | null>(null);
   const [settings, setSettings] = useState({
     format: 'original',
     quality: 'high',
@@ -1533,8 +1533,8 @@ const PDFImageExtractor = () => {
     try {
       const formData = new FormData();
       formData.append('pdf', file);
-      formData.append('format', settings.format);
-      formData.append('quality', settings.quality);
+      formData.append('format', String(settings.format));
+      formData.append('quality', String(settings.quality));
       formData.append('extractAll', settings.extractAll.toString());
       formData.append('includeThumbnails', settings.includeThumbnails.toString());
       formData.append('maxSize', settings.maxSize.toString());
@@ -1762,7 +1762,7 @@ const PDFImageExtractor = () => {
               ref={fileInputRef}
               type="file"
               accept=".pdf,application/pdf"
-              onChange={(e) => handleFileUpload(e.target.files[0])}
+              onChange={(e) => handleFileUpload(e.target.files?.[0])}
               style={{ display: 'none' }}
             />
           </div>

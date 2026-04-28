@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 
 const AgeCalculator = () => {
     const [birthDate, setBirthDate] = useState("");
-    const [age, setAge] = useState(null);
+    const [age, setAge] = useState<any | null>(null);
 
     const calculateAge = () => {
         if (!birthDate) {
