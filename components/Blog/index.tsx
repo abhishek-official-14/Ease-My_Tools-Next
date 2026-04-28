@@ -1,9 +1,19 @@
 "use client";
 import styles from './styles.module.css';
 
+type BlogPost = {
+  id: number;
+  title: string;
+  date: string;
+  readTime: string;
+  excerpt?: string;
+  category?: string;
+  image?: string;
+};
+
 const Blog = () => {
 
-  const featuredPosts = [
+  const featuredPosts: BlogPost[] = [
     {
       id: 1,
       title: "10 Ways to Boost Your Productivity with Online Tools",
@@ -41,7 +51,7 @@ const Blog = () => {
     { name: "Security", count: 2 }
   ];
 
-  const recentPosts = [
+  const recentPosts: BlogPost[] = [
     {
       id: 4,
       title: "How to Convert PDFs Without Losing Formatting",
