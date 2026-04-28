@@ -52,7 +52,11 @@
 //     const readFileContent = (file) => {
 //         return new Promise((resolve, reject) => {
 //             const reader = new FileReader();
-//             reader.onload = (e) => resolve(e.target.result);
+//             reader.onload = (e) => {
+//                 const result = e.target?.result;
+//                 if (typeof result !== "string") return;
+//                 resolve(result);
+//             };
 //             reader.onerror = reject;
             
 //             if (file.type.includes('json') || file.name.endsWith('.json')) {
@@ -609,7 +613,11 @@ const FileConverter = () => {
     const readFileContent = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.onload = (e) => resolve(e.target.result);
+            reader.onload = (e) => {
+                const result = e.target?.result;
+                if (typeof result !== "string") return;
+                resolve(result);
+            };
             reader.onerror = reject;
             
             if (file.type.includes('json') || file.name.endsWith('.json')) {

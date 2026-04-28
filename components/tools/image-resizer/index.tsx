@@ -25,15 +25,17 @@ const ImageResizer = () => {
 
         const reader = new FileReader();
         reader.onload = (e) => {
+            const result = e.target?.result;
+            if (typeof result !== "string") return;
             const img = new Image();
             img.onload = () => {
-                setOriginalImage(e.target.result);
+                setOriginalImage(result);
                 setOriginalSize({ width: img.width, height: img.height });
                 setWidth(img.width);
                 setHeight(img.height);
                 setResizedImage(null);
             };
-            img.src = e.target.result;
+            img.src = result;
         };
         reader.readAsDataURL(file);
     };
@@ -45,7 +47,9 @@ const ImageResizer = () => {
         }
 
         const canvas = canvasRef.current;
+        if (!canvas) return;
         const ctx = canvas.getContext('2d');
+        if (!ctx) return;
         const img = new Image();
 
         img.onload = () => {

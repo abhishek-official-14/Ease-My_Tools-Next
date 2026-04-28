@@ -42,7 +42,9 @@ const ImageToSvg = () => {
 
         const reader = new FileReader();
         reader.onload = (e) => {
-            const imageUrl = e.target.result;
+            const result = e.target?.result;
+            if (typeof result !== "string") return;
+            const imageUrl = result;
             setFile(uploadedFile);
             setOriginalImage(imageUrl);
             setSvgOutput('');
@@ -115,7 +117,9 @@ const ImageToSvg = () => {
 
         try {
             const canvas = canvasRef.current;
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
+            if (!ctx) return;
             const img = new Image();
 
             img.onload = () => {

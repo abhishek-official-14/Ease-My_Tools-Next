@@ -21,14 +21,17 @@ const QRCodeTool = () => {
 
         const reader = new FileReader();
         reader.onload = (event) => {
+            const result = event.target?.result;
+            if (typeof result !== "string") return;
             const img = new Image();
-            // @ts-expect-error FileReader result is string data URL at runtime
-            img.src = event.target.result;
+            img.src = result;
             img.onload = () => {
                 const canvas = canvasRef.current;
+                if (!canvas) return;
                 canvas.width = img.width;
                 canvas.height = img.height;
                 const ctx = canvas.getContext("2d");
+                if (!ctx) return;
                 ctx.drawImage(img, 0, 0);
 
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);

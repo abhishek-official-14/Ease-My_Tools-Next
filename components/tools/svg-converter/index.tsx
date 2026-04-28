@@ -37,7 +37,9 @@ const SvgConverter = () => {
 
         const reader = new FileReader();
         reader.onload = (e) => {
-            const svgContent = e.target.result;
+            const result = e.target?.result;
+            if (typeof result !== "string") return;
+            const svgContent = result;
             setFile(uploadedFile);
             setOriginalSvg(svgContent);
             
@@ -80,7 +82,9 @@ const SvgConverter = () => {
 
         try {
             const canvas = canvasRef.current;
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
+            if (!ctx) return;
 
             // Create an image from SVG
             const svgBlob = new Blob([originalSvg], { type: 'image/svg+xml' });

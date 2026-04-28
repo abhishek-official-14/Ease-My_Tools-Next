@@ -55,7 +55,9 @@ const FaviconGenerator = () => {
 
     const reader = new FileReader();
     reader.onload = (e) => {
-      setOriginalImage(e.target.result);
+      const result = e.target?.result;
+      if (typeof result !== "string") return;
+      setOriginalImage(result);
       setFile(uploadedFile);
       setGeneratedIcons([]);
     };
