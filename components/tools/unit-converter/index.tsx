@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 const t = (key: string, fallback?: string) => fallback ?? key;
 
 const UnitConverter = () => { // <-- i18next
-    const [category, setCategory] = useState('length');
+    const [category, setCategory] = useState<ConversionCategory>('length');
     const [fromUnit, setFromUnit] = useState('meter');
     const [toUnit, setToUnit] = useState('kilometer');
     const [inputValue, setInputValue] = useState('');
