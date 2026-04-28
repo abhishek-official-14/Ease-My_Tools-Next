@@ -7,7 +7,7 @@ const t = (key: string, fallback?: string) => fallback ?? key;
 
 const SslChecker = () => {
     const [domain, setDomain] = useState('');
-    const [certificate, setCertificate] = useState<any | null>(null);
+    const [certificate, setCertificate] = useState<unknown | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 

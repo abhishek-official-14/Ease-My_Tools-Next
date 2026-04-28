@@ -7,7 +7,7 @@ const t = (key: string, fallback?: string) => fallback ?? key;
 
 const ColorPicker = () => { // <-- i18next
     const [selectedColor, setSelectedColor] = useState('#667eea');
-    const [colorHistory, setColorHistory] = useState<any[]>([]);
+    const [colorHistory, setColorHistory] = useState<unknown[]>([]);
 
     const handleColorChange = (e) => {
         const newColor = e.target.value;

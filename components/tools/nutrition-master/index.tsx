@@ -1449,8 +1449,8 @@ const NutritionMaster = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedGoal, setSelectedGoal] = useState('all');
-    const [selectedFood, setSelectedFood] = useState<any | null>(null);
-    const [compareList, setCompareList] = useState<any[]>([]);
+    const [selectedFood, setSelectedFood] = useState<unknown | null>(null);
+    const [compareList, setCompareList] = useState<unknown[]>([]);
 
     // Filter foods based on search and category
     const filteredFoods = useMemo(() => {

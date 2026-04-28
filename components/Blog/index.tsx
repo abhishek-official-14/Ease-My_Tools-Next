@@ -51,7 +51,7 @@ const Blog = () => {
     { name: "Security", count: 2 }
   ];
 
-  const recentPosts: any[] = [
+  const recentPosts: unknown[] = [
     {
       id: 4,
       title: "How to Convert PDFs Without Losing Formatting",

@@ -11,41 +11,41 @@
 //       <div className={styles["footer-container"]}>
 //         <div className={styles["footer-column"]}>
 //           <h4>PRODUCT</h4>
-//           <Link href={"/home" as any}>Home</Link>
-//           <Link href={"/features" as any}>Features</Link>
-//           <Link href={"/pricing" as any}>Pricing</Link>
-//           <Link href={"/tools" as any}>Tools</Link>
-//           <Link href={"/faq" as any}>FAQ</Link>
+//           <Link href={"/home" as unknown}>Home</Link>
+//           <Link href={"/features" as unknown}>Features</Link>
+//           <Link href={"/pricing" as unknown}>Pricing</Link>
+//           <Link href={"/tools" as unknown}>Tools</Link>
+//           <Link href={"/faq" as unknown}>FAQ</Link>
 //         </div>
 
 //         <div className={styles["footer-column"]}>
 //           <h4>RESOURCES</h4>
-//           <Link href={"/desktop" as any}>EaseMyTools Desktop</Link>
-//           <Link href={"/mobile" as any}>EaseMyTools Mobile</Link>
-//           <Link href={"/api" as any}>API</Link>
-//           <Link href={"/docs" as any}>Documentation</Link>
+//           <Link href={"/desktop" as unknown}>EaseMyTools Desktop</Link>
+//           <Link href={"/mobile" as unknown}>EaseMyTools Mobile</Link>
+//           <Link href={"/api" as unknown}>API</Link>
+//           <Link href={"/docs" as unknown}>Documentation</Link>
 //         </div>
 
 //         <div className={styles["footer-column"]}>
 //           <h4>SOLUTIONS</h4>
-//           <Link href={"/business" as any}>Business</Link>
-//           <Link href={"/education" as any}>Education</Link>
+//           <Link href={"/business" as unknown}>Business</Link>
+//           <Link href={"/education" as unknown}>Education</Link>
 //         </div>
 
 //         <div className={styles["footer-column"]}>
 //           <h4>LEGAL</h4>
-//           <Link href={"/security" as any}>Security</Link>
-//           <Link href={"/privacy" as any}>Privacy Policy</Link>
-//           <Link href={"/terms" as any}>Terms & Conditions</Link>
-//           <Link href={"/cookies" as any}>Cookies</Link>
+//           <Link href={"/security" as unknown}>Security</Link>
+//           <Link href={"/privacy" as unknown}>Privacy Policy</Link>
+//           <Link href={"/terms" as unknown}>Terms & Conditions</Link>
+//           <Link href={"/cookies" as unknown}>Cookies</Link>
 //         </div>
 
 //         <div className={styles["footer-column"]}>
 //           <h4>COMPANY</h4>
-//           <Link href={"/about" as any}>About Us</Link>
-//           <Link href={"/contact" as any}>Contact Us</Link>
-//           <Link href={"/blog" as any}>Blog</Link>
-//           <Link href={"/press" as any}>Press</Link>
+//           <Link href={"/about" as unknown}>About Us</Link>
+//           <Link href={"/contact" as unknown}>Contact Us</Link>
+//           <Link href={"/blog" as unknown}>Blog</Link>
+//           <Link href={"/press" as unknown}>Press</Link>
 //         </div>
 //       </div>
 
@@ -60,11 +60,11 @@
 //         </div>
 
 //         <div className={styles["footer-social"]}>
-//           <Link href={"/twitter" as any}>✖</Link>
-//           <Link href={"/facebook" as any}>📘</Link>
-//           <Link href={"/linkedin" as any}>💼</Link>
-//           <Link href={"/instagram" as any}>📸</Link>
-//           <Link href={"/tiktok" as any}>🎵</Link>
+//           <Link href={"/twitter" as unknown}>✖</Link>
+//           <Link href={"/facebook" as unknown}>📘</Link>
+//           <Link href={"/linkedin" as unknown}>💼</Link>
+//           <Link href={"/instagram" as unknown}>📸</Link>
+//           <Link href={"/tiktok" as unknown}>🎵</Link>
 //         </div>
 
 //         <div className={styles["footer-copy"]}>
@@ -91,41 +91,41 @@
 //       <div className={styles["footer-container"]}>
 //         <div className={styles["footer-column"]}>
 //           <h4>PRODUCT</h4>
-//           <Link href={"/home" as any}>Home</Link>
-//           <Link href={"/features" as any}>Features</Link>
-//           <Link href={"/pricing" as any}>Pricing</Link>
-//           <Link href={"/tools" as any}>Tools</Link>
-//           <Link href={"/faq" as any}>FAQ</Link>
+//           <Link href={"/home" as unknown}>Home</Link>
+//           <Link href={"/features" as unknown}>Features</Link>
+//           <Link href={"/pricing" as unknown}>Pricing</Link>
+//           <Link href={"/tools" as unknown}>Tools</Link>
+//           <Link href={"/faq" as unknown}>FAQ</Link>
 //         </div>
 
 //         <div className={styles["footer-column"]}>
 //           <h4>RESOURCES</h4>
-//           <Link href={"/desktop" as any}>EaseMyTools Desktop</Link>
-//           <Link href={"/mobile" as any}>EaseMyTools Mobile</Link>
-//           <Link href={"/api" as any}>API</Link>
-//           <Link href={"/docs" as any}>Documentation</Link>
+//           <Link href={"/desktop" as unknown}>EaseMyTools Desktop</Link>
+//           <Link href={"/mobile" as unknown}>EaseMyTools Mobile</Link>
+//           <Link href={"/api" as unknown}>API</Link>
+//           <Link href={"/docs" as unknown}>Documentation</Link>
 //         </div>
 
 //         <div className={styles["footer-column"]}>
 //           <h4>SOLUTIONS</h4>
-//           <Link href={"/business" as any}>Business</Link>
-//           <Link href={"/education" as any}>Education</Link>
+//           <Link href={"/business" as unknown}>Business</Link>
+//           <Link href={"/education" as unknown}>Education</Link>
 //         </div>
 
 //         <div className={styles["footer-column"]}>
 //           <h4>LEGAL</h4>
-//           <Link href={"/security" as any}>Security</Link>
-//           <Link href={"/privacy" as any}>Privacy Policy</Link>
-//           <Link href={"/terms" as any}>Terms & Conditions</Link>
-//           <Link href={"/cookies" as any}>Cookies</Link>
+//           <Link href={"/security" as unknown}>Security</Link>
+//           <Link href={"/privacy" as unknown}>Privacy Policy</Link>
+//           <Link href={"/terms" as unknown}>Terms & Conditions</Link>
+//           <Link href={"/cookies" as unknown}>Cookies</Link>
 //         </div>
 
 //         <div className={styles["footer-column"]}>
 //           <h4>COMPANY</h4>
-//           <Link href={"/about" as any}>About Us</Link>
-//           <Link href={"/contact" as any}>Contact Us</Link>
-//           <Link href={"/blog" as any}>Blog</Link>
-//           <Link href={"/press" as any}>Press</Link>
+//           <Link href={"/about" as unknown}>About Us</Link>
+//           <Link href={"/contact" as unknown}>Contact Us</Link>
+//           <Link href={"/blog" as unknown}>Blog</Link>
+//           <Link href={"/press" as unknown}>Press</Link>
 //         </div>
 //       </div>
 
@@ -142,11 +142,11 @@
 //         <LanguageSelector/>
 
 //         <div className={styles["footer-social"]}>
-//           <Link href={"/twitter" as any}>✖</Link>
-//           <Link href={"/facebook" as any}>📘</Link>
-//           <Link href={"/linkedin" as any}>💼</Link>
-//           <Link href={"/instagram" as any}>📸</Link>
-//           <Link href={"/tiktok" as any}>🎵</Link>
+//           <Link href={"/twitter" as unknown}>✖</Link>
+//           <Link href={"/facebook" as unknown}>📘</Link>
+//           <Link href={"/linkedin" as unknown}>💼</Link>
+//           <Link href={"/instagram" as unknown}>📸</Link>
+//           <Link href={"/tiktok" as unknown}>🎵</Link>
 //         </div>
 
 //         <div className={styles["footer-copy"]}>
@@ -171,41 +171,41 @@ const Footer = () => {
       <div className={styles["footer-container"]}>
         <div className={styles["footer-column"]}>
           <h4>PRODUCT</h4>
-          <Link href={"/" as any} >{"Home"}</Link>
-          <Link href={"/features" as any} >{"Features"}</Link>
-          <Link href={"/pricing" as any} >{"Pricing"}</Link>
-          <Link href={"/tools" as any} >{"Tools"}</Link>
-          <Link href={"/faq" as any} >{"FAQ"}</Link>
+          <Link href={"/" as unknown} >{"Home"}</Link>
+          <Link href={"/features" as unknown} >{"Features"}</Link>
+          <Link href={"/pricing" as unknown} >{"Pricing"}</Link>
+          <Link href={"/tools" as unknown} >{"Tools"}</Link>
+          <Link href={"/faq" as unknown} >{"FAQ"}</Link>
         </div>
 
         <div className={styles["footer-column"]}>
           <h4>RESOURCES</h4>
-          <Link href={"/desktop" as any} >{"EaseMyTools Desktop"}</Link>
-          <Link href={"/mobile" as any} >{"EaseMyTools Mobile"}</Link>
-          <Link href={"/api" as any} >{"API"}</Link>
-          <Link href={"/docs" as any} >{"Documentation"}</Link>
+          <Link href={"/desktop" as unknown} >{"EaseMyTools Desktop"}</Link>
+          <Link href={"/mobile" as unknown} >{"EaseMyTools Mobile"}</Link>
+          <Link href={"/api" as unknown} >{"API"}</Link>
+          <Link href={"/docs" as unknown} >{"Documentation"}</Link>
         </div>
 
         <div className={styles["footer-column"]}>
           <h4>SOLUTIONS</h4>
-          <Link href={"/business" as any} >{"Business"}</Link>
-          <Link href={"/education" as any} onClick={()=>{window.scrollTo({top:0, behavior:"smooth"})}}>{"Education"}</Link>
+          <Link href={"/business" as unknown} >{"Business"}</Link>
+          <Link href={"/education" as unknown} onClick={()=>{window.scrollTo({top:0, behavior:"smooth"})}}>{"Education"}</Link>
         </div>
 
         <div className={styles["footer-column"]}>
           <h4>LEGAL</h4>
-          <Link href={"/security" as any} >{"Security"}</Link>
-          <Link href={"/privacy-policy" as any} >{"Privacy Policy"}</Link>
-          <Link href={"/terms-conditions" as any} >{"Terms & Conditions"}</Link>
-          <Link href={"/cookie-policy" as any} >{"Cookie Policy"}</Link>
+          <Link href={"/security" as unknown} >{"Security"}</Link>
+          <Link href={"/privacy-policy" as unknown} >{"Privacy Policy"}</Link>
+          <Link href={"/terms-conditions" as unknown} >{"Terms & Conditions"}</Link>
+          <Link href={"/cookie-policy" as unknown} >{"Cookie Policy"}</Link>
         </div>
 
         <div className={styles["footer-column"]}>
           <h4>COMPANY</h4>
-          <Link href={"/about" as any} >{"About Us"}</Link>
-          <Link href={"/contact" as any} >{"Contact Us"}</Link>
-          <Link href={"/blog" as any} >{"Blog"}</Link>
-          <Link href={"/press" as any} >{"Press"}</Link>
+          <Link href={"/about" as unknown} >{"About Us"}</Link>
+          <Link href={"/contact" as unknown} >{"Contact Us"}</Link>
+          <Link href={"/blog" as unknown} >{"Blog"}</Link>
+          <Link href={"/press" as unknown} >{"Press"}</Link>
         </div>
       </div>
 
@@ -214,19 +214,19 @@ const Footer = () => {
       <div className={styles["footer-bottom"]}>
 
         <div className={styles["footer-social"]}>
-          <Link href={"https://twitter.com/easemytools" as any} target="_blank" rel="noopener noreferrer" title="Twitter">
+          <Link href={"https://twitter.com/easemytools" as unknown} target="_blank" rel="noopener noreferrer" title="Twitter">
             ✖
           </Link>
-          <Link href={"https://facebook.com/easemytools" as any} target="_blank" rel="noopener noreferrer" title="Facebook">
+          <Link href={"https://facebook.com/easemytools" as unknown} target="_blank" rel="noopener noreferrer" title="Facebook">
             📘
           </Link>
-          <Link href={"https://linkedin.com/company/easemytools" as any} target="_blank" rel="noopener noreferrer" title="LinkedIn">
+          <Link href={"https://linkedin.com/company/easemytools" as unknown} target="_blank" rel="noopener noreferrer" title="LinkedIn">
             💼
           </Link>
-          <Link href={"https://instagram.com/easemytools" as any} target="_blank" rel="noopener noreferrer" title="Instagram">
+          <Link href={"https://instagram.com/easemytools" as unknown} target="_blank" rel="noopener noreferrer" title="Instagram">
             📸
           </Link>
-          <Link href={"https://tiktok.com/@easemytools" as any} target="_blank" rel="noopener noreferrer" title="TikTok">
+          <Link href={"https://tiktok.com/@easemytools" as unknown} target="_blank" rel="noopener noreferrer" title="TikTok">
             🎵
           </Link>
         </div>
