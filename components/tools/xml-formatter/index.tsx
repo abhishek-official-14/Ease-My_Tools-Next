@@ -12,7 +12,7 @@ const XMLFormatter = () => {
 
     const formatXML = () => {
         if (!inputXML.trim()) {
-            alert("Please enter XML data" || 'Please enter XML data');
+            alert("Please enter XML data");
             return;
         }
 
@@ -38,7 +38,6 @@ const XMLFormatter = () => {
         xml = xml.replace(/>\s+</g, '><').trim();
         
         let inTag = false;
-        const inAttribute = false;
         let currentTag = '';
         let currentText = '';
 
@@ -78,7 +77,7 @@ const XMLFormatter = () => {
 
     const validateXML = () => {
         if (!inputXML.trim()) {
-            setError("Please enter XML data" || 'Please enter XML data');
+            setError("Please enter XML data");
             setIsValid(false);
             return;
         }
@@ -89,11 +88,11 @@ const XMLFormatter = () => {
             const xmlDoc = parser.parseFromString(inputXML, "text/xml");
             
             if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0].textContent);
+                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0].textContent || 'Invalid XML');
             }
             
             setIsValid(true);
-            setError("Valid XML!" || 'Valid XML!');
+            setError("Valid XML!");
         } catch (err) {
             setIsValid(false);
             if (err instanceof Error) setError(err.message);
@@ -102,7 +101,7 @@ const XMLFormatter = () => {
 
     const minifyXML = () => {
         if (!inputXML.trim()) {
-            alert("Please enter XML data" || 'Please enter XML data');
+            alert("Please enter XML data");
             return;
         }
 
@@ -126,7 +125,7 @@ const XMLFormatter = () => {
 
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);
-        alert("Copied to clipboard!" || 'Copied to clipboard!');
+        alert("Copied to clipboard!");
     };
 
     return (
