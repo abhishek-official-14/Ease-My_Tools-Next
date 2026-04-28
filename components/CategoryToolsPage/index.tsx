@@ -61,7 +61,7 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
               key={tool.name}
               className={`${styles.categoryToolCard} ${styles.floatingCard}`}
               style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() => router.push(`/tools/${tool.slug}`)}
+              onClick={() => router.push(`/tools/${tool.slug}` as Parameters<typeof router.push>[0])}
             >
               <div className={styles.toolCardContent}>
                 <IconComponent className={styles.toolCardIcon} />
