@@ -52,19 +52,19 @@ const HashGenerator = () => {
     return (
         <div className={styles["hash-generator"]}>
             <div className={styles["generator-header"]}>
-                <h1>{"Hash Generator" || 'Hash Generator'}</h1>
-                <p>{"Generate MD5, SHA-1, and SHA-256 hashes" || 'Generate MD5, SHA-1, and SHA-256 hashes'}</p>
+                <h1>{"Hash Generator"}</h1>
+                <p>{"Generate MD5, SHA-1, and SHA-256 hashes"}</p>
             </div>
 
             <div className={styles["generator-container"]}>
                 <div className={styles["input-section"]}>
-                    <label>{"Input Text" || 'Input Text'}</label>
+                    <label>{"Input Text"}</label>
                     <textarea
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
-                        placeholder={"Enter text to generate hashes..." || 'Enter text to generate hashes...'}
+                        placeholder={"Enter text to generate hashes..."}
                         className={styles["text-input"]}
-                        rows="4"
+                        rows={4}
                     />
                 </div>
 
@@ -73,20 +73,20 @@ const HashGenerator = () => {
                         {isProcessing ? "Generating..." || 'Generating...' : "Generate Hashes" || 'Generate Hashes'}
                     </button>
                     <button onClick={clearAll} className={styles["clear-btn"]}>
-                        {"Clear All" || 'Clear All'}
+                        {"Clear All"}
                     </button>
                 </div>
 
                 {(hashes.md5 || hashes.sha1 || hashes.sha256) && (
                     <div className={styles["results-section"]}>
-                        <h3>{"Generated Hashes" || 'Generated Hashes'}</h3>
+                        <h3>{"Generated Hashes"}</h3>
                         
                         <div className={styles["hash-result"]}>
                             <label>MD5:</label>
                             <div className={styles["hash-output"]}>
                                 <code>{hashes.md5}</code>
                                 <button onClick={() => copyToClipboard(hashes.md5)} className={styles["copy-btn"]}>
-                                    {"Copy" || 'Copy'}
+                                    {"Copy"}
                                 </button>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ const HashGenerator = () => {
                             <div className={styles["hash-output"]}>
                                 <code>{hashes.sha1}</code>
                                 <button onClick={() => copyToClipboard(hashes.sha1)} className={styles["copy-btn"]}>
-                                    {"Copy" || 'Copy'}
+                                    {"Copy"}
                                 </button>
                             </div>
                         </div>
@@ -106,7 +106,7 @@ const HashGenerator = () => {
                             <div className={styles["hash-output"]}>
                                 <code>{hashes.sha256}</code>
                                 <button onClick={() => copyToClipboard(hashes.sha256)} className={styles["copy-btn"]}>
-                                    {"Copy" || 'Copy'}
+                                    {"Copy"}
                                 </button>
                             </div>
                         </div>
@@ -114,28 +114,28 @@ const HashGenerator = () => {
                 )}
 
                 <div className={styles["info-section"]}>
-                    <h4>{"About Hash Functions" || 'About Hash Functions'}</h4>
+                    <h4>{"About Hash Functions"}</h4>
                     <div className={styles["algorithm-info"]}>
                         <div className={styles["algorithm"]}>
                             <h5>MD5</h5>
-                            <p>{"128-bit hash function. Fast but considered cryptographically broken." || '128-bit hash function. Fast but considered cryptographically broken.'}</p>
+                            <p>{"128-bit hash function. Fast but considered cryptographically broken."}</p>
                         </div>
                         <div className={styles["algorithm"]}>
                             <h5>SHA-1</h5>
-                            <p>{"160-bit hash function. No longer considered secure against attacks." || '160-bit hash function. No longer considered secure against attacks.'}</p>
+                            <p>{"160-bit hash function. No longer considered secure against attacks."}</p>
                         </div>
                         <div className={styles["algorithm"]}>
                             <h5>SHA-256</h5>
-                            <p>{"256-bit hash function. Part of SHA-2 family, currently secure." || '256-bit hash function. Part of SHA-2 family, currently secure.'}</p>
+                            <p>{"256-bit hash function. Part of SHA-2 family, currently secure."}</p>
                         </div>
                     </div>
 
-                    <h5>{"Common Uses:" || 'Common Uses:'}</h5>
+                    <h5>{"Common Uses:"}</h5>
                     <ul>
-                        <li>{"Data integrity verification" || 'Data integrity verification'}</li>
-                        <li>{"Digital signatures" || 'Digital signatures'}</li>
-                        <li>{"Password storage" || 'Password storage'}</li>
-                        <li>{"File checksums" || 'File checksums'}</li>
+                        <li>{"Data integrity verification"}</li>
+                        <li>{"Digital signatures"}</li>
+                        <li>{"Password storage"}</li>
+                        <li>{"File checksums"}</li>
                     </ul>
                 </div>
             </div>

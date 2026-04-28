@@ -9,7 +9,7 @@
 //     const { t } = useTranslation('removeBg');
 //     const { theme } = useTheme();
     
-//     const [file, setFile] = useState(null);
+//     const [file, setFile] = useState<any | null>(null);
 //     const [originalImage, setOriginalImage] = useState('');
 //     const [processedImage, setProcessedImage] = useState('');
 //     const [processing, setProcessing] = useState(false);
@@ -18,7 +18,7 @@
 //         bg_color: '#ffffff'
 //     });
     
-//     const fileInputRef = useRef();
+//     const fileInputRef = useRef<HTMLInputElement | null>(null);
 //     const originalDimensions = useRef({ width: 0, height: 0 });
 
 //     const API_BASE_URL = 'http://localhost:8000';
@@ -34,10 +34,10 @@
 //         try {
 //             const formData = new FormData();
 //             formData.append('file', file);
-//             formData.append('bg_mode', processingSettings.bg_mode);
+//             formData.append('bg_mode', String(processingSettings.bg_mode));
             
 //             if (processingSettings.bg_mode === 'color' && processingSettings.bg_color) {
-//                 formData.append('bg_color', processingSettings.bg_color);
+//                 formData.append('bg_color', String(processingSettings.bg_color));
 //             }
 
 //             const response = await fetch(`${API_BASE_URL}/remove-bg`, {
@@ -171,7 +171,7 @@
 //                             ref={fileInputRef}
 //                             type="file"
 //                             accept="image/*"
-//                             onChange={(e) => handleFileUpload(e.target.files[0])}
+//                             onChange={(e) => handleFileUpload(e.target.files?.[0])}
 //                             style={{ display: 'none' }}
 //                         />
 //                     </div>
@@ -358,7 +358,7 @@
 //   const { t } = useTranslation('removeBg');
 //   const { theme } = useTheme();
 
-//   const [file, setFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
 //   const [originalImage, setOriginalImage] = useState('');
 //   const [processedImage, setProcessedImage] = useState('');
 //   const [processing, setProcessing] = useState(false);
@@ -368,7 +368,7 @@
 //     bg_url: ''
 //   });
 
-//   const fileInputRef = useRef();
+//   const fileInputRef = useRef<HTMLInputElement | null>(null);
 //   const originalDimensions = useRef({ width: 0, height: 0 });
 
 //   const handleFileUpload = useCallback((uploadedFile) => {
@@ -421,12 +421,12 @@
 //     try {
 //       const formData = new FormData();
 //       formData.append('file', file);
-//       formData.append('bg_mode', processingSettings.bg_mode);
+//       formData.append('bg_mode', String(processingSettings.bg_mode));
 //       if (processingSettings.bg_mode === 'color') {
-//         formData.append('bg_color', processingSettings.bg_color);
+//         formData.append('bg_color', String(processingSettings.bg_color));
 //       }
 //       if (processingSettings.bg_mode === 'photo' && processingSettings.bg_url) {
-//         formData.append('bg_url', processingSettings.bg_url);
+//         formData.append('bg_url', String(processingSettings.bg_url));
 //       }
 
 //       const res = await fetch(`${API_BASE_URL}/remove-bg`, {
@@ -477,8 +477,8 @@
 //   return (
 //     <div className={styles["remove-background"]}>
 //       <div className={styles["tool-header"]}>
-//         <h1>{"Background Remover" || 'Remove Background'}</h1>
-//         <p>{"Remove background from images automatically with AI" || 'Remove background and replace with color or image'}</p>
+//         <h1>{"Background Remover"}</h1>
+//         <p>{"Remove background from images automatically with AI"}</p>
 //       </div>
 
 //       <div className={styles["remover-container"]}>
@@ -491,17 +491,17 @@
 //           >
 //             <div className={styles["upload-content"]}>
 //               <div className={styles["upload-icon"]}>🖼️</div>
-//               <h3>{"Upload Image" || 'Click or drop image here'}</h3>
-//               <p>{"Drag & drop your image here or click to browse" || 'Drag & drop an image'}</p>
-//               <small>{"Supported formats: PNG, JPG, JPEG, WebP" || 'PNG, JPG, JPEG'}</small>
-//               <small>{"Max file size: 10MB" || 'Max 15MB'}</small>
+//               <h3>{"Upload Image"}</h3>
+//               <p>{"Drag & drop your image here or click to browse"}</p>
+//               <small>{"Supported formats: PNG, JPG, JPEG, WebP"}</small>
+//               <small>{"Max file size: 10MB"}</small>
 //             </div>
 
 //             <input
 //               ref={fileInputRef}
 //               type="file"
 //               accept="image/*"
-//               onChange={(e) => handleFileUpload(e.target.files[0])}
+//               onChange={(e) => handleFileUpload(e.target.files?.[0])}
 //               style={{ display: 'none' }}
 //             />
 //           </div>
@@ -511,9 +511,9 @@
 //               <strong>{file.name}</strong>
 //               <br />
 //               <small>
-//                 {"File size" || 'Size'}: {(file.size / 1024).toFixed(2)} KB
+//                 {"File size"}: {(file.size / 1024).toFixed(2)} KB
 //                 {originalDimensions.current.width > 0 && (
-//                   <> | {"Dimensions" || 'Dimensions'}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
+//                   <> | {"Dimensions"}: {originalDimensions.current.width} × {originalDimensions.current.height}</>
 //                 )}
 //               </small>
 //             </div>
@@ -522,7 +522,7 @@
 
 //         {file && (
 //           <div className={styles["settings-section"]}>
-//             <h3>{"Advanced Options" || 'Background Options'}</h3>
+//             <h3>{"Advanced Options"}</h3>
 //             <div className={styles["settings-grid"]}>
 //               <div className={styles["setting-group"]}>
 //                 <label>{t('backgroundMode') || 'Background Mode'}</label>
@@ -584,7 +584,7 @@
 
 //               <div className={`${styles["setting-group"]} ${styles["full-width"]}`}>
 //                 <div className={styles["api-info"]}>
-//                   <small>⚡ {"Remove background from images automatically with AI" || 'Processed locally via backend'}</small>
+//                   <small>⚡ {"Remove background from images automatically with AI"}</small>
 //                 </div>
 //               </div>
 //             </div>
@@ -601,7 +601,7 @@
 //               {processing ? ("Processing..." || 'Processing...') : ("Remove Background" || 'Apply')}
 //             </button>
 //             <button onClick={clearAll} className={styles["secondary-btn"]}>
-//               {"Clear" || 'Clear'}
+//               {"Clear"}
 //             </button>
 //           </div>
 //         )}
@@ -611,13 +611,13 @@
 //             <div className={styles["preview-container"]}>
 //               {originalImage && (
 //                 <div className={styles["preview-item"]}>
-//                   <h4>{"Original Image" || 'Original'}</h4>
+//                   <h4>{"Original Image"}</h4>
 //                   <img src={originalImage} alt="Original" className={styles["preview-image"]} />
 //                 </div>
 //               )}
 //               {processedImage && (
 //                 <div className={styles["preview-item"]}>
-//                   <h4>{"Background Removed" || 'Result'}</h4>
+//                   <h4>{"Background Removed"}</h4>
 //                   <div className={styles["result-container"]}>
 //                     <img
 //                       src={processedImage}
@@ -625,10 +625,10 @@
 //                       className={`${styles["preview-image"]} ${styles["result-image"]} ${processingSettings.bg_mode === 'transparent' ? 'transparent-bg' : ''}`}
 //                     />
 //                     <div className={styles["result-actions"]}>
-//                       <button onClick={downloadImage} className={styles["download-btn"]}>{"Download" || 'Download'}</button>
+//                       <button onClick={downloadImage} className={styles["download-btn"]}>{"Download"}</button>
 //                     </div>
 //                     {processingSettings.bg_mode === 'transparent' ? (
-//                       <div className={styles["transparency-note"]}><small>✓ {"Transparency" || 'Transparent background'}</small></div>
+//                       <div className={styles["transparency-note"]}><small>✓ {"Transparency"}</small></div>
 //                     ) : (
 //                       <div className={styles["color-note"]}><small>✓ {processingSettings.bg_mode === 'color' ? processingSettings.bg_color : 'Photo background'}</small></div>
 //                     )}
@@ -689,7 +689,7 @@
 //     design: `${API_BASE_URL}/design`,
 //   };
 
-//   const [file, setFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
 //   const [originalImage, setOriginalImage] = useState('');
 //   const [processedImage, setProcessedImage] = useState('');
 //   const [processing, setProcessing] = useState(false);
@@ -697,7 +697,7 @@
 //   // Background states
 //   const [bgMode, setBgMode] = useState('color');
 //   const [bgColor, setBgColor] = useState('#ffffff');
-//   const [bgPhotoFile, setBgPhotoFile] = useState(null);
+//   const [bgPhotoFile, setBgPhotoFile] = useState<any | null>(null);
 //   // Effects state
 //   const [effectType, setEffectType] = useState('blur');
 //   // Adjust states
@@ -711,7 +711,7 @@
 //   const [designColor, setDesignColor] = useState('black');
 //   const [designFontSize, setDesignFontSize] = useState(40);
 
-//   const fileInputRef = useRef();
+//   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 //   // Common upload-handler
 //   const handleFileUpload = useCallback((f) => {
@@ -748,8 +748,8 @@
 //     if (!file) return alert('Upload an image first');
 //     const formData = new FormData();
 //     formData.append('file', file);
-//     formData.append('bg_mode', bgMode);
-//     if (bgMode === 'color') formData.append('bg_color', bgColor);
+//     formData.append('bg_mode', String(bgMode));
+//     if (bgMode === 'color') formData.append('bg_color', String(bgColor));
 //     if (bgMode === 'photo' && bgPhotoFile) formData.append('bg_image', bgPhotoFile);
 //     await sendToApi(API.background, formData);
 //   };
@@ -759,7 +759,7 @@
 //     const inputFile = await fetch(processedImage || originalImage).then(r => r.blob());
 //     const formData = new FormData();
 //     formData.append('file', new File([inputFile], 'image.png', { type: inputFile.type }));
-//     formData.append('effect_type', effectType);
+//     formData.append('effect_type', String(effectType));
 //     await sendToApi(API.effects, formData);
 //   };
 
@@ -768,7 +768,7 @@
 //     const inputFile = await fetch(processedImage || originalImage).then(r => r.blob());
 //     const formData = new FormData();
 //     formData.append('file', new File([inputFile], 'image.png', { type: inputFile.type }));
-//     Object.entries(adjustSettings).forEach(([k, v]) => formData.append(k, v));
+//     Object.entries(adjustSettings).forEach(([k, v]) => formData.append(k, String(v)));
 //     await sendToApi(API.adjust, formData);
 //   };
 
@@ -778,11 +778,11 @@
 //     const inputFile = await fetch(processedImage || originalImage).then(r => r.blob());
 //     const formData = new FormData();
 //     formData.append('file', new File([inputFile], 'image.png', { type: inputFile.type }));
-//     formData.append('text', designText);
-//     formData.append('text_x', designX);
-//     formData.append('text_y', designY);
-//     formData.append('text_color', designColor);
-//     formData.append('font_size', designFontSize);
+//     formData.append('text', String(designText));
+//     formData.append('text_x', String(designX));
+//     formData.append('text_y', String(designY));
+//     formData.append('text_color', String(designColor));
+//     formData.append('font_size', String(designFontSize));
 //     await sendToApi(API.design, formData);
 //   };
 
@@ -797,7 +797,7 @@
 //       </div>
 
 //       <div>
-//         <input type="file" onChange={e => handleFileUpload(e.target.files[0])} ref={fileInputRef} />
+//         <input type="file" onChange={e => handleFileUpload(e.target.files?.[0])} ref={fileInputRef} />
 //       </div>
 
 //       <div className={styles["image-preview"]}>
@@ -828,7 +828,7 @@
 //               <input type="color" value={bgColor} onChange={e => setBgColor(e.target.value)} disabled={processing} />
 //             )}
 //             {bgMode === 'photo' && (
-//               <input type="file" accept="image/*" onChange={e => setBgPhotoFile(e.target.files[0])} disabled={processing} />
+//               <input type="file" accept="image/*" onChange={e => setBgPhotoFile(e.target.files?.[0])} disabled={processing} />
 //             )}
 //             <button onClick={runBackground} disabled={processing}>Apply Background</button>
 //           </div>
@@ -947,7 +947,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import styles from './styles.module.css';
 
-const t = (key, fallback) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key;
 
 const RemoveBackground = () => {
   
@@ -960,7 +960,7 @@ const RemoveBackground = () => {
     design: `${API_BASE_URL}/design`,
   };
 
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<any | null>(null);
   const [originalImage, setOriginalImage] = useState('');
   const [processedImage, setProcessedImage] = useState('');
   const [processing, setProcessing] = useState(false);
@@ -969,7 +969,7 @@ const RemoveBackground = () => {
   // Background states
   const [bgMode, setBgMode] = useState('transparent');
   const [bgColor, setBgColor] = useState('#3B82F6');
-  const [bgPhotoFile, setBgPhotoFile] = useState(null);
+  const [bgPhotoFile, setBgPhotoFile] = useState<any | null>(null);
   
   // Effects state
   const [effectType, setEffectType] = useState('blur');
@@ -985,8 +985,8 @@ const RemoveBackground = () => {
   const [designColor, setDesignColor] = useState('#000000');
   const [designFontSize, setDesignFontSize] = useState(24);
 
-  const fileInputRef = useRef();
-  const bgFileInputRef = useRef();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const bgFileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Color options for background
   const colorOptions = [
@@ -1071,8 +1071,8 @@ const RemoveBackground = () => {
     if (!file) return alert(t('uploadFirst'));
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('bg_mode', bgMode);
-    if (bgMode === 'color') formData.append('bg_color', bgColor);
+    formData.append('bg_mode', String(bgMode));
+    if (bgMode === 'color') formData.append('bg_color', String(bgColor));
     if (bgMode === 'photo' && bgPhotoFile) formData.append('bg_image', bgPhotoFile);
     await sendToApi(API.background, formData);
   };
@@ -1084,8 +1084,8 @@ const RemoveBackground = () => {
     const inputFile = await fetch(sourceImage).then(r => r.blob());
     const formData = new FormData();
     formData.append('file', new File([inputFile], 'image.png', { type: inputFile.type }));
-    formData.append('effect_type', effectType);
-    formData.append('intensity', effectIntensity);
+    formData.append('effect_type', String(effectType));
+    formData.append('intensity', String(effectIntensity));
     await sendToApi(API.effects, formData);
   };
 
@@ -1096,7 +1096,7 @@ const RemoveBackground = () => {
     const inputFile = await fetch(sourceImage).then(r => r.blob());
     const formData = new FormData();
     formData.append('file', new File([inputFile], 'image.png', { type: inputFile.type }));
-    Object.entries(adjustSettings).forEach(([k, v]) => formData.append(k, v));
+    Object.entries(adjustSettings).forEach(([k, v]) => formData.append(k, String(v)));
     await sendToApi(API.adjust, formData);
   };
 
@@ -1108,9 +1108,9 @@ const RemoveBackground = () => {
     const inputFile = await fetch(sourceImage).then(r => r.blob());
     const formData = new FormData();
     formData.append('file', new File([inputFile], 'image.png', { type: inputFile.type }));
-    formData.append('text', designText);
-    formData.append('text_color', designColor);
-    formData.append('font_size', designFontSize);
+    formData.append('text', String(designText));
+    formData.append('text_color', String(designColor));
+    formData.append('font_size', String(designFontSize));
     await sendToApi(API.design, formData);
   };
 
@@ -1233,7 +1233,7 @@ const RemoveBackground = () => {
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              onChange={(e) => handleFileUpload(e.target.files[0])}
+              onChange={(e) => handleFileUpload(e.target.files?.[0])}
               style={{ display: 'none' }}
             />
           </div>
@@ -1350,7 +1350,7 @@ const RemoveBackground = () => {
                         ref={bgFileInputRef}
                         type="file"
                         accept="image/*"
-                        onChange={(e) => handleBgImageUpload(e.target.files[0])}
+                        onChange={(e) => handleBgImageUpload(e.target.files?.[0])}
                         style={{ display: 'none' }}
                       />
                     </div>

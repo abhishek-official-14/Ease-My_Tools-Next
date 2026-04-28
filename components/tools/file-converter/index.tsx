@@ -9,7 +9,7 @@
 //     const { t } = useTranslation('fileConverter');
 //     const { theme } = useTheme();
     
-//     const [file, setFile] = useState(null);
+//     const [file, setFile] = useState<any | null>(null);
 //     const [originalContent, setOriginalContent] = useState('');
 //     const [convertedContent, setConvertedContent] = useState('');
 //     const [converting, setConverting] = useState(false);
@@ -22,7 +22,7 @@
 //         sheetName: 'Sheet1'
 //     });
     
-//     const fileInputRef = useRef();
+//     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 //     const SUPPORTED_FORMATS = {
 //         'text/csv': 'csv',
@@ -359,7 +359,7 @@
 //                             ref={fileInputRef}
 //                             type="file"
 //                             accept=".csv,.xlsx,.xls,.json"
-//                             onChange={(e) => handleFileUpload(e.target.files[0])}
+//                             onChange={(e) => handleFileUpload(e.target.files?.[0])}
 //                             style={{ display: 'none' }}
 //                         />
 //                     </div>
@@ -579,7 +579,7 @@ import styles from './styles.module.css';
 
 const FileConverter = () => {
     
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState<any | null>(null);
     const [originalContent, setOriginalContent] = useState('');
     const [convertedContent, setConvertedContent] = useState('');
     const [converting, setConverting] = useState(false);
@@ -592,7 +592,7 @@ const FileConverter = () => {
         sheetName: 'Sheet1'
     });
     
-    const fileInputRef = useRef();
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const detectFileFormat = (file) => {
         const extension = file.name.split('.').pop().toLowerCase();
@@ -925,7 +925,7 @@ const FileConverter = () => {
                             ref={fileInputRef}
                             type="file"
                             accept=".csv,.xlsx,.xls,.json"
-                            onChange={(e) => handleFileUpload(e.target.files[0])}
+                            onChange={(e) => handleFileUpload(e.target.files?.[0])}
                             style={{ display: 'none' }}
                         />
                     </div>

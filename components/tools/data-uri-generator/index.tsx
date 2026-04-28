@@ -6,12 +6,12 @@ import styles from './styles.module.css';
 const DataUriGenerator = () => {
     const [inputType, setInputType] = useState('text');
     const [text, setText] = useState('');
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState<any | null>(null);
     const [textType, setTextType] = useState('plainText');
     const [dataUri, setDataUri] = useState('');
-    const [fileInfo, setFileInfo] = useState(null);
+    const [fileInfo, setFileInfo] = useState<any | null>(null);
     const [copied, setCopied] = useState(false);
-    const fileInputRef = useRef(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const mimeTypes = {
         plainText: 'text/plain',
@@ -23,8 +23,8 @@ const DataUriGenerator = () => {
         svg: 'image/svg+xml'
     };
 
-    const handleFileSelect = (event) => {
-        const selectedFile = event.target.files[0];
+    const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0];
         if (selectedFile) {
             setFile(selectedFile);
             setFileInfo({
@@ -52,13 +52,15 @@ const DataUriGenerator = () => {
                 });
             } else if (inputType === 'file' && file) {
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    const uri = e.target.result;
-                    setDataUri(uri);
-                    setFileInfo(prev => ({
-                        ...prev,
-                        uriLength: uri.length
-                    }));
+                reader.onload = (e: ProgressEvent<FileReader>) => {
+                    const uri = e.target?.result;
+                    if (typeof uri === "string") {
+                        setDataUri(uri);
+                        setFileInfo(prev => ({
+                            ...prev,
+                            uriLength: uri.length
+                        }));
+                    }
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -66,7 +68,7 @@ const DataUriGenerator = () => {
             }
             setCopied(false);
         } catch (error) {
-            alert('Error generating Data URI: ' + error.message);
+            if (error instanceof Error) alert('Error generating Data URI: ' + error.message);
         }
     };
 
@@ -87,7 +89,7 @@ const DataUriGenerator = () => {
         }
     };
 
-    const formatFileSize = (bytes) => {
+    const formatFileSize = (bytes: number) => {
         if (bytes === 0) return '0 Bytes';
         const k = 1024;
         const sizes = ['Bytes', 'KB', 'MB', 'GB'];
@@ -126,7 +128,7 @@ const DataUriGenerator = () => {
                                 type="radio"
                                 value="text"
                                 checked={inputType === 'text'}
-                                onChange={(e) => setInputType(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputType(e.target.value)}
                             />
                             {"Text Input"}
                         </label>
@@ -135,7 +137,7 @@ const DataUriGenerator = () => {
                                 type="radio"
                                 value="file"
                                 checked={inputType === 'file'}
-                                onChange={(e) => setInputType(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputType(e.target.value)}
                             />
                             {"File Input"}
                         </label>
@@ -145,7 +147,7 @@ const DataUriGenerator = () => {
                         <div className={styles["text-input-section"]}>
                             <div className={styles["text-type-selector"]}>
                                 <label>{"Text Type"}:</label>
-                                <select value={textType} onChange={(e) => setTextType(e.target.value)}>
+                                <select value={textType} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setTextType(e.target.value)}>
                                     <option value="plainText">{"Plain Text"}</option>
                                     <option value="html">{"HTML"}</option>
                                     <option value="css">{"CSS"}</option>
@@ -157,9 +159,9 @@ const DataUriGenerator = () => {
                             </div>
                             <textarea
                                 value={text}
-                                onChange={(e) => setText(e.target.value)}
+                                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)}
                                 placeholder={"Enter text to convert..."}
-                                rows="8"
+                                rows={8}
                             />
                         </div>
                     )}
@@ -244,7 +246,7 @@ const DataUriGenerator = () => {
                             <textarea
                                 value={dataUri}
                                 readOnly
-                                rows="4"
+                                rows={4}
                                 className={styles["uri-output"]}
                             />
                             {copied && (

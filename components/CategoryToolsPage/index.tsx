@@ -20,7 +20,7 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
     setAnimated(true);
   }, [categoryId]);
 
-  if (!categoryId || !toolsByCategory[categoryId] || toolsByCategory[categoryId].length === 0) {
+  if (!categoryId || !(toolsByCategory as Record<string, any>)[categoryId] || (toolsByCategory as Record<string, any>)[categoryId].length === 0) {
     return (
       <div className={styles.categoryToolsPage}>
         <div className={styles.categoryHeader}>
@@ -39,13 +39,13 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
     );
   }
 
-  const categoryTools = toolsByCategory[categoryId];
+  const categoryTools = (toolsByCategory as Record<string, any>)[categoryId];
 
   return (
     <div className={styles.categoryToolsPage}>
       <div className={styles.categoryHeader}>
         <BackButton />
-        <h1>{categoryTitles[categoryId] || "Tools"}</h1>
+        <h1>{(categoryTitles as Record<string, any>)[categoryId] || "Tools"}</h1>
         <p>{categoryTools.length} tools available</p>
       </div>
 
@@ -53,7 +53,7 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
         className={`${styles.categoryToolsGrid} ${animated ? styles.animated : ""
           }`}
       >
-        {categoryTools.map((tool, index) => {
+        {categoryTools.map((tool: any, index: number) => {
           const IconComponent = tool.icon;
 
           return (

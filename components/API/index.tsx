@@ -75,7 +75,7 @@ const API = () => {
       language: 'JavaScript',
       code: `// Remove background example
 const formData = new FormData();
-formData.append('image', imageFile);
+formData.append('image', String(imageFile));
 formData.append('bg_mode', 'transparent');
 
 const response = await fetch('https://api.easemytools.com/api/v1/remove-background', {
