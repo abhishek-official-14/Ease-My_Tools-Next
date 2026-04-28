@@ -22,7 +22,7 @@
 //         sheetName: 'Sheet1'
 //     });
     
-//     const fileInputRef = useRef();
+//     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 //     const SUPPORTED_FORMATS = {
 //         'text/csv': 'csv',
@@ -359,7 +359,7 @@
 //                             ref={fileInputRef}
 //                             type="file"
 //                             accept=".csv,.xlsx,.xls,.json"
-//                             onChange={(e) => handleFileUpload(e.target.files[0])}
+//                             onChange={(e) => handleFileUpload(e.target.files?.[0])}
 //                             style={{ display: 'none' }}
 //                         />
 //                     </div>
@@ -592,7 +592,7 @@ const FileConverter = () => {
         sheetName: 'Sheet1'
     });
     
-    const fileInputRef = useRef();
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const detectFileFormat = (file) => {
         const extension = file.name.split('.').pop().toLowerCase();
@@ -925,7 +925,7 @@ const FileConverter = () => {
                             ref={fileInputRef}
                             type="file"
                             accept=".csv,.xlsx,.xls,.json"
-                            onChange={(e) => handleFileUpload(e.target.files[0])}
+                            onChange={(e) => handleFileUpload(e.target.files?.[0])}
                             style={{ display: 'none' }}
                         />
                     </div>

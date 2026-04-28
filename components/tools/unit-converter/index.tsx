@@ -61,8 +61,8 @@ const UnitConverter = () => { // <-- i18next
                 const convertedValue = (conversionFormulas.temperature[fromUnit] as (val: number, toUnit: string) => number)(value, toUnit);
                 setResult(convertedValue.toFixed(6));
             } else {
-                const fromFactor = conversionFormulas[category][fromUnit] as number;
-                const toFactor = conversionFormulas[category][toUnit] as number;
+                const fromFactor = conversionFormulas[category]?.[fromUnit] as number;
+                const toFactor = conversionFormulas[category]?.[toUnit] as number;
                 if (fromFactor && toFactor) {
                     const baseValue = value / fromFactor;
                     const convertedValue = baseValue * toFactor;

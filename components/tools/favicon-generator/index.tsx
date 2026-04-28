@@ -18,8 +18,8 @@ const FaviconGenerator = () => {
     preserveAspectRatio: true
   });
 
-  const fileInputRef = useRef();
-  const canvasRef = useRef();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Supported formats with descriptions
   const formatOptions = [
@@ -217,7 +217,7 @@ const FaviconGenerator = () => {
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              onChange={(e) => handleFileUpload(e.target.files[0])}
+              onChange={(e) => handleFileUpload(e.target.files?.[0])}
               style={{ display: 'none' }}
             />
           </div>

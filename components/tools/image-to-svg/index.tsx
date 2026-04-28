@@ -22,9 +22,9 @@ const ImageToSvg = () => {
         decimalPlaces: 2
     });
     
-    const fileInputRef = useRef();
-    const canvasRef = useRef();
-    const previewCanvasRef = useRef();
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const originalDimensions = useRef({ width: 0, height: 0 });
 
     const handleFileUpload = useCallback((uploadedFile) => {
@@ -385,7 +385,7 @@ const ImageToSvg = () => {
                             ref={fileInputRef}
                             type="file"
                             accept="image/*"
-                            onChange={(e) => handleFileUpload(e.target.files[0])}
+                            onChange={(e) => handleFileUpload(e.target.files?.[0])}
                             style={{ display: 'none' }}
                         />
                     </div>

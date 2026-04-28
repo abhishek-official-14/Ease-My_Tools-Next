@@ -191,7 +191,7 @@ const ToolsPage = () => {
                                                 style={{ backgroundColor: category.color }}
                                                 onClick={() => {
                                                     if (!hasMoved) {
-                                                        router.push(category.link);
+                                                        router.push(category.link as any);
                                                     }
                                                 }}
                                             >

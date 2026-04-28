@@ -695,7 +695,7 @@
 
 //   // File select
 //   const handleFileChange = (e) => {
-//     const uploadedFile = e.target.files[0];
+//     const uploadedFile = e.target.files?.[0];
 //     if (uploadedFile && uploadedFile.type.startsWith("video/")) {
 //       if (uploadedFile.size > 50 * 1024 * 1024) {
 //         setError("File size must be less than 50MB");

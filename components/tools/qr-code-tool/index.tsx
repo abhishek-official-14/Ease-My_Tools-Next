@@ -13,7 +13,7 @@ const QRCodeTool = () => {
     const svgRef = useRef(null);
 
     const handleDecode = (e) => {
-        const file = e.target.files[0];
+        const file = e.target.files?.[0];
         if (!file) return;
 
         setFileError("");

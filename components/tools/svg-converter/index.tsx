@@ -18,8 +18,8 @@ const SvgConverter = () => {
         customBackground: '#ffffff'
     });
     
-    const fileInputRef = useRef();
-    const canvasRef = useRef();
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const originalDimensions = useRef({ width: 0, height: 0 });
 
     const handleFileUpload = useCallback((uploadedFile) => {
@@ -262,7 +262,7 @@ const SvgConverter = () => {
                             ref={fileInputRef}
                             type="file"
                             accept=".svg,image/svg+xml"
-                            onChange={(e) => handleFileUpload(e.target.files[0])}
+                            onChange={(e) => handleFileUpload(e.target.files?.[0])}
                             style={{ display: 'none' }}
                         />
                     </div>

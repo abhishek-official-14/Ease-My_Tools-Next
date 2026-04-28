@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import styles from './styles.module.css';
 
-const t = (key, fallback) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key;
 
 const FileRenameTool = () => {
   
@@ -13,7 +13,7 @@ const FileRenameTool = () => {
   const [previewMode, setPreviewMode] = useState(false);
   const [renameHistory, setRenameHistory] = useState<any[]>([]);
 
-  const fileInputRef = useRef();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Renaming strategies
   const [namingStrategy, setNamingStrategy] = useState({
