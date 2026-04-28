@@ -39,7 +39,10 @@ export default async function Page({
   const tool = getToolBySlug(slug);
 
   if (tool) {
-    const DynamicComponent = dynamic(tool.component as unknown);
+    const toolLoader = tool.component as () => Promise<{
+      default: ComponentType<Record<string, never>>;
+    }>;
+    const DynamicComponent = dynamic(toolLoader);
     return <DynamicComponent />;
   }
 
