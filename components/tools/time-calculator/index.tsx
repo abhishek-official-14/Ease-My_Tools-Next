@@ -24,8 +24,10 @@ type DateResult = {
     totalSeconds: number;
 };
 
+type CalculationType = 'add' | 'subtract' | 'date';
+
 const TimeCalculator = () => {
-    const [calculationType, setCalculationType] = useState('add');
+    const [calculationType, setCalculationType] = useState<CalculationType>('add');
     const [time1, setTime1] = useState({ hours: 0, minutes: 0, seconds: 0 });
     const [time2, setTime2] = useState({ hours: 0, minutes: 0, seconds: 0 });
     const [result, setResult] = useState<any | null>(null);
@@ -96,6 +98,7 @@ const TimeCalculator = () => {
     const formatTime = (time: { hours: number; minutes: number; seconds: number }) => {
         return `${time.hours.toString().padStart(2, '0')}:${time.minutes.toString().padStart(2, '0')}:${time.seconds.toString().padStart(2, '0')}`;
     };
+    const isSubtractOperation = calculationType === 'subtract';
 
     return (
         <div className={styles["time-calculator"]}>
@@ -164,7 +167,7 @@ const TimeCalculator = () => {
                                     +
                                 </button>
                                 <button 
-                                    className={`${styles["op-btn"]} ${calculationType === 'subtract' ? styles["active"] : ""}`}
+                                    className={`${styles["op-btn"]} ${isSubtractOperation ? styles["active"] : ""}`}
                                     onClick={() => setCalculationType('subtract')}
                                 >
                                     -
