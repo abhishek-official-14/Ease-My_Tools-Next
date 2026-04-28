@@ -59,8 +59,12 @@ const UnitConverter = () => {
 
         try {
             if (category === 'temperature') {
-                const convertedValue = (conversionFormulas.temperature[fromUnit] as (val: number, toUnit: string) => number)(value, toUnit);
-                setResult(convertedValue.toFixed(6));
+                const temperatureFormulas = conversionFormulas.temperature as Record<string, (val: number, toUnit: string) => number>;
+                const temperatureConverter = temperatureFormulas[fromUnit];
+                if (temperatureConverter) {
+                    const convertedValue = temperatureConverter(value, toUnit);
+                    setResult(convertedValue.toFixed(6));
+                } else setResult('Error');
             } else {
                 const fromFactor = conversionFormulas[category]?.[fromUnit] as number;
                 const toFactor = conversionFormulas[category]?.[toUnit] as number;

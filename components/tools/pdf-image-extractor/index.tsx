@@ -271,7 +271,7 @@ const PDFImageExtractor = () => {
     const totalSize = extractedImages.reduce((acc, img) => acc + (img.originalSize || 0), 0);
     const largestWidth = Math.max(...extractedImages.map(img => {
       const [width] = img.dimensions.split('x').map(Number);
-      return isNaN(width) ? 0 : width;
+      return isNaN(width ?? 0) ? 0 : (width ?? 0);
     }), 0);
     const pagesWithImages = new Set(extractedImages.map(img => img.page)).size;
 
