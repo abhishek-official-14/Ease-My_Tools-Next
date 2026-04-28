@@ -9,7 +9,7 @@
 //     const { t } = useTranslation('removeBg');
 //     const { theme } = useTheme();
     
-//     const [file, setFile] = useState(null);
+//     const [file, setFile] = useState<any | null>(null);
 //     const [originalImage, setOriginalImage] = useState('');
 //     const [processedImage, setProcessedImage] = useState('');
 //     const [processing, setProcessing] = useState(false);
@@ -358,7 +358,7 @@
 //   const { t } = useTranslation('removeBg');
 //   const { theme } = useTheme();
 
-//   const [file, setFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
 //   const [originalImage, setOriginalImage] = useState('');
 //   const [processedImage, setProcessedImage] = useState('');
 //   const [processing, setProcessing] = useState(false);
@@ -689,7 +689,7 @@
 //     design: `${API_BASE_URL}/design`,
 //   };
 
-//   const [file, setFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
 //   const [originalImage, setOriginalImage] = useState('');
 //   const [processedImage, setProcessedImage] = useState('');
 //   const [processing, setProcessing] = useState(false);
@@ -697,7 +697,7 @@
 //   // Background states
 //   const [bgMode, setBgMode] = useState('color');
 //   const [bgColor, setBgColor] = useState('#ffffff');
-//   const [bgPhotoFile, setBgPhotoFile] = useState(null);
+//   const [bgPhotoFile, setBgPhotoFile] = useState<any | null>(null);
 //   // Effects state
 //   const [effectType, setEffectType] = useState('blur');
 //   // Adjust states
@@ -960,7 +960,7 @@ const RemoveBackground = () => {
     design: `${API_BASE_URL}/design`,
   };
 
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<any | null>(null);
   const [originalImage, setOriginalImage] = useState('');
   const [processedImage, setProcessedImage] = useState('');
   const [processing, setProcessing] = useState(false);
@@ -969,7 +969,7 @@ const RemoveBackground = () => {
   // Background states
   const [bgMode, setBgMode] = useState('transparent');
   const [bgColor, setBgColor] = useState('#3B82F6');
-  const [bgPhotoFile, setBgPhotoFile] = useState(null);
+  const [bgPhotoFile, setBgPhotoFile] = useState<any | null>(null);
   
   // Effects state
   const [effectType, setEffectType] = useState('blur');

@@ -6,10 +6,10 @@ import styles from './styles.module.css';
 const DataUriGenerator = () => {
     const [inputType, setInputType] = useState('text');
     const [text, setText] = useState('');
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState<any | null>(null);
     const [textType, setTextType] = useState('plainText');
     const [dataUri, setDataUri] = useState('');
-    const [fileInfo, setFileInfo] = useState(null);
+    const [fileInfo, setFileInfo] = useState<any | null>(null);
     const [copied, setCopied] = useState(false);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 

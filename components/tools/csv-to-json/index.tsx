@@ -266,7 +266,7 @@ export default CSVtoJSON;
 //     const [jsonOutput, setJsonOutput] = useState('');
 //     const [delimiter, setDelimiter] = useState(',');
 //     const [firstRowHeader, setFirstRowHeader] = useState(true);
-//     const [conversionInfo, setConversionInfo] = useState(null);
+//     const [conversionInfo, setConversionInfo] = useState<any | null>(null);
 //     const [isDragging, setIsDragging] = useState(false);
 //     const fileInputRef = useRef(null);
 

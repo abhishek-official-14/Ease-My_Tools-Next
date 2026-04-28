@@ -20,12 +20,10 @@ export async function generateMetadata({
     };
   }
 
-  const categoryTitle = categoryTitles[slug as keyof typeof categoryTitles];
-
-  if (categoryTitle) {
+  if (slug && (categoryTitles as Record<string, any>)[slug]) {
     return {
-      title: `EaseMyTools - ${categoryTitle}`,
-      description: `Explore ${categoryTitle} on EaseMyTools.`,
+      title: `EaseMyTools - ${(categoryTitles as Record<string, any>)[slug]}`,
+      description: `Explore ${(categoryTitles as Record<string, any>)[slug]} on EaseMyTools.`,
     };
   }
 
@@ -41,11 +39,11 @@ export default async function Page({
   const tool = getToolBySlug(slug);
 
   if (tool) {
-    const DynamicComponent = dynamic(tool.component as () => Promise<{ default: ComponentType<object> }>);
+    const DynamicComponent = dynamic(tool.component as any);
     return <DynamicComponent />;
   }
 
-  if (toolsByCategory[slug as keyof typeof toolsByCategory]) {
+  if (slug && (toolsByCategory as Record<string, any>)[slug]) {
     return <CategoryToolsPage categoryId={slug} />;
   }
 

@@ -7,11 +7,11 @@ const t = (key, fallback) => fallback ?? key;
 
 const FileRenameTool = () => {
   
-  const [files, setFiles] = useState([]);
-  const [originalFiles, setOriginalFiles] = useState([]);
+  const [files, setFiles] = useState<any[]>([]);
+  const [originalFiles, setOriginalFiles] = useState<any[]>([]);
   const [processing, setProcessing] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
-  const [renameHistory, setRenameHistory] = useState([]);
+  const [renameHistory, setRenameHistory] = useState<any[]>([]);
 
   const fileInputRef = useRef();
 

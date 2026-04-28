@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 
 const JwtDebugger = () => {
     const [jwtToken, setJwtToken] = useState('');
-    const [decoded, setDecoded] = useState(null);
+    const [decoded, setDecoded] = useState<any | null>(null);
     const [error, setError] = useState('');
 
     const decodeJWT = () => {

@@ -9,11 +9,11 @@
 //   const { t } = useTranslation('pdfImageExtractor');
 //   const { theme } = useTheme();
   
-//   const [file, setFile] = useState(null);
-//   const [originalFile, setOriginalFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
+//   const [originalFile, setOriginalFile] = useState<any | null>(null);
 //   const [processing, setProcessing] = useState(false);
-//   const [extractedImages, setExtractedImages] = useState([]);
-//   const [pdfInfo, setPdfInfo] = useState(null);
+//   const [extractedImages, setExtractedImages] = useState<any[]>([]);
+//   const [pdfInfo, setPdfInfo] = useState<any | null>(null);
 //   const [settings, setSettings] = useState({
 //     format: 'original',
 //     quality: 'high',
@@ -586,11 +586,11 @@
 //   const { t } = useTranslation('pdfImageExtractor');
 //   const { theme } = useTheme();
   
-//   const [file, setFile] = useState(null);
-//   const [originalFile, setOriginalFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
+//   const [originalFile, setOriginalFile] = useState<any | null>(null);
 //   const [processing, setProcessing] = useState(false);
-//   const [extractedImages, setExtractedImages] = useState([]);
-//   const [pdfInfo, setPdfInfo] = useState(null);
+//   const [extractedImages, setExtractedImages] = useState<any[]>([]);
+//   const [pdfInfo, setPdfInfo] = useState<any | null>(null);
 //   const [settings, setSettings] = useState({
 //     format: 'original',
 //     quality: 'high',
@@ -838,11 +838,11 @@
 //   const { t } = useTranslation('pdfImageExtractor');
 //   const { theme } = useTheme();
   
-//   const [file, setFile] = useState(null);
-//   const [originalFile, setOriginalFile] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
+//   const [originalFile, setOriginalFile] = useState<any | null>(null);
 //   const [processing, setProcessing] = useState(false);
-//   const [extractedImages, setExtractedImages] = useState([]);
-//   const [pdfInfo, setPdfInfo] = useState(null);
+//   const [extractedImages, setExtractedImages] = useState<any[]>([]);
+//   const [pdfInfo, setPdfInfo] = useState<any | null>(null);
 //   const [settings, setSettings] = useState({
 //     format: 'original',
 //     quality: 'high',
@@ -1446,11 +1446,11 @@ const t = (key, fallback) => fallback ?? key;
 
 const PDFImageExtractor = () => {
   
-  const [file, setFile] = useState(null);
-  const [originalFile, setOriginalFile] = useState(null);
+  const [file, setFile] = useState<any | null>(null);
+  const [originalFile, setOriginalFile] = useState<any | null>(null);
   const [processing, setProcessing] = useState(false);
-  const [extractedImages, setExtractedImages] = useState([]);
-  const [pdfInfo, setPdfInfo] = useState(null);
+  const [extractedImages, setExtractedImages] = useState<any[]>([]);
+  const [pdfInfo, setPdfInfo] = useState<any | null>(null);
   const [settings, setSettings] = useState({
     format: 'original',
     quality: 'high',

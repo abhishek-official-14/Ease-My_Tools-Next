@@ -26,12 +26,12 @@ type DateResult = {
 
 const TimeCalculator = () => {
     const [calculationType, setCalculationType] = useState('add');
-    const [time1, setTime1] = useState<TimeValue>({ hours: 0, minutes: 0, seconds: 0 });
-    const [time2, setTime2] = useState<TimeValue>({ hours: 0, minutes: 0, seconds: 0 });
-    const [result, setResult] = useState<TimeResult | null>(null);
+    const [time1, setTime1] = useState({ hours: 0, minutes: 0, seconds: 0 });
+    const [time2, setTime2] = useState({ hours: 0, minutes: 0, seconds: 0 });
+    const [result, setResult] = useState<any | null>(null);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [dateResult, setDateResult] = useState<DateResult | null>(null);
+    const [dateResult, setDateResult] = useState<any | null>(null);
 
     const calculateTime = () => {
         const totalSeconds1 = time1.hours * 3600 + time1.minutes * 60 + time1.seconds;

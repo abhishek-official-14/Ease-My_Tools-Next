@@ -9,7 +9,7 @@
 //     const { t } = useTranslation('fileConverter');
 //     const { theme } = useTheme();
     
-//     const [file, setFile] = useState(null);
+//     const [file, setFile] = useState<any | null>(null);
 //     const [originalContent, setOriginalContent] = useState('');
 //     const [convertedContent, setConvertedContent] = useState('');
 //     const [converting, setConverting] = useState(false);
@@ -579,7 +579,7 @@ import styles from './styles.module.css';
 
 const FileConverter = () => {
     
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState<any | null>(null);
     const [originalContent, setOriginalContent] = useState('');
     const [convertedContent, setConvertedContent] = useState('');
     const [converting, setConverting] = useState(false);
