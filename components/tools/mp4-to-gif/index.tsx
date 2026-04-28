@@ -8,12 +8,12 @@
 // // // const Mp4ToGif = () => {
 // // //     const { t } = useTranslation('mp4ToGif');
 // // //     const { theme } = useTheme();
-// // //     const [videoFile, setVideoFile] = useState(null);
+// // //     const [videoFile, setVideoFile] = useState<any | null>(null);
 // // //     const [videoUrl, setVideoUrl] = useState('');
 // // //     const [gifUrl, setGifUrl] = useState('');
 // // //     const [isConverting, setIsConverting] = useState(false);
 // // //     const [isDragging, setIsDragging] = useState(false);
-// // //     const [conversionInfo, setConversionInfo] = useState(null);
+// // //     const [conversionInfo, setConversionInfo] = useState<any | null>(null);
     
 // // //     const [settings, setSettings] = useState({
 // // //         startTime: 0,
@@ -334,12 +334,12 @@
 // // //   const themeContext = (typeof useTheme === 'function') ? useTheme() : { theme: 'light' };
 // // //   const theme = themeContext?.theme ?? 'light';
 
-// // //   const [videoFile, setVideoFile] = useState(null);
+// // //   const [videoFile, setVideoFile] = useState<any | null>(null);
 // // //   const [videoUrl, setVideoUrl] = useState('');
 // // //   const [gifUrl, setGifUrl] = useState('');
 // // //   const [isConverting, setIsConverting] = useState(false);
 // // //   const [isDragging, setIsDragging] = useState(false);
-// // //   const [conversionInfo, setConversionInfo] = useState(null);
+// // //   const [conversionInfo, setConversionInfo] = useState<any | null>(null);
 // // //   const [error, setError] = useState('');
 
 // // //   const [settings, setSettings] = useState({
@@ -675,8 +675,8 @@
 //   const { t } = useTranslation();
 //   const { theme } = useTheme();
 
-//   const [file, setFile] = useState(null);
-//   const [gifUrl, setGifUrl] = useState(null);
+//   const [file, setFile] = useState<any | null>(null);
+//   const [gifUrl, setGifUrl] = useState<any | null>(null);
 //   const [loading, setLoading] = useState(false);
 //   const [error, setError] = useState("");
 //   const [progress, setProgress] = useState(0);

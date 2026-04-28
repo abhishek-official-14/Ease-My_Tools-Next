@@ -6,9 +6,9 @@ import styles from './styles.module.css';
 const FaviconGenerator = () => {
   
   const [originalImage, setOriginalImage] = useState('');
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<any | null>(null);
   const [processing, setProcessing] = useState(false);
-  const [generatedIcons, setGeneratedIcons] = useState([]);
+  const [generatedIcons, setGeneratedIcons] = useState<any[]>([]);
   const [settings, setSettings] = useState({
     format: 'ico',
     sizes: [16, 32, 48, 64, 128, 256],

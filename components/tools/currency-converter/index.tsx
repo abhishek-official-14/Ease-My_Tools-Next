@@ -9,7 +9,7 @@
 //     const { t } = useTranslation('currencyConverter');
 //     const { theme } = useTheme();
     
-//     const [currencies, setCurrencies] = useState([]);
+//     const [currencies, setCurrencies] = useState<any[]>([]);
 //     const [conversion, setConversion] = useState({
 //         from: 'USD',
 //         to: 'INR',
@@ -20,8 +20,8 @@
 //         cached: false
 //     });
 //     const [loading, setLoading] = useState(false);
-//     const [error, setError] = useState(null);
-//     const [historicalData, setHistoricalData] = useState([]);
+//     const [error, setError] = useState<any | null>(null);
+//     const [historicalData, setHistoricalData] = useState<any[]>([]);
 //     const [searchTerm, setSearchTerm] = useState('');
 //     const [settings, setSettings] = useState({
 //         autoUpdate: true,
@@ -431,7 +431,7 @@ const t = (key, fallback) => fallback ?? key;
 
 const CurrencyConverter = () => {
     
-    const [currencies, setCurrencies] = useState([]);
+    const [currencies, setCurrencies] = useState<any[]>([]);
     const [conversion, setConversion] = useState({
         from: 'USD',
         to: 'INR',
@@ -441,8 +441,8 @@ const CurrencyConverter = () => {
         cached: false
     });
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [historicalData, setHistoricalData] = useState([]);
+    const [error, setError] = useState<any | null>(null);
+    const [historicalData, setHistoricalData] = useState<any[]>([]);
     const [showHistory, setShowHistory] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [settings, setSettings] = useState({
