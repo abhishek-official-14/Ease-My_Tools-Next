@@ -4,7 +4,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import styles from './styles.module.css';
 
 const SvgConverter = () => {
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState<any | null>(null);
     const [originalSvg, setOriginalSvg] = useState('');
     const [convertedImage, setConvertedImage] = useState('');
     const [converting, setConverting] = useState(false);
@@ -18,8 +18,8 @@ const SvgConverter = () => {
         customBackground: '#ffffff'
     });
     
-    const fileInputRef = useRef();
-    const canvasRef = useRef();
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const originalDimensions = useRef({ width: 0, height: 0 });
 
     const handleFileUpload = useCallback((uploadedFile) => {
@@ -37,7 +37,9 @@ const SvgConverter = () => {
 
         const reader = new FileReader();
         reader.onload = (e) => {
-            const svgContent = e.target.result;
+            const result = e.target?.result;
+            if (typeof result !== "string") return;
+            const svgContent = result;
             setFile(uploadedFile);
             setOriginalSvg(svgContent);
             
@@ -80,7 +82,9 @@ const SvgConverter = () => {
 
         try {
             const canvas = canvasRef.current;
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
+            if (!ctx) return;
 
             // Create an image from SVG
             const svgBlob = new Blob([originalSvg], { type: 'image/svg+xml' });
@@ -262,7 +266,7 @@ const SvgConverter = () => {
                             ref={fileInputRef}
                             type="file"
                             accept=".svg,image/svg+xml"
-                            onChange={(e) => handleFileUpload(e.target.files[0])}
+                            onChange={(e) => handleFileUpload(e.target.files?.[0])}
                             style={{ display: 'none' }}
                         />
                     </div>

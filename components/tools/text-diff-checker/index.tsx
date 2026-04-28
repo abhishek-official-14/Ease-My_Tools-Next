@@ -7,7 +7,7 @@ import { diffWords } from "diff";
 const TextDiffChecker = () => {
     const [textA, setTextA] = useState("");
     const [textB, setTextB] = useState("");
-    const [diffResult, setDiffResult] = useState([]);
+    const [diffResult, setDiffResult] = useState<any[]>([]);
 
     const handleCompare = () => {
         const diff = diffWords(textA, textB);

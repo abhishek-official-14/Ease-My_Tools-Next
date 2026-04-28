@@ -23,7 +23,7 @@ const JSONFormatter = () => { // <-- i18next
             setError('');
         } catch (err) {
             setIsValid(false);
-            setError(err.message);
+            if (err instanceof Error) setError(err.message);
             setFormattedJSON('');
         }
     };
@@ -42,7 +42,7 @@ const JSONFormatter = () => { // <-- i18next
             setError('');
         } catch (err) {
             setIsValid(false);
-            setError(err.message);
+            if (err instanceof Error) setError(err.message);
             setFormattedJSON('');
         }
     };
@@ -59,7 +59,7 @@ const JSONFormatter = () => { // <-- i18next
             setError("Valid JSON!");
         } catch (err) {
             setIsValid(false);
-            setError(err.message);
+            if (err instanceof Error) setError(err.message);
         }
     };
 

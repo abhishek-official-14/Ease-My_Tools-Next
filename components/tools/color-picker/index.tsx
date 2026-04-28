@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 
-const t = (key, fallback) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key;
 
 const ColorPicker = () => { // <-- i18next
     const [selectedColor, setSelectedColor] = useState('#667eea');
-    const [colorHistory, setColorHistory] = useState([]);
+    const [colorHistory, setColorHistory] = useState<any[]>([]);
 
     const handleColorChange = (e) => {
         const newColor = e.target.value;

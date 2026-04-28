@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 
 const JwtDebugger = () => {
     const [jwtToken, setJwtToken] = useState('');
-    const [decoded, setDecoded] = useState(null);
+    const [decoded, setDecoded] = useState<any | null>(null);
     const [error, setError] = useState('');
 
     const decodeJWT = () => {
@@ -38,7 +38,7 @@ const JwtDebugger = () => {
                 expiresIn
             });
         } catch (err) {
-            setError(err.message);
+            if (err instanceof Error) setError(err.message);
             setDecoded(null);
         }
     };
@@ -86,7 +86,7 @@ const JwtDebugger = () => {
                         value={jwtToken}
                         onChange={(e) => setJwtToken(e.target.value)}
                         placeholder={"Paste your JWT token here..."}
-                        rows="4"
+                        rows={4}
                         className={error ? 'error' : ''}
                     />
                 </div>

@@ -3,17 +3,17 @@
 import React, { useState, useRef, useCallback } from 'react';
 import styles from './styles.module.css';
 
-const t = (key, fallback) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key;
 
 const FileRenameTool = () => {
   
-  const [files, setFiles] = useState([]);
-  const [originalFiles, setOriginalFiles] = useState([]);
+  const [files, setFiles] = useState<any[]>([]);
+  const [originalFiles, setOriginalFiles] = useState<any[]>([]);
   const [processing, setProcessing] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
-  const [renameHistory, setRenameHistory] = useState([]);
+  const [renameHistory, setRenameHistory] = useState<any[]>([]);
 
-  const fileInputRef = useRef();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Renaming strategies
   const [namingStrategy, setNamingStrategy] = useState({
