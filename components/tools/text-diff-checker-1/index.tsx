@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 
-const t = (key, fallback) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key;
 
 const TextDiffChecker = () => {
     const [text1, setText1] = useState('');
@@ -64,7 +64,7 @@ const TextDiffChecker = () => {
                             onChange={(e) => setText1(e.target.value)}
                             placeholder={t('text1Placeholder') || 'Enter first text...'}
                             className={styles["text-input"]}
-                            rows="8"
+                            rows={8}
                         />
                     </div>
 
@@ -75,7 +75,7 @@ const TextDiffChecker = () => {
                             onChange={(e) => setText2(e.target.value)}
                             placeholder={t('text2Placeholder') || 'Enter second text...'}
                             className={styles["text-input"]}
-                            rows="8"
+                            rows={8}
                         />
                     </div>
                 </div>

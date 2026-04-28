@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.css';
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle newsletter subscription
     console.log('Newsletter subscription:', email);
@@ -25,7 +25,7 @@ const NewsletterSection = () => {
               type="email"
               placeholder={"Enter your email"}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               required
             />
             <button type="submit">

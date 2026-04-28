@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import styles from './styles.module.css';
 
-const t = (key, fallback) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key;
 
 // Comprehensive food database with 500+ items
 // const COMPREHENSIVE_FOOD_DATABASE = [
@@ -1449,8 +1449,8 @@ const NutritionMaster = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [selectedGoal, setSelectedGoal] = useState('all');
-    const [selectedFood, setSelectedFood] = useState(null);
-    const [compareList, setCompareList] = useState([]);
+    const [selectedFood, setSelectedFood] = useState<any | null>(null);
+    const [compareList, setCompareList] = useState<any[]>([]);
 
     // Filter foods based on search and category
     const filteredFoods = useMemo(() => {

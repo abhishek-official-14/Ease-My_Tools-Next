@@ -26,8 +26,8 @@ const ToolsPage = () => {
     const [dragOffset, setDragOffset] = useState(0);
     const [hasMoved, setHasMoved] = useState(false);
 
-    const sliderRef = useRef(null);
-    const startX = useRef(0);
+    const sliderRef = useRef<HTMLDivElement | null>(null);
+    const startX = useRef<number>(0);
 
     const filteredTools = searchQuery.trim()
         ? allTools.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -48,7 +48,7 @@ const ToolsPage = () => {
 
     /* --- AUTO SCROLL --- */
     useEffect(() => {
-        let intervalId;
+        let intervalId: ReturnType<typeof setInterval> | undefined;
         if (!isDragging && !isHovered && realSlides > 0 && !document.hidden) {
             intervalId = setInterval(next, AUTO_SCROLL_INTERVAL);
         }
@@ -56,14 +56,14 @@ const ToolsPage = () => {
     }, [isDragging, isHovered, realSlides, next]);
 
     /* --- DRAG HANDLERS --- */
-    const handleStart = (clientX) => {
+    const handleStart = (clientX: number) => {
         setIsDragging(true);
         setHasMoved(false);
         setEnableTransition(false);
         startX.current = clientX;
     };
 
-    const handleMove = (clientX) => {
+    const handleMove = (clientX: number) => {
         if (!isDragging) return;
         const diff = clientX - startX.current;
         if (Math.abs(diff) > 5) {
@@ -104,7 +104,7 @@ const ToolsPage = () => {
         }
     };
 
-    const getSlide = (idx) => toolCategories.slice((idx - 1) * cardsPerSlide, idx * cardsPerSlide);
+    const getSlide = (idx: number) => toolCategories.slice((idx - 1) * cardsPerSlide, idx * cardsPerSlide);
 
     const slides = realSlides > 0 ? [
         getSlide(realSlides),
@@ -140,7 +140,7 @@ const ToolsPage = () => {
                                         className={styles["tool-item"]}
                                         onMouseDown={(e) => {
                                             e.preventDefault(); // Prevents input blur
-                                            router.push(`/tools/${slug}`);
+                                            router.push(`/tools/${slug}` as any);
                                         }}
                                     >
                                         <div className={styles["tool-link"]}>
@@ -164,11 +164,11 @@ const ToolsPage = () => {
                             ref={sliderRef}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
-                            onMouseDown={(e) => handleStart(e.clientX)}
-                            onMouseMove={(e) => handleMove(e.clientX)}
+                            onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => handleStart(e.clientX)}
+                            onMouseMove={(e: React.MouseEvent<HTMLDivElement>) => handleMove(e.clientX)}
                             onMouseUp={handleEnd}
-                            onTouchStart={(e) => handleStart(e.touches[0].clientX)}
-                            onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+                            onTouchStart={(e: React.TouchEvent<HTMLDivElement>) => handleStart(e.touches?.[0]?.clientX || 0)}
+                            onTouchMove={(e: React.TouchEvent<HTMLDivElement>) => handleMove(e.touches?.[0]?.clientX || 0)}
                             onTouchEnd={handleEnd}
                             style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
                         >
@@ -191,7 +191,7 @@ const ToolsPage = () => {
                                                 style={{ backgroundColor: category.color }}
                                                 onClick={() => {
                                                     if (!hasMoved) {
-                                                        router.push(category.link);
+                                                        router.push(category.link as any);
                                                     }
                                                 }}
                                             >

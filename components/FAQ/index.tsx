@@ -4,9 +4,9 @@ import { useState } from 'react';
 import styles from './styles.module.css';
 
 const FAQ = () => {
-  const [openItems, setOpenItems] = useState({});
+  const [openItems, setOpenItems] = useState<Record<number, boolean>>({});
 
-  const toggleItem = (index) => {
+  const toggleItem = (index: number) => {
     setOpenItems(prev => ({
       ...prev,
       [index]: !prev[index]

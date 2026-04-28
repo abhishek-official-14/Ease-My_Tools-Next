@@ -6,9 +6,9 @@ import styles from './styles.module.css';
 const FaviconGenerator = () => {
   
   const [originalImage, setOriginalImage] = useState('');
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<any | null>(null);
   const [processing, setProcessing] = useState(false);
-  const [generatedIcons, setGeneratedIcons] = useState([]);
+  const [generatedIcons, setGeneratedIcons] = useState<any[]>([]);
   const [settings, setSettings] = useState({
     format: 'ico',
     sizes: [16, 32, 48, 64, 128, 256],
@@ -18,8 +18,8 @@ const FaviconGenerator = () => {
     preserveAspectRatio: true
   });
 
-  const fileInputRef = useRef();
-  const canvasRef = useRef();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Supported formats with descriptions
   const formatOptions = [
@@ -217,7 +217,7 @@ const FaviconGenerator = () => {
               ref={fileInputRef}
               type="file"
               accept="image/*"
-              onChange={(e) => handleFileUpload(e.target.files[0])}
+              onChange={(e) => handleFileUpload(e.target.files?.[0])}
               style={{ display: 'none' }}
             />
           </div>
