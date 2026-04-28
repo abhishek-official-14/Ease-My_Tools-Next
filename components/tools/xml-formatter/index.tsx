@@ -12,7 +12,7 @@ const XMLFormatter = () => {
 
     const formatXML = () => {
         if (!inputXML.trim()) {
-            alert("Please enter XML data" || 'Please enter XML data');
+            alert("Please enter XML data");
             return;
         }
 
@@ -24,12 +24,14 @@ const XMLFormatter = () => {
             setError('');
         } catch (err) {
             setIsValid(false);
-            setError(err.message);
+            if (err instanceof Error) {
+                setError(err.message);
+            }
             setFormattedXML('');
         }
     };
 
-    const formatXMLString = (xml, indent = 2) => {
+    const formatXMLString = (xml: string, indent = 2) => {
         let formatted = '';
         let indentLevel = 0;
         const spaces = ' '.repeat(indent);
@@ -38,7 +40,6 @@ const XMLFormatter = () => {
         xml = xml.replace(/>\s+</g, '><').trim();
         
         let inTag = false;
-        const inAttribute = false;
         let currentTag = '';
         let currentText = '';
 
@@ -78,7 +79,7 @@ const XMLFormatter = () => {
 
     const validateXML = () => {
         if (!inputXML.trim()) {
-            setError("Please enter XML data" || 'Please enter XML data');
+            setError("Please enter XML data");
             setIsValid(false);
             return;
         }
@@ -89,20 +90,22 @@ const XMLFormatter = () => {
             const xmlDoc = parser.parseFromString(inputXML, "text/xml");
             
             if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0].textContent);
+                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0].textContent || 'Invalid XML');
             }
             
             setIsValid(true);
-            setError("Valid XML!" || 'Valid XML!');
+            setError("Valid XML!");
         } catch (err) {
             setIsValid(false);
-            setError(err.message);
+            if (err instanceof Error) {
+                setError(err.message);
+            }
         }
     };
 
     const minifyXML = () => {
         if (!inputXML.trim()) {
-            alert("Please enter XML data" || 'Please enter XML data');
+            alert("Please enter XML data");
             return;
         }
 
@@ -113,7 +116,9 @@ const XMLFormatter = () => {
             setError('');
         } catch (err) {
             setIsValid(false);
-            setError(err.message);
+            if (err instanceof Error) {
+                setError(err.message);
+            }
         }
     };
 
@@ -124,9 +129,9 @@ const XMLFormatter = () => {
         setError('');
     };
 
-    const copyToClipboard = (text) => {
+    const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);
-        alert("Copied to clipboard!" || 'Copied to clipboard!');
+        alert("Copied to clipboard!");
     };
 
     return (

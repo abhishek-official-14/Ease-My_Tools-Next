@@ -20,7 +20,9 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
     setAnimated(true);
   }, [categoryId]);
 
-  if (!categoryId || !toolsByCategory[categoryId] || toolsByCategory[categoryId].length === 0) {
+  const categoryKey = categoryId as keyof typeof toolsByCategory;
+
+  if (!categoryId || !toolsByCategory[categoryKey] || toolsByCategory[categoryKey].length === 0) {
     return (
       <div className={styles.categoryToolsPage}>
         <div className={styles.categoryHeader}>
@@ -39,13 +41,13 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
     );
   }
 
-  const categoryTools = toolsByCategory[categoryId];
+  const categoryTools = toolsByCategory[categoryKey];
 
   return (
     <div className={styles.categoryToolsPage}>
       <div className={styles.categoryHeader}>
         <BackButton />
-        <h1>{categoryTitles[categoryId] || "Tools"}</h1>
+        <h1>{categoryTitles[categoryId as keyof typeof categoryTitles] || "Tools"}</h1>
         <p>{categoryTools.length} tools available</p>
       </div>
 
@@ -61,7 +63,7 @@ const CategoryToolsPage = ({ categoryId: categoryIdProp }: CategoryToolsPageProp
               key={tool.name}
               className={`${styles.categoryToolCard} ${styles.floatingCard}`}
               style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() => router.push(`/tools/${tool.slug}`)}
+              onClick={() => router.push(`/tools/${tool.slug}` as Parameters<typeof router.push>[0])}
             >
               <div className={styles.toolCardContent}>
                 <IconComponent className={styles.toolCardIcon} />

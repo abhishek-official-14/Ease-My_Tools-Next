@@ -10,7 +10,7 @@ const URLEncoder = () => {
 
     const processText = () => {
         if (!inputText.trim()) {
-            alert("Please enter some text" || 'Please enter some text');
+            alert("Please enter some text");
             return;
         }
 
@@ -22,8 +22,8 @@ const URLEncoder = () => {
                 const decoded = decodeURIComponent(inputText);
                 setOutputText(decoded);
             }
-        } catch (error) {
-            alert("Invalid input for the selected operation" || 'Invalid input for the selected operation');
+        } catch {
+            alert("Invalid input for the selected operation");
         }
     };
 
@@ -32,9 +32,9 @@ const URLEncoder = () => {
         setOutputText('');
     };
 
-    const copyToClipboard = (text) => {
+    const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text);
-        alert("Copied to clipboard!" || 'Copied to clipboard!');
+        alert("Copied to clipboard!");
     };
 
     const swapOperation = () => {
@@ -45,7 +45,7 @@ const URLEncoder = () => {
 
     const processFullURL = () => {
         if (!inputText.trim()) {
-            alert("Please enter a URL" || 'Please enter a URL');
+            alert("Please enter a URL");
             return;
         }
 
@@ -57,8 +57,8 @@ const URLEncoder = () => {
                 const decoded = decodeURI(inputText);
                 setOutputText(decoded);
             }
-        } catch (error) {
-            alert("Invalid URL for the selected operation" || 'Invalid URL for the selected operation');
+        } catch {
+            alert("Invalid URL for the selected operation");
         }
     };
 
@@ -88,8 +88,8 @@ const URLEncoder = () => {
                 <div className={styles["input-section"]}>
                     <label>
                         {operation === 'encode' 
-                            ? "Text to Encode" || 'Text to Encode'
-                            : "URL to Decode" || 'URL to Decode'
+                            ? "Text to Encode"
+                            : "URL to Decode"
                         }
                     </label>
                     <textarea
@@ -97,8 +97,8 @@ const URLEncoder = () => {
                         onChange={(e) => setInputText(e.target.value)}
                         placeholder={
                             operation === 'encode' 
-                                ? "Enter text to encode to URL format..." || 'Enter text to encode to URL format...'
-                                : "Enter URL to decode..." || 'Enter URL to decode...'
+                                ? "Enter text to encode to URL format..."
+                                : "Enter URL to decode..."
                         }
                         className={styles["text-input"]}
                         rows={4}
@@ -108,14 +108,14 @@ const URLEncoder = () => {
                 <div className={styles["action-buttons"]}>
                     <button onClick={processText} className={styles["process-btn"]}>
                         {operation === 'encode' 
-                            ? "Encode Component" || 'Encode Component'
-                            : "Decode Component" || 'Decode Component'
+                            ? "Encode Component"
+                            : "Decode Component"
                         }
                     </button>
                     <button onClick={processFullURL} className={`${styles["process-btn"]} ${styles["full"]}`}>
                         {operation === 'encode' 
-                            ? "Encode Full URL" || 'Encode Full URL'
-                            : "Decode Full URL" || 'Decode Full URL'
+                            ? "Encode Full URL"
+                            : "Decode Full URL"
                         }
                     </button>
                     <button onClick={swapOperation} className={styles["swap-btn"]}>
@@ -130,8 +130,8 @@ const URLEncoder = () => {
                     <div className={styles["output-section"]}>
                         <label>
                             {operation === 'encode' 
-                                ? "Encoded Result" || 'Encoded Result'
-                                : "Decoded Result" || 'Decoded Result'
+                                ? "Encoded Result"
+                                : "Decoded Result"
                             }
                         </label>
                         <div className={styles["output-container"]}>
