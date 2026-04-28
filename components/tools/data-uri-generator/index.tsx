@@ -159,7 +159,7 @@ const DataUriGenerator = () => {
                                 value={text}
                                 onChange={(e) => setText(e.target.value)}
                                 placeholder={"Enter text to convert..."}
-                                rows="8"
+                                rows={8}
                             />
                         </div>
                     )}
@@ -244,7 +244,7 @@ const DataUriGenerator = () => {
                             <textarea
                                 value={dataUri}
                                 readOnly
-                                rows="4"
+                                rows={4}
                                 className={styles["uri-output"]}
                             />
                             {copied && (

@@ -65,8 +65,8 @@ const URLEncoder = () => {
     return (
         <div className={styles["url-encoder"]}>
             <div className={styles["encoder-header"]}>
-                <h1>{"URL Encoder/Decoder" || 'URL Encoder/Decoder'}</h1>
-                <p>{"Encode and decode URL strings online" || 'Encode and decode URL strings online'}</p>
+                <h1>{"URL Encoder/Decoder"}</h1>
+                <p>{"Encode and decode URL strings online"}</p>
             </div>
 
             <div className={styles["encoder-container"]}>
@@ -75,13 +75,13 @@ const URLEncoder = () => {
                         className={`${styles["op-btn"]} ${operation === 'encode' ? styles["active"] : ""}`}
                         onClick={() => setOperation('encode')}
                     >
-                        {"Encode" || 'Encode'}
+                        {"Encode"}
                     </button>
                     <button 
                         className={`${styles["op-btn"]} ${operation === 'decode' ? styles["active"] : ""}`}
                         onClick={() => setOperation('decode')}
                     >
-                        {"Decode" || 'Decode'}
+                        {"Decode"}
                     </button>
                 </div>
 
@@ -101,7 +101,7 @@ const URLEncoder = () => {
                                 : "Enter URL to decode..." || 'Enter URL to decode...'
                         }
                         className={styles["text-input"]}
-                        rows="4"
+                        rows={4}
                     />
                 </div>
 
@@ -119,10 +119,10 @@ const URLEncoder = () => {
                         }
                     </button>
                     <button onClick={swapOperation} className={styles["swap-btn"]}>
-                        {"Swap" || 'Swap'}
+                        {"Swap"}
                     </button>
                     <button onClick={clearAll} className={styles["clear-btn"]}>
-                        {"Clear All" || 'Clear All'}
+                        {"Clear All"}
                     </button>
                 </div>
 
@@ -140,32 +140,32 @@ const URLEncoder = () => {
                                 onClick={() => copyToClipboard(outputText)} 
                                 className={styles["copy-btn"]}
                             >
-                                {"Copy" || 'Copy'}
+                                {"Copy"}
                             </button>
                         </div>
                     </div>
                 )}
 
                 <div className={styles["info-section"]}>
-                    <h4>{"About URL Encoding" || 'About URL Encoding'}</h4>
-                    <p><strong>{"encodeURIComponent()" || 'encodeURIComponent()'}:</strong> {"Encodes all characters except: A-Z a-z 0-9 - _ . ! ~ * ' ( )" || 'Encodes all characters except: A-Z a-z 0-9 - _ . ! ~ * \' ( )'}</p>
-                    <p><strong>{"encodeURI()" || 'encodeURI()'}:</strong> {"Encodes a complete URL, preserving characters like : / ? & =" || 'Encodes a complete URL, preserving characters like : / ? & ='}</p>
+                    <h4>{"About URL Encoding"}</h4>
+                    <p><strong>{"encodeURIComponent()"}:</strong> {"Encodes all characters except: A-Z a-z 0-9 - _ . ! ~ * ' ( )"}</p>
+                    <p><strong>{"encodeURI()"}:</strong> {"Encodes a complete URL, preserving characters like : / ? & ="}</p>
                     
-                    <h5>{"Common Uses:" || 'Common Uses:'}</h5>
+                    <h5>{"Common Uses:"}</h5>
                     <ul>
-                        <li>{"Query parameters in URLs" || 'Query parameters in URLs'}</li>
-                        <li>{"Form data submission" || 'Form data submission'}</li>
-                        <li>{"API requests with special characters" || 'API requests with special characters'}</li>
-                        <li>{"Handling user input in web applications" || 'Handling user input in web applications'}</li>
+                        <li>{"Query parameters in URLs"}</li>
+                        <li>{"Form data submission"}</li>
+                        <li>{"API requests with special characters"}</li>
+                        <li>{"Handling user input in web applications"}</li>
                     </ul>
 
                     <div className={styles["examples"]}>
-                        <h5>{"Examples:" || 'Examples:'}</h5>
+                        <h5>{"Examples:"}</h5>
                         <div className={styles["example"]}>
-                            <strong>{"Encode:" || 'Encode:'}</strong> {"\"hello world\" → \"hello%20world\""}
+                            <strong>{"Encode:"}</strong> {"\"hello world\" → \"hello%20world\""}
                         </div>
                         <div className={styles["example"]}>
-                            <strong>{"Decode:" || 'Decode:'}</strong> {"\"hello%20world\" → \"hello world\""}
+                            <strong>{"Decode:"}</strong> {"\"hello%20world\" → \"hello world\""}
                         </div>
                     </div>
                 </div>
