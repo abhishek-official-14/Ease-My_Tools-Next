@@ -3,6 +3,27 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 
+type TimeValue = {
+    hours: number;
+    minutes: number;
+    seconds: number;
+};
+
+type TimeResult = TimeValue & {
+    totalSeconds: number;
+};
+
+type DateResult = {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    totalDays: number;
+    totalHours: number;
+    totalMinutes: number;
+    totalSeconds: number;
+};
+
 const TimeCalculator = () => {
     const [calculationType, setCalculationType] = useState('add');
     const [time1, setTime1] = useState({ hours: 0, minutes: 0, seconds: 0 });
@@ -45,7 +66,7 @@ const TimeCalculator = () => {
             return;
         }
 
-        const diffTime = Math.abs(end - start);
+        const diffTime = Math.abs(end.getTime() - start.getTime());
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
         const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));

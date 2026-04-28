@@ -38,7 +38,6 @@ const XMLFormatter = () => {
         xml = xml.replace(/>\s+</g, '><').trim();
         
         let inTag = false;
-        const inAttribute = false;
         let currentTag = '';
         let currentText = '';
 
@@ -89,7 +88,7 @@ const XMLFormatter = () => {
             const xmlDoc = parser.parseFromString(inputXML, "text/xml");
             
             if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0].textContent);
+                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0].textContent || 'Invalid XML');
             }
             
             setIsValid(true);
