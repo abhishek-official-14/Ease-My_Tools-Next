@@ -1,4 +1,4 @@
-/* .api-page {
+.api-page {
   min-height: 100vh;
   background: var(--bg-light);
   color: var(--text-light);
@@ -574,4 +574,4 @@
   .pricing-card.highlighted {
     transform: none;
   }
-} */
+}
