@@ -933,7 +933,7 @@ const ImageCompressor: React.FC = () => {
                   <div className={styles.tipIcon}>⚡</div>
                   <div className={styles.tipContent}>
                     <h4>Mode Selection</h4>
-                    <p>Use "High Quality" for photos, "Smallest" for web</p>
+                    <p>Use &quot;High Quality&quot; for photos, &quot;Smallest&quot; for web</p>
                   </div>
                 </div>
               </div>
