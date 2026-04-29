@@ -1,4 +1,4 @@
-/* .blog-page {
+.blog-page {
   min-height: 100vh;
   background: var(--bg-light);
   color: var(--text-light);
@@ -399,4 +399,4 @@
   .sidebar-section {
     padding: 1.5rem;
   }
-} */
+}

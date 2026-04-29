@@ -1,4 +1,4 @@
-/* .business-page {
+.business-page {
   min-height: 100vh;
   background: var(--bg-light);
   color: var(--text-light);
@@ -471,4 +471,4 @@
   .use-case-card {
     padding: 2rem 1.5rem;
   }
-} */
+}
