@@ -11,6 +11,7 @@ import {
   FaBeer,
   FaHeartbeat,
   FaFileCsv,
+  FaCompress,
 } from "react-icons/fa";
 import {
   MdFormatColorText,
@@ -40,6 +41,19 @@ export const toolsByCategory = {
       seo: {
         title: "Image Resizer",
         description: "Use the Image Resizer tool on EaseMyTools.",
+      },
+    },
+    {
+      name: "Image Compressor",
+      slug: "image-compressor",
+      icon: FaCompress,
+      component: () => import("@/components/tools/image-compressor"),
+      seo: {
+        title: "Image Compressor | Compress Images to Exact Size",
+        description:
+          "Compress JPEG, PNG, WebP, and AVIF images to exact file sizes while preserving quality. Perfect for web optimization.",
+        keywords:
+          "image compressor, compress image, reduce image size, image optimizer, webp converter",
       },
     },
     {
