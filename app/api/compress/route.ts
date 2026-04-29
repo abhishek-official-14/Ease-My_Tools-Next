@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
 
   const originalBuffer = Buffer.from(await file.arrayBuffer());
 
-  const compressed = await compressStrict(
+  const compressed:any = await compressStrict(
     originalBuffer,
     targetKB,
     format,
