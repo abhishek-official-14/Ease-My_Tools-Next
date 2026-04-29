@@ -568,7 +568,7 @@ const ImageCompressor: React.FC = () => {
     setDragActive(false);
     
     const droppedFile = e.dataTransfer.files[0];
-    handleFileChange(droppedFile);
+    handleFileChange(droppedFile ?? null);
   }, []);
 
   const compressImage = async () => {
