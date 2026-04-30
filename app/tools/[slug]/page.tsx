@@ -1,15 +1,10 @@
 import dynamic from "next/dynamic";
 import type { Metadata } from "next";
-import type { ComponentType } from "react";
 import CategoryToolsPage from "@/components/CategoryToolsPage";
 import { categoryTitles, getToolBySlug, toolsByCategory } from "@/data/toolsData";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string }; }): Promise<Metadata> {
   const { slug } = await params;
   const tool = getToolBySlug(slug);
 
