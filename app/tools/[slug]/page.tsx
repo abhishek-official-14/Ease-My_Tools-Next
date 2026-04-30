@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: { slug: string }; }
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) {
   const { slug } = await params;
   const tool = getToolBySlug(slug);
