@@ -4,7 +4,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import styles from './styles.module.css';
 
 const ImageToSvg = () => {
-    const [file, setFile] = useState<any | null>(null);
+    const [file, setFile] = useState<unknown | null>(null);
     const [originalImage, setOriginalImage] = useState('');
     const [svgOutput, setSvgOutput] = useState('');
     const [processing, setProcessing] = useState(false);

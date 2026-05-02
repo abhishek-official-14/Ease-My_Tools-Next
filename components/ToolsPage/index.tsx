@@ -140,7 +140,7 @@ const ToolsPage = () => {
                                         className={styles["tool-item"]}
                                         onMouseDown={(e) => {
                                             e.preventDefault(); // Prevents input blur
-                                            router.push(`/tools/${slug}` as any);
+                                            router.push(`/tools/${slug}` as unknown);
                                         }}
                                     >
                                         <div className={styles["tool-link"]}>
@@ -191,7 +191,7 @@ const ToolsPage = () => {
                                                 style={{ backgroundColor: category.color }}
                                                 onClick={() => {
                                                     if (!hasMoved) {
-                                                        router.push(category.link as any);
+                                                        router.push(category.link as unknown);
                                                     }
                                                 }}
                                             >

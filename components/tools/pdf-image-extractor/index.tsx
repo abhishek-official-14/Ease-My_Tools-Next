@@ -148,7 +148,7 @@ const PDFImageExtractor = () => {
         totalPages: data.total_pages
       });
 
-      const processedImages: ImageData[] = data.images.map((img: any, index: number) => ({
+      const processedImages: ImageData[] = data.images.map((img: unknown, index: number) => ({
         id: img.id || index + 1,
         name: img.name,
         originalName: `Page ${img.page} - Image ${index + 1}`,

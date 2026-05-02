@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 
 const JwtDebugger = () => {
     const [jwtToken, setJwtToken] = useState('');
-    const [decoded, setDecoded] = useState<any | null>(null);
+    const [decoded, setDecoded] = useState<unknown | null>(null);
     const [error, setError] = useState('');
 
     const decodeJWT = () => {
@@ -49,7 +49,7 @@ const JwtDebugger = () => {
         setError('');
     };
 
-    const copyToClipboard = (text: any) => {
+    const copyToClipboard = (text: unknown) => {
         navigator.clipboard.writeText(JSON.stringify(text, null, 2));
     };
 

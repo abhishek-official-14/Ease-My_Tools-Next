@@ -5,11 +5,11 @@ import styles from './styles.module.css';
 
 const FileConverter = () => {
 
-    const [file, setFile] = useState<any | null>(null);
+    const [file, setFile] = useState<unknown | null>(null);
     const [originalContent, setOriginalContent] = useState('');
     const [convertedContent, setConvertedContent] = useState('');
     const [converting, setConverting] = useState(false);
-    const [fileInfo, setFileInfo] = useState<any>({});
+    const [fileInfo, setFileInfo] = useState<unknown>({});
     const [conversionSettings, setConversionSettings] = useState({
         targetFormat: 'json',
         csvDelimiter: ',',
@@ -20,7 +20,7 @@ const FileConverter = () => {
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const detectFileFormat = (file: any) => {
+    const detectFileFormat = (file: unknown) => {
         const extension = file.name.split('.').pop()?.toLowerCase();
 
         switch (extension) {
@@ -32,7 +32,7 @@ const FileConverter = () => {
         }
     };
 
-    const readFileContent = (file: any): Promise<string> => {
+    const readFileContent = (file: unknown): Promise<string> => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -56,7 +56,7 @@ const FileConverter = () => {
 
         const data = cleanLines.slice(1).map((line) => {
             const values = line.split(delimiter).map(v => v.trim().replace(/^"|"$/g, ''));
-            const row: any = {};
+            const row: unknown = {};
             headers.forEach((header: string, colIndex: number) => {
                 row[header] = values[colIndex] || '';
             });
@@ -82,7 +82,7 @@ const FileConverter = () => {
     };
 
     const convertJSONToCSV = (jsonText: string) => {
-        let data: any[];
+        let data: unknown[];
         try {
             data = JSON.parse(jsonText);
         } catch {
@@ -100,7 +100,7 @@ const FileConverter = () => {
             csvRows.push(headers.map(header => `"${header}"`).join(conversionSettings.csvDelimiter));
         }
 
-        data.forEach((row: any) => {
+        data.forEach((row: unknown) => {
             const values = headers.map(header => {
                 const value = row[header];
                 const stringValue = value !== null && value !== undefined ? String(value).replace(/"/g, '""') : '';
@@ -135,7 +135,7 @@ const FileConverter = () => {
         try {
             const content = await readFileContent(file);
             const originalFormat = detectFileFormat(file);
-            let result: any;
+            let result: unknown;
 
             switch (originalFormat) {
                 case 'csv':
@@ -199,7 +199,7 @@ const FileConverter = () => {
             setOriginalContent(content);
             setConvertedContent('');
 
-            const info: any = {
+            const info: unknown = {
                 name: uploadedFile.name,
                 size: uploadedFile.size,
                 type: format.toUpperCase(),
@@ -222,7 +222,7 @@ const FileConverter = () => {
 
             setFileInfo(info);
 
-            const defaultTargets: any = {
+            const defaultTargets: unknown = {
                 csv: 'json',
                 json: 'csv',
                 excel: 'csv'

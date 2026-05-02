@@ -14,7 +14,7 @@ const t = (key: string, fallback?: string) => fallback ?? key;
 
 const CurrencyConverter = () => {
     
-    const [currencies, setCurrencies] = useState<any[]>([]);
+    const [currencies, setCurrencies] = useState<unknown[]>([]);
     const [conversion, setConversion] = useState({
         from: 'USD',
         to: 'INR',
@@ -24,8 +24,8 @@ const CurrencyConverter = () => {
         cached: false
     });
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<any | null>(null);
-    const [historicalData, setHistoricalData] = useState<any[]>([]);
+    const [error, setError] = useState<unknown | null>(null);
+    const [historicalData, setHistoricalData] = useState<unknown[]>([]);
     const [showHistory, setShowHistory] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [settings, setSettings] = useState({

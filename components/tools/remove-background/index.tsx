@@ -113,7 +113,7 @@ const RemoveBackground = () => {
       if (!resp.ok) throw new Error("Failed to process image");
       const blob = await resp.blob();
       setProcessedImage(URL.createObjectURL(blob));
-    } catch (e: any) {
+    } catch (e: unknown) {
       alert(e.message);
     }
     setProcessing(false);

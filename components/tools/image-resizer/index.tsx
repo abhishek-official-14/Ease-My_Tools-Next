@@ -4,8 +4,8 @@ import React, { useState, useRef } from 'react';
 import styles from './styles.module.css';
 
 const ImageResizer = () => {
-    const [originalImage, setOriginalImage] = useState<any | null>(null);
-    const [resizedImage, setResizedImage] = useState<any | null>(null);
+    const [originalImage, setOriginalImage] = useState<unknown | null>(null);
+    const [resizedImage, setResizedImage] = useState<unknown | null>(null);
     const [width, setWidth] = useState(800);
     const [height, setHeight] = useState(600);
     const [maintainAspectRatio, setMaintainAspectRatio] = useState(true);

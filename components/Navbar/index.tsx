@@ -85,7 +85,7 @@ const Navbar = () => {
     <header className={styles["navbar"]}>
       <div className={styles["navbar-container"]}>
 
-        <Link href={"/" as any} className={styles["navbar-logo"]} style={{ textDecoration: "None" }}>
+        <Link href={"/" as unknown} className={styles["navbar-logo"]} style={{ textDecoration: "None" }}>
           EaseMyTools
         </Link>
 
@@ -109,10 +109,10 @@ const Navbar = () => {
               {activeDropdown === index && (
                 <div className={styles["desktop-dropdown-panel"]}>
                   <div className={styles["desktop-dropdown-grid"]}>
-                    {menu.items.map((item: any, itemIndex: number) => (
+                    {menu.items.map((item: unknown, itemIndex: number) => (
                       <Link
                         key={itemIndex}
-                        href={`/${(item as any).id || ""}` as any}
+                        href={`/${(item as unknown).id || ""}` as unknown}
                         className={styles["desktop-dropdown-item"]}
                         onClick={() => {
                           setIsMenuOpen(false);
@@ -132,7 +132,7 @@ const Navbar = () => {
 
         <div className={`flex`}>
           <div className={styles["navbar-actions"]}>
-            <Link href={"/login" as any} className={styles["signin-btn"]}>
+            <Link href={"/login" as unknown} className={styles["signin-btn"]}>
               Sign In
             </Link>
             <button className={styles["theme-toggle-btn"]} onClick={handleThemeToggle}>
@@ -182,10 +182,10 @@ const Navbar = () => {
                     {activeDropdown === index && (
                       <div className={styles["mobile-dropdown-panel"]}>
                         <div className={styles["mobile-dropdown-grid"]}>
-                          {menu.items.map((item: any, itemIndex: number) => (
+                          {menu.items.map((item: unknown, itemIndex: number) => (
                             <Link
                               key={itemIndex}
-                              href={`/${(item as any).id || ""}` as any}
+                              href={`/${(item as unknown).id || ""}` as unknown}
                               className={styles["mobile-dropdown-item"]}
                               onClick={() => {
                                 setIsMenuOpen(false);
