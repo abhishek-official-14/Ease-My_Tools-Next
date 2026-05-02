@@ -37,7 +37,7 @@ const VideoThumbnailGenerator: React.FC = () => {
   const [width, setWidth] = useState<number>(640);
   const [height, setHeight] = useState<number>(360);
   const [keepAspectRatio, setKeepAspectRatio] = useState<boolean>(true);
-  
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -50,8 +50,8 @@ const VideoThumbnailGenerator: React.FC = () => {
     { value: 'webp', label: 'WebP', description: 'Modern format, balanced', icon: '🌐' }
   ];
 
-  // Handle file upload
-  const handleFileUpload = useCallback((uploadedFile: File | null) => {
+  // Handle file upload (fixed signature to accept undefined)
+  const handleFileUpload = useCallback((uploadedFile: File | undefined) => {
     if (!uploadedFile) return;
 
     if (!uploadedFile.type.startsWith('video/')) {
@@ -67,15 +67,15 @@ const VideoThumbnailGenerator: React.FC = () => {
     setVideoFile(uploadedFile);
     setThumbnails([]);
     setProgress(0);
-    
+
     const url = URL.createObjectURL(uploadedFile);
     setVideoUrl(url);
-    
+
     // Get video info
     const video = document.createElement('video');
     video.preload = 'metadata';
     video.src = url;
-    
+
     video.onloadedmetadata = () => {
       setVideoInfo({
         duration: video.duration,
@@ -84,12 +84,12 @@ const VideoThumbnailGenerator: React.FC = () => {
         size: uploadedFile.size,
         name: uploadedFile.name
       });
-      
+
       // Set initial dimensions
       setWidth(video.videoWidth);
       setHeight(video.videoHeight);
     };
-    
+
     setActiveTab('adjust');
   }, []);
 
@@ -107,9 +107,9 @@ const VideoThumbnailGenerator: React.FC = () => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     const droppedFile = e.dataTransfer.files[0];
-    handleFileUpload(droppedFile);
+    handleFileUpload(droppedFile); // Now accepts undefined, so no error
   }, [handleFileUpload]);
 
   // Format time from seconds to MM:SS or HH:MM:SS
@@ -117,7 +117,7 @@ const VideoThumbnailGenerator: React.FC = () => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = Math.floor(seconds % 60);
-    
+
     if (hours > 0) {
       return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
@@ -127,56 +127,58 @@ const VideoThumbnailGenerator: React.FC = () => {
   // Generate thumbnails at specific timestamps
   const generateThumbnails = async () => {
     if (!videoFile || !videoInfo) return;
-    
+
     setIsGenerating(true);
     setThumbnails([]);
-    
+
     const video = videoRef.current;
     if (!video) return;
-    
+
     video.src = videoUrl;
     await new Promise((resolve) => {
       video.onloadeddata = resolve;
     });
-    
+
     // Calculate timestamps
     const timestamps: number[] = [];
     const interval = videoInfo.duration / (thumbnailCount + 1);
-    
+
     for (let i = 1; i <= thumbnailCount; i++) {
       timestamps.push(interval * i);
     }
-    
+
     const generatedThumbnails: Thumbnail[] = [];
-    
+
     for (let i = 0; i < timestamps.length; i++) {
       const timestamp = timestamps[i];
-      
+      // Guard against undefined (though loop ensures it's a number)
+      if (timestamp === undefined) continue;
+
       // Seek to timestamp
       video.currentTime = timestamp;
       await new Promise((resolve) => {
         video.onseeked = resolve;
       });
-      
+
       // Capture frame
       const canvas = canvasRef.current;
       if (!canvas) continue;
-      
+
       // Calculate dimensions maintaining aspect ratio
-      let outputWidth = width;
+      const outputWidth = width;
       let outputHeight = height;
-      
+
       if (keepAspectRatio && videoInfo) {
         const aspectRatio = videoInfo.width / videoInfo.height;
         outputHeight = Math.round(outputWidth / aspectRatio);
       }
-      
+
       canvas.width = outputWidth;
       canvas.height = outputHeight;
-      
+
       const ctx = canvas.getContext('2d');
       ctx?.drawImage(video, 0, 0, outputWidth, outputHeight);
-      
+
       // Convert to selected format
       const mimeType = `image/${selectedFormat}`;
       const blob = await new Promise<Blob>((resolve) => {
@@ -186,22 +188,22 @@ const VideoThumbnailGenerator: React.FC = () => {
           quality / 100
         );
       });
-      
+
       const url = URL.createObjectURL(blob);
-      
+
       generatedThumbnails.push({
         id: `thumb_${timestamp}`,
-        timestamp,
+        timestamp, // Now definitely a number
         timeFormatted: formatTime(timestamp),
         url,
         blob,
         width: outputWidth,
         height: outputHeight
       });
-      
+
       setProgress(((i + 1) / timestamps.length) * 100);
     }
-    
+
     setThumbnails(generatedThumbnails);
     setIsGenerating(false);
     setActiveTab('results');
@@ -210,38 +212,38 @@ const VideoThumbnailGenerator: React.FC = () => {
   // Capture custom frame at specific timestamp
   const captureCustomFrame = async () => {
     if (!videoFile || !videoInfo) return;
-    
+
     const video = customVideoRef.current;
     if (!video) return;
-    
+
     video.src = videoUrl;
     await new Promise((resolve) => {
       video.onloadeddata = resolve;
     });
-    
+
     video.currentTime = customTimestamp;
     await new Promise((resolve) => {
       video.onseeked = resolve;
     });
-    
+
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     // Calculate dimensions
-    let outputWidth = width;
+    const outputWidth = width;
     let outputHeight = height;
-    
+
     if (keepAspectRatio && videoInfo) {
       const aspectRatio = videoInfo.width / videoInfo.height;
       outputHeight = Math.round(outputWidth / aspectRatio);
     }
-    
+
     canvas.width = outputWidth;
     canvas.height = outputHeight;
-    
+
     const ctx = canvas.getContext('2d');
     ctx?.drawImage(video, 0, 0, outputWidth, outputHeight);
-    
+
     const mimeType = `image/${selectedFormat}`;
     const blob = await new Promise<Blob>((resolve) => {
       canvas.toBlob(
@@ -250,9 +252,9 @@ const VideoThumbnailGenerator: React.FC = () => {
         quality / 100
       );
     });
-    
+
     const url = URL.createObjectURL(blob);
-    
+
     const customThumbnail: Thumbnail = {
       id: `custom_${customTimestamp}`,
       timestamp: customTimestamp,
@@ -262,7 +264,7 @@ const VideoThumbnailGenerator: React.FC = () => {
       width: outputWidth,
       height: outputHeight
     };
-    
+
     setThumbnails(prev => [...prev, customThumbnail]);
   };
 
@@ -279,12 +281,12 @@ const VideoThumbnailGenerator: React.FC = () => {
   const downloadAllThumbnails = async () => {
     const JSZip = (await import('jszip')).default;
     const zip = new JSZip();
-    
+
     thumbnails.forEach((thumbnail, index) => {
       const filename = `thumbnail_${index + 1}_${thumbnail.timeFormatted.replace(/:/g, '-')}.${selectedFormat}`;
       zip.file(filename, thumbnail.blob);
     });
-    
+
     const content = await zip.generateAsync({ type: 'blob' });
     const link = document.createElement('a');
     link.download = `thumbnails_${Date.now()}.zip`;
@@ -329,20 +331,20 @@ const VideoThumbnailGenerator: React.FC = () => {
 
       {/* Tab Navigation */}
       <div className={styles.tabBar}>
-        <button 
+        <button
           className={`${styles.tab} ${activeTab === 'upload' ? styles.active : ''}`}
           onClick={() => setActiveTab('upload')}
         >
           📤 Upload
         </button>
-        <button 
+        <button
           className={`${styles.tab} ${activeTab === 'adjust' ? styles.active : ''}`}
           onClick={() => setActiveTab('adjust')}
           disabled={!videoFile}
         >
           ⚙️ Adjust
         </button>
-        <button 
+        <button
           className={`${styles.tab} ${activeTab === 'results' ? styles.active : ''}`}
           onClick={() => setActiveTab('results')}
           disabled={thumbnails.length === 0}
@@ -355,7 +357,7 @@ const VideoThumbnailGenerator: React.FC = () => {
         {/* Upload Tab */}
         {activeTab === 'upload' && (
           <div className={styles.uploadTab}>
-            <div 
+            <div
               className={`${styles.uploadArea} ${dragActive ? styles.dragActive : ''}`}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
@@ -371,7 +373,7 @@ const VideoThumbnailGenerator: React.FC = () => {
                 ref={fileInputRef}
                 type="file"
                 accept="video/*"
-                onChange={(e) => handleFileUpload(e.target.files?.[0] || null)}
+                onChange={(e) => handleFileUpload(e.target.files?.[0])}
                 style={{ display: 'none' }}
               />
             </div>
@@ -418,7 +420,7 @@ const VideoThumbnailGenerator: React.FC = () => {
             <div className={styles.settingsPanel}>
               <div className={styles.settingsSection}>
                 <h3>Thumbnail Settings</h3>
-                
+
                 <div className={styles.controlGroup}>
                   <label>Number of Thumbnails: {thumbnailCount}</label>
                   <input
@@ -467,7 +469,7 @@ const VideoThumbnailGenerator: React.FC = () => {
 
               <div className={styles.settingsSection}>
                 <h3>Dimensions</h3>
-                
+
                 <div className={styles.controlGroup}>
                   <label className={styles.checkboxLabel}>
                     <input
@@ -566,8 +568,8 @@ const VideoThumbnailGenerator: React.FC = () => {
                   <div className={styles.thumbnailTime}>
                     ⏱️ {thumbnail.timeFormatted}
                   </div>
-                  <img 
-                    src={thumbnail.url} 
+                  <img
+                    src={thumbnail.url}
                     alt={`Thumbnail at ${thumbnail.timeFormatted}`}
                     className={styles.thumbnailImage}
                   />
@@ -575,7 +577,7 @@ const VideoThumbnailGenerator: React.FC = () => {
                     <span>📐 {thumbnail.width}×{thumbnail.height}</span>
                     <span>💾 {formatFileSize(thumbnail.blob.size)}</span>
                   </div>
-                  <button 
+                  <button
                     className={styles.downloadThumbBtn}
                     onClick={() => downloadThumbnail(thumbnail)}
                   >

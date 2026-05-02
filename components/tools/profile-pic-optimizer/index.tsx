@@ -295,7 +295,7 @@ const ProfilePicOptimizer: React.FC = () => {
     }
     
     for (let i = 0; i < platformsToProcess.length; i++) {
-      const platform = platformsToProcess[i];
+      const platform : any = platformsToProcess[i];
       try {
         const blob = await processImage(img, platform, face);
         const url = URL.createObjectURL(blob);
