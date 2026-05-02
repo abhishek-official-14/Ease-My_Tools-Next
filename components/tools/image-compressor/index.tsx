@@ -209,13 +209,13 @@ const ImageCompressor: React.FC = () => {
 
       const compressedBlob = await response.blob();
 
-      let originalSize = file.size;
+      const originalSize = file.size;
       let compressedSize = compressedBlob.size;
 
       const originalSizeHeader = response.headers.get('X-Original-Size');
       const compressedSizeHeader = response.headers.get('X-Compressed-Size');
 
-      if (originalSizeHeader) originalSize = parseInt(originalSizeHeader);
+      // if (originalSizeHeader) originalSize = parseInt(originalSizeHeader);
       if (compressedSizeHeader) compressedSize = parseInt(compressedSizeHeader);
 
       const compressionRatio = ((originalSize - compressedSize) / originalSize) * 100;

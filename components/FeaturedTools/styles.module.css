@@ -9,7 +9,8 @@
 }
 
 :global(.dark) .featured-tools {
-  background: #0f172a;
+  background: #00040c;
+  /* background: #20273a; */
 }
 
 .featured-tools .container {
