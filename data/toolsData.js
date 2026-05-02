@@ -12,6 +12,8 @@ import {
   FaHeartbeat,
   FaFileCsv,
   FaCompress,
+  FaUserCircle,
+  FaVideo,
 } from "react-icons/fa";
 import {
   MdFormatColorText,
@@ -54,6 +56,28 @@ export const toolsByCategory = {
           "Compress JPEG, PNG, WebP, and AVIF images to exact file sizes while preserving quality. Perfect for web optimization.",
         keywords:
           "image compressor, compress image, reduce image size, image optimizer, webp converter",
+      },
+    },
+        {
+      name: "Profile Picture Optimizer",
+      slug: "profile-pic-optimizer",
+      icon: FaUserCircle,
+      component: () => import("@/components/tools/profile-pic-optimizer"),
+      seo: {
+        title: "Profile Picture Optimizer | Perfect Size for Social Media",
+        description: "Create perfectly sized profile pictures for WhatsApp, Instagram, Facebook, Twitter, Snapchat, and LinkedIn with smart face detection and auto-cropping.",
+        keywords: "profile picture optimizer, social media photo, image resizer for social media, profile photo editor, facebook profile picture, instagram profile photo",
+      },
+    },
+    {
+      name: "Video Thumbnail Generator",
+      slug: "video-thumbnail-generator",
+      icon: FaVideo,
+      component: () => import("@/components/tools/video-thumbnail-generator"),
+      seo: {
+        title: "Video Thumbnail Generator | Extract Thumbnails from Videos",
+        description: "Extract high-quality thumbnails from any video. Perfect for YouTube, social media, and content creation. Supports MP4, WebM, and more.",
+        keywords: "video thumbnail generator, extract thumbnails, youtube thumbnail, video to thumbnail, thumbnail maker",
       },
     },
     {
