@@ -1,6 +1,8 @@
 import About from "@/components/About";
 
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "EaseMyTools - About",
   description: "Use the About tool on EaseMyTools.",
 };

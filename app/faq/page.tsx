@@ -1,6 +1,7 @@
 import FAQ from "@/components/FAQ";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "EaseMyTools - Faq",
   description: "Use the Faq tool on EaseMyTools.",
 };

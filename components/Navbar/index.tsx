@@ -152,7 +152,8 @@ const Navbar = () => {
             ) : session ? (
               <div className={styles["user-menu"]}>
                 <span className={styles["user-email"]}>
-                  {session.user?.email?.split("@")[0]}
+                  {/* {session.user?.email?.split("@")[0]} */}
+                  {session.user?.name}
                 </span>
                 <button onClick={() => signOut()} className={styles["signout-btn"]}>
                   Sign Out

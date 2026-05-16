@@ -1,6 +1,7 @@
 import Education from "@/components/Education";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "EaseMyTools - Education",
   description: "Use the Education tool on EaseMyTools.",
 };

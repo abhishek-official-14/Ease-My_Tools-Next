@@ -1,6 +1,7 @@
 import MobileApp from "@/components/MobileApp";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "EaseMyTools - Mobile",
   description: "Use the Mobile tool on EaseMyTools.",
 };

@@ -17,7 +17,7 @@ const LAST_MODIFIED = new Date("2026-05-15");
  * Folders/routes to exclude
  */
 const EXCLUDED_FOLDERS = new Set([
-    "api",
+    "api","verify-email"
 ]);
 
 function getRoutes(

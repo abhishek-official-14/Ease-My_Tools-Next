@@ -1,6 +1,7 @@
 import Business from "@/components/Business";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "EaseMyTools - Business",
   description: "Use the Business tool on EaseMyTools.",
 };
