@@ -22,7 +22,7 @@ import {
   MdAutoFixHigh,
   MdOutlineDriveFileRenameOutline,
 } from "react-icons/md";
-import { BiCodeAlt } from "react-icons/bi";
+import { BiCodeAlt, BiText } from "react-icons/bi";
 import { AiOutlineFileText } from "react-icons/ai";
 import {
   TbBinaryTree,
@@ -32,8 +32,6 @@ import {
 } from "react-icons/tb";
 import { BsFiletypeSvg, BsRegex } from "react-icons/bs";
 import { VscFilePdf } from "react-icons/vsc";
-import { categoryTitles, toolCategoryConfig } from "@/data/tools/categoryConfig";
-import { getRelatedToolsByScoring } from "@/lib/tools/relatedTools";
 
 export const toolsByCategory = {
   image: [
@@ -504,7 +502,16 @@ export const toolsByCategory = {
   ],
 };
 
-export { categoryTitles };
+export const categoryTitles = {
+  image: "Image Tools",
+  converters: "Converters",
+  text: "Text Tools",
+  calculators: "Calculators",
+  file: "File Tools",
+  web: "Web Tools",
+  generators: "Generators",
+  health: "Health Tools",
+};
 
 export const getAllTools = () => {
   return Object.values(toolsByCategory).flat();
@@ -520,13 +527,111 @@ export const getToolCategoryBySlug = (slug) => {
   return Object.entries(toolsByCategory).find(([, tools]) => tools.some((tool) => tool.slug === slug))?.[0] ?? null;
 };
 
+const getToolTerms = (tool) => {
+  const keywordSource = [tool.name, tool.seo?.title, tool.seo?.description, tool.seo?.keywords]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return new Set(keywordSource.split(/[^a-z0-9]+/).filter((term) => term.length > 2));
+};
+
 export const getRelatedTools = (slug, limit = 6) => {
-  return getRelatedToolsByScoring(slug, getAllTools(), getToolCategoryBySlug, limit);
+  const sourceTool = getToolBySlug(slug);
+  if (!sourceTool) return [];
+
+  const sourceCategory = getToolCategoryBySlug(slug);
+  const sourceTerms = getToolTerms(sourceTool);
+  const allTools = getAllTools().filter((tool) => tool.slug !== slug);
+
+  const rankedTools = allTools
+    .map((tool) => {
+      const toolTerms = getToolTerms(tool);
+      const sharedTerms = [...sourceTerms].filter((term) => toolTerms.has(term)).length;
+      const sameCategoryBoost = sourceCategory && toolsByCategory[sourceCategory]?.some((item) => item.slug === tool.slug) ? 2 : 0;
+      return { tool, score: sharedTerms + sameCategoryBoost };
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((entry) => entry.tool);
+
+  return rankedTools;
 };
 
 export const getToolCategories = () => {
-  return toolCategoryConfig.map((config) => ({
-    ...config,
-    count: `${toolsByCategory[config.id].length} tools`,
-  }));
+  return [
+    {
+      id: "image",
+      title: "Image Tools",
+      description: "Resize, convert and edit images",
+      color: "#F97316",
+      count: `${toolsByCategory.image.length} tools`,
+      icon: FaImage,
+      link: "/tools/image",
+    },
+    {
+      id: "converters",
+      title: "Converters",
+      description: "Various format converters",
+      color: "#8B5CF6",
+      count: `${toolsByCategory.converters.length} tools`,
+      icon: FaExchangeAlt,
+      link: "/tools/converters",
+    },
+    {
+      id: "text",
+      title: "Text Tools",
+      description: "Text formatting and analysis",
+      color: "#06B6D4",
+      count: `${toolsByCategory.text.length} tools`,
+      icon: BiText,
+      link: "/tools/text",
+    },
+    {
+      id: "calculators",
+      title: "Calculators",
+      description: "Various calculation tools",
+      color: "#10B981",
+      count: `${toolsByCategory.calculators.length} tools`,
+      icon: FaCalculator,
+      link: "/tools/calculators",
+    },
+    {
+      id: "file",
+      title: "File Tools",
+      description: "File conversion and management",
+      color: "#0D9488",
+      count: `${toolsByCategory.file.length} tools`,
+      icon: FaFile,
+      link: "/tools/file",
+    },
+    {
+      id: "web",
+      title: "Web Tools",
+      description: "Web development utilities",
+      color: "#EC4899",
+      count: `${toolsByCategory.web.length} tools`,
+      icon: FaGlobe,
+      link: "/tools/web",
+    },
+    {
+      id: "generators",
+      title: "Generators",
+      description: "Code and content generators",
+      color: "#F59E0B",
+      count: `${toolsByCategory.generators.length} tools`,
+      icon: FaQrcode,
+      link: "/tools/generators",
+    },
+    {
+      id: "health",
+      title: "Health Tools",
+      description: "Health and fitness utilities",
+      color: "#F43F5E",
+      count: `${toolsByCategory.health.length} tools`,
+      icon: FaHeartbeat,
+      link: "/tools/health",
+    },
+  ];
 };
