@@ -1,92 +1,64 @@
 // app/sitemap.ts
 
-import fs from "fs";
-import path from "path";
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+
+import {
+    toolsByCategory,
+} from "@/data/toolsData";
 
 const BASE_URL = "https://easemytools.com";
 
-/**
- * Use a stable date instead of new Date()
- * so search engines do not think every
- * page changes on every request.
- */
 const LAST_MODIFIED = new Date("2026-05-15");
 
-/**
- * Folders/routes to exclude
- */
-const EXCLUDED_FOLDERS = new Set([
-    "api","verify-email"
-]);
-
-function getRoutes(
-    dir = "app",
-    baseRoute = ""
-): string[] {
-    const fullPath = path.join(process.cwd(), dir);
-
-    const entries = fs.readdirSync(fullPath, {
-        withFileTypes: true,
-    });
-
-    const routes: string[] = [];
-
-    for (const entry of entries) {
-        if (!entry.isDirectory()) continue;
-
-        const name = entry.name;
-
-        /**
-         * Skip:
-         * - private folders (_folder)
-         * - route groups ((group))
-         * - dynamic routes ([slug])
-         * - excluded folders
-         */
-        if (
-            name.startsWith("_") ||
-            name.startsWith("(") ||
-            name.startsWith("[") ||
-            EXCLUDED_FOLDERS.has(name)
-        ) {
-            continue;
-        }
-
-        const route = `${baseRoute}/${name}`;
-
-        routes.push(route);
-
-        /**
-         * Recursively scan nested routes
-         */
-        routes.push(
-            ...getRoutes(
-                path.join(dir, name),
-                route
-            )
-        );
-    }
-
-    return routes;
-}
+const STATIC_ROUTES = [
+    "",
+    "/tools",
+    "/about",
+    "/contact",
+    "/blog",
+    "/privacy-policy",
+    "/terms-conditions",
+    "/pricing",
+    "/features",
+    "/faq",
+    "/documentation",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const routes = ["", ...getRoutes()];
+    const staticPages: MetadataRoute.Sitemap =
+        STATIC_ROUTES.map((route) => ({
+            url: `${BASE_URL}${route}`,
 
-    return routes.map((route) => ({
-        url: `${BASE_URL}${route}`,
+            lastModified: LAST_MODIFIED,
 
-        lastModified: LAST_MODIFIED,
+            changeFrequency:
+                route === ""
+                    ? "daily"
+                    : "weekly",
 
-        changeFrequency:
-            route === ""
-                ? "daily"
-                : "weekly",
+            priority:
+                route === ""
+                    ? 1
+                    : 0.8,
+        }));
 
-        priority:
-            route === ""
-                ? 1
-                : 0.8,
-    }));
+    
+
+    const categoryPages: MetadataRoute.Sitemap =
+        Object.keys(toolsByCategory).map(
+            (category) => ({
+                url: `${BASE_URL}/tools/${category}`,
+
+                lastModified: LAST_MODIFIED,
+
+                changeFrequency: "weekly",
+
+                priority: 0.7,
+            })
+        );
+
+    return [
+        ...staticPages,
+        ...categoryPages,
+    ];
 }
