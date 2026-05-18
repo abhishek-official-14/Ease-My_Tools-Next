@@ -348,13 +348,13 @@ const ProfilePicOptimizer: React.FC = () => {
   return (
     <div className={styles.container}>
       {/* Hero Section */}
-      <div className={styles.hero}>
+      {/* <div className={styles.hero}>
         <div className={styles.heroBadge}>✨ Smart Optimizer</div>
         <h1 className={styles.heroTitle}>Profile Picture Optimizer</h1>
         <p className={styles.heroSubtitle}>
           Create perfectly sized profile pictures for all social media platforms with AI-powered face detection
         </p>
-      </div>
+      </div> */}
 
       {/* Tab Navigation */}
       <div className={styles.tabBar}>

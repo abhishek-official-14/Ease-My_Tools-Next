@@ -303,10 +303,7 @@ const FileRenameTool = () => {
 
   return (
     <div className={styles["file-rename-tool"]}>
-      <div className={styles["tool-header"]}>
-        <h1>{t('title')}</h1>
-        <p>{t('subtitle')}</p>
-      </div>
+  
 
       <div className={styles["rename-container"]}>
         {/* Upload Section */}

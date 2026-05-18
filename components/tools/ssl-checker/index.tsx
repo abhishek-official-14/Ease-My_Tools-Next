@@ -94,10 +94,10 @@ const SslChecker = () => {
 
     return (
         <div className={styles["ssl-checker"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"SSL Certificate Checker"}</h1>
                 <p>{"Check SSL certificate information for any domain"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["checker-container"]}>
                 <div className={styles["input-section"]}>

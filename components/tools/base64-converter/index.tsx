@@ -65,7 +65,7 @@ const Base64Converter = () => {
 
     return (
         <div className={styles["base64-container"]}>
-            <h2 className={styles["title"]}>{"🔤 Base64 Converter"}</h2>
+            {/* <h2 className={styles["title"]}>{"🔤 Base64 Converter"}</h2> */}
 
             <div className={styles["mode-selector"]}>
                 <button

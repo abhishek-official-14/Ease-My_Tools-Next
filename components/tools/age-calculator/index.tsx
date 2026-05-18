@@ -63,10 +63,10 @@ const AgeCalculator = () => {
 
     return (
         <div className={styles["age-calculator"]}>
-            <div className={styles["calculator-header"]}>
+            {/* <div className={styles["calculator-header"]}>
                 <h1>Age Calculator</h1>
                 <p>Calculate your exact age in years, months, and days</p>
-            </div>
+            </div> */}
 
             <div className={styles["calculator-container"]}>
                 <div className={styles["input-section"]}>

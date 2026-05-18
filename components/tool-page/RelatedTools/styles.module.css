@@ -1,14 +1,36 @@
 .relatedTools {
-    padding: 0 2rem 2.5rem;
+    padding: 3rem 2rem 2.5rem;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+:global(.dark) .relatedTools {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .relatedContainer {
     max-width: 1400px;
     margin: 0 auto;
+
+    background: rgba(255, 255, 255, 0.28);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    border-radius: 28px;
+
+    padding: 1.75rem;
+}
+
+:global(.dark) .relatedContainer {
+    background: rgba(15, 23, 42, 0.45);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .relatedHeader {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .relatedTitle {
@@ -17,13 +39,7 @@
     font-size: 1.9rem;
     font-weight: 800;
 
-    background: linear-gradient(135deg,
-            #667eea 0%,
-            #764ba2 100%);
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
 }
 
 .relatedSubtitle {
@@ -59,15 +75,20 @@
 
     text-decoration: none;
 
+    border: 1px solid transparent;
+
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .toolCard:hover {
     transform: translateY(-2px);
+
+    border-color: rgba(102, 126, 234, 0.25);
 
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
 }
@@ -103,7 +124,7 @@
 
 @media (max-width: 1024px) {
     .relatedTools {
-        padding: 0 1rem 2rem;
+        padding: 2.5rem 1rem 2rem;
     }
 
     .toolsGrid {
@@ -114,7 +135,7 @@
 
 @media (max-width: 640px) {
     .relatedTools {
-        padding: 0 0.75rem 1.5rem;
+        padding: 2rem 0.75rem 1.5rem;
     }
 
     .relatedTitle {
@@ -123,6 +144,11 @@
 
     .toolsGrid {
         grid-template-columns: 1fr;
+    }
+
+    .relatedContainer {
+        padding: 1.25rem;
+        border-radius: 22px;
     }
 
     .toolCard {

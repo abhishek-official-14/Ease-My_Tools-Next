@@ -42,10 +42,10 @@ const CaseConverter = () => { // <-- i18next
 
     return (
         <div className={styles["case-converter"]}>
-            <div className={styles["converter-header"]}>
+            {/* <div className={styles["converter-header"]}>
                 <h1>{"Text Case Converter"}</h1>
                 <p>{"Convert text between different cases instantly"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["converter-container"]}>
                 <div className={styles["input-section"]}>

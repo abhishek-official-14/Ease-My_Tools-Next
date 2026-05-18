@@ -321,13 +321,13 @@ const VideoThumbnailGenerator: React.FC = () => {
   return (
     <div className={styles.container}>
       {/* Hero Section */}
-      <div className={styles.hero}>
+      {/* <div className={styles.hero}>
         <div className={styles.heroBadge}>🎬 Smart Thumbnail Generator</div>
         <h1 className={styles.heroTitle}>Video Thumbnail Generator</h1>
         <p className={styles.heroSubtitle}>
           Extract high-quality thumbnails from any video. Perfect for YouTube, social media, and content creation.
         </p>
-      </div>
+      </div> */}
 
       {/* Tab Navigation */}
       <div className={styles.tabBar}>

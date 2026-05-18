@@ -150,10 +150,10 @@ const CSVtoJSON = () => {
 
     return (
         <div className={styles["csv-json-converter"]}>
-            <div className={styles["converter-header"]}>
+            {/* <div className={styles["converter-header"]}>
                 <h1>{"CSV to JSON Converter"}</h1>
                 <p>{"Convert between CSV and JSON formats"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["converter-container"]}>
                 <div className={styles["settings-panel"]}>

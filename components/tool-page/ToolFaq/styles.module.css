@@ -1,14 +1,36 @@
 .toolFaq {
-    padding: 0 2rem 2rem;
+    padding: 3rem 2rem 0;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+:global(.dark) .toolFaq {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .faqContainer {
     max-width: 1400px;
     margin: 0 auto;
+
+    background: rgba(255, 255, 255, 0.28);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    border-radius: 28px;
+
+    padding: 1.75rem;
+}
+
+:global(.dark) .faqContainer {
+    background: rgba(15, 23, 42, 0.45);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .faqHeader {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .faqTitle {
@@ -17,13 +39,7 @@
     font-size: 1.9rem;
     font-weight: 800;
 
-    background: linear-gradient(135deg,
-            #667eea 0%,
-            #764ba2 100%);
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
 }
 
 .faqSubtitle {
@@ -99,7 +115,7 @@
 
 @media (max-width: 1024px) {
     .toolFaq {
-        padding: 0 1rem 1.5rem;
+        padding: 2.5rem 1rem 0;
     }
 
     .faqGrid {
@@ -110,7 +126,7 @@
 
 @media (max-width: 640px) {
     .toolFaq {
-        padding: 0 0.75rem 1rem;
+        padding: 2rem 0.75rem 0;
     }
 
     .faqTitle {
@@ -119,6 +135,11 @@
 
     .faqGrid {
         grid-template-columns: 1fr;
+    }
+
+    .faqContainer {
+        padding: 1.25rem;
+        border-radius: 22px;
     }
 
     .faqCard {

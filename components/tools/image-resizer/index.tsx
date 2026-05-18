@@ -151,10 +151,10 @@ const ImageResizer = () => {
 
     return (
         <div className={styles["image-resizer"]}>
-            <div className={styles["resizer-header"]}>
+            {/* <div className={styles["resizer-header"]}>
                 <h1>{"Image Resizer"}</h1>
                 <p>{"Resize images while maintaining quality"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["resizer-container"]}>
                 <div className={styles["upload-section"]}>

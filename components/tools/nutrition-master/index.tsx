@@ -739,10 +739,10 @@ const NutritionMaster = () => {
 
     return (
         <div className={styles["nutrition-master"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"Nutrition Master - Complete Food Database"}</h1>
                 <p>{"Comprehensive nutritional analysis with 500+ foods, fruits, dry fruits, and supplements"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["master-container"]}>
                 {/* Search and Filters */}

@@ -184,10 +184,10 @@ const FaviconGenerator = () => {
 
   return (
     <div className={styles["favicon-generator"]}>
-      <div className={styles["tool-header"]}>
+      {/* <div className={styles["tool-header"]}>
         <h1>{"Favicon Generator"}</h1>
         <p>{"Create professional favicons for your website in multiple formats and sizes"}</p>
-      </div>
+      </div> */}
 
       <div className={styles["generator-container"]}>
         {/* Upload Section */}

@@ -314,10 +314,10 @@ const FileConverter = () => {
 
     return (
         <div className={styles["file-converter"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"File Format Converter"}</h1>
                 <p>{"Convert between CSV, Excel, and JSON formats seamlessly"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["converter-container"]}>
                 <div className={styles["upload-section"]}>

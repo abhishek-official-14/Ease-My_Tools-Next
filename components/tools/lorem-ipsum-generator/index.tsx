@@ -99,10 +99,10 @@ const LoremIpsumGenerator = () => {
 
     return (
         <div className={styles["lorem-generator"]}>
-            <div className={styles["generator-header"]}>
+            {/* <div className={styles["generator-header"]}>
                 <h1>{"Lorem Ipsum Generator"}</h1>
                 <p>{"Generate placeholder text for your projects"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["generator-container"]}>
                 <div className={styles["controls-section"]}>

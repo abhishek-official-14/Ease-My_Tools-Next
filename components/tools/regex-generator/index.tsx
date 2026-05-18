@@ -166,10 +166,10 @@ const RegexGenerator = () => {
 
     return (
         <div className={styles["regex-generator"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"Regex Generator"}</h1>
                 <p>{"Generate regular expressions from natural language descriptions"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["regex-container"]}>
                 <div className={styles["input-section"]}>

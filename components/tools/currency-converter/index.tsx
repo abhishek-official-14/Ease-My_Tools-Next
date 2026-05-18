@@ -261,10 +261,10 @@ const CurrencyConverter = () => {
 
     return (
         <div className={styles["currency-converter"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"Currency Converter"}</h1>
                 <p>{"Real-time exchange rates with historical data"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["converter-container"]}>
                 {/* Main Conversion Card */}

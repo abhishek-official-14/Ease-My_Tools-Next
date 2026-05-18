@@ -363,10 +363,10 @@ const ImageToSvg = () => {
 
     return (
         <div className={styles["image-to-svg"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"Image to SVG Converter"}</h1>
                 <p>{"Convert raster images (PNG, JPG, WebP) to scalable SVG format"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["converter-container"]}>
                 {/* Upload Section */}

@@ -16,7 +16,7 @@ const TextDiffChecker = () => {
 
     return (
         <div className={styles["diff-container"]}>
-            <h2>Text Diff Checker</h2>
+            {/* <h2>Text Diff Checker</h2> */}
             <div className={styles["inputs"]}>
                 <textarea
                     placeholder="Enter Text A"

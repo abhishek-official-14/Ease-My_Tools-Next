@@ -51,10 +51,10 @@ const HashGenerator = () => {
 
     return (
         <div className={styles["hash-generator"]}>
-            <div className={styles["generator-header"]}>
+            {/* <div className={styles["generator-header"]}>
                 <h1>{"Hash Generator"}</h1>
                 <p>{"Generate MD5, SHA-1, and SHA-256 hashes"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["generator-container"]}>
                 <div className={styles["input-section"]}>

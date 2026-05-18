@@ -285,13 +285,13 @@ const ImageCompressor: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.hero}>
+      {/* <div className={styles.hero}>
         <div className={styles.heroBadge}>🔥 Smart Compression</div>
         <h1 className={styles.heroTitle}>Image Compressor</h1>
         <p className={styles.heroSubtitle}>
           Compress images to exact file sizes while preserving quality
         </p>
-      </div>
+      </div> */}
 
       <div className={styles.main}>
         <div className={styles.twoColumnLayout}>

@@ -222,10 +222,10 @@ const WebsiteCostCalculator = () => {
 
     return (
         <div className={styles["website-cost-calculator"]}>
-            <div className={styles["calculator-header"]}>
+            {/* <div className={styles["calculator-header"]}>
                 <h1>{"Website Cost Calculator"}</h1>
                 <p>{"Professional website development cost estimator for agencies and freelancers"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["calculator-container"]}>
                 {/* Left Panel - Inputs */}

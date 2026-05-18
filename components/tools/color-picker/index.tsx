@@ -58,10 +58,10 @@ const ColorPicker = () => { // <-- i18next
 
     return (
         <div className={styles["color-picker"]}>
-            <div className={styles["picker-header"]}>
+            {/* <div className={styles["picker-header"]}>
                 <h1>{"Color Picker"}</h1>
                 <p>{"Pick colors and get their values in different formats"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["picker-container"]}>
                 <div className={styles["color-display-section"]}>

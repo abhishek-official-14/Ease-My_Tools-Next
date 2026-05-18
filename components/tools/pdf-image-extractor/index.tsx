@@ -286,10 +286,10 @@ const PDFImageExtractor = () => {
 
   return (
     <div className={styles["pdf-image-extractor"]}>
-      <div className={styles["tool-header"]}>
+      {/* <div className={styles["tool-header"]}>
         <h1>{"PDF Image Extractor"}</h1>
         <p>{"Extract images, diagrams, and graphics from your PDF documents"}</p>
-      </div>
+      </div> */}
 
       <div className={styles["extractor-container"]}>
         {/* Upload Section */}

@@ -26,10 +26,10 @@ const WordCounter = () => { // namespace for Word Counter
 
     return (
         <div className={styles["word-counter"]}>
-            <div className={styles["counter-header"]}>
+            {/* <div className={styles["counter-header"]}>
                 <h1>{"Word Counter"}</h1>
                 <p>{"Count words, characters, and more in your text"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["counter-container"]}>
                 <div className={styles["input-section"]}>

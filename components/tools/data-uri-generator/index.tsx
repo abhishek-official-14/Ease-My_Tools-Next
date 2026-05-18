@@ -131,10 +131,10 @@ const DataUriGenerator = () => {
 
     return (
         <div className={styles["data-uri-generator"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"Data URI Generator"}</h1>
                 <p>{"Convert files and text to Data URIs"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["generator-container"]}>
                 <div className={styles["input-section"]}>

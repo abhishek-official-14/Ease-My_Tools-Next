@@ -102,10 +102,10 @@ const TimeCalculator = () => {
 
     return (
         <div className={styles["time-calculator"]}>
-            <div className={styles["calculator-header"]}>
+            {/* <div className={styles["calculator-header"]}>
                 <h1>{"Time Calculator"}</h1>
                 <p>{"Add, subtract time and calculate date differences"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["calculator-container"]}>
                 <div className={styles["calculation-types"]}>

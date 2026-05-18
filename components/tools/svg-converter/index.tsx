@@ -241,10 +241,10 @@ const SvgConverter = () => {
 
     return (
         <div className={styles["svg-converter"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"SVG Converter"}</h1>
                 <p>{"Convert SVG files to PNG, JPG, and other formats"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["converter-container"]}>
                 {/* Upload Section */}

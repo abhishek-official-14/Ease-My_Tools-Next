@@ -63,7 +63,7 @@ const QRCodeTool = () => {
 
     return (
         <div className={styles["qr-container"]}>
-            <h2>QR Code Generator & Decoder</h2>
+            {/* <h2>QR Code Generator & Decoder</h2> */}
 
             <div className={styles["generator"]} ref={svgRef}>
                 <h3>Generate QR Code</h3>

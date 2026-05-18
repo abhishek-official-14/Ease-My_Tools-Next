@@ -90,10 +90,10 @@ const PasswordGenerator = () => {
 
     return (
         <div className={styles["password-generator"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"Password Generator"}</h1>
                 <p>{"Generate strong and secure passwords"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["generator-container"]}>
                 <div className={styles["password-display"]}>

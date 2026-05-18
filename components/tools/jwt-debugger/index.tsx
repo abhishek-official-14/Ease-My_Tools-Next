@@ -74,10 +74,10 @@ const JwtDebugger = () => {
 
     return (
         <div className={styles["jwt-debugger"]}>
-            <div className={styles["tool-header"]}>
+            {/* <div className={styles["tool-header"]}>
                 <h1>{"JWT Debugger"}</h1>
                 <p>{"Decode and verify JSON Web Tokens"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["debugger-container"]}>
                 <div className={styles["input-section"]}>

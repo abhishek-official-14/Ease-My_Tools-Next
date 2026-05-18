@@ -64,10 +64,10 @@ const URLEncoder = () => {
 
     return (
         <div className={styles["url-encoder"]}>
-            <div className={styles["encoder-header"]}>
+            {/* <div className={styles["encoder-header"]}>
                 <h1>{"URL Encoder/Decoder"}</h1>
                 <p>{"Encode and decode URL strings online"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["encoder-container"]}>
                 <div className={styles["operation-selector"]}>

@@ -77,10 +77,10 @@ const JSONFormatter = () => { // <-- i18next
 
     return (
         <div className={styles["json-formatter"]}>
-            <div className={styles["formatter-header"]}>
+            {/* <div className={styles["formatter-header"]}>
                 <h1>{"JSON Formatter"}</h1>
                 <p>{"Format, validate, and minify JSON data"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["formatter-container"]}>
                 <div className={styles["input-section"]}>

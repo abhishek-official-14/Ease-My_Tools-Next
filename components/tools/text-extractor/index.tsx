@@ -110,10 +110,10 @@ you would need to integrate with an OCR service like:
 
     return (
         <div className={styles["text-extractor"]} onPaste={handlePaste}>
-            <div className={styles["extractor-header"]}>
+            {/* <div className={styles["extractor-header"]}>
                 <h1>{"Text Extractor"}</h1>
                 <p>{"Extract text from images (OCR simulation)"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["extractor-container"]}>
                 <div className={styles["upload-section"]}>

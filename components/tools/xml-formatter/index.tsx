@@ -130,10 +130,10 @@ const XMLFormatter = () => {
 
     return (
         <div className={styles["xml-formatter"]}>
-            <div className={styles["formatter-header"]}>
+            {/* <div className={styles["formatter-header"]}>
                 <h1>{"XML Formatter"}</h1>
                 <p>{"Format, validate, and minify XML data"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["formatter-container"]}>
                 <div className={styles["settings-panel"]}>

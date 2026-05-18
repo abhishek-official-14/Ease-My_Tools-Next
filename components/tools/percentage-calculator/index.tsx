@@ -57,10 +57,10 @@ const PercentageCalculator = () => {
 
     return (
         <div className={styles["percentage-calculator"]}>
-            <div className={styles["calculator-header"]}>
+            {/* <div className={styles["calculator-header"]}>
                 <h1>{"Percentage Calculator"}</h1>
                 <p>{"Calculate percentages, discounts, and changes"}</p>
-            </div>
+            </div> */}
 
             <div className={styles["calculator-container"]}>
                 <div className={styles["calculation-types"]}>
