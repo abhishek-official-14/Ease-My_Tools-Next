@@ -1,12 +1,22 @@
 "use client";
 
-import React, { useState } from 'react';
-import styles from './styles.module.css';
+import React, { useState } from "react";
 
 const HashGenerator = () => {
-    const [inputText, setInputText] = useState('');
-    const [hashes, setHashes] = useState({ md5: '', sha1: '', sha256: '' });
+    const [inputText, setInputText] = useState("");
+    const [hashes, setHashes] = useState({ md5: "", sha1: "", sha256: "" });
     const [isProcessing, setIsProcessing] = useState(false);
+
+    // Mock hash generation – replace with real crypto if needed
+    const generateMockHash = (text: string, algorithm: string): string => {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(text + algorithm);
+        let hash = "";
+        for (let i = 0; i < 32; i++) {
+            hash += Math.floor(Math.random() * 16).toString(16);
+        }
+        return hash;
+    };
 
     const generateHashes = async () => {
         if (!inputText.trim()) {
@@ -16,127 +26,127 @@ const HashGenerator = () => {
 
         setIsProcessing(true);
 
-        // Simulate hash generation (in real app, use crypto libraries)
+        // Simulate async hash generation
         setTimeout(() => {
-            const text = inputText;
             setHashes({
-                md5: generateMockHash(text, 'md5'),
-                sha1: generateMockHash(text, 'sha1'),
-                sha256: generateMockHash(text, 'sha256')
+                md5: generateMockHash(inputText, "md5"),
+                sha1: generateMockHash(inputText, "sha1"),
+                sha256: generateMockHash(inputText, "sha256"),
             });
             setIsProcessing(false);
         }, 500);
     };
 
-    const generateMockHash = (text, algorithm) => {
-        // This is a mock implementation. In production, use proper crypto libraries
-        const encoder = new TextEncoder();
-        const data = encoder.encode(text + algorithm);
-        let hash = '';
-        for (let i = 0; i < 32; i++) {
-            hash += Math.floor(Math.random() * 16).toString(16);
-        }
-        return hash;
-    };
-
     const clearAll = () => {
-        setInputText('');
-        setHashes({ md5: '', sha1: '', sha256: '' });
+        setInputText("");
+        setHashes({ md5: "", sha1: "", sha256: "" });
     };
 
-    const copyToClipboard = (hash) => {
+    const copyToClipboard = (hash: string) => {
         navigator.clipboard.writeText(hash);
         alert("Copied to clipboard!");
     };
 
+    const hasAnyHash = hashes.md5 || hashes.sha1 || hashes.sha256;
+
     return (
-        <div className={styles["hash-generator"]}>
-            {/* <div className={styles["generator-header"]}>
-                <h1>{"Hash Generator"}</h1>
-                <p>{"Generate MD5, SHA-1, and SHA-256 hashes"}</p>
-            </div> */}
-
-            <div className={styles["generator-container"]}>
-                <div className={styles["input-section"]}>
-                    <label>{"Input Text"}</label>
-                    <textarea
-                        value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
-                        placeholder={"Enter text to generate hashes..."}
-                        className={styles["text-input"]}
-                        rows={4}
-                    />
-                </div>
-
-                <div className={styles["action-buttons"]}>
-                    <button onClick={generateHashes} className={styles["generate-btn"]} disabled={isProcessing}>
-                        {isProcessing ? "Generating..." : "Generate Hashes"}
-                    </button>
-                    <button onClick={clearAll} className={styles["clear-btn"]}>
-                        {"Clear All"}
-                    </button>
-                </div>
-
-                {(hashes.md5 || hashes.sha1 || hashes.sha256) && (
-                    <div className={styles["results-section"]}>
-                        <h3>{"Generated Hashes"}</h3>
-                        
-                        <div className={styles["hash-result"]}>
-                            <label>MD5:</label>
-                            <div className={styles["hash-output"]}>
-                                <code>{hashes.md5}</code>
-                                <button onClick={() => copyToClipboard(hashes.md5)} className={styles["copy-btn"]}>
-                                    {"Copy"}
-                                </button>
-                            </div>
+        <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 sm:px-4 sm:py-10">
+            <div className="w-full max-w-2xl">
+                <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
+                    <div className="p-5 sm:p-6 space-y-5">
+                        {/* Input Section */}
+                        <div>
+                            <label className="mb-2 block text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                                Input Text
+                            </label>
+                            <textarea
+                                value={inputText}
+                                onChange={(e) => setInputText(e.target.value)}
+                                placeholder="Enter text to generate hashes..."
+                                rows={4}
+                                className="w-full rounded-lg border border-slate-200/80 bg-white/60 px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder:text-slate-500"
+                            />
                         </div>
 
-                        <div className={styles["hash-result"]}>
-                            <label>SHA-1:</label>
-                            <div className={styles["hash-output"]}>
-                                <code>{hashes.sha1}</code>
-                                <button onClick={() => copyToClipboard(hashes.sha1)} className={styles["copy-btn"]}>
-                                    {"Copy"}
-                                </button>
-                            </div>
+                        {/* Action Buttons */}
+                        <div className="flex gap-3">
+                            <button
+                                onClick={generateHashes}
+                                disabled={isProcessing}
+                                className={`flex-1 rounded-lg px-3 py-2 text-xs font-bold tracking-wide text-white transition-all active:scale-[0.98] ${isProcessing
+                                        ? "cursor-not-allowed bg-slate-400 dark:bg-slate-700"
+                                        : "bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm shadow-blue-500/20 hover:from-blue-700 hover:to-indigo-700 hover:shadow"
+                                    }`}
+                            >
+                                {isProcessing ? "Generating..." : "Generate Hashes"}
+                            </button>
+                            <button
+                                onClick={clearAll}
+                                className="rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                            >
+                                Clear All
+                            </button>
                         </div>
 
-                        <div className={styles["hash-result"]}>
-                            <label>SHA-256:</label>
-                            <div className={styles["hash-output"]}>
-                                <code>{hashes.sha256}</code>
-                                <button onClick={() => copyToClipboard(hashes.sha256)} className={styles["copy-btn"]}>
-                                    {"Copy"}
-                                </button>
+                        {/* Results Section */}
+                        {hasAnyHash && (
+                            <div className="space-y-3">
+                                <h3 className="text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                                    Generated Hashes
+                                </h3>
+
+                                <div className="space-y-3">
+                                    {/* MD5 */}
+                                    <div>
+                                        <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400">MD5</label>
+                                        <div className="flex gap-2">
+                                            <code className="flex-1 rounded-lg border border-slate-200/80 bg-white/60 px-3 py-2 font-mono text-xs text-slate-800 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100 break-all">
+                                                {hashes.md5}
+                                            </code>
+                                            <button
+                                                onClick={() => copyToClipboard(hashes.md5)}
+                                                className="rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                                            >
+                                                Copy
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* SHA-1 */}
+                                    <div>
+                                        <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400">SHA-1</label>
+                                        <div className="flex gap-2">
+                                            <code className="flex-1 rounded-lg border border-slate-200/80 bg-white/60 px-3 py-2 font-mono text-xs text-slate-800 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100 break-all">
+                                                {hashes.sha1}
+                                            </code>
+                                            <button
+                                                onClick={() => copyToClipboard(hashes.sha1)}
+                                                className="rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                                            >
+                                                Copy
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* SHA-256 */}
+                                    <div>
+                                        <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400">SHA-256</label>
+                                        <div className="flex gap-2">
+                                            <code className="flex-1 rounded-lg border border-slate-200/80 bg-white/60 px-3 py-2 font-mono text-xs text-slate-800 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100 break-all">
+                                                {hashes.sha256}
+                                            </code>
+                                            <button
+                                                onClick={() => copyToClipboard(hashes.sha256)}
+                                                className="rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                                            >
+                                                Copy
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
-                )}
-
-                <div className={styles["info-section"]}>
-                    <h4>{"About Hash Functions"}</h4>
-                    <div className={styles["algorithm-info"]}>
-                        <div className={styles["algorithm"]}>
-                            <h5>MD5</h5>
-                            <p>{"128-bit hash function. Fast but considered cryptographically broken."}</p>
-                        </div>
-                        <div className={styles["algorithm"]}>
-                            <h5>SHA-1</h5>
-                            <p>{"160-bit hash function. No longer considered secure against attacks."}</p>
-                        </div>
-                        <div className={styles["algorithm"]}>
-                            <h5>SHA-256</h5>
-                            <p>{"256-bit hash function. Part of SHA-2 family, currently secure."}</p>
-                        </div>
-                    </div>
-
-                    <h5>{"Common Uses:"}</h5>
-                    <ul>
-                        <li>{"Data integrity verification"}</li>
-                        <li>{"Digital signatures"}</li>
-                        <li>{"Password storage"}</li>
-                        <li>{"File checksums"}</li>
-                    </ul>
                 </div>
             </div>
         </div>

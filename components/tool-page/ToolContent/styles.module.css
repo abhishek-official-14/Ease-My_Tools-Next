@@ -57,11 +57,12 @@
 .sectionList {
     display: flex;
     flex-direction: column;
-
     gap: 0.45rem;
 
     margin: 0;
-    padding-left: 1rem;
+    padding-left: 1.25rem;
+
+    list-style: disc;
 }
 
 .sectionItem {

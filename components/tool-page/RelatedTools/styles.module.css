@@ -13,6 +13,14 @@
     margin: 0 auto;
 
     background: rgba(255, 255, 255, 0.28);
+        background: linear-gradient(to bottom right,
+                    #f8fafc,
+                    /* slate-50 */
+                    #ffffff,
+                    /* white */
+                    #f1f5f9
+                    /* slate-100 */
+                );
 
     backdrop-filter: blur(10px);
 
