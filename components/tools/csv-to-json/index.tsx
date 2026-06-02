@@ -1,254 +1,509 @@
 "use client";
 
-import React, { useState } from 'react';
-import styles from './styles.module.css';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from "react";
 
-const CSVtoJSON = () => {
-    const [csvInput, setCsvInput] = useState('');
-    const [jsonOutput, setJsonOutput] = useState('');
-    const [delimiter, setDelimiter] = useState(',');
-    const [hasHeaders, setHasHeaders] = useState(true);
+/* ---------- Supported formats ---------- */
+type Format = "csv" | "tsv" | "json" | "markdown" | "html";
 
-    const convertCSVtoJSON = () => {
-        if (!csvInput.trim()) {
-            alert("Please enter CSV data");
-            return;
-        }
+const FORMAT_LABELS: Record<Format, string> = {
+    csv: "CSV",
+    tsv: "TSV",
+    json: "JSON",
+    markdown: "Markdown Table",
+    html: "HTML Table",
+};
 
-        try {
-            const lines = csvInput.trim().split('\n');
-            const result: any[] = [];
+/* ---------- Auto-detect format ---------- */
+function guessFormat(text: string): Format {
+    const trimmed = text.trim();
+    if (!trimmed) return "csv";
+    // JSON: starts with [ or {
+    if (/^\s*[[{]/.test(trimmed)) return "json";
+    // HTML table: contains <table> or <tr>
+    if (/<\s*table/i.test(trimmed) || /<\s*tr/i.test(trimmed)) return "html";
+    // Markdown: first line contains pipe and second line is separator (|---)
+    const lines = trimmed.split("\n");
+    if (lines.length >= 2 && lines[0].includes("|") && /^[\s|:\-]+$/.test(lines[1])) return "markdown";
+    // TSV: contains tabs
+    if (trimmed.includes("\t")) return "tsv";
+    // Default to CSV
+    return "csv";
+}
 
-            let headers: string[] = [];
-            if (hasHeaders) {
-                headers = (lines?.[0] || '').split(delimiter).map((header: string) => header.trim());
+/* ---------- CSV / TSV parser (RFC 4180 style) ---------- */
+function parseDelimited(text: string, delimiter: string): string[][] {
+    const rows: string[][] = [];
+    let currentRow: string[] = [];
+    let currentField = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (inQuotes) {
+            if (char === '"' && nextChar === '"') {
+                currentField += '"';
+                i++;
+            } else if (char === '"') {
+                inQuotes = false;
             } else {
-                headers = (lines?.[0] || '').split(delimiter).map((_: string, index: number) => `col${index + 1}`);
+                currentField += char;
             }
-
-            const startLine = hasHeaders ? 1 : 0;
-
-            for (let i = startLine; i < lines.length; i++) {
-                const currentLine = lines[i]?.trim();
-                if (!currentLine) continue;
-
-                const values = currentLine.split(delimiter);
-                const obj: any = {};
-
-                headers.forEach((header: string, index: number) => {
-                    let value: any = values[index] ? values[index].trim() : '';
-
-                    if (!isNaN(Number(value)) && value !== '') {
-                        value = Number(value);
-                    } else if (value.toLowerCase() === 'true') {
-                        value = true;
-                    } else if (value.toLowerCase() === 'false') {
-                        value = false;
-                    } else if (value === 'null') {
-                        value = null;
-                    }
-
-                    obj[header] = value;
-                });
-
-                result.push(obj);
-            }
-
-            setJsonOutput(JSON.stringify(result, null, 2));
-        } catch (error) {
-            if (error instanceof Error) {
-                alert("Error converting CSV to JSON: " + error.message);
+        } else {
+            if (char === '"') {
+                inQuotes = true;
+            } else if (char === delimiter) {
+                currentRow.push(currentField);
+                currentField = "";
+            } else if (char === "\n" || (char === "\r" && nextChar === "\n")) {
+                if (char === "\r") i++;
+                currentRow.push(currentField);
+                rows.push(currentRow);
+                currentRow = [];
+                currentField = "";
+            } else if (char === "\r") {
+                currentRow.push(currentField);
+                rows.push(currentRow);
+                currentRow = [];
+                currentField = "";
+            } else {
+                currentField += char;
             }
         }
-    };
+    }
+    currentRow.push(currentField);
+    if (currentRow.length > 0 && (currentRow.length > 1 || currentRow[0] !== "")) {
+        rows.push(currentRow);
+    }
+    return rows;
+}
 
-    const convertJSONtoCSV = () => {
-        if (!jsonOutput.trim()) {
-            alert("Please enter JSON data");
-            return;
-        }
+function unescapeDelimitedValue(val: string): string {
+    return val.replace(/""/g, '"');
+}
 
-        try {
-            const data: any[] = JSON.parse(jsonOutput);
-            if (!Array.isArray(data)) {
-                alert("JSON must be an array of objects");
-                return;
-            }
+function parseCSV(text: string): Record<string, unknown>[] {
+    const rows = parseDelimited(text.trim(), ",");
+    if (rows.length === 0) return [];
+    const header = rows[0].map((h) => unescapeDelimitedValue(h.trim()));
+    return rows.slice(1).map((row) => {
+        const obj: Record<string, unknown> = {};
+        header.forEach((key, idx) => {
+            obj[key] = idx < row.length ? unescapeDelimitedValue(row[idx]) : "";
+        });
+        return obj;
+    });
+}
 
-            if (data.length === 0) {
-                setCsvInput('');
-                return;
-            }
+function parseTSV(text: string): Record<string, unknown>[] {
+    const rows = parseDelimited(text.trim(), "\t");
+    if (rows.length === 0) return [];
+    const header = rows[0].map((h) => unescapeDelimitedValue(h.trim()));
+    return rows.slice(1).map((row) => {
+        const obj: Record<string, unknown> = {};
+        header.forEach((key, idx) => {
+            obj[key] = idx < row.length ? unescapeDelimitedValue(row[idx]) : "";
+        });
+        return obj;
+    });
+}
 
-            const headers = Object.keys(data[0]);
-            let csv = '';
+/* ---------- Markdown table parser ---------- */
+function parseMarkdownTable(text: string): Record<string, unknown>[] {
+    const lines = text.trim().split("\n");
+    if (lines.length < 2) return [];
+    const headerLine = lines[0];
+    const separatorLine = lines[1];
+    const dataLines = lines.slice(2);
 
-            if (hasHeaders) {
-                csv += headers.join(delimiter) + '\n';
-            }
+    const headers = headerLine
+        .split("|")
+        .map((h) => h.trim())
+        .filter((h) => h.length > 0);
+    const sepParts = separatorLine
+        .split("|")
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
+    if (headers.length === 0 || sepParts.length !== headers.length) return [];
+    const validSep = sepParts.every((s) => /^:?-+:?$/.test(s));
+    if (!validSep) return [];
 
-            data.forEach((row: any) => {
-                const values = headers.map((header) => {
-                    let value: any = row[header];
-                    if (value === null || value === undefined) {
-                        value = '';
-                    } else if (typeof value === 'object') {
-                        value = JSON.stringify(value);
-                    } else {
-                        value = String(value);
-                    }
+    return dataLines.map((line) => {
+        const cells = line
+            .split("|")
+            .map((c) => c.trim())
+            .filter((c, idx) => idx > 0 || c !== "");
+        const obj: Record<string, unknown> = {};
+        headers.forEach((header, idx) => {
+            obj[header] = idx < cells.length ? cells[idx] : "";
+        });
+        return obj;
+    });
+}
 
-                    if (value.includes(delimiter) || value.includes('\n') || value.includes('"')) {
-                        value = `"${value.replace(/"/g, '""')}"`;
-                    }
+/* ---------- HTML table parser ---------- */
+function parseHTMLTable(text: string): Record<string, unknown>[] {
+    try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+        const table = doc.querySelector("table");
+        if (!table) return [];
+        const rows = table.querySelectorAll("tr");
+        if (rows.length === 0) return [];
+        const headerCells = rows[0].querySelectorAll("th, td");
+        const headers = Array.from(headerCells).map((cell) => cell.textContent?.trim() ?? "");
+        if (headers.length === 0) return [];
 
-                    return value;
-                });
-
-                csv += values.join(delimiter) + '\n';
+        const result: Record<string, unknown>[] = [];
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].querySelectorAll("td, th");
+            const obj: Record<string, unknown> = {};
+            headers.forEach((header, idx) => {
+                obj[header] = idx < cells.length ? (cells[idx].textContent?.trim() ?? "") : "";
             });
-
-            setCsvInput(csv.trim());
-        } catch (error) {
-            if (error instanceof Error) {
-                alert("Invalid JSON: " + error.message);
-            }
+            result.push(obj);
         }
-    };
+        return result;
+    } catch {
+        return [];
+    }
+}
 
-    const clearAll = () => {
-        setCsvInput('');
-        setJsonOutput('');
-    };
+/* ---------- Output formatters ---------- */
+function getStringValue(value: unknown): string {
+    if (value === null || value === undefined) return "";
+    return String(value);
+}
 
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text);
-        alert("Copied to clipboard!");
+function arrayToCSV(data: Record<string, unknown>[]): string {
+    if (data.length === 0) return "";
+    const header = Object.keys(data[0]);
+    const escapeField = (val: string): string => {
+        if (val.includes(",") || val.includes('"') || val.includes("\n")) {
+            return `"${val.replace(/"/g, '""')}"`;
+        }
+        return val;
     };
+    const headerLine = header.map(escapeField).join(",");
+    const rows = data.map((row) => header.map((h) => escapeField(getStringValue(row[h]))).join(","));
+    return [headerLine, ...rows].join("\n");
+}
 
-    const downloadFile = (content: string, filename: string, contentType: string) => {
-        const blob = new Blob([content], { type: contentType });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+function arrayToTSV(data: Record<string, unknown>[]): string {
+    if (data.length === 0) return "";
+    const header = Object.keys(data[0]);
+    const rows = data.map((row) => header.map((h) => getStringValue(row[h])).join("\t"));
+    return [header.join("\t"), ...rows].join("\n");
+}
+
+function arrayToMarkdown(data: Record<string, unknown>[]): string {
+    if (data.length === 0) return "";
+    const header = Object.keys(data[0]);
+    const headerLine = "| " + header.join(" | ") + " |";
+    const sepLine = "| " + header.map(() => "---").join(" | ") + " |";
+    const rows = data.map(
+        (row) => "| " + header.map((h) => getStringValue(row[h])).join(" | ") + " |"
+    );
+    return [headerLine, sepLine, ...rows].join("\n");
+}
+
+function arrayToHTML(data: Record<string, unknown>[]): string {
+    if (data.length === 0) return "";
+    const header = Object.keys(data[0]);
+    const thead = "<tr>" + header.map((h) => `<th>${h}</th>`).join("") + "</tr>";
+    const tbody = data
+        .map(
+            (row) =>
+                "<tr>" +
+                header.map((h) => `<td>${getStringValue(row[h])}</td>`).join("") +
+                "</tr>"
+        )
+        .join("\n");
+    return `<table>\n<thead>\n${thead}\n</thead>\n<tbody>\n${tbody}\n</tbody>\n</table>`;
+}
+
+/* ---------- StatCard ---------- */
+const StatCard: React.FC<{
+    label: string;
+    value: string | number;
+    accent: "slate" | "emerald" | "blue" | "violet";
+}> = ({ label, value, accent }) => {
+    const colors = {
+        slate: "text-slate-800 dark:text-slate-100",
+        emerald: "text-emerald-600 dark:text-emerald-400",
+        blue: "text-blue-600 dark:text-blue-400",
+        violet: "text-violet-600 dark:text-violet-400",
     };
-
-    const downloadCSV = () => {
-        if (!csvInput) return;
-        downloadFile(csvInput, 'data.csv', 'text/csv');
-    };
-
-    const downloadJSON = () => {
-        if (!jsonOutput) return;
-        downloadFile(jsonOutput, 'data.json', 'application/json');
-    };
-
     return (
-        <div className={styles["csv-json-converter"]}>
-            {/* <div className={styles["converter-header"]}>
-                <h1>{"CSV to JSON Converter"}</h1>
-                <p>{"Convert between CSV and JSON formats"}</p>
-            </div> */}
-
-            <div className={styles["converter-container"]}>
-                <div className={styles["settings-panel"]}>
-                    <div className={styles["setting"]}>
-                        <label>{"Delimiter"}</label>
-                        <select value={delimiter} onChange={(e) => setDelimiter(e.target.value)}>
-                            <option value=",">, {"Comma"}</option>
-                            <option value=";">; {"Semicolon"}</option>
-                            <option value="\t">\t {"Tab"}</option>
-                            <option value="|">| {"Pipe"}</option>
-                        </select>
-                    </div>
-                    <div className={styles["setting"]}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={hasHeaders}
-                                onChange={(e) => setHasHeaders(e.target.checked)}
-                            />
-                            {"First row contains headers"}
-                        </label>
-                    </div>
-                </div>
-
-                <div className={styles["input-output-section"]}>
-                    <div className={styles["input-section"]}>
-                        <label>{"CSV Input"}</label>
-                        <textarea
-                            value={csvInput}
-                            onChange={(e) => setCsvInput(e.target.value)}
-                            placeholder={"Paste your CSV data here..."}
-                            className={styles["text-input"]}
-                            rows={8}
-                        />
-                        <div className={styles["input-actions"]}>
-                            <button onClick={downloadCSV} className={styles["download-btn"]} disabled={!csvInput}>
-                                {"Download CSV"}
-                            </button>
-                            <button onClick={() => copyToClipboard(csvInput)} className={styles["copy-btn"]} disabled={!csvInput}>
-                                {"Copy CSV"}
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className={styles["conversion-buttons"]}>
-                        <button onClick={convertCSVtoJSON} className={styles["convert-btn"]}>
-                            {"CSV → JSON"}
-                        </button>
-                        <button onClick={convertJSONtoCSV} className={styles["convert-btn"]}>
-                            {"JSON → CSV"}
-                        </button>
-                    </div>
-
-                    <div className={styles["output-section"]}>
-                        <label>{"JSON Output"}</label>
-                        <textarea
-                            value={jsonOutput}
-                            onChange={(e) => setJsonOutput(e.target.value)}
-                            placeholder={"JSON output will appear here..."}
-                            className={styles["text-output"]}
-                            rows={8}
-                        />
-                        <div className={styles["output-actions"]}>
-                            <button onClick={downloadJSON} className={styles["download-btn"]} disabled={!jsonOutput}>
-                                {"Download JSON"}
-                            </button>
-                            <button onClick={() => copyToClipboard(jsonOutput)} className={styles["copy-btn"]} disabled={!jsonOutput}>
-                                {"Copy JSON"}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles["action-buttons"]}>
-                    <button onClick={clearAll} className={styles["clear-btn"]}>
-                        {"Clear All"}
-                    </button>
-                </div>
-
-                <div className={styles["info-section"]}>
-                    <h4>{"About CSV and JSON"}</h4>
-                    <p><strong>CSV</strong> {"(Comma-Separated Values) is a simple file format used to store tabular data."}</p>
-                    <p><strong>JSON</strong> {"(JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write."}</p>
-
-                    <h5>{"Common Uses:"}</h5>
-                    <ul>
-                        <li>{"Data migration between systems"}</li>
-                        <li>{"Exporting data from databases"}</li>
-                        <li>{"API data formatting"}</li>
-                        <li>{"Spreadsheet data processing"}</li>
-                    </ul>
-                </div>
+        <div className="rounded-lg border border-slate-200/80 bg-white/50 px-3 py-2 shadow-sm dark:border-slate-800/60 dark:bg-slate-900/50">
+            <div className="text-[9px] font-semibold tracking-wider text-slate-400 uppercase dark:text-slate-500">
+                {label}
             </div>
+            <div className={`text-sm font-bold tabular-nums ${colors[accent]}`}>{value}</div>
         </div>
     );
 };
 
-export default CSVtoJSON;
+/* ---------- Panel ---------- */
+const Panel: React.FC<{
+    title: string;
+    children: React.ReactNode;
+    className?: string;
+}> = ({ title, children, className = "" }) => (
+    <div
+        className={`flex flex-col rounded-xl border border-slate-300 bg-white/50 shadow-sm dark:border-slate-700 dark:bg-slate-900/40 h-full ${className}`}
+    >
+        <div className="flex-shrink-0 border-b border-slate-200 bg-slate-100/80 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/50">
+            <span className="text-xs font-semibold tracking-wide text-slate-600 dark:text-slate-200">
+                {title}
+            </span>
+        </div>
+        <div className="flex-1 flex flex-col min-h-0 p-4 space-y-3">{children}</div>
+    </div>
+);
+
+/* ---------- Main Tool ---------- */
+const CSVJsonConverter: React.FC = () => {
+    const [inputText, setInputText] = useState<string>("");
+    const [detectedFormat, setDetectedFormat] = useState<Format>("csv");
+    const [inputFormat, setInputFormat] = useState<Format | null>(null); // null = auto-detect
+    const [outputFormat, setOutputFormat] = useState<Format>("json");
+    const [parsedData, setParsedData] = useState<Record<string, unknown>[] | null>(null);
+    const [error, setError] = useState<string | null>(null);
+
+    // Auto-detect when input text changes
+    useEffect(() => {
+        setDetectedFormat(guessFormat(inputText));
+    }, [inputText]);
+
+    const effectiveInputFormat = inputFormat ?? detectedFormat;
+
+    const parseInput = useCallback(
+        (text: string, format: Format) => {
+            setError(null);
+            if (!text.trim()) {
+                setParsedData(null);
+                return;
+            }
+            try {
+                let result: Record<string, unknown>[] | null = null;
+                switch (format) {
+                    case "csv":
+                        result = parseCSV(text);
+                        break;
+                    case "tsv":
+                        result = parseTSV(text);
+                        break;
+                    case "json": {
+                        const parsed: unknown = JSON.parse(text);
+                        if (!Array.isArray(parsed)) throw new Error("JSON must be an array of objects");
+                        result = parsed as Record<string, unknown>[];
+                        break;
+                    }
+                    case "markdown":
+                        result = parseMarkdownTable(text);
+                        break;
+                    case "html":
+                        result = parseHTMLTable(text);
+                        break;
+                }
+                if (!result) throw new Error("Could not parse input");
+                setParsedData(result);
+            } catch (e: unknown) {
+                const message = e instanceof Error ? e.message : "Parse error";
+                setError(message);
+                setParsedData(null);
+            }
+        },
+        []
+    );
+
+    // Re-parse when input text or effective format changes
+    useEffect(() => {
+        parseInput(inputText, effectiveInputFormat);
+    }, [inputText, effectiveInputFormat, parseInput]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInputText(e.target.value);
+    };
+
+    const handleInputFormatOverride = (fmt: Format | null) => {
+        setInputFormat(fmt);
+    };
+
+    const outputText = useMemo<string>(() => {
+        if (!parsedData || parsedData.length === 0) return "";
+        switch (outputFormat) {
+            case "csv":
+                return arrayToCSV(parsedData);
+            case "tsv":
+                return arrayToTSV(parsedData);
+            case "json":
+                return JSON.stringify(parsedData, null, 2);
+            case "markdown":
+                return arrayToMarkdown(parsedData);
+            case "html":
+                return arrayToHTML(parsedData);
+            default:
+                return "";
+        }
+    }, [parsedData, outputFormat]);
+
+    const swapFormats = () => {
+        const newInputFmt = outputFormat;
+        const newOutputFmt = effectiveInputFormat;
+        setInputFormat(newInputFmt);
+        setOutputFormat(newOutputFmt);
+        setInputText(outputText);
+        // parsedData will be regenerated via useEffect
+    };
+
+    const copyOutput = async () => {
+        try {
+            await navigator.clipboard.writeText(outputText);
+        } catch {
+            // ignore
+        }
+    };
+
+    const clearInput = () => {
+        setInputText("");
+        setParsedData(null);
+        setError(null);
+    };
+
+    const stats = useMemo(() => {
+        if (!parsedData) return { rows: 0, cols: 0 };
+        const rows = parsedData.length;
+        const cols = rows > 0 ? Object.keys(parsedData[0]).length : 0;
+        return { rows, cols };
+    }, [parsedData]);
+
+    return (
+        <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 sm:px-4 sm:py-10">
+            <div className="w-full max-w-6xl">
+                <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
+                    {/* Toolbar */}
+                    <div className="flex flex-wrap items-center justify-between gap-1 border-b-2 border-slate-300/90 bg-slate-100/50 px-2 py-2 shadow-sm backdrop-blur-sm dark:border-slate-600/80 dark:bg-slate-800/40 dark:shadow-black/10 sm:gap-2 sm:px-5 sm:py-3">
+                        <div />
+                        <div className="flex items-center gap-1 sm:gap-3">
+                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                                {parsedData ? `${stats.rows} rows × ${stats.cols} cols` : "No data"}
+                            </span>
+                            <button
+                                onClick={copyOutput}
+                                disabled={!outputText}
+                                className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-4 sm:py-1.5 sm:text-base disabled:opacity-30"
+                                title="Copy output"
+                            >
+                                ⎘
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="p-5 sm:p-6">
+                        <div className="grid gap-5 lg:grid-cols-[1fr_auto_1fr] items-stretch">
+                            {/* Input Panel */}
+                            <div className="flex flex-col min-h-[400px]">
+                                <Panel title="Input">
+                                    <div className="flex flex-wrap gap-1.5 items-center">
+                                        <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 mr-1">Input as:</span>
+                                        {(["auto", ...Object.keys(FORMAT_LABELS)] as const).map((fmt) => {
+                                            const actualFormat = fmt === "auto" ? null : fmt;
+                                            const isActive = actualFormat === inputFormat || (inputFormat === null && actualFormat === null);
+                                            const label = fmt === "auto" ? `Auto (${FORMAT_LABELS[detectedFormat]})` : FORMAT_LABELS[fmt as Format];
+                                            return (
+                                                <button
+                                                    key={fmt}
+                                                    onClick={() => handleInputFormatOverride(actualFormat)}
+                                                    className={`rounded-lg border px-2.5 py-1.5 text-xs font-semibold transition-all ${isActive
+                                                            ? "border-blue-500 bg-blue-500 text-white shadow-sm shadow-blue-500/20"
+                                                            : "border-slate-200 bg-white/60 text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-800"
+                                                        }`}
+                                                >
+                                                    {label}
+                                                </button>
+                                            );
+                                        })}
+                                        <button
+                                            onClick={clearInput}
+                                            className="ml-auto rounded-lg border border-slate-200 bg-white/60 px-2 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:border-slate-800 dark:bg-slate-800/40 dark:text-rose-400 dark:hover:bg-rose-950/20"
+                                            title="Clear input"
+                                        >
+                                            ✕
+                                        </button>
+                                    </div>
+                                    <textarea
+                                        value={inputText}
+                                        onChange={handleInputChange}
+                                        placeholder="Paste your data here..."
+                                        className="flex-1 min-h-[200px] w-full resize-none rounded-lg border border-slate-300 bg-white/80 px-3 py-2 text-sm font-mono text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder:text-slate-500 custom-scrollbar"
+                                        spellCheck={false}
+                                    />
+                                    {error && (
+                                        <div className="rounded-lg border border-rose-200/80 bg-rose-50/80 px-3 py-2 text-xs text-rose-700 dark:border-rose-900/40 dark:bg-rose-950/20 dark:text-rose-200">
+                                            {error}
+                                        </div>
+                                    )}
+                                </Panel>
+                            </div>
+
+                            {/* Swap button */}
+                            <div className="flex items-center justify-center py-4 lg:py-0">
+                                <button
+                                    onClick={swapFormats}
+                                    className="rounded-xl border border-slate-200 bg-white/80 px-3 py-2 text-lg shadow-sm hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800 transition"
+                                    title="Swap input and output"
+                                >
+                                    ⇄
+                                </button>
+                            </div>
+
+                            {/* Output Panel */}
+                            <div className="flex flex-col min-h-[400px]">
+                                <Panel title="Output">
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {(Object.keys(FORMAT_LABELS) as Format[]).map((fmt) => (
+                                            <button
+                                                key={fmt}
+                                                onClick={() => setOutputFormat(fmt)}
+                                                className={`rounded-lg border px-2.5 py-1.5 text-xs font-semibold transition-all duration-200 ${outputFormat === fmt
+                                                        ? "border-emerald-500 bg-emerald-500 text-white shadow-sm shadow-emerald-500/20"
+                                                        : "border-slate-200 bg-white/60 text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-800"
+                                                    }`}
+                                            >
+                                                {FORMAT_LABELS[fmt]}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <textarea
+                                        readOnly
+                                        value={outputText}
+                                        className="flex-1 min-h-[200px] w-full resize-none rounded-lg border border-slate-300 bg-slate-50/80 px-3 py-2 text-sm font-mono text-slate-800 focus:outline-none dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-100 custom-scrollbar"
+                                        placeholder="Output..."
+                                        spellCheck={false}
+                                    />
+                                </Panel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>{`
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .dark .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #94a3b8 #e2e8f0; }
+        .dark .custom-scrollbar { scrollbar-color: #475569 #1e293b; }
+      `}</style>
+        </div>
+    );
+};
+
+export default CSVJsonConverter;

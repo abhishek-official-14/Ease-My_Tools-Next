@@ -1,213 +1,462 @@
 "use client";
 
-import React, { useState } from 'react';
-import styles from './styles.module.css';
+import React, { useState, useCallback } from "react";
 
-const XMLFormatter = () => {
-    const [inputXML, setInputXML] = useState('');
-    const [formattedXML, setFormattedXML] = useState('');
-    const [indentSize, setIndentSize] = useState(2);
-    const [isValid, setIsValid] = useState(true);
-    const [error, setError] = useState('');
+/* ---------- tiny xml helpers ---------- */
 
-    const formatXML = () => {
-        if (!inputXML.trim()) {
-            alert("Please enter XML data");
-            return;
-        }
-
-        try {
-            // Simple XML formatting function
-            const formatted = formatXMLString(inputXML, indentSize);
-            setFormattedXML(formatted);
-            setIsValid(true);
-            setError('');
-        } catch (err) {
-            setIsValid(false);
-            if (err instanceof Error) setError(err.message);
-            setFormattedXML('');
-        }
-    };
-
-    const formatXMLString = (xml: string, indent = 2) => {
-        let formatted = '';
-        let indentLevel = 0;
-        const spaces = ' '.repeat(indent);
-        
-        // Remove existing formatting
-        xml = xml.replace(/>\s+</g, '><').trim();
-        
-        let inTag = false;
-        let currentTag = '';
-        let currentText = '';
-
-        for (let i = 0; i < xml.length; i++) {
-            const char = xml[i];
-            
-            if (char === '<') {
-                if (currentText.trim()) {
-                    formatted += spaces.repeat(indentLevel) + currentText.trim() + '\n';
-                    currentText = '';
+function parseXml(xml: string) {
+    try {
+        const p = new DOMParser();
+        const d = p.parseFromString(xml, "application/xml");
+        const e = d.querySelector("parsererror");
+        if (e)
+            return {
+                ok: false,
+                error: e.textContent?.split("error:")[1]?.trim() || "invalid",
+            };
+        const root = d.documentElement;
+        if (!root) return { ok: false, error: "empty" };
+        function walk(el: Element): any {
+            const attrs: any = {};
+            for (let i = 0; i < el.attributes.length; i++)
+                attrs[el.attributes[i].name] = el.attributes[i].value;
+            const kids: any[] = [];
+            const texts: string[] = [];
+            for (let i = 0; i < el.childNodes.length; i++) {
+                const n = el.childNodes[i];
+                if (n.nodeType === 1) kids.push(walk(n as Element));
+                else if (n.nodeType === 3) {
+                    const t = (n as Text).nodeValue?.trim();
+                    if (t) texts.push(t);
                 }
-                inTag = true;
-                currentTag = '<';
-            } else if (char === '>') {
-                currentTag += '>';
-                inTag = false;
-                
-                if (currentTag.startsWith('</')) {
-                    indentLevel--;
-                    formatted += spaces.repeat(indentLevel) + currentTag + '\n';
-                } else if (currentTag.endsWith('/>')) {
-                    formatted += spaces.repeat(indentLevel) + currentTag + '\n';
-                } else {
-                    formatted += spaces.repeat(indentLevel) + currentTag + '\n';
-                    indentLevel++;
-                }
-                currentTag = '';
-            } else if (inTag) {
-                currentTag += char;
-            } else {
-                currentText += char;
             }
+            const isTextOnly = kids.length === 0 && texts.length > 0;
+            return { tag: el.tagName, attrs, kids, text: texts.join(" "), isTextOnly };
         }
+        return { ok: true, tree: walk(root) };
+    } catch (e: any) {
+        return { ok: false, error: e.message };
+    }
+}
 
-        return formatted.trim();
-    };
+function fmt(n: any, indent: number, d: number): string {
+    const pad = " ".repeat(indent * d);
+    const attrs = Object.entries(n.attrs || {})
+        .map(([k, v]) => ` ${k}="${v}"`)
+        .join("");
+    if (n.isTextOnly) return `${pad}<${n.tag}${attrs}>${n.text}</${n.tag}>`;
+    if (!n.kids.length && !n.text) return `${pad}<${n.tag}${attrs} />`;
+    let s = `${pad}<${n.tag}${attrs}>`;
+    if (n.text && !n.isTextOnly) s += "\n" + " ".repeat(indent * (d + 1)) + n.text;
+    for (const c of n.kids) s += "\n" + fmt(c, indent, d + 1);
+    s += "\n" + pad + `</${n.tag}>`;
+    return s;
+}
 
-    const validateXML = () => {
-        if (!inputXML.trim()) {
-            setError("Please enter XML data");
-            setIsValid(false);
-            return;
-        }
+function minify(xml: string) {
+    return xml.replace(/>\s+</g, "><").replace(/\s+/g, " ").trim();
+}
 
-        try {
-            // Simple XML validation
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(inputXML, "text/xml");
-            
-            if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-                throw new Error(xmlDoc.getElementsByTagName("parsererror")[0]?.textContent || 'Invalid XML');
-            }
-            
-            setIsValid(true);
-            setError("Valid XML!");
-        } catch (err) {
-            setIsValid(false);
-            if (err instanceof Error) setError(err.message);
-        }
-    };
+/* ---------- tree view ---------- */
 
-    const minifyXML = () => {
-        if (!inputXML.trim()) {
-            alert("Please enter XML data");
-            return;
-        }
-
-        try {
-            const minified = inputXML.replace(/>\s+</g, '><').replace(/\s+/g, ' ').trim();
-            setFormattedXML(minified);
-            setIsValid(true);
-            setError('');
-        } catch (err) {
-            setIsValid(false);
-            if (err instanceof Error) setError(err.message);
-        }
-    };
-
-    const clearAll = () => {
-        setInputXML('');
-        setFormattedXML('');
-        setIsValid(true);
-        setError('');
-    };
-
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text);
-        alert("Copied to clipboard!");
-    };
-
+const TreeItem: React.FC<{ node: any; depth: number }> = ({ node, depth }) => {
+    const [collapsed, setCollapsed] = useState(false);
+    const toggle = () => setCollapsed(!collapsed);
+    const hasKids = node.kids?.length > 0;
     return (
-        <div className={styles["xml-formatter"]}>
-            {/* <div className={styles["formatter-header"]}>
-                <h1>{"XML Formatter"}</h1>
-                <p>{"Format, validate, and minify XML data"}</p>
-            </div> */}
-
-            <div className={styles["formatter-container"]}>
-                <div className={styles["settings-panel"]}>
-                    <div className={styles["setting"]}>
-                        <label>{"Indent Size"}:</label>
-                        <select value={indentSize} onChange={(e) => setIndentSize(parseInt(e.target.value))}>
-                            <option value={2}>2 {"spaces"}</option>
-                            <option value={4}>4 {"spaces"}</option>
-                            <option value={8}>8 {"spaces"}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div className={styles["input-section"]}>
-                    <label>{"Input XML"}</label>
-                    <textarea
-                        value={inputXML}
-                        onChange={(e) => setInputXML(e.target.value)}
-                        placeholder={"Paste your XML data here..."}
-                        className={`${styles["xml-input"]} ${!isValid ? 'error' : ''}`}
-                        rows={8}
-                    />
-                </div>
-
-                <div className={styles["action-buttons"]}>
-                    <button onClick={formatXML} className={styles["format-btn"]}>
-                        {"Format XML"}
-                    </button>
-                    <button onClick={minifyXML} className={styles["minify-btn"]}>
-                        {"Minify XML"}
-                    </button>
-                    <button onClick={validateXML} className={styles["validate-btn"]}>
-                        {"Validate XML"}
-                    </button>
-                    <button onClick={clearAll} className={styles["clear-btn"]}>
-                        {"Clear All"}
-                    </button>
-                </div>
-
-                {error && (
-                    <div className={`${styles["error-message"]} ${isValid ? styles["valid"] : styles["invalid"]}`}>
-                        {error}
-                    </div>
+        <div className="whitespace-nowrap" style={{ marginLeft: depth * 20 }}>
+            <div
+                onClick={toggle}
+                className="inline-flex cursor-pointer select-none items-center gap-1 rounded px-1 py-0.5 hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+                {hasKids ? (
+                    <span className="w-4 text-center text-xs">{collapsed ? "▶" : "▼"}</span>
+                ) : (
+                    <span className="w-4" />
                 )}
-
-                {formattedXML && (
-                    <div className={styles["output-section"]}>
-                        <label>{"Formatted XML"}</label>
-                        <pre className={styles["xml-output"]}>
-                            {formattedXML}
-                        </pre>
-                        <div className={styles["output-actions"]}>
-                            <button onClick={() => copyToClipboard(formattedXML)} className={styles["copy-btn"]}>
-                                {"Copy to Clipboard"}
-                            </button>
-                        </div>
-                    </div>
+                <span className="font-semibold text-blue-700 dark:text-blue-400">&lt;{node.tag}</span>
+                {Object.entries(node.attrs || {}).map(([k, v]: any) => (
+                    <span key={k} className="ml-1 text-emerald-700 dark:text-emerald-400">
+                        {k}=<span className="text-orange-600 dark:text-orange-300">"{v}"</span>
+                    </span>
+                ))}
+                {node.isTextOnly ? (
+                    <>
+                        <span className="text-blue-700 dark:text-blue-400">&gt;</span>
+                        <span className="text-slate-700 dark:text-slate-300">{node.text}</span>
+                        <span className="text-blue-700 dark:text-blue-400">&lt;/{node.tag}&gt;</span>
+                    </>
+                ) : (
+                    <span className="text-blue-700 dark:text-blue-400">&gt;</span>
                 )}
-
-                <div className={styles["info-section"]}>
-                    <h4>{"About XML"}</h4>
-                    <p>{"XML (eXtensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable."}</p>
-                    
-                    <h5>{"Common Uses:"}</h5>
-                    <ul>
-                        <li>{"Web services (SOAP, REST)"}</li>
-                        <li>{"Configuration files"}</li>
-                        <li>{"Data exchange between systems"}</li>
-                        <li>{"Document storage"}</li>
-                    </ul>
-                </div>
             </div>
+            {!collapsed && (
+                <>
+                    {node.text && !node.isTextOnly && (
+                        <div
+                            style={{ marginLeft: depth * 20 + 20 }}
+                            className="italic whitespace-nowrap text-slate-700 dark:text-slate-300"
+                        >
+                            {node.text}
+                        </div>
+                    )}
+                    {hasKids &&
+                        node.kids.map((c: any, i: number) => <TreeItem key={i} node={c} depth={depth + 1} />)}
+                    {!node.isTextOnly && (
+                        <div
+                            style={{ marginLeft: depth * 20 }}
+                            className="whitespace-nowrap text-blue-700 dark:text-blue-400"
+                        >
+                            &lt;/{node.tag}&gt;
+                        </div>
+                    )}
+                </>
+            )}
         </div>
     );
 };
 
-export default XMLFormatter;
+/* ---------- stat card ---------- */
+
+const Stat: React.FC<{ label: string; value: string | number; accent: string }> = ({
+    label,
+    value,
+    accent,
+}) => {
+    const colorMap: any = {
+        slate: "text-slate-800 dark:text-slate-100",
+        emerald: "text-emerald-600 dark:text-emerald-400",
+        blue: "text-blue-600 dark:text-blue-400",
+        violet: "text-violet-600 dark:text-violet-400",
+    };
+    return (
+        <div className="rounded-lg border border-slate-200/80 bg-white/50 px-3 py-2 shadow-sm dark:border-slate-800/60 dark:bg-slate-900/50">
+            <div className="text-[9px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                {label}
+            </div>
+            <div className={`text-sm font-bold tabular-nums ${colorMap[accent]}`}>{value}</div>
+        </div>
+    );
+};
+
+/* ---------- main tool ---------- */
+
+export default function XmlTool() {
+    const [xml, setXml] = useState("");
+    const [indent, setIndent] = useState(2);
+    const [mode, setMode] = useState<"format" | "minify" | "tree">("format");
+    const [result, setResult] = useState<any>(null);
+    const [activeTab, setActiveTab] = useState<"input" | "output">("input");
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleInput = useCallback(
+        (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const v = e.target.value;
+            setXml(v);
+            const r = parseXml(v);
+            setResult(r);
+        },
+        []
+    );
+
+    let output = "";
+    if (result?.ok && xml.trim()) {
+        if (mode === "format") output = fmt(result.tree, indent, 0);
+        else if (mode === "minify") output = minify(xml);
+    }
+
+    const inputSize = new Blob([xml]).size;
+    const outputSize = new Blob([output]).size;
+    const lines = xml.split(/\r?\n/).length;
+
+    const copyOutput = async () => {
+        try {
+            const textToCopy = output || xml;
+            await navigator.clipboard.writeText(textToCopy);
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 2000);
+        } catch { }
+    };
+
+    const downloadOutput = () => {
+        const blob = new Blob([output || xml], { type: "application/xml" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `formatted-${Date.now()}.xml`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
+    const printOutput = () => {
+        const content = output || xml;
+        const escaped = content
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+        const iframe = document.createElement("iframe");
+        iframe.style.position = "fixed";
+        iframe.style.right = "0";
+        iframe.style.bottom = "0";
+        iframe.style.width = "0";
+        iframe.style.height = "0";
+        iframe.style.border = "none";
+        iframe.title = "Print XML";
+        document.body.appendChild(iframe);
+
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+        if (!iframeDoc) return;
+
+        iframeDoc.open();
+        iframeDoc.write(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>XML Output</title>
+        <style>
+          body {
+            margin: 40px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: #1e293b;
+            background: #fff;
+          }
+        </style>
+      </head>
+      <body>${escaped}</body>
+    </html>
+  `);
+        iframeDoc.close();
+
+        const iframeWindow = iframe.contentWindow;
+        if (iframeWindow) {
+            iframeWindow.print();
+
+            if (iframeWindow.onafterprint !== undefined) {
+                iframeWindow.onafterprint = () => {
+                    document.body.removeChild(iframe);
+                };
+            } else {
+                // Fallback: remove after a delay
+                setTimeout(() => {
+                    document.body.removeChild(iframe);
+                }, 2000);
+            }
+        }
+    };
+
+    const clearAll = () => {
+        setXml("");
+        setResult(null);
+    };
+
+    return (
+        <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 sm:px-4 sm:py-10">
+            <div className="w-full max-w-6xl">
+                <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
+                    {/* Toolbar */}
+                    <div className="flex flex-wrap items-center justify-between gap-1 border-b-2 border-slate-300/90 bg-slate-100/50 px-2 py-2 shadow-sm backdrop-blur-sm dark:border-slate-600/80 dark:bg-slate-800/40 dark:shadow-black/10 sm:gap-2 sm:px-5 sm:py-3">
+                        {/* Left group */}
+                        <div className="flex flex-wrap items-center gap-0.5 sm:gap-2">
+                            {(["format", "minify", "tree"] as const).map((m) => (
+                                <button
+                                    key={m}
+                                    onClick={() => setMode(m)}
+                                    className={`rounded-lg px-1.5 py-0.5 text-xs font-semibold transition sm:px-3 sm:py-1.5 sm:text-sm ${mode === m
+                                            ? "bg-blue-500 text-white shadow-sm"
+                                            : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                                        }`}
+                                    title={m.charAt(0).toUpperCase() + m.slice(1)}
+                                >
+                                    {m === "format" ? "Format" : m === "minify" ? "Minify" : "Tree"}
+                                </button>
+                            ))}
+                            <div className="mx-1 h-4 w-px bg-slate-300 dark:bg-slate-700 sm:mx-2 sm:h-6" />
+                            {/* Indent control – compact slider */}
+                            <div className="flex items-center gap-1">
+                                <label className="text-[10px] font-semibold text-slate-500 uppercase dark:text-slate-400 hidden sm:inline">
+                                    Indent:
+                                </label>
+                                <input
+                                    type="range"
+                                    min={1}
+                                    max={8}
+                                    value={indent}
+                                    onChange={(e) => setIndent(Number(e.target.value))}
+                                    className="h-1 w-16 cursor-pointer appearance-none rounded-full bg-slate-200 accent-blue-500 dark:bg-slate-800"
+                                    title={`Indent: ${indent} spaces`}
+                                />
+                                <span className="w-5 text-right text-xs font-bold tabular-nums text-slate-700 dark:text-slate-200">
+                                    {indent}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Right group */}
+                        <div className="flex flex-wrap items-center gap-1 sm:gap-3">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 sm:text-sm">
+                                {lines} lines · {(inputSize / 1024).toFixed(1)} kB
+                            </span>
+                            <div className="mx-0.5 hidden h-4 w-px bg-slate-300 dark:bg-slate-700 sm:mx-1 sm:block sm:h-6" />
+                            <button
+                                onClick={copyOutput}
+                                disabled={!xml.trim()}
+                                className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 disabled:opacity-30 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-4 sm:py-1.5 sm:text-base"
+                                title="Copy"
+                            >
+                                {isCopied ? "✓" : "⎘"}
+                            </button>
+                            <button
+                                onClick={downloadOutput}
+                                disabled={!xml.trim()}
+                                className="rounded-lg px-3 py-1.5 text-sm font-semibold text-emerald-600 hover:bg-emerald-100 disabled:opacity-30 dark:text-emerald-400 dark:hover:bg-emerald-900/40 sm:px-4 sm:py-1.5 sm:text-base"
+                                title="Download"
+                            >
+                                ↓
+                            </button>
+                            <button
+                                onClick={printOutput}
+                                disabled={!xml.trim()}
+                                className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 disabled:opacity-30 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-4 sm:py-1.5 sm:text-base"
+                                title="Print"
+                            >
+                                🖨️
+                            </button>
+                            <button
+                                onClick={clearAll}
+                                className="rounded-lg px-3 py-1.5 text-sm font-semibold text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/20 sm:px-4 sm:py-1.5 sm:text-base"
+                                title="Clear"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Mobile tabs */}
+                    <div className="flex border-b border-slate-200/80 lg:hidden dark:border-slate-800/60">
+                        <button
+                            onClick={() => setActiveTab("input")}
+                            className={`flex-1 py-3 text-center text-xs font-medium ${activeTab === "input"
+                                    ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400"
+                                    : "text-slate-500 dark:text-slate-400"
+                                }`}
+                        >
+                            📄 Input
+                        </button>
+                        <button
+                            onClick={() => setActiveTab("output")}
+                            className={`flex-1 py-3 text-center text-xs font-medium ${activeTab === "output"
+                                    ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400"
+                                    : "text-slate-500 dark:text-slate-400"
+                                }`}
+                        >
+                            📋 Output
+                        </button>
+                    </div>
+
+                    {/* Panels – no sidebar, full-width two-column layout */}
+                    <div className="p-5 sm:p-6">
+                        <div className="grid gap-5 lg:grid-cols-2">
+                            {/* Input panel */}
+                            <div
+                                className={`flex h-[432px] flex-col rounded-xl border border-slate-300 bg-white/50 dark:border-slate-700 dark:bg-slate-900/40 ${activeTab === "output" ? "hidden lg:flex" : ""
+                                    }`}
+                            >
+                                <div className="flex-shrink-0 border-b border-slate-200 bg-slate-100/80 px-5 py-3 dark:border-slate-700 dark:bg-slate-800/50">
+                                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                                        XML Input
+                                    </span>
+                                </div>
+                                <textarea
+                                    value={xml}
+                                    onChange={handleInput}
+                                    placeholder="Paste XML here..."
+                                    spellCheck={false}
+                                    className="custom-scrollbar flex-1 min-h-0 w-full resize-none rounded-b-xl bg-white/80 px-5 py-4 font-mono text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none dark:bg-slate-900/60 dark:text-slate-100"
+                                />
+                                {result?.error && (
+                                    <div className="mx-5 mb-4 mt-2 rounded-lg border border-rose-200/80 bg-rose-50/80 px-3 py-2 text-xs text-rose-700 backdrop-blur-sm dark:border-rose-900/40 dark:bg-rose-950/20 dark:text-rose-200">
+                                        {result.error}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Output panel */}
+                            <div
+                                className={`flex h-[432px] flex-col rounded-xl border border-slate-300 bg-white/50 dark:border-slate-700 dark:bg-slate-900/40 ${activeTab === "input" ? "hidden lg:flex" : ""
+                                    } min-w-0`}
+                            >
+                                <div className="flex-shrink-0 border-b border-slate-200 bg-slate-100/80 px-5 py-3 dark:border-slate-700 dark:bg-slate-800/50">
+                                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                                        {mode === "tree" ? "Tree View" : "Output"}
+                                    </span>
+                                </div>
+
+                                {mode === "tree" ? (
+                                    <div className="custom-scrollbar flex-1 min-h-0 min-w-0 overflow-auto px-5 py-4">
+                                        <div className="inline-block min-w-full">
+                                            {result?.tree ? (
+                                                <TreeItem node={result.tree} depth={0} />
+                                            ) : (
+                                                <div className="whitespace-nowrap text-sm text-slate-400">
+                                                    Enter valid XML to see tree
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <textarea
+                                        readOnly
+                                        value={output}
+                                        placeholder="Output..."
+                                        className="custom-scrollbar flex-1 min-h-0 w-full resize-none rounded-b-xl bg-slate-50/80 px-5 py-4 font-mono text-sm text-slate-800 focus:outline-none dark:bg-slate-900/60 dark:text-slate-100"
+                                    />
+                                )}
+
+                                {outputSize > 0 && mode !== "tree" && (
+                                    <div className="mt-auto px-5 pb-4 pt-2">
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <Stat
+                                                label="Output Size"
+                                                value={`${(outputSize / 1024).toFixed(1)} kB`}
+                                                accent="emerald"
+                                            />
+                                            <Stat
+                                                label="Compression"
+                                                value={
+                                                    inputSize
+                                                        ? `${((1 - outputSize / inputSize) * 100).toFixed(1)}%`
+                                                        : "—"
+                                                }
+                                                accent="blue"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Custom scrollbar styles */}
+            <style>{`
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .dark .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #94a3b8 #e2e8f0; }
+        .dark .custom-scrollbar { scrollbar-color: #475569 #1e293b; }
+      `}</style>
+        </div>
+    );
+}
