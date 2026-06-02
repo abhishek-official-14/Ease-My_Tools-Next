@@ -1,13 +1,7 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
-import styles from "./styles.module.css";
-import {
-    diffWords,
-    diffLines,
-    diffChars,
-    type Change,
-} from "diff";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
+import { diffWords, diffLines, diffChars, type Change } from "diff";
 
 type DiffMode = "words" | "characters" | "lines";
 type ViewMode = "unified" | "split";
@@ -27,15 +21,14 @@ console.log(greet("Developer"));
 console.log("Welcome!");`);
 
     const [diffResult, setDiffResult] = useState<Change[]>([]);
-    const [diffMode, setDiffMode] = useState<DiffMode>("words");
+    const [diffMode, setDiffMode] = useState<DiffMode>("lines");
     const [viewMode, setViewMode] = useState<ViewMode>("unified");
-    const [ignoreWhitespace, setIgnoreWhitespace] =
-        useState<boolean>(false);
-    const [caseSensitive, setCaseSensitive] =
-        useState<boolean>(true);
+    const [ignoreWhitespace, setIgnoreWhitespace] = useState<boolean>(false);
+    const [caseSensitive, setCaseSensitive] = useState<boolean>(true);
     const [showStats, setShowStats] = useState<boolean>(true);
 
-    const handleCompare = useCallback(() => {
+    // Function to compute diff
+    const computeDiff = useCallback(() => {
         let text1 = textA;
         let text2 = textB;
 
@@ -50,30 +43,25 @@ console.log("Welcome!");`);
         }
 
         let diff: Change[];
-
         switch (diffMode) {
             case "characters":
                 diff = diffChars(text1, text2);
                 break;
-
             case "lines":
                 diff = diffLines(text1, text2);
                 break;
-
             case "words":
             default:
                 diff = diffWords(text1, text2);
                 break;
         }
-
         setDiffResult(diff);
-    }, [
-        textA,
-        textB,
-        diffMode,
-        ignoreWhitespace,
-        caseSensitive,
-    ]);
+    }, [textA, textB, diffMode, ignoreWhitespace, caseSensitive]);
+
+    // Auto‑compare on any relevant change
+    useEffect(() => {
+        computeDiff();
+    }, [computeDiff]);
 
     const handleSwap = useCallback(() => {
         setTextA(textB);
@@ -94,36 +82,42 @@ console.log("Welcome!");`);
     }
     return total;
 };`);
-
         setTextB(`const calculateTotal = (items) => {
     return items.reduce((sum, item) => sum + item.price, 0);
 };`);
     }, []);
 
+    // Helper to count units (lines/words/chars) in a string based on diffMode
+    const countUnits = useCallback((str: string): number => {
+        if (diffMode === "lines") {
+            // Count lines (empty lines count as 1)
+            const lines = str.split("\n");
+            return lines.length;
+        } else if (diffMode === "words") {
+            // Count words (split by whitespace, ignore empty)
+            return str.trim().split(/\s+/).filter(w => w.length > 0).length;
+        } else {
+            // characters
+            return str.length;
+        }
+    }, [diffMode]);
+
+    // Compute stats based on diffMode
     const getDiffStats = useMemo(() => {
         let added = 0;
         let removed = 0;
         let unchanged = 0;
 
         diffResult.forEach((part) => {
-            const length = part.value.length;
-
-            if (part.added) {
-                added += length;
-            } else if (part.removed) {
-                removed += length;
-            } else {
-                unchanged += length;
-            }
+            const count = countUnits(part.value);
+            if (part.added) added += count;
+            else if (part.removed) removed += count;
+            else unchanged += count;
         });
 
-        return {
-            added,
-            removed,
-            unchanged,
-            total: added + removed + unchanged,
-        };
-    }, [diffResult]);
+        const unitLabel = diffMode === "lines" ? "lines" : diffMode === "words" ? "words" : "chars";
+        return { added, removed, unchanged, total: added + removed, unitLabel };
+    }, [diffResult, diffMode, countUnits]);
 
     const copyDiff = useCallback(() => {
         const diffText = diffResult
@@ -133,124 +127,154 @@ console.log("Welcome!");`);
                 return `    ${part.value}`;
             })
             .join("");
-
         navigator.clipboard.writeText(diffText);
         alert("Diff copied to clipboard!");
     }, [diffResult]);
 
+    const scrollbarStyles = `
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: #94a3b8 #e2e8f0;
+    }
+    .dark .custom-scrollbar {
+      scrollbar-color: #475569 #1e293b;
+    }
+  `;
+
+    // Unified diff with line numbers (sequential numbering over all displayed lines)
     const renderUnifiedDiff = () => {
-        return (
-            <div className={styles.unifiedDiff}>
-                {diffResult.map((part, index) => {
-                    let className = styles.unifiedPart;
+        let lineNumber = 1;
+        const elements: JSX.Element[] = [];
 
-                    if (part.added) {
-                        className += ` ${styles.added}`;
-                    } else if (part.removed) {
-                        className += ` ${styles.removed}`;
-                    }
-
-                    const lines = part.value.split("\n");
-
-                    return lines.map((line, lineIndex) => (
-                        <div
-                            key={`${index}-${lineIndex}`}
-                            className={className}
-                        >
-                            {part.added && (
-                                <span className={styles.prefix}>
-                                    +{" "}
-                                </span>
-                            )}
-
-                            {part.removed && (
-                                <span className={styles.prefix}>
-                                    -{" "}
-                                </span>
-                            )}
-
-                            {!part.added && !part.removed && (
-                                <span className={styles.prefix}>
-                                    {" "}
-                                </span>
-                            )}
-
-                            <span className={styles.lineContent}>
-                                {line || " "}
-                            </span>
+        diffResult.forEach((part, index) => {
+            const isAdded = part.added;
+            const isRemoved = part.removed;
+            const lines = part.value.split("\n");
+            lines.forEach((line, lineIndex) => {
+                const displayLine = line === "" && lines.length > 1 ? " " : line;
+                elements.push(
+                    <div
+                        key={`${index}-${lineIndex}`}
+                        className={`flex border-b border-slate-100 dark:border-slate-800 ${isAdded
+                                ? "bg-green-100 dark:bg-green-900/60 text-green-900 dark:text-green-100"
+                                : isRemoved
+                                    ? "bg-red-100 dark:bg-red-900/60 text-red-900 dark:text-red-100"
+                                    : ""
+                            }`}
+                    >
+                        <div className="w-8 flex-shrink-0 select-none py-0.5 text-right text-xs text-slate-400 border-r border-slate-200 dark:border-slate-700">
+                            {lineNumber}
                         </div>
-                    ));
-                })}
-            </div>
-        );
+                        <div className="w-8 flex-shrink-0 select-none py-0.5 text-right text-xs font-mono text-slate-500">
+                            {isAdded ? "+" : isRemoved ? "-" : " "}
+                        </div>
+                        <pre className="flex-1 whitespace-pre-wrap break-all py-0.5 pl-2">{displayLine}</pre>
+                    </div>
+                );
+                lineNumber++;
+            });
+        });
+        return <div className="font-mono text-xs">{elements}</div>;
     };
 
+    // Split diff with line numbers (separate numbering for left and right columns)
     const renderSplitDiff = () => {
+        const leftItems: { line: string; type: "removed" | "unchanged" | null }[] = [];
+        const rightItems: { line: string; type: "added" | "unchanged" | null }[] = [];
+
+        diffResult.forEach((part) => {
+            if (part.removed) {
+                part.value.split("\n").forEach((line) => {
+                    leftItems.push({ line, type: "removed" });
+                    rightItems.push({ line: "", type: null });
+                });
+            } else if (part.added) {
+                part.value.split("\n").forEach((line) => {
+                    rightItems.push({ line, type: "added" });
+                    leftItems.push({ line: "", type: null });
+                });
+            } else {
+                part.value.split("\n").forEach((line) => {
+                    leftItems.push({ line, type: "unchanged" });
+                    rightItems.push({ line, type: "unchanged" });
+                });
+            }
+        });
+
+        const maxLen = Math.max(leftItems.length, rightItems.length);
+        while (leftItems.length < maxLen) leftItems.push({ line: "", type: null });
+        while (rightItems.length < maxLen) rightItems.push({ line: "", type: null });
+
         return (
-            <div className={styles.splitDiff}>
-                <div className={styles.splitColumn}>
-                    <div className={styles.splitHeader}>
-                        Original Text
+            <div className="grid grid-cols-2 gap-4">
+                <div>
+                    <div className="mb-2 text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                        Original
                     </div>
-
-                    <div className={styles.splitContent}>
-                        {diffResult.map((part, index) => {
-                            if (!part.removed) return null;
-
-                            const lines = part.value.split("\n");
-
-                            return lines.map((line, lineIndex) => (
-                                <div
-                                    key={`removed-${index}-${lineIndex}`}
-                                    className={`${styles.splitLine} ${styles.removedBg}`}
-                                >
-                                    <span
-                                        className={styles.lineNumber}
-                                    >
-                                        {lineIndex + 1}
-                                    </span>
-
-                                    <span
-                                        className={styles.lineContent}
-                                    >
-                                        {line || " "}
-                                    </span>
+                    <div className="rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden">
+                        {leftItems.map((item, idx) => (
+                            <div
+                                key={`left-${idx}`}
+                                className={`flex border-b border-slate-100 dark:border-slate-800 ${item.type === "removed"
+                                        ? "bg-red-100 dark:bg-red-900/60 text-red-900 dark:text-red-100"
+                                        : ""
+                                    }`}
+                            >
+                                <div className="w-10 flex-shrink-0 border-r border-slate-200 dark:border-slate-700 px-1 py-0.5 text-right text-xs text-slate-400">
+                                    {idx + 1}
                                 </div>
-                            ));
-                        })}
+                                <pre className="flex-1 whitespace-pre-wrap break-all px-2 py-0.5 text-xs">
+                                    {item.line === "" ? " " : item.line}
+                                </pre>
+                            </div>
+                        ))}
                     </div>
                 </div>
-
-                <div className={styles.splitColumn}>
-                    <div className={styles.splitHeader}>
-                        Modified Text
+                <div>
+                    <div className="mb-2 text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                        Modified
                     </div>
-
-                    <div className={styles.splitContent}>
-                        {diffResult.map((part, index) => {
-                            if (!part.added) return null;
-
-                            const lines = part.value.split("\n");
-
-                            return lines.map((line, lineIndex) => (
-                                <div
-                                    key={`added-${index}-${lineIndex}`}
-                                    className={`${styles.splitLine} ${styles.addedBg}`}
-                                >
-                                    <span
-                                        className={styles.lineNumber}
-                                    >
-                                        {lineIndex + 1}
-                                    </span>
-
-                                    <span
-                                        className={styles.lineContent}
-                                    >
-                                        {line || " "}
-                                    </span>
+                    <div className="rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden">
+                        {rightItems.map((item, idx) => (
+                            <div
+                                key={`right-${idx}`}
+                                className={`flex border-b border-slate-100 dark:border-slate-800 ${item.type === "added"
+                                        ? "bg-green-100 dark:bg-green-900/60 text-green-900 dark:text-green-100"
+                                        : ""
+                                    }`}
+                            >
+                                <div className="w-10 flex-shrink-0 border-r border-slate-200 dark:border-slate-700 px-1 py-0.5 text-right text-xs text-slate-400">
+                                    {idx + 1}
                                 </div>
-                            ));
-                        })}
+                                <pre className="flex-1 whitespace-pre-wrap break-all px-2 py-0.5 text-xs">
+                                    {item.line === "" ? " " : item.line}
+                                </pre>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -258,249 +282,190 @@ console.log("Welcome!");`);
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.controls}>
-                <div className={styles.controlGroup}>
-                    <label>Diff Mode</label>
+        <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 sm:px-4 sm:py-10">
+            <div className="w-full max-w-6xl">
+                <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
+                    <div className="p-5 sm:p-6 space-y-5">
+                        {/* Toolbar – mobile-friendly */}
+                        <div className="border-b-2 border-slate-300/90 bg-slate-100/50 px-3 py-3 shadow-sm backdrop-blur-sm dark:border-slate-600/80 dark:bg-slate-800/40 dark:shadow-black/10 sm:px-5 sm:py-3">
+                            <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-3">
+                                <div className="flex items-center gap-2">
+                                    <label className="text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                                        Diff Mode
+                                    </label>
+                                    <select
+                                        value={diffMode}
+                                        onChange={(e) => setDiffMode(e.target.value as DiffMode)}
+                                        className="rounded-lg border border-slate-200/80 bg-white/60 px-3 py-1.5 text-sm text-slate-800 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100"
+                                    >
+                                        <option value="words">Words</option>
+                                        <option value="characters">Characters</option>
+                                        <option value="lines">Lines</option>
+                                    </select>
+                                </div>
 
-                    <select
-                        value={diffMode}
-                        onChange={(e) =>
-                            setDiffMode(
-                                e.target.value as DiffMode
-                            )
-                        }
-                    >
-                        <option value="words">Words</option>
-                        <option value="characters">
-                            Characters
-                        </option>
-                        <option value="lines">Lines</option>
-                    </select>
-                </div>
+                                <div className="flex items-center gap-2">
+                                    <label className="text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                                        View Mode
+                                    </label>
+                                    <select
+                                        value={viewMode}
+                                        onChange={(e) => setViewMode(e.target.value as ViewMode)}
+                                        className="rounded-lg border border-slate-200/80 bg-white/60 px-3 py-1.5 text-sm text-slate-800 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100"
+                                    >
+                                        <option value="unified">Unified View</option>
+                                        <option value="split">Split View</option>
+                                    </select>
+                                </div>
 
-                <div className={styles.controlGroup}>
-                    <label>View Mode</label>
+                                <div className="h-6 w-px bg-slate-300 dark:bg-slate-700 hidden sm:block" />
 
-                    <select
-                        value={viewMode}
-                        onChange={(e) =>
-                            setViewMode(
-                                e.target.value as ViewMode
-                            )
-                        }
-                    >
-                        <option value="unified">
-                            Unified View
-                        </option>
-                        <option value="split">
-                            Split View
-                        </option>
-                    </select>
-                </div>
+                                <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+                                    <label className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+                                        <input
+                                            type="checkbox"
+                                            checked={ignoreWhitespace}
+                                            onChange={(e) => setIgnoreWhitespace(e.target.checked)}
+                                            className="h-3.5 w-3.5 rounded border-slate-300 text-blue-500 focus:ring-blue-400 dark:border-slate-700"
+                                        />
+                                        Ignore Whitespace
+                                    </label>
+                                    <label className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+                                        <input
+                                            type="checkbox"
+                                            checked={caseSensitive}
+                                            onChange={(e) => setCaseSensitive(e.target.checked)}
+                                            className="h-3.5 w-3.5 rounded border-slate-300 text-blue-500 focus:ring-blue-400 dark:border-slate-700"
+                                        />
+                                        Case Sensitive
+                                    </label>
+                                    <label className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+                                        <input
+                                            type="checkbox"
+                                            checked={showStats}
+                                            onChange={(e) => setShowStats(e.target.checked)}
+                                            className="h-3.5 w-3.5 rounded border-slate-300 text-blue-500 focus:ring-blue-400 dark:border-slate-700"
+                                        />
+                                        Show Statistics
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
-                <div className={styles.controlGroup}>
-                    <label className={styles.checkboxLabel}>
-                        <input
-                            type="checkbox"
-                            checked={ignoreWhitespace}
-                            onChange={(e) =>
-                                setIgnoreWhitespace(
-                                    e.target.checked
-                                )
-                            }
-                        />
-                        Ignore Whitespace
-                    </label>
-                </div>
+                        {/* Text Input Panels */}
+                        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+                            <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 shadow-sm">
+                                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 bg-slate-100/80 px-4 py-2 dark:bg-slate-800/50">
+                                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">📄 Original Text</span>
+                                    <button onClick={() => setTextA("")} className="rounded p-1 text-sm text-slate-500 transition hover:bg-slate-100 dark:hover:bg-slate-800">🗑️</button>
+                                </div>
+                                <textarea
+                                    className="custom-scrollbar h-64 w-full resize-none rounded-b-xl bg-transparent p-4 font-mono text-sm leading-relaxed text-slate-800 focus:outline-none dark:text-slate-100"
+                                    placeholder="Enter original text here..."
+                                    value={textA}
+                                    onChange={(e) => setTextA(e.target.value)}
+                                />
+                            </div>
+                            <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 shadow-sm">
+                                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 bg-slate-100/80 px-4 py-2 dark:bg-slate-800/50">
+                                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">📝 Modified Text</span>
+                                    <button onClick={() => setTextB("")} className="rounded p-1 text-sm text-slate-500 transition hover:bg-slate-100 dark:hover:bg-slate-800">🗑️</button>
+                                </div>
+                                <textarea
+                                    className="custom-scrollbar h-64 w-full resize-none rounded-b-xl bg-transparent p-4 font-mono text-sm leading-relaxed text-slate-800 focus:outline-none dark:text-slate-100"
+                                    placeholder="Enter modified text here..."
+                                    value={textB}
+                                    onChange={(e) => setTextB(e.target.value)}
+                                />
+                            </div>
+                        </div>
 
-                <div className={styles.controlGroup}>
-                    <label className={styles.checkboxLabel}>
-                        <input
-                            type="checkbox"
-                            checked={caseSensitive}
-                            onChange={(e) =>
-                                setCaseSensitive(
-                                    e.target.checked
-                                )
-                            }
-                        />
-                        Case Sensitive
-                    </label>
-                </div>
+                        {/* Action Buttons */}
+                        <div className="flex justify-center">
+                            <div className="flex flex-wrap gap-3">
+                                <button
+                                    onClick={computeDiff}
+                                    className="rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2 text-xs font-bold tracking-wide text-white shadow-sm transition hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98]"
+                                >
+                                    🔄 Compare Texts
+                                </button>
+                                <button
+                                    onClick={handleSwap}
+                                    className="rounded-lg border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                                >
+                                    ⇄ Swap Texts
+                                </button>
+                                <button
+                                    onClick={handleLoadSample}
+                                    className="rounded-lg border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                                >
+                                    📋 Load Sample
+                                </button>
+                                <button
+                                    onClick={handleClear}
+                                    className="rounded-lg border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                                >
+                                    🗑️ Clear All
+                                </button>
+                                {diffResult.length > 0 && (
+                                    <button
+                                        onClick={copyDiff}
+                                        className="rounded-lg border border-slate-200 bg-white/80 px-4 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                                    >
+                                        📋 Copy Diff
+                                    </button>
+                                )}
+                            </div>
+                        </div>
 
-                <div className={styles.controlGroup}>
-                    <label className={styles.checkboxLabel}>
-                        <input
-                            type="checkbox"
-                            checked={showStats}
-                            onChange={(e) =>
-                                setShowStats(
-                                    e.target.checked
-                                )
-                            }
-                        />
-                        Show Statistics
-                    </label>
+                        {/* Statistics Cards – now with correct units based on diffMode */}
+                        {showStats && diffResult.length > 0 && (
+                            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                                <div className="rounded-lg border border-slate-200/80 bg-white/50 px-3 py-2 shadow-sm dark:border-slate-800/60 dark:bg-slate-900/50">
+                                    <div className="text-[9px] font-semibold tracking-wider text-slate-400 uppercase">Added</div>
+                                    <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                                        +{getDiffStats.added} {getDiffStats.unitLabel}
+                                    </div>
+                                </div>
+                                <div className="rounded-lg border border-slate-200/80 bg-white/50 px-3 py-2 shadow-sm dark:border-slate-800/60 dark:bg-slate-900/50">
+                                    <div className="text-[9px] font-semibold tracking-wider text-slate-400 uppercase">Removed</div>
+                                    <div className="text-sm font-bold text-rose-600 dark:text-rose-400">
+                                        -{getDiffStats.removed} {getDiffStats.unitLabel}
+                                    </div>
+                                </div>
+                                <div className="rounded-lg border border-slate-200/80 bg-white/50 px-3 py-2 shadow-sm dark:border-slate-800/60 dark:bg-slate-900/50">
+                                    <div className="text-[9px] font-semibold tracking-wider text-slate-400 uppercase">Unchanged</div>
+                                    <div className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                                        {getDiffStats.unchanged} {getDiffStats.unitLabel}
+                                    </div>
+                                </div>
+                                <div className="rounded-lg border border-slate-200/80 bg-white/50 px-3 py-2 shadow-sm dark:border-slate-800/60 dark:bg-slate-900/50">
+                                    <div className="text-[9px] font-semibold tracking-wider text-slate-400 uppercase">Total Changes</div>
+                                    <div className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                                        {getDiffStats.total} {getDiffStats.unitLabel}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Diff Output */}
+                        {diffResult.length > 0 && (
+                            <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50">
+                                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 bg-slate-100/80 px-4 py-2 dark:bg-slate-800/50">
+                                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">Difference Result</span>
+                                    <span className="text-[10px] text-slate-400">
+                                        {viewMode === "unified" ? "Green = Added, Red = Removed" : "Left = Removed, Right = Added"}
+                                    </span>
+                                </div>
+                                <div className="custom-scrollbar max-h-[500px] overflow-auto p-4">
+                                    {viewMode === "unified" ? renderUnifiedDiff() : renderSplitDiff()}
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-
-            <div className={styles.inputsContainer}>
-                <div className={styles.inputPanel}>
-                    <div className={styles.panelHeader}>
-                        <span>📄 Original Text</span>
-
-                        <button
-                            className={styles.iconBtn}
-                            onClick={() => setTextA("")}
-                            title="Clear"
-                        >
-                            🗑️
-                        </button>
-                    </div>
-
-                    <textarea
-                        className={styles.textarea}
-                        placeholder="Enter original text here..."
-                        value={textA}
-                        onChange={(e) =>
-                            setTextA(e.target.value)
-                        }
-                    />
-                </div>
-
-                <div className={styles.inputPanel}>
-                    <div className={styles.panelHeader}>
-                        <span>📝 Modified Text</span>
-
-                        <button
-                            className={styles.iconBtn}
-                            onClick={() => setTextB("")}
-                            title="Clear"
-                        >
-                            🗑️
-                        </button>
-                    </div>
-
-                    <textarea
-                        className={styles.textarea}
-                        placeholder="Enter modified text here..."
-                        value={textB}
-                        onChange={(e) =>
-                            setTextB(e.target.value)
-                        }
-                    />
-                </div>
-            </div>
-
-            <div className={styles.actionButtons}>
-                <button
-                    className={styles.primaryBtn}
-                    onClick={handleCompare}
-                >
-                    🔄 Compare Texts
-                </button>
-
-                <button
-                    className={styles.secondaryBtn}
-                    onClick={handleSwap}
-                >
-                    ⇄ Swap Texts
-                </button>
-
-                <button
-                    className={styles.secondaryBtn}
-                    onClick={handleLoadSample}
-                >
-                    📋 Load Sample
-                </button>
-
-                <button
-                    className={styles.secondaryBtn}
-                    onClick={handleClear}
-                >
-                    🗑️ Clear All
-                </button>
-
-                {diffResult.length > 0 && (
-                    <button
-                        className={styles.secondaryBtn}
-                        onClick={copyDiff}
-                    >
-                        📋 Copy Diff
-                    </button>
-                )}
-            </div>
-
-            {showStats && diffResult.length > 0 && (
-                <div className={styles.statsContainer}>
-                    <div className={styles.statCard}>
-                        <span className={styles.statLabel}>
-                            Added
-                        </span>
-
-                        <span
-                            className={`${styles.statValue} ${styles.addedText}`}
-                        >
-                            +{getDiffStats.added} chars
-                        </span>
-                    </div>
-
-                    <div className={styles.statCard}>
-                        <span className={styles.statLabel}>
-                            Removed
-                        </span>
-
-                        <span
-                            className={`${styles.statValue} ${styles.removedText}`}
-                        >
-                            -{getDiffStats.removed} chars
-                        </span>
-                    </div>
-
-                    <div className={styles.statCard}>
-                        <span className={styles.statLabel}>
-                            Unchanged
-                        </span>
-
-                        <span className={styles.statValue}>
-                            {getDiffStats.unchanged} chars
-                        </span>
-                    </div>
-
-                    <div className={styles.statCard}>
-                        <span className={styles.statLabel}>
-                            Total Changes
-                        </span>
-
-                        <span className={styles.statValue}>
-                            {getDiffStats.added +
-                                getDiffStats.removed}{" "}
-                            chars
-                        </span>
-                    </div>
-                </div>
-            )}
-
-            {diffResult.length > 0 && (
-                <div className={styles.diffContainer}>
-                    <div className={styles.diffHeader}>
-                        <h3>Difference Result</h3>
-
-                        <span className={styles.diffHint}>
-                            {viewMode === "unified"
-                                ? "Green = Added, Red = Removed"
-                                : "Left = Removed, Right = Added"}
-                        </span>
-                    </div>
-
-                    <div className={styles.diffContent}>
-                        {viewMode === "unified"
-                            ? renderUnifiedDiff()
-                            : renderSplitDiff()}
-                    </div>
-                </div>
-            )}
+            <style>{scrollbarStyles}</style>
         </div>
     );
 };

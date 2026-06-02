@@ -7,13 +7,9 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 
-import styles from "./styles.module.css";
-
-// Configure marked options
 marked.setOptions({
   breaks: true,
   gfm: true,
@@ -78,7 +74,6 @@ console.log(greet("Developer"));
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
-  // Count words and characters
   useEffect(() => {
     const text = markdown;
     const words = text.trim() ? text.trim().split(/\s+/).length : 0;
@@ -87,7 +82,6 @@ console.log(greet("Developer"));
     setCharCount(chars);
   }, [markdown]);
 
-  // Copy markdown to clipboard
   const copyMarkdown = async (): Promise<void> => {
     try {
       await navigator.clipboard.writeText(markdown);
@@ -98,14 +92,12 @@ console.log(greet("Developer"));
     }
   };
 
-  // Clear all content
   const clearContent = (): void => {
     if (confirm("Are you sure you want to clear all content?")) {
       setMarkdown("");
     }
   };
 
-  // Insert template
   const insertTemplate = (template: string): void => {
     const templates: Record<string, string> = {
       heading: "\n## New Heading\n",
@@ -118,15 +110,11 @@ console.log(greet("Developer"));
       table: "\n| Header 1 | Header 2 |\n|----------|----------|\n| Cell 1   | Cell 2   |\n",
       quote: "\n> Quote text here\n",
     };
-
     const insertion = templates[template] || "";
-    setMarkdown(prev => prev + insertion);
-    
-    // Focus on textarea
+    setMarkdown((prev) => prev + insertion);
     textareaRef.current?.focus();
   };
 
-  // Download markdown file
   const downloadMarkdown = (): void => {
     const blob = new Blob([markdown], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
@@ -139,7 +127,6 @@ console.log(greet("Developer"));
     URL.revokeObjectURL(url);
   };
 
-  // Print preview
   const printPreview = (): void => {
     const printWindow = window.open("", "_blank");
     if (printWindow) {
@@ -156,7 +143,42 @@ console.log(greet("Developer"));
               margin: 40px auto;
               padding: 20px;
             }
-            ${getPreviewStyles()}
+            h1, h2, h3, h4, h5, h6 {
+              margin-top: 24px;
+              margin-bottom: 16px;
+              font-weight: 600;
+              line-height: 1.25;
+            }
+            h1 { font-size: 2em; border-bottom: 1px solid #eaecef; }
+            h2 { font-size: 1.5em; border-bottom: 1px solid #eaecef; }
+            code {
+              padding: 0.2em 0.4em;
+              background: #f6f8fa;
+              border-radius: 3px;
+              font-family: 'Courier New', monospace;
+            }
+            pre {
+              padding: 16px;
+              background: #f6f8fa;
+              border-radius: 6px;
+              overflow-x: auto;
+            }
+            blockquote {
+              padding: 0 1em;
+              color: #6a737d;
+              border-left: 0.25em solid #dfe2e5;
+            }
+            table {
+              border-collapse: collapse;
+              width: 100%;
+            }
+            th, td {
+              border: 1px solid #dfe2e5;
+              padding: 8px 12px;
+            }
+            th {
+              background: #f6f8fa;
+            }
           </style>
         </head>
         <body>
@@ -169,78 +191,29 @@ console.log(greet("Developer"));
     }
   };
 
-  // Get preview styles for print
-  const getPreviewStyles = (): string => {
-    return `
-      h1, h2, h3, h4, h5, h6 {
-        margin-top: 24px;
-        margin-bottom: 16px;
-        font-weight: 600;
-        line-height: 1.25;
-      }
-      h1 { font-size: 2em; border-bottom: 1px solid #eaecef; }
-      h2 { font-size: 1.5em; border-bottom: 1px solid #eaecef; }
-      code {
-        padding: 0.2em 0.4em;
-        background: #f6f8fa;
-        border-radius: 3px;
-        font-family: 'Courier New', monospace;
-      }
-      pre {
-        padding: 16px;
-        background: #f6f8fa;
-        border-radius: 6px;
-        overflow-x: auto;
-      }
-      blockquote {
-        padding: 0 1em;
-        color: #6a737d;
-        border-left: 0.25em solid #dfe2e5;
-      }
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-      th, td {
-        border: 1px solid #dfe2e5;
-        padding: 8px 12px;
-      }
-      th {
-        background: #f6f8fa;
-      }
-    `;
-  };
-
-  // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent): void => {
-      // Ctrl + B for bold
-      if (e.ctrlKey && e.key === 'b') {
+      if (e.ctrlKey && e.key === "b") {
         e.preventDefault();
-        insertTemplate('bold');
+        insertTemplate("bold");
       }
-      // Ctrl + I for italic
-      if (e.ctrlKey && e.key === 'i') {
+      if (e.ctrlKey && e.key === "i") {
         e.preventDefault();
-        insertTemplate('italic');
+        insertTemplate("italic");
       }
-      // Ctrl + K for link
-      if (e.ctrlKey && e.key === 'k') {
+      if (e.ctrlKey && e.key === "k") {
         e.preventDefault();
-        insertTemplate('link');
+        insertTemplate("link");
       }
     };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // INPUT CHANGE
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setMarkdown(e.target.value);
   };
 
-  // MARKDOWN HTML
   const parsedMarkdown = useMemo(() => {
     try {
       const rawHtml = marked.parse(markdown) as string;
@@ -254,266 +227,412 @@ console.log(greet("Developer"));
     }
   }, [markdown]);
 
+  const previewStyles = `
+    .markdown-body {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #1e293b;
+    }
+    .dark .markdown-body {
+      color: #e2e8f0;
+    }
+    .markdown-body h1 { font-size: 1.6rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+    .markdown-body h2 { font-size: 1.3rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem; }
+    .markdown-body h3 { font-size: 1.1rem; font-weight: 600; margin-top: 1rem; margin-bottom: 0.5rem; }
+    .markdown-body p { margin-bottom: 0.75rem; }
+    .markdown-body a { color: #3b82f6; text-decoration: underline; }
+    .markdown-body code { background: #f1f5f9; padding: 0.2rem 0.3rem; border-radius: 4px; font-family: monospace; font-size: 0.85rem; }
+    .dark .markdown-body code { background: #1e293b; }
+    .markdown-body pre { background: #f8fafc; padding: 0.75rem; border-radius: 8px; overflow-x: auto; margin-bottom: 0.75rem; border: 1px solid #e2e8f0; }
+    .dark .markdown-body pre { background: #0f172a; border-color: #334155; }
+    .markdown-body pre code { background: transparent; padding: 0; }
+    .markdown-body blockquote { border-left: 4px solid #94a3b8; padding-left: 1rem; color: #475569; margin-bottom: 0.75rem; }
+    .dark .markdown-body blockquote { border-left-color: #64748b; color: #94a3b8; }
+    .markdown-body ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .markdown-body ol {
+      list-style: decimal;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .markdown-body li {
+      margin-bottom: 0.25rem;
+    }
+    .markdown-body ul ul {
+      list-style: circle;
+      margin-bottom: 0;
+    }
+    .markdown-body ul ul ul {
+      list-style: square;
+    }
+    .markdown-body ol ol {
+      list-style: lower-alpha;
+      margin-bottom: 0;
+    }
+    .markdown-body table { width: 100%; border-collapse: collapse; margin-bottom: 0.75rem; }
+    .markdown-body th, .markdown-body td { border: 1px solid #cbd5e1; padding: 0.4rem 0.6rem; text-align: left; }
+    .dark .markdown-body th, .dark .markdown-body td { border-color: #334155; }
+    .markdown-body th { background: #f8fafc; font-weight: 600; }
+    .dark .markdown-body th { background: #1e293b; }
+    .markdown-body hr { margin: 1rem 0; }
+  `;
+
+  const scrollbarStyles = `
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #475569;
+    }
+    .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: #94a3b8 #e2e8f0;
+    }
+    .dark .custom-scrollbar {
+      scrollbar-color: #475569 #1e293b;
+    }
+  `;
+
   return (
-    <div className={styles.container}>
-      {/* Toolbar */}
-      <div className={styles.toolbar}>
-        <div className={styles.toolbarLeft}>
-          <button
-            onClick={() => setShowSidebar(!showSidebar)}
-            className={styles.toolBtn}
-            title="Toggle Sidebar"
-          >
-            {showSidebar ? "📖" : "📚"}
-          </button>
-          
-          <div className={styles.divider} />
-          
-          <button
-            onClick={() => insertTemplate("heading")}
-            className={styles.toolBtn}
-            title="Heading (Ctrl+H)"
-          >
-            H1
-          </button>
-          <button
-            onClick={() => insertTemplate("bold")}
-            className={styles.toolBtn}
-            title="Bold (Ctrl+B)"
-          >
-            <strong>B</strong>
-          </button>
-          <button
-            onClick={() => insertTemplate("italic")}
-            className={styles.toolBtn}
-            title="Italic (Ctrl+I)"
-          >
-            <em>I</em>
-          </button>
-          <button
-            onClick={() => insertTemplate("link")}
-            className={styles.toolBtn}
-            title="Link (Ctrl+K)"
-          >
-            🔗
-          </button>
-          <button
-            onClick={() => insertTemplate("image")}
-            className={styles.toolBtn}
-            title="Image"
-          >
-            🖼️
-          </button>
-          <button
-            onClick={() => insertTemplate("code")}
-            className={styles.toolBtn}
-            title="Code Block"
-          >
-            &lt;/&gt;
-          </button>
-          <button
-            onClick={() => insertTemplate("list")}
-            className={styles.toolBtn}
-            title="List"
-          >
-            📋
-          </button>
-          <button
-            onClick={() => insertTemplate("table")}
-            className={styles.toolBtn}
-            title="Table"
-          >
-            📊
-          </button>
-          <button
-            onClick={() => insertTemplate("quote")}
-            className={styles.toolBtn}
-            title="Quote"
-          >
-            💬
-          </button>
-        </div>
-        
-        <div className={styles.toolbarRight}>
-          <span className={styles.stat}>
-            📊 {wordCount} words
-          </span>
-
-          <span className={styles.stat}>
-            🔤 {charCount} chars
-          </span>
-
-          <div className={styles.divider} />
-
-          <button
-            onClick={copyMarkdown}
-            className={styles.toolBtn}
-            title="Copy Markdown"
-          >
-            {isCopied ? "✅" : "📋"}
-          </button>
-
-          <button
-            onClick={downloadMarkdown}
-            className={styles.toolBtn}
-            title="Download Markdown"
-          >
-            💾
-          </button>
-
-          <button
-            onClick={printPreview}
-            className={styles.toolBtn}
-            title="Print Preview"
-          >
-            🖨️
-          </button>
-
-          <button
-            onClick={clearContent}
-            className={`${styles.toolBtn} ${styles.dangerBtn}`}
-            title="Clear All"
-          >
-            🗑️
-          </button>
-        </div>
-      </div>
-
-      {/* Tabs for mobile */}
-      <div className={styles.tabs}>
-        <button
-          className={`${styles.tab} ${activeTab === "write" ? styles.activeTab : ""}`}
-          onClick={() => setActiveTab("write")}
-        >
-          ✏️ Write
-        </button>
-        <button
-          className={`${styles.tab} ${activeTab === "preview" ? styles.activeTab : ""}`}
-          onClick={() => setActiveTab("preview")}
-        >
-          👁️ Preview
-        </button>
-      </div>
-
-      {/* Main Content */}
-      <div className={styles.mainContent}>
-        {/* Sidebar */}
-        {showSidebar && (
-          <div className={styles.sidebar}>
-            <div className={styles.sidebarSection}>
-              <h3>📚 Quick Guide</h3>
-              <div className={styles.guideItem}>
-                <code># Heading 1</code>
-                <span>#</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>## Heading 2</code>
-                <span>##</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>**bold**</code>
-                <span>**</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>*italic*</code>
-                <span>*</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>[link](url)</code>
-                <span>[]()</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>![alt](url)</code>
-                <span>![]()</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>`inline code`</code>
-                <span>`</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>```code block```</code>
-                <span>```</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>- list item</code>
-                <span>-</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>1. numbered list</code>
-                <span>1.</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>&gt; quote</code>
-                <span>&gt;</span>
-              </div>
-              <div className={styles.guideItem}>
-                <code>---</code>
-                <span>---</span>
-              </div>
+    <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-4 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 sm:px-6 sm:py-10">
+      <div className="w-full max-w-[1400px]">
+        <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
+          {/* Toolbar – right group gap reduced on mobile */}
+          <div className="flex flex-wrap items-center justify-between gap-1 border-b-2 border-slate-300/90 bg-slate-100/50 px-2 py-2 shadow-sm backdrop-blur-sm dark:border-slate-600/80 dark:bg-slate-800/40 dark:shadow-black/10 sm:gap-2 sm:px-5 sm:py-3">
+            {/* Left group: compact formatting buttons */}
+            <div className="flex flex-wrap items-center gap-0.5 sm:gap-2">
+              <button
+                onClick={() => setShowSidebar(!showSidebar)}
+                className="rounded-lg p-1 text-sm text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:p-2 sm:text-base"
+                title="Toggle Sidebar"
+              >
+                {showSidebar ? "✕" : "☰"}
+              </button>
+              <div className="mx-0.5 h-4 w-px bg-slate-300 dark:bg-slate-700 sm:mx-1 sm:h-6" />
+              <button
+                onClick={() => insertTemplate("heading")}
+                className="rounded-lg px-1.5 py-0.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-sm"
+                title="Heading (Ctrl+H)"
+              >
+                H1
+              </button>
+              <button
+                onClick={() => insertTemplate("bold")}
+                className="rounded-lg px-1.5 py-0.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-sm"
+                title="Bold (Ctrl+B)"
+              >
+                B
+              </button>
+              <button
+                onClick={() => insertTemplate("italic")}
+                className="rounded-lg px-1.5 py-0.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-sm"
+                title="Italic (Ctrl+I)"
+              >
+                I
+              </button>
+              <button
+                onClick={() => insertTemplate("link")}
+                className="rounded-lg px-1.5 py-0.5 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-base"
+                title="Link (Ctrl+K)"
+              >
+                🔗
+              </button>
+              <button
+                onClick={() => insertTemplate("image")}
+                className="rounded-lg px-1.5 py-0.5 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-base"
+                title="Image"
+              >
+                🖼️
+              </button>
+              <button
+                onClick={() => insertTemplate("code")}
+                className="rounded-lg px-1.5 py-0.5 text-sm font-mono text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-base"
+                title="Code block"
+              >
+                &lt;/&gt;
+              </button>
+              <button
+                onClick={() => insertTemplate("list")}
+                className="rounded-lg px-1.5 py-0.5 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-base"
+                title="List"
+              >
+                📋
+              </button>
+              <button
+                onClick={() => insertTemplate("table")}
+                className="rounded-lg px-1.5 py-0.5 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-base"
+                title="Table"
+              >
+                📊
+              </button>
+              <button
+                onClick={() => insertTemplate("quote")}
+                className="rounded-lg px-1.5 py-0.5 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-3 sm:py-1.5 sm:text-base"
+                title="Quote"
+              >
+                💬
+              </button>
             </div>
-            
-            <div className={styles.sidebarSection}>
-              <h3>⚡ Shortcuts</h3>
-              <div className={styles.shortcutItem}>
-                <span>Ctrl+B</span>
-                <span>Bold</span>
+
+            {/* Right group: gap reduced from gap-2 to gap-1 on mobile */}
+            <div className="flex flex-wrap items-center gap-1 sm:gap-3">
+              <span className="text-xs text-slate-500 dark:text-slate-400 sm:text-sm" title="Word Count">
+                📊 {wordCount} words
+              </span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 sm:text-sm" title="Character Count">
+                🔤 {charCount} chars
+              </span>
+              <div className="mx-0.5 h-4 w-px bg-slate-300 dark:bg-slate-700 sm:mx-1 sm:h-6" />
+              <button
+                onClick={copyMarkdown}
+                className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-4 sm:py-1.5 sm:text-base"
+                title="Copy"
+              >
+                {isCopied ? "✓" : "⎘"}
+              </button>
+              <button
+                onClick={downloadMarkdown}
+                className="rounded-lg px-3 py-1.5 text-sm text-emerald-600 hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-900/40 sm:px-4 sm:py-1.5 sm:text-base"
+                title="Download"
+              >
+                ↓
+              </button>
+              <button
+                onClick={printPreview}
+                className="rounded-lg px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 sm:px-4 sm:py-1.5 sm:text-base"
+                title="Print"
+              >
+                🖨️
+              </button>
+              <button
+                onClick={clearContent}
+                className="rounded-lg px-3 py-1.5 text-sm text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/20 sm:px-4 sm:py-1.5 sm:text-base"
+                title="Clear"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile tabs */}
+          <div className="flex border-b border-slate-200/80 lg:hidden dark:border-slate-800/60">
+            <button
+              onClick={() => setActiveTab("write")}
+              className={`flex-1 py-3 text-center text-sm font-medium transition ${activeTab === "write"
+                  ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400"
+                  : "text-slate-500 dark:text-slate-400"
+                }`}
+            >
+              ✏️ Write
+            </button>
+            <button
+              onClick={() => setActiveTab("preview")}
+              className={`flex-1 py-3 text-center text-sm font-medium transition ${activeTab === "preview"
+                  ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400"
+                  : "text-slate-500 dark:text-slate-400"
+                }`}
+            >
+              👁️ Preview
+            </button>
+          </div>
+
+          {/* Main content – unchanged */}
+          <div className="flex lg:gap-4">
+            {showSidebar && (
+              <div className="hidden w-[272px] flex-shrink-0 lg:block">
+                <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-900/50 h-[432px] flex flex-col">
+                  <div className="custom-scrollbar flex-1 overflow-auto p-5">
+                    {/* Quick Guide and Shortcuts content */}
+                    <div className="mb-6">
+                      <h3 className="mb-3 text-xs font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                        📚 Quick Guide
+                      </h3>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            # Heading 1
+                          </code>
+                          <span className="text-slate-400">#</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            ## Heading 2
+                          </code>
+                          <span className="text-slate-400">##</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            **bold**
+                          </code>
+                          <span className="text-slate-400">**</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            *italic*
+                          </code>
+                          <span className="text-slate-400">*</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            [link](url)
+                          </code>
+                          <span className="text-slate-400">[]()</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            ![alt](url)
+                          </code>
+                          <span className="text-slate-400">![]()</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            `inline code`
+                          </code>
+                          <span className="text-slate-400">`</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            ```code block```
+                          </code>
+                          <span className="text-slate-400">```</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            - list item
+                          </code>
+                          <span className="text-slate-400">-</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            1. numbered list
+                          </code>
+                          <span className="text-slate-400">1.</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            &gt; quote
+                          </code>
+                          <span className="text-slate-400">&gt;</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <code className="text-xs bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            ---
+                          </code>
+                          <span className="text-slate-400">---</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="mb-3 text-xs font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
+                        ⚡ Shortcuts
+                      </h3>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between items-center">
+                          <span className="font-mono bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            Ctrl+B
+                          </span>
+                          <span className="text-slate-500">Bold</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="font-mono bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            Ctrl+I
+                          </span>
+                          <span className="text-slate-500">Italic</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="font-mono bg-white dark:bg-slate-800 px-2 py-1 rounded border border-slate-200 dark:border-slate-700">
+                            Ctrl+K
+                          </span>
+                          <span className="text-slate-500">Link</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className={styles.shortcutItem}>
-                <span>Ctrl+I</span>
-                <span>Italic</span>
+            )}
+
+            <div className="flex-1 lg:flex lg:gap-4">
+              {/* Editor panel */}
+              <div
+                className={`${activeTab === "preview" ? "hidden lg:block" : ""
+                  } w-full lg:w-1/2`}
+              >
+                <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 h-[432px] flex flex-col">
+                  <div className="border-b border-slate-200 bg-slate-100/80 px-5 py-3 dark:border-slate-700 dark:bg-slate-800/50 flex-shrink-0">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                        ✏️ Markdown Editor
+                      </span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                        Type your markdown here...
+                      </span>
+                    </div>
+                  </div>
+                  <div className="bg-white/50 dark:bg-slate-900/40 flex-1">
+                    <textarea
+                      ref={textareaRef}
+                      value={markdown}
+                      onChange={handleChange}
+                      className="custom-scrollbar h-full w-full resize-none rounded-b-xl bg-transparent p-5 font-mono text-sm leading-relaxed text-slate-800 focus:outline-none dark:text-slate-100"
+                      placeholder="Type Markdown here..."
+                    />
+                  </div>
+                </div>
               </div>
-              <div className={styles.shortcutItem}>
-                <span>Ctrl+K</span>
-                <span>Link</span>
+
+              {/* Preview panel */}
+              <div
+                className={`${activeTab === "write" ? "hidden lg:block" : ""
+                  } w-full lg:w-1/2 mt-5 lg:mt-0`}
+              >
+                <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 h-[432px] flex flex-col">
+                  <div className="border-b border-slate-200 bg-slate-100/80 px-5 py-3 dark:border-slate-700 dark:bg-slate-800/50 flex-shrink-0">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+                        👁️ Live Preview
+                      </span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                        Rendered HTML output
+                      </span>
+                    </div>
+                  </div>
+                  <div className="bg-white/50 dark:bg-slate-900/40 flex-1 overflow-auto custom-scrollbar">
+                    <div className="p-5">
+                      <style>{previewStyles}</style>
+                      <style>{scrollbarStyles}</style>
+                      <div
+                        ref={previewRef}
+                        className="markdown-body"
+                        dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        )}
-
-        {/* Editor and Preview */}
-        <div className={`${styles.editorPreview} ${!showSidebar ? styles.expanded : ""}`}>
-          <div className={`${styles.editor} ${activeTab === "preview" ? styles.hideMobile : ""}`}>
-            <div className={styles.panelHeader}>
-              <span>✏️ Markdown Editor</span>
-              <span className={styles.panelHint}>Type your markdown here...</span>
-            </div>
-            <textarea
-              ref={textareaRef}
-              className={styles.textarea}
-              value={markdown}
-              onChange={handleChange}
-              placeholder="Type Markdown here..."
-            />
-          </div>
-
-          <div className={`${styles.preview} ${activeTab === "write" ? styles.hideMobile : ""}`}>
-            <div className={styles.panelHeader}>
-              <span>👁️ Live Preview</span>
-              <span className={styles.panelHint}>Rendered HTML output</span>
-            </div>
-            <div
-              ref={previewRef}
-              className={styles.markdownPreview}
-              dangerouslySetInnerHTML={{ __html: parsedMarkdown }}
-            />
-          </div>
-        </div>
-      </div>
-   {/* Footer */}
-      <div className={styles.footer}>
-        <div className={styles.footerLeft}>
-          <span>✨ Powered by Marked.js</span>
-          <span>🛡️ Sanitized with DOMPurify</span>
-        </div>
-        <div className={styles.footerRight}>
-          <a 
-            href="https://www.markdownguide.org/cheat-sheet/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={styles.footerLink}
-          >
-            📖 Markdown Cheat Sheet
-          </a>
         </div>
       </div>
     </div>
