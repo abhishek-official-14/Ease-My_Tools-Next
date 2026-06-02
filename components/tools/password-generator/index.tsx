@@ -169,7 +169,7 @@ const PasswordGenerator = () => {
         return { strength: "Strong", level: 5, color: "bg-emerald-500" };
     };
 
-    const strength = calculateStrength();
+  const strength = calculateStrength();
 
     useEffect(() => {
         if (charPoolSize > 0) {
