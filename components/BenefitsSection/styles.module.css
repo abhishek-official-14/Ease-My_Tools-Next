@@ -1,5 +1,6 @@
 .benefits-section {
-  padding: 4rem 2rem;
+  /* Increased left/right padding from 2rem to 2.5rem for identical breathing room */
+  padding: 4rem 2.5rem;
   background: var(--bg-light);
 }
 
@@ -7,9 +8,15 @@
   background: var(--bg-dark);
 }
 
+/* THE DECOUPLING FIX:
+   Safely shields your local container limits from being 
+   overwritten or squished by Tailwind's engine utilities.
+*/
+.benefits-section :global(.container),
 .benefits-section .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  display: block !important;
 }
 
 .benefits-section h2 {
@@ -80,11 +87,11 @@
   .benefits-section {
     padding: 3rem 1rem;
   }
-  
+
   .benefits-section h2 {
     font-size: 2rem;
   }
-  
+
   .benefits-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;

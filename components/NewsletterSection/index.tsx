@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from './styles.module.css';
+import NoPreflightWrapper from '../NoPreflightWrapper';
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState('');
@@ -15,27 +16,30 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className={styles["newsletter-section"]}>
-      <div className={`container`}>
-        <div className={styles["newsletter-content"]}>
-          <h3>{"Stay Updated"}</h3>
-          <p>{"Get notified about new tools and features"}</p>
-          <form onSubmit={handleSubmit} className={styles["newsletter-form"]}>
-            <input
-              type="email"
-              placeholder={"Enter your email"}
-              value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-              required
-            />
-            <button type="submit">
-              {"Subscribe"}
-            </button>
-          </form>
-          <small>{"We respect your privacy. Unsubscribe at any time."}</small>
+    <NoPreflightWrapper>
+
+      <section className={styles["newsletter-section"]}>
+        <div className={`container`}>
+          <div className={styles["newsletter-content"]}>
+            <h3>{"Stay Updated"}</h3>
+            <p>{"Get notified about new tools and features"}</p>
+            <form onSubmit={handleSubmit} className={styles["newsletter-form"]}>
+              <input
+                type="email"
+                placeholder={"Enter your email"}
+                value={email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit">
+                {"Subscribe"}
+              </button>
+            </form>
+            <small>{"We respect your privacy. Unsubscribe at any time."}</small>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </NoPreflightWrapper>
   );
 };
 

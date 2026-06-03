@@ -521,6 +521,7 @@
 }
 
 @media (max-width: 480px) {
+
   .themeBtn,
   .signInBtn {
     padding: 7px 12px;

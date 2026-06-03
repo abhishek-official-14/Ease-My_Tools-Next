@@ -3,20 +3,25 @@
 ========================= */
 
 .featured-tools {
-  padding: 4.25rem 1rem;
-  /* padding: 0rem 0rem; */
+  /* Increased left/right padding from 1rem to 2.5rem for more breathing room */
+  padding: 4.25rem 2.5rem;
   background: #f8fafc;
 }
 
 :global(.dark) .featured-tools {
   background: #0f172a;
-  /* background: #20273a; */
 }
 
+/* THE DECOUPLING FIX:
+   Safely shields your local container grid limits from being 
+   overwritten or squished by Tailwind's engine utilities.
+*/
+.featured-tools :global(.container),
 .featured-tools .container {
-  max-width: 1400px;
-  /* 👈 THIS is the key change */
-  margin: 0 auto;
+  /* Reduced from 1400px to 1200px to make the section a little smaller/tighter */
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  display: block !important;
 }
 
 /* =========================

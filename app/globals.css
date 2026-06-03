@@ -1,53 +1,86 @@
-@import "tailwindcss";
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/preflight" layer(base);
+@import "tailwindcss/utilities" layer(utilities);
+
+/* Tells Tailwind how next-themes handles dark mode selector switching */
 @custom-variant dark (&:where(.dark, .dark *));
 
-* {
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+@theme {
+    --color-primary: var(--primary);
+    --color-card: var(--card-light);
+    --color-card-dark: var(--card-dark);
+    --color-app-bg: var(--bg-light);
+    --color-app-text: var(--text-light);
 }
 
-/* Light Mode */
-.light {
-  background-color: var(--bg-light);
-  color: var(--text-light);
-  transition: background 0.3s, color 0.3s;
+/* Switches Tailwind's internal variables dynamically when .dark is active */
+@layer theme {
+    .dark {
+        --color-card: var(--card-dark);
+        --color-app-bg: var(--bg-dark);
+        --color-app-text: var(--text-dark);
+    }
 }
 
-/* Dark Mode */
-.dark {
-  background-color: var(--bg-dark);
-  color: var(--text-dark);
-  transition: background 0.3s, color 0.3s;
-}
-
-/* Utility classes */
-button,
-input {
-  font-family: inherit;
-  outline: none;
-}
-
-/* Enhanced Responsive Design */
+/* GLOBAL CSS RAW VARIABLES (FOR YOUR LEGACY CODE)
+    My existing CSS components look for these exact names.
+ */
 :root {
-  /* Existing variables */
-  --bg-light: #ffffff;
-  --bg-light: #ebe4e4;
-  --bg-light: #f7f3f3;
+    --bg-light: hsla(0, 10%, 96%, 0.66);
+    --text-light: #2d3748;
+    --card-light: #f9fafb;
 
+    --bg-dark: #0f172a;
+    --text-dark: #f1f5f9;
+    --card-dark: #1e293b;
 
-  --bg-light: hsla(0, 10%, 96%, 0.66);
-
-  
-  --text-light: #111827;
-  --card-light: #f9fafb;
-  --bg-dark: #0f172a;
-  --text-dark: #f3f4f6;
-  --card-dark: #1e293b;
-  --primary: #3b82f6;
+    --primary: #3b82f6;
 }
 
-.main-content {
-  /* This ensures the footer stays at the bottom even if content is loading */
-  /* min-height: calc(100vh - 200px); */
-  min-height: 80vh;
+/* 
+    BASE LAYER (GLOBAL ELEMENT OVERRIDES & FALLBACKS)
+    Wrapped safely in 'base' so Tailwind utilities can override them.
+ */
+@layer base {
+    * {
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html {
+        font-size: 14px;
+        /* Preserves your exact mobile baseline scaling */
+    }
+
+    button,
+    input {
+        font-family: inherit;
+        outline: none;
+    }
+
+    /* Global baseline backgrounds for your HTML body layout */
+    body {
+        background-color: var(--bg-light);
+        color: var(--text-light);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ensuring background shifts correctly in dark mode */
+    .dark body {
+        background-color: var(--bg-dark);
+        color: var(--text-dark);
+    }
+}
+
+/* 
+    CUSTOM GLOBAL COMPONENTS
+ */
+@layer components {
+    .main-content {
+        /* Ensures the footer stays at the bottom even if content is loading */
+        min-height: 80vh;
+    }
 }

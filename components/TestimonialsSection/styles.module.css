@@ -1,5 +1,6 @@
 .testimonials-section {
-  padding: 4rem 2rem;
+  /* Increased left/right padding from 2rem to 2.5rem for identical breathing room */
+  padding: 4rem 2.5rem;
   background: #f8fafc;
 }
 
@@ -7,9 +8,15 @@
   background: #0f172a;
 }
 
+/* THE DECOUPLING FIX:
+    Safely shields your local container limits from being 
+    overwritten or squished by Tailwind's engine utilities.
+*/
+.testimonials-section :global(.container),
 .testimonials-section .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  display: block !important;
 }
 
 .testimonials-section h2 {
@@ -102,11 +109,11 @@
   .testimonials-section {
     padding: 3rem 1rem;
   }
-  
+
   .testimonials-section h2 {
     font-size: 2rem;
   }
-  
+
   .testimonials-grid {
     grid-template-columns: 1fr;
   }
