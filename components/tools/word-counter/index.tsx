@@ -21,23 +21,7 @@ type FormatType =
 const WordCounterEditor: React.FC = () => {
     const [text, setText] = useState<string>(`# Welcome to the Word Counter & Editor
 
-## Write and preview Markdown in real time
-
-### Features
-- **Bold**, *italic*, ~~strikethrough~~
-- \`inline code\` and code blocks
-- Lists (bullet and numbered)
-- [Links](https://example.com)
-- Tables and blockquotes
-
-### Example Table
-| Feature     | Status |
-|-------------|--------|
-| Markdown    | ✅     |
-| Word Count  | ✅     |
-| Live Preview| ✅     |
-
-> This is a blockquote. Start typing above to see the magic!`);
+## Markdown is also supported`);
 
     const [previewMode, setPreviewMode] = useState<"edit" | "preview" | "split">(
         "split"

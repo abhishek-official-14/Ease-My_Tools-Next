@@ -109,10 +109,15 @@
 }
 
 /* --- SLIDER STYLES --- */
+/* THE DECOUPLING FIX:
+   Safely shields your slider's global container layouts from 
+   being overwritten or squished by Tailwind's engine utilities.
+*/
+.categories-slider :global(.container),
 .categories-slider {
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  display: block !important;
 }
 
 .slider-container {
@@ -166,14 +171,12 @@
 
 .tools-count {
   font-size: 0.7rem;
-  opacity: 0.8;
 }
 
 .card-description {
   flex-grow: 1;
   font-size: 0.85rem;
-  opacity: 0.9;
-  line-height: 1.4;
+  opacity: 1;
 }
 
 /* DOTS */
@@ -278,9 +281,9 @@
   }
 
   /* Hide description on very small screens to keep the 2x2 grid clean */
-  .card-description {
+  /* .card-description {
     display: none;
-  }
+  } */
 
   .dot {
     width: 20px;

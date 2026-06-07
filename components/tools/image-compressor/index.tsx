@@ -281,7 +281,8 @@ const ImageCompressor: React.FC = () => {
     const hasResult = !!result;
 
     return (
-        <div className="flex min-h-screen justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 sm:px-4 sm:py-10">
+        // <div className="flex min-h-screen justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 sm:px-4 sm:py-10">
+        <div className="flex min-h-screen justify-center bg-gradient-to-br from-slate-200 via-white to-slate-200 px-3 py-8 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100 sm:px-4 sm:py-10">
             <div className="w-full max-w-5xl">
                 <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
                     <div className="grid gap-5 px-4 py-4 sm:px-6 sm:py-5 lg:grid-cols-[1fr_1.05fr]">
