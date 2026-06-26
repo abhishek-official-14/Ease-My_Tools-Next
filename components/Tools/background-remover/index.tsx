@@ -460,9 +460,9 @@ function EditorWorkspace({
     )
 
     return (
-        <main className="grid min-h-[620px] gap-3 lg:grid-cols-[minmax(0,1fr)_280px]">
-            <div className="relative overflow-hidden rounded-3xl border bg-slate-200 shadow-inner dark:bg-slate-900">
-                <div className="absolute top-3 left-3 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow">
+<main className="grid gap-3 lg:min-h-[620px] lg:grid-cols-[minmax(0,1fr)_280px]">
+<div className="relative flex h-[60vh] min-h-[320px] items-center justify-center overflow-hidden rounded-3xl border bg-slate-200 shadow-inner lg:h-auto lg:min-h-[620px] dark:bg-slate-900">
+    <div className="absolute top-3 left-3 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow">
                     {item.fileName}
                 </div>
                 <div className="absolute top-3 right-3 z-10 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow">
@@ -472,8 +472,8 @@ function EditorWorkspace({
                 </div>
                 <canvas
                     ref={canvasRef}
-                    className={cn(
-                        "h-[calc(100vh-220px)] min-h-[460px] w-full touch-none lg:h-full",
+            className={cn(
+    "h-full w-full touch-none",
                         pointerMode === "pan"
                             ? "cursor-grab active:cursor-grabbing"
                             : "cursor-crosshair"
