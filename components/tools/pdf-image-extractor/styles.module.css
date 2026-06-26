@@ -154,7 +154,7 @@
 
 .settings-section h3 {
   margin-bottom: 1.5rem;
-  color: var(--primary);
+  color: #3b82f6;
   font-size: 1.3rem;
 }
 
@@ -482,7 +482,7 @@
 }
 
 .results-info h3 {
-  color: var(--primary);
+  color: #3b82f6;
   margin: 0 0 0.5rem 0;
   font-size: 1.4rem;
 }
@@ -789,7 +789,7 @@
 
 .tips-section h3 {
   margin-bottom: 1.5rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .tips-list {

@@ -1,13 +1,13 @@
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions } from "next-auth"
 
-import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google"
+import CredentialsProvider from "next-auth/providers/credentials"
 
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
-import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs"
 
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma"
 
 export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -23,11 +23,8 @@ export const authOptions: NextAuthOptions = {
 
             async authorize(credentials) {
                 // Missing credentials
-                if (
-                    !credentials?.email ||
-                    !credentials?.password
-                ) {
-                    throw new Error("Missing credentials");
+                if (!credentials?.email || !credentials?.password) {
+                    throw new Error("Missing credentials")
                 }
 
                 // Find user
@@ -35,39 +32,35 @@ export const authOptions: NextAuthOptions = {
                     where: {
                         email: credentials.email,
                     },
-                });
+                })
 
                 // User not found
                 if (!user || !user.password) {
-                    throw new Error("Invalid credentials");
+                    throw new Error("Invalid credentials")
                 }
 
                 // Require verified email
                 if (!user.emailVerified) {
-                    throw new Error(
-                        "Please verify your email first"
-                    );
+                    throw new Error("Please verify your email first")
                 }
 
                 // Compare password
-                const passwordMatch =
-                    await bcrypt.compare(
-                        credentials.password,
-                        user.password
-                    );
+                const passwordMatch = await bcrypt.compare(
+                    credentials.password,
+                    user.password
+                )
 
                 if (!passwordMatch) {
-                    throw new Error("Invalid credentials");
+                    throw new Error("Invalid credentials")
                 }
 
-                return user;
+                return user
             },
         }),
 
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
-            clientSecret:
-                process.env.GOOGLE_CLIENT_SECRET!,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
             allowDangerousEmailAccountLinking: true,
         }),
     ],
@@ -79,19 +72,19 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.role = user.role;
+                token.role = user.role
             }
 
-            return token;
+            return token
         },
 
         async session({ session, token }) {
             if (session.user) {
-                session.user.id = token.sub!;
-                session.user.role = token.role;
+                session.user.id = token.sub!
+                session.user.role = token.role
             }
 
-            return session;
+            return session
         },
     },
 
@@ -105,10 +98,10 @@ export const authOptions: NextAuthOptions = {
                     data: {
                         emailVerified: new Date(),
                     },
-                });
+                })
             }
         },
     },
 
     secret: process.env.NEXTAUTH_SECRET,
-};
+}

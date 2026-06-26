@@ -1,4 +1,3 @@
-
 // import { env, AutoModel, AutoProcessor, RawImage } from '@huggingface/transformers';
 
 // env.allowLocalModels = false;
@@ -121,55 +120,55 @@
 //     }
 // };
 
-import { env, pipeline } from "@huggingface/transformers";
+// workers/image-ai.worker.ts
+import { env, pipeline } from "@huggingface/transformers"
 
-env.allowLocalModels = false;
+env.allowLocalModels = false
 
 let initPromise: Promise<{
-    segmenter: any;
-    device: string;
-}> | null = null;
+    segmenter: any
+    device: string
+}> | null = null
 
 async function initializeEngine() {
-    let device = "wasm";
-    let supportsF16 = false;
+    let device = "wasm"
+    let supportsF16 = false
 
     if (typeof navigator !== "undefined" && "gpu" in navigator) {
         try {
-            const adapter = await navigator.gpu.requestAdapter();
+            const adapter = await navigator.gpu.requestAdapter()
 
             if (adapter) {
-                device = "webgpu";
+                device = "webgpu"
 
                 if (adapter.features?.has("shader-f16")) {
-                    supportsF16 = true;
+                    supportsF16 = true
                 }
             }
         } catch (e) {
-            console.warn("WebGPU not available, using WASM", e);
+            console.warn("WebGPU not available, using WASM", e)
         }
     }
 
-    const preferredDtype =
-        device === "webgpu" && supportsF16 ? "fp16" : "q8";
+    const preferredDtype = device === "webgpu" && supportsF16 ? "fp16" : "q8"
 
-    let lastProgressTime = 0;
+    let lastProgressTime = 0
 
     const progressCallback = (data: any) => {
         if (data.status === "progress") {
-            const now = performance.now();
+            const now = performance.now()
             // Limit message channel pressure to prevent rendering performance drops
             if (now - lastProgressTime > 60 || data.progress === 100) {
-                lastProgressTime = now;
+                lastProgressTime = now
                 self.postMessage({
                     type: "engine",
                     status: "downloading",
                     progress: data.progress,
                     device,
-                });
+                })
             }
         }
-    };
+    }
 
     const segmenter = await pipeline(
         "background-removal",
@@ -179,40 +178,40 @@ async function initializeEngine() {
             dtype: preferredDtype,
             progress_callback: progressCallback,
         }
-    );
+    )
 
-    return { segmenter, device };
+    return { segmenter, device }
 }
 
 self.onmessage = async (e: MessageEvent) => {
-    const { imageSrc, id } = e.data;
-    if (!imageSrc) return;
+    const { imageSrc, id } = e.data
+    if (!imageSrc) return
 
     if (!initPromise) {
-        initPromise = initializeEngine();
+        initPromise = initializeEngine()
     }
 
     try {
-        const { segmenter, device } = await initPromise;
+        const { segmenter, device } = await initPromise
 
         self.postMessage({
             type: "engine",
             status: "ready",
             device,
-        });
+        })
 
         self.postMessage({
             id,
             type: "item",
             status: "loading",
             message: "Spawning pipelines...",
-        });
+        })
 
-        const output = await segmenter([imageSrc]);
+        const output = await segmenter([imageSrc])
 
-        const blob = await output[0].toBlob();
+        const blob = await output[0].toBlob()
 
-        const resultBitmap = await createImageBitmap(blob);
+        const resultBitmap = await createImageBitmap(blob)
 
         self.postMessage(
             {
@@ -223,15 +222,15 @@ self.onmessage = async (e: MessageEvent) => {
                 device,
             },
             [resultBitmap]
-        );
+        )
     } catch (error: any) {
-        console.error("Worker Error:", error);
+        console.error("Worker Error:", error)
 
         self.postMessage({
             id,
             type: "item",
             status: "error",
             message: error.message || "Failed to process image",
-        });
+        })
     }
-};
+}

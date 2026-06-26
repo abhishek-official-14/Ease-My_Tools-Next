@@ -1,7 +1,17 @@
-"use client";
+"use client"
+
+export default function Mp4ToGif() {
+    return (
+        <>
+            <div className="text-center">
+                <h1 className="text-5xl">Coming Soon</h1>
+            </div>
+        </>
+    )
+}
 
 // // // import React, { useState, useRef } from 'react';
-// // // 
+// // //
 // // // import { useTheme } from 'next-themes';
 // // // import styles from './styles.module.css';
 
@@ -14,7 +24,7 @@
 // // //     const [isConverting, setIsConverting] = useState(false);
 // // //     const [isDragging, setIsDragging] = useState(false);
 // // //     const [conversionInfo, setConversionInfo] = useState<any | null>(null);
-    
+
 // // //     const [settings, setSettings] = useState({
 // // //         startTime: 0,
 // // //         duration: 5,
@@ -77,14 +87,14 @@
 // // //         }
 
 // // //         setIsConverting(true);
-        
+
 // // //         try {
 // // //             // Simulate conversion process (in real app, you'd use FFmpeg or similar)
 // // //             await new Promise(resolve => setTimeout(resolve, 3000));
-            
+
 // // //             // Create a mock GIF (in real app, this would be the actual converted GIF)
 // // //             const mockGifUrl = 'https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Converted+GIF+Preview';
-            
+
 // // //             setGifUrl(mockGifUrl);
 // // //             setConversionInfo({
 // // //                 originalSize: formatFileSize(videoFile.size),
@@ -145,7 +155,7 @@
 
 // // //             <div className={styles["converter-container"]}>
 // // //                 <div className={styles["upload-section"]}>
-// // //                     <div 
+// // //                     <div
 // // //                         className={`${styles["drop-zone"]} ${isDragging ? 'dragging' : ''} ${videoFile ? 'has-file' : ''}`}
 // // //                         onDragOver={handleDragOver}
 // // //                         onDragLeave={handleDragLeave}
@@ -230,8 +240,8 @@
 
 // // //                         <div className={styles["setting-group"]}>
 // // //                             <label>{"Frame Rate (FPS)"}</label>
-// // //                             <select 
-// // //                                 value={settings.frameRate} 
+// // //                             <select
+// // //                                 value={settings.frameRate}
 // // //                                 onChange={(e) => updateSetting('frameRate', parseInt(e.target.value))}
 // // //                             >
 // // //                                 <option value={5}>5 FPS</option>
@@ -244,8 +254,8 @@
 
 // // //                         <div className={styles["setting-group"]}>
 // // //                             <label>{"Quality"}</label>
-// // //                             <select 
-// // //                                 value={settings.quality} 
+// // //                             <select
+// // //                                 value={settings.quality}
 // // //                                 onChange={(e) => updateSetting('quality', e.target.value)}
 // // //                             >
 // // //                                 <option value="low">{"Low"}</option>
@@ -257,8 +267,8 @@
 // // //                 </div>
 
 // // //                 <div className={styles["action-buttons"]}>
-// // //                     <button 
-// // //                         onClick={convertToGif} 
+// // //                     <button
+// // //                         onClick={convertToGif}
 // // //                         className={styles["primary-btn"]}
 // // //                         disabled={!videoFile || isConverting}
 // // //                     >
@@ -321,9 +331,8 @@
 
 // // // export default Mp4ToGif;
 
-
 // // // import React, { useState, useRef } from 'react';
-// // // 
+// // //
 // // // import { useTheme } from 'next-themes';
 // // // import styles from './styles.module.css';
 
@@ -657,13 +666,9 @@
 
 // // // export default Mp4ToGif;
 
-
-
-
-
 // import { useState, useRef } from "react";
 // import { useTheme } from "next-themes";
-// 
+//
 // import { FFmpeg } from "@ffmpeg/ffmpeg";
 // import { fetchFile } from "@ffmpeg/util";
 

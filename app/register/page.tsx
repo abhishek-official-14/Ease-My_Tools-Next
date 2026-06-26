@@ -1,12 +1,11 @@
-import Register from "@/components/Register";
-import type { Metadata } from "next";
+import Register from "@/components/Register"
+import type { Metadata } from "next"
 
-export const metadata:Metadata = {
+export const metadata: Metadata = {
     title: "EaseMyTools - Register",
-    description:
-        "Create your EaseMyTools account.",
-};
+    description: "Create your EaseMyTools account.",
+}
 
 export default function Page() {
-    return <Register />;
+    return <Register />
 }

@@ -63,14 +63,14 @@
 }
 
 .upload-area:hover {
-    border-color: var(--primary);
+    border-color: #3b82f6;
     background: #f0f9ff;
     transform: translateY(-2px);
 }
 
 :global(.dark) .upload-area:hover {
     background: #1e3a8a;
-    border-color: var(--primary);
+    border-color: #3b82f6;
 }
 
 .upload-content .upload-icon {
@@ -107,7 +107,7 @@
     padding: 1.5rem;
     background: #f1f5f9;
     border-radius: 8px;
-    border-left: 4px solid var(--primary);
+    border-left: 4px solid #3b82f6;
 }
 
 :global(.dark) .file-info-card {
@@ -116,7 +116,7 @@
 
 .file-info-card h4 {
     margin-bottom: 1rem;
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
 }
 
@@ -162,7 +162,7 @@
 }
 
 .format-badge {
-    background: var(--primary);
+    background: #3b82f6;
     color: white;
     padding: 0.25rem 0.75rem;
     border-radius: 12px;
@@ -206,7 +206,7 @@
 
 .format-display {
     padding: 0.75rem 1.5rem;
-    background: var(--primary);
+    background: #3b82f6;
     color: white;
     border-radius: 8px;
     font-weight: 600;
@@ -232,7 +232,7 @@
 
 .conversion-arrow {
     font-size: 2rem;
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: bold;
     margin: 0 1rem;
 }
@@ -251,7 +251,7 @@
 
 .settings-section h4 {
     margin-bottom: 1rem;
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
 }
 
@@ -296,7 +296,7 @@
 
 .setting-group select:focus,
 .setting-group input[type="text"]:focus {
-    border-color: var(--primary);
+    border-color: #3b82f6;
     outline: none;
 }
 
@@ -340,7 +340,7 @@
 }
 
 .primary-btn {
-    background: var(--primary);
+    background: #3b82f6;
     color: white;
 }
 
@@ -405,7 +405,7 @@
 
 .preview-section h3 {
     margin-bottom: 1.5rem;
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
     text-align: center;
 }
@@ -423,7 +423,7 @@
 
 .preview-item h4 {
     margin-bottom: 1rem;
-    color: var(--primary);
+    color: #3b82f6;
     text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
@@ -520,7 +520,7 @@
 
 .tips-section h3 {
     margin-bottom: 1.5rem;
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
     text-align: center;
 }
@@ -536,7 +536,7 @@
     padding: 1rem 1rem 1rem 3rem;
     background: #f0f9ff;
     border-radius: 8px;
-    border-left: 4px solid var(--primary);
+    border-left: 4px solid #3b82f6;
     position: relative;
     font-size: 0.9rem;
     line-height: 1.5;

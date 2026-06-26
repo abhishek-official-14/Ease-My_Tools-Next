@@ -1,39 +1,39 @@
-"use client";
+"use client"
 
-import React, { useState, useRef } from 'react';
-import styles from './styles.module.css';
+import React, { useState, useRef } from "react"
+import styles from "./styles.module.css"
 
 const TextExtractor = () => {
-    const [extractedText, setExtractedText] = useState('');
-    const [isProcessing, setIsProcessing] = useState(false);
-    const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [extractedText, setExtractedText] = useState("")
+    const [isProcessing, setIsProcessing] = useState(false)
+    const [uploadedImage, setUploadedImage] = useState<string | null>(null)
+    const fileInputRef = useRef<HTMLInputElement | null>(null)
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (!file) return;
+        const file = event.target.files?.[0]
+        if (!file) return
 
         // Check if file is an image
-        if (!file.type.startsWith('image/')) {
-            alert("Please select an image file");
-            return;
+        if (!file.type.startsWith("image/")) {
+            alert("Please select an image file")
+            return
         }
 
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = (e: ProgressEvent<FileReader>) => {
-            const result = e.target?.result;
+            const result = e.target?.result
             if (typeof result === "string") {
-                setUploadedImage(result);
+                setUploadedImage(result)
                 // Simulate OCR processing
-                simulateOCRProcessing();
+                simulateOCRProcessing()
             }
-        };
-        reader.readAsDataURL(file);
-    };
+        }
+        reader.readAsDataURL(file)
+    }
 
     const simulateOCRProcessing = () => {
-        setIsProcessing(true);
-        setExtractedText('');
+        setIsProcessing(true)
+        setExtractedText("")
 
         // Simulate processing delay
         setTimeout(() => {
@@ -53,60 +53,60 @@ Note: This is a simulation. For real OCR functionality,
 you would need to integrate with an OCR service like:
 • Google Cloud Vision API
 • Amazon Textract
-• Tesseract.js (client-side)`;
+• Tesseract.js (client-side)`
 
-            setExtractedText(simulatedText);
-            setIsProcessing(false);
-        }, 2000);
-    };
+            setExtractedText(simulatedText)
+            setIsProcessing(false)
+        }, 2000)
+    }
 
     const handlePaste = async (event: React.ClipboardEvent<HTMLDivElement>) => {
-        const items = event.clipboardData?.items;
-        if (!items) return;
+        const items = event.clipboardData?.items
+        if (!items) return
 
         for (const item of items) {
-            if (item.type.startsWith('image/')) {
-                const file = item.getAsFile();
+            if (item.type.startsWith("image/")) {
+                const file = item.getAsFile()
                 if (file) {
-                    const reader = new FileReader();
+                    const reader = new FileReader()
                     reader.onload = (e: ProgressEvent<FileReader>) => {
-                        const result = e.target?.result;
+                        const result = e.target?.result
                         if (typeof result === "string") {
-                            setUploadedImage(result);
-                            simulateOCRProcessing();
+                            setUploadedImage(result)
+                            simulateOCRProcessing()
                         }
-                    };
-                    reader.readAsDataURL(file);
+                    }
+                    reader.readAsDataURL(file)
                 }
-                break;
+                break
             }
         }
-    };
+    }
 
     const clearAll = () => {
-        setUploadedImage(null);
-        setExtractedText('');
+        setUploadedImage(null)
+        setExtractedText("")
         if (fileInputRef.current) {
-            fileInputRef.current.value = '';
+            fileInputRef.current.value = ""
         }
-    };
+    }
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(extractedText);
-        alert("Text copied to clipboard!");
-    };
+        navigator.clipboard.writeText(extractedText)
+        alert("Text copied to clipboard!")
+    }
 
     const downloadText = () => {
-        const blob = new Blob([extractedText], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'extracted-text.txt';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-    };
+        const blob = new Blob([extractedText], { type: "text/plain" })
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement("a")
+        link.href = url
+        link.download = "extracted-text.txt"
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+    }
 
     return (
         <div className={styles["text-extractor"]} onPaste={handlePaste}>
@@ -126,7 +126,10 @@ you would need to integrate with an OCR service like:
                             className={styles["file-input"]}
                             id="file-upload"
                         />
-                        <label htmlFor="file-upload" className={styles["upload-label"]}>
+                        <label
+                            htmlFor="file-upload"
+                            className={styles["upload-label"]}
+                        >
                             <div className={styles["upload-icon"]}>📁</div>
                             <div className={styles["upload-text"]}>
                                 {"Click to upload image"}
@@ -162,10 +165,16 @@ you would need to integrate with an OCR service like:
                             <pre>{extractedText}</pre>
                         </div>
                         <div className={styles["result-actions"]}>
-                            <button onClick={copyToClipboard} className={styles["copy-btn"]}>
+                            <button
+                                onClick={copyToClipboard}
+                                className={styles["copy-btn"]}
+                            >
                                 {"Copy Text"}
                             </button>
-                            <button onClick={downloadText} className={styles["download-btn"]}>
+                            <button
+                                onClick={downloadText}
+                                className={styles["download-btn"]}
+                            >
                                 {"Download Text"}
                             </button>
                         </div>
@@ -180,8 +189,12 @@ you would need to integrate with an OCR service like:
 
                 <div className={styles["info-section"]}>
                     <h4>{"About OCR Technology"}</h4>
-                    <p>{"OCR (Optical Character Recognition) technology converts different types of documents, such as scanned paper documents, PDF files or images captured by a digital camera into editable and searchable data."}</p>
-                    
+                    <p>
+                        {
+                            "OCR (Optical Character Recognition) technology converts different types of documents, such as scanned paper documents, PDF files or images captured by a digital camera into editable and searchable data."
+                        }
+                    </p>
+
                     <h5>{"Common Uses:"}</h5>
                     <ul>
                         <li>{"Digitizing printed documents"}</li>
@@ -192,7 +205,11 @@ you would need to integrate with an OCR service like:
 
                     <div className={styles["limitations"]}>
                         <h5>{"Limitations:"}</h5>
-                        <p>{"Note: This is a simulation. For production use, consider:"}</p>
+                        <p>
+                            {
+                                "Note: This is a simulation. For production use, consider:"
+                            }
+                        </p>
                         <ul>
                             <li>{"Google Cloud Vision API"}</li>
                             <li>{"Amazon Textract"}</li>
@@ -203,7 +220,7 @@ you would need to integrate with an OCR service like:
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default TextExtractor;
+export default TextExtractor

@@ -1,30 +1,27 @@
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth"
 
-import { authOptions } from "@/lib/auth-options";
+import { authOptions } from "@/lib/auth-options"
 
 export async function getAuthSession() {
-    return await getServerSession(authOptions);
+    return await getServerSession(authOptions)
 }
 
 export async function requireAdmin() {
-    const session = await getAuthSession();
+    const session = await getAuthSession()
 
     if (session?.user.role !== "ADMIN") {
-        throw new Error("Unauthorized");
+        throw new Error("Unauthorized")
     }
 
-    return session;
+    return session
 }
 
 export async function requirePremium() {
-    const session = await getAuthSession();
+    const session = await getAuthSession()
 
-    if (
-        session?.user.role !== "PREMIUM" &&
-        session?.user.role !== "ADMIN"
-    ) {
-        throw new Error("Premium required");
+    if (session?.user.role !== "PREMIUM" && session?.user.role !== "ADMIN") {
+        throw new Error("Premium required")
     }
 
-    return session;
+    return session
 }

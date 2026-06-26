@@ -1,44 +1,50 @@
-"use client";
+"use client"
 
-import React, { useState } from 'react';
-import styles from './styles.module.css';
+import React, { useState } from "react"
+import styles from "./styles.module.css"
 
-const CaseConverter = () => { // <-- i18next
-    const [inputText, setInputText] = useState('');
-    const [convertedText, setConvertedText] = useState('');
+const CaseConverter = () => {
+    // <-- i18next
+    const [inputText, setInputText] = useState("")
+    const [convertedText, setConvertedText] = useState("")
 
     const convertToUpperCase = () => {
-        setConvertedText(inputText.toUpperCase());
-    };
+        setConvertedText(inputText.toUpperCase())
+    }
 
     const convertToLowerCase = () => {
-        setConvertedText(inputText.toLowerCase());
-    };
+        setConvertedText(inputText.toLowerCase())
+    }
 
     const convertToSentenceCase = () => {
-        const sentences = inputText.toLowerCase().split('. ');
-        const sentenceCase = sentences.map(sentence =>
-            sentence.charAt(0).toUpperCase() + sentence.slice(1)
-        ).join('. ');
-        setConvertedText(sentenceCase);
-    };
+        const sentences = inputText.toLowerCase().split(". ")
+        const sentenceCase = sentences
+            .map(
+                (sentence) =>
+                    sentence.charAt(0).toUpperCase() + sentence.slice(1)
+            )
+            .join(". ")
+        setConvertedText(sentenceCase)
+    }
 
     const convertToTitleCase = () => {
-        const titleCase = inputText.toLowerCase().split(' ').map(word =>
-            word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(' ');
-        setConvertedText(titleCase);
-    };
+        const titleCase = inputText
+            .toLowerCase()
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ")
+        setConvertedText(titleCase)
+    }
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(convertedText);
-        alert("Text copied to clipboard!");
-    };
+        navigator.clipboard.writeText(convertedText)
+        alert("Text copied to clipboard!")
+    }
 
     const clearText = () => {
-        setInputText('');
-        setConvertedText('');
-    };
+        setInputText("")
+        setConvertedText("")
+    }
 
     return (
         <div className={styles["case-converter"]}>
@@ -60,16 +66,28 @@ const CaseConverter = () => { // <-- i18next
                 </div>
 
                 <div className={styles["button-group"]}>
-                    <button onClick={convertToUpperCase} className={styles["convert-btn"]}>
+                    <button
+                        onClick={convertToUpperCase}
+                        className={styles["convert-btn"]}
+                    >
                         {"UPPERCASE"}
                     </button>
-                    <button onClick={convertToLowerCase} className={styles["convert-btn"]}>
+                    <button
+                        onClick={convertToLowerCase}
+                        className={styles["convert-btn"]}
+                    >
                         {"lowercase"}
                     </button>
-                    <button onClick={convertToSentenceCase} className={styles["convert-btn"]}>
+                    <button
+                        onClick={convertToSentenceCase}
+                        className={styles["convert-btn"]}
+                    >
                         {"Sentence case"}
                     </button>
-                    <button onClick={convertToTitleCase} className={styles["convert-btn"]}>
+                    <button
+                        onClick={convertToTitleCase}
+                        className={styles["convert-btn"]}
+                    >
                         {"Title Case"}
                     </button>
                     <button onClick={clearText} className={styles["clear-btn"]}>
@@ -90,18 +108,31 @@ const CaseConverter = () => { // <-- i18next
 
                 {convertedText && (
                     <div className={styles["action-buttons"]}>
-                        <button onClick={copyToClipboard} className={styles["copy-btn"]}>
+                        <button
+                            onClick={copyToClipboard}
+                            className={styles["copy-btn"]}
+                        >
                             {"Copy to Clipboard"}
                         </button>
                         <div className={styles["text-stats"]}>
-                            <span>{"Characters"}: {convertedText.length}</span>
-                            <span>{"Words"}: {convertedText.split(/\s+/).filter(word => word.length > 0).length}</span>
+                            <span>
+                                {"Characters"}: {convertedText.length}
+                            </span>
+                            <span>
+                                {"Words"}:{" "}
+                                {
+                                    convertedText
+                                        .split(/\s+/)
+                                        .filter((word) => word.length > 0)
+                                        .length
+                                }
+                            </span>
                         </div>
                     </div>
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default CaseConverter;
+export default CaseConverter

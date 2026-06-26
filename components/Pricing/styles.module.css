@@ -23,7 +23,7 @@
 .pricing-header h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .pricing-subtitle {
@@ -59,7 +59,7 @@
 }
 
 .pricing-card.highlighted {
-  border-color: var(--primary);
+  border-color: #3b82f6;
   transform: scale(1.05);
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
 }
@@ -73,7 +73,7 @@
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
   padding: 0.5rem 1.5rem;
   border-radius: 20px;
@@ -103,7 +103,7 @@
 .price {
   font-size: 3rem;
   font-weight: 700;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .period {
@@ -160,7 +160,7 @@
 }
 
 .plan-button.primary {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
 }
 
@@ -193,7 +193,7 @@
 .pricing-faq h2 {
   text-align: center;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
   font-size: 2rem;
 }
 

@@ -99,7 +99,7 @@
 
 .input:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: #3b82f6;
 }
 
 .input:disabled {
@@ -110,7 +110,7 @@
 .submitBtn {
     width: 100%;
     padding: 0.625rem;
-    background: var(--primary);
+    background:#3b82f6;
     color: white;
     border: none;
     border-radius: 8px;
@@ -156,7 +156,7 @@
 }
 
 .footer a {
-    color: var(--primary);
+    color: #3b82f6;
     text-decoration: none;
     font-weight: 500;
 }

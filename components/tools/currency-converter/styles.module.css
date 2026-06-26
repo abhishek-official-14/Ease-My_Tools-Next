@@ -89,7 +89,7 @@
 }
 
 .amount-input:focus {
-    border-color: var(--primary);
+    border-color: #3b82f6;
     outline: none;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
@@ -146,13 +146,13 @@
 }
 
 .currency-select:focus {
-    border-color: var(--primary);
+    border-color: #3b82f6;
     outline: none;
 }
 
 .swap-btn {
     padding: 0.75rem;
-    background: var(--primary);
+    background: #3b82f6;
     color: white;
     border: none;
     border-radius: 8px;
@@ -196,7 +196,7 @@
     width: 20px;
     height: 20px;
     border: 2px solid #e5e7eb;
-    border-top: 2px solid var(--primary);
+    border-top: 2px solid #3b82f6;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -277,7 +277,7 @@
     display: block;
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary);
+    color: #3b82f6;
     margin-bottom: 0.5rem;
 }
 
@@ -355,8 +355,8 @@
     width: 100%;
     padding: 0.75rem;
     background: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
+    color: #3b82f6;
+    border: 2px solid #3b82f6;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
@@ -364,7 +364,7 @@
 }
 
 .history-toggle-btn:hover {
-    background: var(--primary);
+    background: #3b82f6;
     color: white;
 }
 
@@ -381,7 +381,7 @@
 
 .historical-section h3 {
     margin-bottom: 1rem;
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
 }
 
@@ -440,7 +440,7 @@
 
 .bar-fill {
     width: 20px;
-    background: var(--primary);
+    background: #3b82f6;
     border-radius: 4px 4px 0 0;
     transition: height 0.3s ease;
     min-height: 4px;
@@ -487,7 +487,7 @@
 }
 
 .history-rate {
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
 }
 
@@ -510,7 +510,7 @@
 
 .popular-currencies h3 {
     margin-bottom: 1rem;
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
 }
 
@@ -538,14 +538,14 @@
 }
 
 .currency-chip:hover:not(:disabled) {
-    border-color: var(--primary);
+    border-color: #3b82f6;
     transform: translateY(-1px);
 }
 
 .currency-chip.active {
-    background: var(--primary);
+    background: #3b82f6;
     color: white;
-    border-color: var(--primary);
+    border-color: #3b82f6;
 }
 
 .currency-chip:disabled {
@@ -575,7 +575,7 @@
 }
 
 .section-header h3 {
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
 }
 
@@ -599,7 +599,7 @@
 }
 
 .search-input:focus {
-    border-color: var(--primary);
+    border-color: #3b82f6;
     outline: none;
 }
 
@@ -628,13 +628,13 @@
 }
 
 .currency-item:hover {
-    border-color: var(--primary);
+    border-color: #3b82f6;
     transform: translateX(4px);
 }
 
 .currency-item.selected {
     background: #f0f9ff;
-    border-color: var(--primary);
+    border-color: #3b82f6;
 }
 
 :global(.dark) .currency-item.selected {
@@ -663,7 +663,7 @@
 
 .currency-rate {
     font-weight: 600;
-    color: var(--primary);
+    color: #3b82f6;
     font-size: 0.9rem;
 }
 
@@ -680,7 +680,7 @@
 
 .tips-section h3 {
     margin-bottom: 1rem;
-    color: var(--primary);
+    color: #3b82f6;
     font-weight: 600;
 }
 
@@ -694,7 +694,7 @@
     background: #f0f9ff;
     padding: 1rem;
     border-radius: 8px;
-    border-left: 4px solid var(--primary);
+    border-left: 4px solid #3b82f6;
     font-size: 0.9rem;
     line-height: 1.5;
 }

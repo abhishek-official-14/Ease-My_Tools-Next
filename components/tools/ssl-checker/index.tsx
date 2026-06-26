@@ -1,49 +1,52 @@
-"use client";
+"use client"
 
-import React, { useState } from 'react';
-import styles from './styles.module.css';
+import React, { useState } from "react"
+import styles from "./styles.module.css"
 
-const t = (key: string, fallback?: string) => fallback ?? key;
+const t = (key: string, fallback?: string) => fallback ?? key
 
 const SslChecker = () => {
-    const [domain, setDomain] = useState('');
-    const [certificate, setCertificate] = useState<any | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [domain, setDomain] = useState("")
+    const [certificate, setCertificate] = useState<any | null>(null)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
 
     const checkCertificate = async () => {
         try {
-            setError('');
-            setLoading(true);
-            setCertificate(null);
+            setError("")
+            setLoading(true)
+            setCertificate(null)
 
             if (!domain.trim()) {
-                setError("Please enter a valid domain");
-                setLoading(false);
-                return;
+                setError("Please enter a valid domain")
+                setLoading(false)
+                return
             }
 
             // Using a CORS proxy to avoid CORS issues
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-            const targetUrl = `https://${domain.replace(/^https?:\/\//, '')}`;
-            
+            const proxyUrl = "https://cors-anywhere.herokuapp.com/"
+            const targetUrl = `https://${domain.replace(/^https?:\/\//, "")}`
+
             // Note: This is a simplified implementation
             // In a real application, you'd need a backend service to check SSL certificates
-            const response = await fetch(`${proxyUrl}${targetUrl}`);
-            
+            const response = await fetch(`${proxyUrl}${targetUrl}`)
+
             if (!response.ok) {
-                throw new Error("Error fetching certificate");
+                throw new Error("Error fetching certificate")
             }
 
             // Simulate certificate data (in real app, you'd parse the actual certificate)
-            const now = new Date();
-            const validFrom = new Date(now);
-            validFrom.setFullYear(now.getFullYear() - 1);
-            
-            const validUntil = new Date(now);
-            validUntil.setFullYear(now.getFullYear() + 1);
-            
-            const daysRemaining = Math.ceil((new Date(validUntil).getTime() - new Date(now).getTime()) / (1000 * 60 * 60 * 24));
+            const now = new Date()
+            const validFrom = new Date(now)
+            validFrom.setFullYear(now.getFullYear() - 1)
+
+            const validUntil = new Date(now)
+            validUntil.setFullYear(now.getFullYear() + 1)
+
+            const daysRemaining = Math.ceil(
+                (new Date(validUntil).getTime() - new Date(now).getTime()) /
+                    (1000 * 60 * 60 * 24)
+            )
 
             const mockCertificate = {
                 domain: domain,
@@ -60,37 +63,37 @@ const SslChecker = () => {
                 ocsp: "http://ocsp.letsencrypt.org",
                 crl: "http://crl.letsencrypt.org",
                 isValid: daysRemaining > 0,
-                isExpiringSoon: daysRemaining < 30
-            };
+                isExpiringSoon: daysRemaining < 30,
+            }
 
-            setCertificate(mockCertificate);
+            setCertificate(mockCertificate)
         } catch (err) {
-            if (err instanceof Error) setError(err.message);
+            if (err instanceof Error) setError(err.message)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
     const clearAll = () => {
-        setDomain('');
-        setCertificate(null);
-        setError('');
-    };
+        setDomain("")
+        setCertificate(null)
+        setError("")
+    }
 
     const getStatus = () => {
-        if (!certificate) return '';
-        if (!certificate.isValid) return 'expired';
-        if (certificate.isExpiringSoon) return 'expiringSoon';
-        return 'valid';
-    };
+        if (!certificate) return ""
+        if (!certificate.isValid) return "expired"
+        if (certificate.isExpiringSoon) return "expiringSoon"
+        return "valid"
+    }
 
     const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    };
+        return new Date(dateString).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        })
+    }
 
     return (
         <div className={styles["ssl-checker"]}>
@@ -115,33 +118,39 @@ const SslChecker = () => {
                 </div>
 
                 <div className={styles["action-buttons"]}>
-                    <button 
-                        onClick={checkCertificate} 
+                    <button
+                        onClick={checkCertificate}
                         className={styles["primary-btn"]}
                         disabled={loading}
                     >
-                        {loading ? "Checking certificate..." : "Check Certificate"}
+                        {loading
+                            ? "Checking certificate..."
+                            : "Check Certificate"}
                     </button>
-                    <button onClick={clearAll} className={styles["secondary-btn"]}>
+                    <button
+                        onClick={clearAll}
+                        className={styles["secondary-btn"]}
+                    >
                         {"Clear"}
                     </button>
                 </div>
 
                 {error && (
-                    <div className={styles["error-message"]}>
-                        {error}
-                    </div>
+                    <div className={styles["error-message"]}>{error}</div>
                 )}
 
                 {certificate && (
                     <div className={styles["results-section"]}>
                         <div className={styles["certificate-status"]}>
-                            <div className={`${styles["status-badge"]} ${getStatus()}`}>
+                            <div
+                                className={`${styles["status-badge"]} ${getStatus()}`}
+                            >
                                 {t(getStatus())}
                             </div>
                             {certificate.daysRemaining > 0 && (
                                 <div className={styles["days-remaining"]}>
-                                    {certificate.daysRemaining} {"Days Remaining"}
+                                    {certificate.daysRemaining}{" "}
+                                    {"Days Remaining"}
                                 </div>
                             )}
                         </div>
@@ -150,56 +159,117 @@ const SslChecker = () => {
                             <h3>{"Certificate Information"}</h3>
                             <div className={styles["details-grid"]}>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Domain"}:</span>
-                                    <span className={styles["detail-value"]}>{certificate.domain}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Domain"}:
+                                    </span>
+                                    <span className={styles["detail-value"]}>
+                                        {certificate.domain}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Issuer"}:</span>
-                                    <span className={styles["detail-value"]}>{certificate.issuer}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Issuer"}:
+                                    </span>
+                                    <span className={styles["detail-value"]}>
+                                        {certificate.issuer}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Subject"}:</span>
-                                    <span className={styles["detail-value"]}>{certificate.subject}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Subject"}:
+                                    </span>
+                                    <span className={styles["detail-value"]}>
+                                        {certificate.subject}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Valid From"}:</span>
-                                    <span className={styles["detail-value"]}>{formatDate(certificate.validFrom)}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Valid From"}:
+                                    </span>
+                                    <span className={styles["detail-value"]}>
+                                        {formatDate(certificate.validFrom)}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Valid Until"}:</span>
-                                    <span className={styles["detail-value"]}>{formatDate(certificate.validUntil)}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Valid Until"}:
+                                    </span>
+                                    <span className={styles["detail-value"]}>
+                                        {formatDate(certificate.validUntil)}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Serial Number"}:</span>
-                                    <span className={`${styles["detail-value"]} ${styles["serial"]}`}>{certificate.serialNumber}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Serial Number"}:
+                                    </span>
+                                    <span
+                                        className={`${styles["detail-value"]} ${styles["serial"]}`}
+                                    >
+                                        {certificate.serialNumber}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Signature Algorithm"}:</span>
-                                    <span className={styles["detail-value"]}>{certificate.signatureAlgorithm}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Signature Algorithm"}:
+                                    </span>
+                                    <span className={styles["detail-value"]}>
+                                        {certificate.signatureAlgorithm}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Key Algorithm"}:</span>
-                                    <span className={styles["detail-value"]}>{certificate.keyAlgorithm}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Key Algorithm"}:
+                                    </span>
+                                    <span className={styles["detail-value"]}>
+                                        {certificate.keyAlgorithm}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"Key Size"}:</span>
-                                    <span className={styles["detail-value"]}>{certificate.keySize} bits</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"Key Size"}:
+                                    </span>
+                                    <span className={styles["detail-value"]}>
+                                        {certificate.keySize} bits
+                                    </span>
                                 </div>
-                                {certificate.san && certificate.san.length > 0 && (
-                                    <div className={styles["detail-item"]}>
-                                        <span className={styles["detail-label"]}>{"Subject Alternative Names"}:</span>
-                                        <span className={styles["detail-value"]}>
-                                            {certificate.san.join(', ')}
-                                        </span>
-                                    </div>
-                                )}
+                                {certificate.san &&
+                                    certificate.san.length > 0 && (
+                                        <div className={styles["detail-item"]}>
+                                            <span
+                                                className={
+                                                    styles["detail-label"]
+                                                }
+                                            >
+                                                {"Subject Alternative Names"}:
+                                            </span>
+                                            <span
+                                                className={
+                                                    styles["detail-value"]
+                                                }
+                                            >
+                                                {certificate.san.join(", ")}
+                                            </span>
+                                        </div>
+                                    )}
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"OCSP"}:</span>
-                                    <span className={`${styles["detail-value"]} ${styles["url"]}`}>{certificate.ocsp}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"OCSP"}:
+                                    </span>
+                                    <span
+                                        className={`${styles["detail-value"]} ${styles["url"]}`}
+                                    >
+                                        {certificate.ocsp}
+                                    </span>
                                 </div>
                                 <div className={styles["detail-item"]}>
-                                    <span className={styles["detail-label"]}>{"CRL"}:</span>
-                                    <span className={`${styles["detail-value"]} ${styles["url"]}`}>{certificate.crl}</span>
+                                    <span className={styles["detail-label"]}>
+                                        {"CRL"}:
+                                    </span>
+                                    <span
+                                        className={`${styles["detail-value"]} ${styles["url"]}`}
+                                    >
+                                        {certificate.crl}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -209,15 +279,23 @@ const SslChecker = () => {
                 <div className={styles["certificate-tips"]}>
                     <h4>{"SSL Certificate Tips"}</h4>
                     <ul>
-                        <li>{"SSL certificates typically expire after 1 year"}</li>
+                        <li>
+                            {"SSL certificates typically expire after 1 year"}
+                        </li>
                         <li>{"Green lock indicates valid SSL certificate"}</li>
-                        <li>{"Always check certificate validity for security"}</li>
-                        <li>{"Use certificates from trusted Certificate Authorities"}</li>
+                        <li>
+                            {"Always check certificate validity for security"}
+                        </li>
+                        <li>
+                            {
+                                "Use certificates from trusted Certificate Authorities"
+                            }
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default SslChecker;
+export default SslChecker

@@ -1,6 +1,6 @@
 // app/loading.tsx
 
-import styles from "./loading.module.css";
+import styles from "./loading.module.css"
 
 export default function Loading() {
     return (
@@ -12,14 +12,10 @@ export default function Loading() {
                     <span></span>
                 </div>
 
-                <h2 className={styles.title}>
-                    Loading
-                </h2>
+                <h2 className={styles.title}>Loading</h2>
 
-                <p className={styles.subtitle}>
-                    Preparing your experience...
-                </p>
+                <p className={styles.subtitle}>Preparing your experience...</p>
             </div>
         </div>
-    );
+    )
 }

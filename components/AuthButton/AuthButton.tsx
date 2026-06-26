@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { signIn, signOut, useSession } from "next-auth/react";
-import styles from "./styles.module.css";
+import { signIn, signOut, useSession } from "next-auth/react"
+import styles from "./styles.module.css"
 
 export default function AuthButton() {
-    const { data: session, status } = useSession();
+    const { data: session, status } = useSession()
 
     if (status === "loading") {
-        return <div className={styles.loader}></div>;
+        return <div className={styles.loader}></div>
     }
 
     if (session) {
@@ -15,11 +15,14 @@ export default function AuthButton() {
             <button onClick={() => signOut()} className={styles.signOutButton}>
                 Sign Out
             </button>
-        );
+        )
     }
 
     return (
-        <button onClick={() => signIn("google")} className={styles.signInButton}>
+        <button
+            onClick={() => signIn("google")}
+            className={styles.signInButton}
+        >
             <svg className={styles.googleIcon} viewBox="0 0 24 24">
                 <path
                     fill="currentColor"
@@ -40,5 +43,5 @@ export default function AuthButton() {
             </svg>
             Sign in with Google
         </button>
-    );
+    )
 }

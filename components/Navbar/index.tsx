@@ -1,203 +1,327 @@
-"use client";
+"use client"
 
-import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import styles from "./styles.module.css";
-import { useTheme } from "next-themes";
-import { useSession, signOut } from "next-auth/react";
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { useTheme } from "next-themes"
+import { useSession, signOut } from "next-auth/react"
 
-const Navbar = () => {
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const { data: session, status } = useSession();
-  const [mounted, setMounted] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
-  const userDropdownRef = useRef<HTMLDivElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
+// Official shadcn/ui structural components
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+} from "@/components/ui/dropdown-menu"
 
-  const menus = [
+import {
+    Sheet,
+    SheetTrigger,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+} from "@/components/ui/sheet"
+
+const menus = [
     { title: "PDF", items: ["Merge PDF", "Split PDF", "Compress PDF"] },
     { title: "Image", items: ["Remove BG", "Resize", "Convert"] },
     { title: "Video", items: ["Compress", "Mute", "Convert"] },
     { title: "File", items: ["Split Excel", "Word → PDF", "PPT → PDF"] },
-  ];
+]
 
-  const icons: Record<string, string> = {
-    "Merge PDF": "📑", "Split PDF": "✂️", "Compress PDF": "📉",
-    "Remove BG": "🖼️", "Resize": "📏", "Convert": "🔄",
-    "Compress": "🎥", "Mute": "🔇",
-    "Split Excel": "📊", "Word → PDF": "📝", "PPT → PDF": "📽️",
-  };
+const icons: Record<string, string> = {
+    "Merge PDF": "📑",
+    "Split PDF": "✂️",
+    "Compress PDF": "📉",
+    "Remove BG": "🖼️",
+    Resize: "📏",
+    Convert: "🔄",
+    Compress: "🎥",
+    Mute: "🔇",
+    "Split Excel": "📊",
+    "Word → PDF": "📝",
+    "PPT → PDF": "📽️",
+}
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+const ChevronDown = ({ className }: { className?: string }) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="2.5"
+        stroke="currentColor"
+        className={`h-3 w-3 transition-transform duration-200 ${className || ""}`}
+    >
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+        />
+    </svg>
+)
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (userDropdownRef.current && !userDropdownRef.current.contains(e.target as Node)) {
-        setIsUserDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+const Navbar = () => {
+    const { theme, setTheme, resolvedTheme } = useTheme()
+    const { data: session, status } = useSession()
+    const [mounted, setMounted] = useState(false)
+    const [openMobileMenu, setOpenMobileMenu] = useState(false)
+    const [mobileDropdown, setMobileDropdown] = useState<number | null>(null)
 
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    // Window resize listener to automatically dismiss the mobile menu state
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) {
+                setOpenMobileMenu(false)
+                setMobileDropdown(null)
+            }
+        }
+
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
+
+    const activeTheme = theme === "system" ? resolvedTheme : theme
+    const toggleTheme = () =>
+        setTheme(activeTheme === "dark" ? "light" : "dark")
+    const getToolPath = (item: string) => {
+        return {
+            pathname: `/tools/tool/${item.toLowerCase().replace(/\s/g, "-")}`,
+        }
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMobileMenuOpen]);
 
-  const activeTheme = theme === "system" ? resolvedTheme : theme;
-  const toggleTheme = () => setTheme(activeTheme === "dark" ? "light" : "dark");
+    return (
+        <header className="sticky top-0 z-50 w-full border-b border-gray-400/90 bg-gray-200/80 shadow-2xl backdrop-blur-md transition-colors duration-300 dark:border-gray-700/90 dark:bg-gray-950/80">
+            {/* 
+        Used arbitrary values [..] on the `lg:` prefix to simulate 
+        a 16px root font-size on desktop ONLY for this navbar.
+        Mobile keeps the global 14px root.
+      */}
+            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-[64px] lg:max-w-[1280px] lg:px-[32px]">
+                {/* Brand Logo - scales to 24px on desktop */}
+                <Link
+                    href="/"
+                    className="bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-xl font-extrabold tracking-tight text-transparent transition-transform select-none active:scale-98 lg:text-[24px]"
+                >
+                    EaseMyTools
+                </Link>
 
-  return (
-    <header className={styles.navbar}>
-      <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
-          EaseMyTools
-        </Link>
+                {/* Desktop Navigation Menu Links */}
+                <nav className="hidden items-center lg:flex lg:gap-[8px]">
+                    {menus.map((menu, idx) => (
+                        <DropdownMenu key={idx}>
+                            <DropdownMenuTrigger className="group flex cursor-pointer items-center rounded-xl px-4 py-2 text-sm font-medium text-gray-600 transition-all outline-none hover:bg-gray-100/80 hover:text-gray-900 data-[state=open]:bg-gray-100/80 lg:gap-[6px] lg:rounded-[12px] lg:px-[16px] lg:py-[8px] lg:text-[16px] dark:text-gray-300 dark:hover:bg-gray-900/80 dark:hover:text-white dark:data-[state=open]:bg-gray-900/80">
+                                {menu.title}
+                                <ChevronDown className="text-gray-400 group-data-[state=open]:rotate-180" />
+                            </DropdownMenuTrigger>
 
-        <div className={styles.desktopMenu}>
-          {menus.map((menu, idx) => (
-            <div
-              key={idx}
-              className={styles.dropdown}
-              onMouseEnter={() => setOpenDropdown(idx)}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              <button className={styles.dropdownBtn}>
-                {menu.title} <span className={styles.arrow}>▾</span>
-              </button>
-              {openDropdown === idx && (
-                <div className={styles.dropdownPanel}>
-                  {menu.items.map((item, i) => (
-                    <Link
-                      key={i}
-                      href={`/tools/${item.toLowerCase().replace(/\s/g, "-")}`}
-                      className={styles.dropdownItem}
-                    >
-                      <span className={styles.itemIcon}>{icons[item]}</span>
-                      <span>{item}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+                            <DropdownMenuContent
+                                align="center"
+                                sideOffset={8}
+                                className="w-48 rounded-xl border border-gray-200/60 bg-white p-1.5 shadow-xl lg:w-[192px] dark:border-gray-800 dark:bg-gray-900"
+                            >
+                                {menu.items.map((item, i) => (
+                                    <DropdownMenuItem key={i} asChild>
+                                        <Link
+                                            href={getToolPath(item)}
+                                            className="flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-3 text-sm font-medium text-gray-700 transition-colors outline-none hover:bg-gray-100 lg:text-[16px] dark:text-gray-300 dark:hover:bg-gray-800"
+                                        >
+                                            <span className="text-base">
+                                                {icons[item]}
+                                            </span>
+                                            <span>{item}</span>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    ))}
+                </nav>
 
-        <div className={styles.right}>
-          {status === "loading" ? (
-            <div className={styles.loader}>...</div>
-          ) : session ? (
-            // Desktop user menu only (hidden on mobile via CSS)
-            <div className={styles.userMenu} ref={userDropdownRef}>
-              <button
-                className={styles.userBtn}
-                onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
-              >
-                <span className={styles.avatar}>
-                  {session.user?.email?.charAt(0).toUpperCase() || "?"}
-                </span>
-                <span className={styles.chevron}>▾</span>
-              </button>
-              {isUserDropdownOpen && (
-                <div className={styles.userDropdown}>
-                  <div className={styles.userEmail}>{session.user?.email}</div>
-                  <button onClick={() => signOut()} className={styles.signOutBtn}>
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Link href="/login" className={styles.signInBtn}>
-              Sign In
-            </Link>
-          )}
-          <button className={styles.themeBtn} onClick={toggleTheme}>
-            {!mounted
-              ? "🌓 Theme"
-              : activeTheme === "light"
-                ? "🌙 Dark"
-                : "☀️ Light"}
-          </button>
+                {/* Global Controls Array */}
+                <div className="flex items-center gap-2 sm:gap-3">
+                    {/* Global User Authentication Blocks - Visible on ALL screen sizes */}
+                    {status === "loading" ? (
+                        <div className="h-8 w-8 animate-pulse rounded-full bg-gray-200 dark:bg-gray-800" />
+                    ) : session ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger className="flex cursor-pointer items-center gap-2 rounded-full border border-gray-200 p-1 transition-all outline-none hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-900">
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 text-sm font-bold text-white shadow-inner lg:h-[32px] lg:w-[32px] lg:text-[16px]">
+                                    {session.user?.email
+                                        ?.charAt(0)
+                                        .toUpperCase() || "?"}
+                                </div>
+                            </DropdownMenuTrigger>
 
-          <button
-            className={`${styles.hamburger} ${isMobileMenuOpen ? styles.active : ""}`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            <span></span><span></span><span></span>
-          </button>
-        </div>
-      </div>
-
-      {isMobileMenuOpen && (
-        <>
-          <div className={styles.overlay} onClick={() => setIsMobileMenuOpen(false)} />
-          <div className={styles.mobileMenu} ref={mobileMenuRef}>
-            <div className={styles.mobileHeader}>
-              <span>Menu</span>
-              <button onClick={() => setIsMobileMenuOpen(false)} className={styles.closeBtn}>✕</button>
-            </div>
-            <div className={styles.mobileContent}>
-              {menus.map((menu, idx) => (
-                <div key={idx} className={styles.mobileDropdown}>
-                  <button
-                    className={styles.mobileDropdownBtn}
-                    onClick={() => setOpenDropdown(openDropdown === idx ? null : idx)}
-                  >
-                    {menu.title}
-                    <span>{openDropdown === idx ? "▴" : "▾"}</span>
-                  </button>
-                  {openDropdown === idx && (
-                    <div className={styles.mobileDropdownPanel}>
-                      {menu.items.map((item, i) => (
+                            <DropdownMenuContent
+                                align="end"
+                                sideOffset={8}
+                                className="w-56 rounded-xl border border-gray-200/60 bg-white p-1.5 shadow-xl lg:w-[224px] dark:border-gray-800 dark:bg-gray-900"
+                            >
+                                <div className="mb-1 truncate border-b border-gray-100 px-3 py-2 text-xs font-medium text-gray-400 lg:text-[12px] dark:border-gray-800">
+                                    {session.user?.email}
+                                </div>
+                                <DropdownMenuItem asChild>
+                                    <button
+                                        onClick={() => signOut()}
+                                        className="flex w-full cursor-pointer items-center rounded-lg px-3 py-2 text-left text-sm font-semibold text-red-600 transition-colors outline-none hover:bg-red-50 lg:text-[16px] dark:text-red-400 dark:hover:bg-red-950/30"
+                                    >
+                                        Sign Out
+                                    </button>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    ) : (
                         <Link
-                          key={i}
-                          href={`/tools/${item.toLowerCase().replace(/\s/g, "-")}`}
-                          className={styles.mobileDropdownItem}
-                          onClick={() => setIsMobileMenuOpen(false)}
+                            href="/login"
+                            className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-3 text-sm font-medium text-white shadow-md shadow-indigo-500/10 transition-all hover:shadow-lg hover:shadow-indigo-500/20 active:scale-95 lg:h-[40px] lg:rounded-[12px] lg:px-[12px] lg:text-[16px]"
                         >
-                          <span className={styles.itemIcon}>{icons[item]}</span>
-                          <span>{item}</span>
+                            Sign In
                         </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-              <div className={styles.mobileAuth}>
-                {session ? (
-                  <>
-                    <div className={styles.mobileUserEmail}>{session.user?.email}</div>
-                    <button
-                      onClick={() => signOut()}
-                      className={styles.mobileSignOut}
-                    >
-                      Sign Out
-                    </button>
-                  </>
-                ) : (
-                  <Link href="/login" className={styles.mobileSignIn} onClick={() => setIsMobileMenuOpen(false)}>
-                    Sign In
-                  </Link>
-                )}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-    </header>
-  );
-};
+                    )}
 
-export default Navbar;
+                    {/* Theme Toggle Button */}
+                    <button
+                        onClick={toggleTheme}
+                        className="flex h-10 cursor-pointer items-center justify-center rounded-xl border border-gray-200 px-3 text-sm font-medium text-gray-500 transition-all hover:bg-gray-50 active:scale-95 lg:h-[40px] lg:rounded-[12px] lg:px-[12px] lg:text-[16px] dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-900"
+                        aria-label="Toggle Theme"
+                    >
+                        {!mounted
+                            ? "🌓"
+                            : activeTheme === "light"
+                              ? "🌙 Dark"
+                              : "☀️ Light"}
+                    </button>
+
+                    {/* Mobile Shell Drawer Trigger */}
+                    <Sheet
+                        open={openMobileMenu}
+                        onOpenChange={setOpenMobileMenu}
+                    >
+                        <SheetTrigger asChild>
+                            <button
+                                className="flex h-10 w-10 cursor-pointer flex-col items-center justify-center gap-[4px] rounded-xl border border-gray-200 text-gray-600 transition-all active:bg-gray-50 lg:hidden dark:border-gray-800 dark:text-gray-300 dark:active:bg-gray-900"
+                                aria-label="Open Menu"
+                            >
+                                <span
+                                    className={`h-[2px] w-5 rounded-full bg-current transition-transform ${openMobileMenu ? "translate-y-[6px] rotate-45" : ""}`}
+                                />
+                                <span
+                                    className={`h-[2px] w-5 rounded-full bg-current transition-opacity ${openMobileMenu ? "opacity-0" : ""}`}
+                                />
+                                <span
+                                    className={`h-[2px] w-5 rounded-full bg-current transition-transform ${openMobileMenu ? "-translate-y-[6px] -rotate-45" : ""}`}
+                                />
+                            </button>
+                        </SheetTrigger>
+
+                        <SheetContent
+                            side="right"
+                            className="flex w-full max-w-[290px] flex-col justify-between border-l border-gray-200 bg-white p-5 outline-none dark:border-gray-800 dark:bg-gray-950 [&>button]:hidden"
+                        >
+                            <div className="overflow-y-auto">
+                                <SheetHeader className="mb-4 flex flex-row items-center justify-between space-y-0 border-b border-gray-100 pb-3.5 text-left dark:border-gray-900">
+                                    <SheetTitle className="text-lg font-bold text-gray-900 dark:text-white">
+                                        Menu
+                                    </SheetTitle>
+
+                                    {/* Custom sized close button */}
+                                    <button
+                                        onClick={() => setOpenMobileMenu(false)}
+                                        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-xl border border-gray-200 text-gray-500 transition-all hover:bg-gray-50 active:scale-95 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-900"
+                                        aria-label="Close Menu"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="2.5"
+                                            stroke="currentColor"
+                                            className="h-4 w-4"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M6 18L18 6M6 6l12 12"
+                                            />
+                                        </svg>
+                                    </button>
+                                </SheetHeader>
+
+                                {/* Submenus Accordion Stack - Mobile stays strictly at 14px root scale */}
+                                <div className="space-y-2.5">
+                                    {menus.map((menu, idx) => {
+                                        const isDropdownOpen =
+                                            mobileDropdown === idx
+                                        return (
+                                            <div
+                                                key={idx}
+                                                className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900/40"
+                                            >
+                                                <button
+                                                    onClick={() =>
+                                                        setMobileDropdown(
+                                                            isDropdownOpen
+                                                                ? null
+                                                                : idx
+                                                        )
+                                                    }
+                                                    className="flex w-full cursor-pointer items-center justify-between p-4 text-sm font-semibold text-gray-700 hover:bg-gray-100/50 dark:text-gray-200 dark:hover:bg-gray-900/60"
+                                                >
+                                                    {menu.title}
+                                                    <ChevronDown
+                                                        className={
+                                                            isDropdownOpen
+                                                                ? "rotate-180 text-indigo-500"
+                                                                : "text-gray-400"
+                                                        }
+                                                    />
+                                                </button>
+
+                                                {isDropdownOpen && (
+                                                    <div className="grid grid-cols-1 gap-1 border-t border-gray-200 bg-white p-2 dark:border-gray-800 dark:bg-gray-950">
+                                                        {menu.items.map(
+                                                            (item, i) => (
+                                                                <Link
+                                                                    key={i}
+                                                                    href={getToolPath(
+                                                                        item
+                                                                    )}
+                                                                    onClick={() =>
+                                                                        setOpenMobileMenu(
+                                                                            false
+                                                                        )
+                                                                    }
+                                                                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-900"
+                                                                >
+                                                                    <span className="shrink-0 text-base">
+                                                                        {
+                                                                            icons[
+                                                                                item
+                                                                            ]
+                                                                        }
+                                                                    </span>
+                                                                    <span className="truncate">
+                                                                        {item}
+                                                                    </span>
+                                                                </Link>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        </SheetContent>
+                    </Sheet>
+                </div>
+            </div>
+        </header>
+    )
+}
+
+export default Navbar

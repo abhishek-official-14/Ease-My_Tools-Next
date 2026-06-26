@@ -48,7 +48,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .features-grid {
@@ -112,7 +112,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .compliance-grid {
@@ -187,7 +187,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .practices-grid {
@@ -221,7 +221,7 @@
 .practice-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: var(--primary);
+  color: #3b82f6;
   border-bottom: 2px solid #e5e7eb;
   padding-bottom: 0.5rem;
 }
@@ -269,7 +269,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .faq-grid {

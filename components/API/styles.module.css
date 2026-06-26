@@ -19,7 +19,7 @@
   text-align: center;
   margin-bottom: 4rem;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   color: white;
   border-radius: 20px;
 }
@@ -59,7 +59,7 @@
 
 .primary-button {
   background: white;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .primary-button:hover {
@@ -75,7 +75,7 @@
 
 .secondary-button:hover {
   background: white;
-  color: var(--primary);
+  color: #3b82f6;
   transform: translateY(-2px);
 }
 
@@ -87,7 +87,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .features-grid {
@@ -150,7 +150,7 @@
 .api-endpoints h2 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .endpoints-container {
@@ -202,7 +202,7 @@
 }
 
 .endpoint-item.active {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
 }
 
@@ -265,7 +265,7 @@
 .response-section h4 {
   font-size: 1.25rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .parameters-table {
@@ -314,7 +314,7 @@
 .param-name {
   font-family: 'Monaco', 'Consolas', monospace;
   font-weight: 600;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .param-type {
@@ -357,7 +357,7 @@
 .code-examples h2 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .examples-tabs {
@@ -411,7 +411,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .pricing-cards {
@@ -435,7 +435,7 @@
 }
 
 .pricing-card.highlighted {
-  border-color: var(--primary);
+  border-color: #3b82f6;
   transform: scale(1.05);
   box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
 }
@@ -457,7 +457,7 @@
 .price {
   font-size: 3rem;
   font-weight: 700;
-  color: var(--primary);
+  color: #3b82f6;
   margin-bottom: 1rem;
 }
 
@@ -504,9 +504,9 @@
 .pricing-button {
   width: 100%;
   padding: 1rem 2rem;
-  border: 2px solid var(--primary);
+  border: 2px solid #3b82f6;
   background: transparent;
-  color: var(--primary);
+  color: #3b82f6;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
@@ -514,7 +514,7 @@
 }
 
 .pricing-button.primary {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
 }
 

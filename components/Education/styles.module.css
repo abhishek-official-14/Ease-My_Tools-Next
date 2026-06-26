@@ -88,7 +88,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .features-grid {
@@ -152,7 +152,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .use-cases-grid {
@@ -227,7 +227,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .pricing-subtitle {
@@ -355,7 +355,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .resources-grid {

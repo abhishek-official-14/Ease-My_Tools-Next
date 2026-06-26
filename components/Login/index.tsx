@@ -1,42 +1,45 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import styles from "./styles.module.css";
+import { useState } from "react"
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import styles from "./styles.module.css"
 
 export default function LoginPage() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
 
     async function handleSubmit(e: React.FormEvent) {
-        e.preventDefault();
-        setError(null);
-        setIsLoading(true);
+        e.preventDefault()
+        setError(null)
+        setIsLoading(true)
 
         const result = await signIn("credentials", {
             email,
             password,
             redirect: false,
-        });
+        })
 
-        setIsLoading(false);
+        setIsLoading(false)
 
         if (result?.error) {
-            setError("Invalid email or password");
+            setError("Invalid email or password")
         } else if (result?.ok) {
-            router.push("/");
-            router.refresh();
+            router.push("/")
+            router.refresh()
         }
     }
 
     return (
         <div className={styles.container}>
             <div className={styles.card}>
-                <button onClick={() => signIn("google",{callbackUrl:"/"})} className={styles.googleBtn}>
+                <button
+                    onClick={() => signIn("google", { callbackUrl: "/" })}
+                    className={styles.googleBtn}
+                >
                     <svg viewBox="0 0 24 24" width="18" height="18">
                         <path
                             fill="currentColor"
@@ -83,7 +86,11 @@ export default function LoginPage() {
                         disabled={isLoading}
                     />
 
-                    <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+                    <button
+                        type="submit"
+                        className={styles.submitBtn}
+                        disabled={isLoading}
+                    >
                         {isLoading ? "Signing in..." : "Sign In"}
                     </button>
                 </form>
@@ -93,5 +100,5 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

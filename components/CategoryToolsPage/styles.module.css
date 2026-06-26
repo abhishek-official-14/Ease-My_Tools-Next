@@ -63,7 +63,7 @@
 
 .categoryToolCard:hover {
     transform: translateY(-8px);
-    border-color: var(--primary);
+    border-color: #3b82f6;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -98,7 +98,7 @@
 .toolCardIcon {
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
-    color: var(--primary);
+    color: #3b82f6;
 }
 
 .categoryToolCard h3 {

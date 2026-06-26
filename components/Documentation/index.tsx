@@ -1,20 +1,21 @@
-"use client";
+"use client"
 
-import { useState } from 'react';
-import styles from './styles.module.css';
+import { useState } from "react"
+import styles from "./styles.module.css"
 
 const Documentation = () => {
-  const [activeSection, setActiveSection] = useState('getting-started');
+    const [activeSection, setActiveSection] = useState("getting-started")
 
-  const sections = [
-    {
-      id: 'getting-started',
-      title: "Getting Started",
-      content: "Learn how to quickly start using EaseMyTools in your projects.",
-      subsections: [
+    const sections = [
         {
-          title: "Quick Start",
-          content: `# ${"Quick Start"}
+            id: "getting-started",
+            title: "Getting Started",
+            content:
+                "Learn how to quickly start using EaseMyTools in your projects.",
+            subsections: [
+                {
+                    title: "Quick Start",
+                    content: `# ${"Quick Start"}
 
 ${"Start using EaseMyTools in just a few minutes:"}
 
@@ -23,11 +24,11 @@ ${"Start using EaseMyTools in just a few minutes:"}
 3. **${"Process"}** - Let our tools work their magic
 4. **${"Download"}** - Get your processed file instantly
 
-${"All processing happens locally in your browser for maximum privacy and speed."}`
-        },
-        {
-          title: "Creating an Account",
-          content: `# ${"Creating an Account"}
+${"All processing happens locally in your browser for maximum privacy and speed."}`,
+                },
+                {
+                    title: "Creating an Account",
+                    content: `# ${"Creating an Account"}
 
 ${"While not required, creating an account unlocks additional features:"}
 
@@ -35,18 +36,18 @@ ${"While not required, creating an account unlocks additional features:"}
 - **${"Usage History"}** - Track your past conversions
 - **${"Advanced Features"}** - Access premium tools
 
-${"Sign up for free at"} [${"https://easemytools.com/signup"}](https://easemytools.com/signup)`
-        }
-      ]
-    },
-    {
-      id: 'api-integration',
-      title: "API Integration",
-      content: "Learn how to integrate our tools into your applications.",
-      subsections: [
+${"Sign up for free at"} [${"https://easemytools.com/register"}](https://easemytools.com/register)`,
+                },
+            ],
+        },
         {
-          title: "Authentication",
-          content: `# ${"Authentication"}
+            id: "api-integration",
+            title: "API Integration",
+            content: "Learn how to integrate our tools into your applications.",
+            subsections: [
+                {
+                    title: "Authentication",
+                    content: `# ${"Authentication"}
 
 ${"All API requests require authentication using your API key:"}
 
@@ -57,11 +58,11 @@ const headers = {
 };
 \`\`\`
 
-${"Get your API key from the"} [${"API Dashboard"}](https://easemytools.com/api)`
-        },
-        {
-          title: "Rate Limiting",
-          content: `# ${"Rate Limiting"}
+${"Get your API key from the"} [${"API Dashboard"}](https://easemytools.com/api)`,
+                },
+                {
+                    title: "Rate Limiting",
+                    content: `# ${"Rate Limiting"}
 
 ${"We implement rate limiting to ensure fair usage:"}
 
@@ -69,18 +70,18 @@ ${"We implement rate limiting to ensure fair usage:"}
 - **${"Startup Tier"}**: 50,000 requests/month
 - **${"Enterprise Tier"}**: 500,000 requests/month
 
-${"Rate limits reset at the beginning of each calendar month."}`
-        }
-      ]
-    },
-    {
-      id: 'tutorials',
-      title: "Tutorials",
-      content: "Step-by-step guides for common use cases.",
-      subsections: [
+${"Rate limits reset at the beginning of each calendar month."}`,
+                },
+            ],
+        },
         {
-          title: "Bulk File Processing",
-          content: `# ${"Bulk File Processing"}
+            id: "tutorials",
+            title: "Tutorials",
+            content: "Step-by-step guides for common use cases.",
+            subsections: [
+                {
+                    title: "Bulk File Processing",
+                    content: `# ${"Bulk File Processing"}
 
 ${"Learn how to process multiple files efficiently:"}
 
@@ -89,11 +90,11 @@ ${"Learn how to process multiple files efficiently:"}
 3. **${"Monitor Progress"}** - Track processing in real-time
 4. **${"Download Results"}** - Get all processed files at once
 
-${"Pro Tip: Use our desktop app for faster bulk processing."}`
-        },
-        {
-          title: "Automating Workflows",
-          content: `# ${"Automating Workflows"}
+${"Pro Tip: Use our desktop app for faster bulk processing."}`,
+                },
+                {
+                    title: "Automating Workflows",
+                    content: `# ${"Automating Workflows"}
 
 ${"Create automated workflows using our API:"}
 
@@ -109,95 +110,158 @@ def process_images(folder_path):
             save_result(response)
 \`\`\`
 
-${"This example shows how to automate image processing for a folder of images."}`
-        }
-      ]
-    }
-  ];
+${"This example shows how to automate image processing for a folder of images."}`,
+                },
+            ],
+        },
+    ]
 
-  return (
-    <div className={styles["documentation-page"]}>
-      <div className={styles["docs-container"]}>
-        <header className={styles["docs-header"]}>
-          <h1>{"Documentation"}</h1>
-          <p className={styles["docs-subtitle"]}>
-            {"Comprehensive guides and tutorials for EaseMyTools"}
-          </p>
-        </header>
+    return (
+        <div className={styles["documentation-page"]}>
+            <div className={styles["docs-container"]}>
+                <header className={styles["docs-header"]}>
+                    <h1>{"Documentation"}</h1>
+                    <p className={styles["docs-subtitle"]}>
+                        {"Comprehensive guides and tutorials for EaseMyTools"}
+                    </p>
+                </header>
 
-        <div className={styles["docs-layout"]}>
-          <nav className={styles["docs-sidebar"]}>
-            <div className={styles["sidebar-content"]}>
-              <h3>{"Contents"}</h3>
-              <ul className={styles["sidebar-nav"]}>
-                {sections.map((section) => (
-                  <li key={section.id}>
-                    <button
-                      className={`${styles["nav-item"]} ${activeSection === section.id ? styles["active"] : ""}`}
-                      onClick={() => setActiveSection(section.id)}
-                    >
-                      {section.title}
-                    </button>
-                    {activeSection === section.id && (
-                      <ul className={styles["subsections"]}>
-                        {section.subsections.map((subsection, index) => (
-                          <li key={index}>
-                            <a href={`#${subsection.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                              {subsection.title}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </nav>
+                <div className={styles["docs-layout"]}>
+                    <nav className={styles["docs-sidebar"]}>
+                        <div className={styles["sidebar-content"]}>
+                            <h3>{"Contents"}</h3>
+                            <ul className={styles["sidebar-nav"]}>
+                                {sections.map((section) => (
+                                    <li key={section.id}>
+                                        <button
+                                            className={`${styles["nav-item"]} ${activeSection === section.id ? styles["active"] : ""}`}
+                                            onClick={() =>
+                                                setActiveSection(section.id)
+                                            }
+                                        >
+                                            {section.title}
+                                        </button>
+                                        {activeSection === section.id && (
+                                            <ul
+                                                className={
+                                                    styles["subsections"]
+                                                }
+                                            >
+                                                {section.subsections.map(
+                                                    (subsection, index) => (
+                                                        <li key={index}>
+                                                            <a
+                                                                href={`#${subsection.title.toLowerCase().replace(/\s+/g, "-")}`}
+                                                            >
+                                                                {
+                                                                    subsection.title
+                                                                }
+                                                            </a>
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </nav>
 
-          <main className={styles["docs-content"]}>
-            {sections
-              .filter(section => section.id === activeSection)
-              .map(section => (
-                <div key={section.id} className={styles["section-content"]}>
-                  <h2>{section.title}</h2>
-                  <p className={styles["section-description"]}>{section.content}</p>
-                  
-                  {section.subsections.map((subsection, index) => (
-                    <article key={index} className={styles["subsection"]} id={subsection.title.toLowerCase().replace(/\s+/g, '-')}>
-                      <div className={styles["subsection-content"]}>
-                        <div 
-                          className={styles["markdown-content"]}
-                          dangerouslySetInnerHTML={{ 
-                            __html: subsection.content.replace(/\n/g, '<br/>').replace(/# (.*?)\n/g, '<h3>$1</h3>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`(.*?)`/g, '<code>$1</code>').replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
-                          }}
-                        />
-                      </div>
-                    </article>
-                  ))}
+                    <main className={styles["docs-content"]}>
+                        {sections
+                            .filter((section) => section.id === activeSection)
+                            .map((section) => (
+                                <div
+                                    key={section.id}
+                                    className={styles["section-content"]}
+                                >
+                                    <h2>{section.title}</h2>
+                                    <p
+                                        className={
+                                            styles["section-description"]
+                                        }
+                                    >
+                                        {section.content}
+                                    </p>
+
+                                    {section.subsections.map(
+                                        (subsection, index) => (
+                                            <article
+                                                key={index}
+                                                className={styles["subsection"]}
+                                                id={subsection.title
+                                                    .toLowerCase()
+                                                    .replace(/\s+/g, "-")}
+                                            >
+                                                <div
+                                                    className={
+                                                        styles[
+                                                            "subsection-content"
+                                                        ]
+                                                    }
+                                                >
+                                                    <div
+                                                        className={
+                                                            styles[
+                                                                "markdown-content"
+                                                            ]
+                                                        }
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: subsection.content
+                                                                .replace(
+                                                                    /\n/g,
+                                                                    "<br/>"
+                                                                )
+                                                                .replace(
+                                                                    /# (.*?)\n/g,
+                                                                    "<h3>$1</h3>"
+                                                                )
+                                                                .replace(
+                                                                    /\*\*(.*?)\*\*/g,
+                                                                    "<strong>$1</strong>"
+                                                                )
+                                                                .replace(
+                                                                    /`(.*?)`/g,
+                                                                    "<code>$1</code>"
+                                                                )
+                                                                .replace(
+                                                                    /\[(.*?)\]\((.*?)\)/g,
+                                                                    '<a href="$2" target="_blank">$1</a>'
+                                                                ),
+                                                        }}
+                                                    />
+                                                </div>
+                                            </article>
+                                        )
+                                    )}
+                                </div>
+                            ))}
+                    </main>
                 </div>
-              ))}
-          </main>
-        </div>
 
-        <div className={styles["docs-support"]}>
-          <h2>{"Need Help?"}</h2>
-          <p>{"Can't find what you're looking for? Our support team is here to help."}</p>
-          <div className={styles["support-links"]}>
-            <a href="/contact" className={styles["support-link"]}>
-              {"Contact Support"}
-            </a>
-            <a href="/api" className={styles["support-link"]}>
-              {"API Reference"}
-            </a>
-            <a href="/faq" className={styles["support-link"]}>
-              {"View FAQ"}
-            </a>
-          </div>
+                <div className={styles["docs-support"]}>
+                    <h2>{"Need Help?"}</h2>
+                    <p>
+                        {
+                            "Can't find what you're looking for? Our support team is here to help."
+                        }
+                    </p>
+                    <div className={styles["support-links"]}>
+                        <a href="/contact" className={styles["support-link"]}>
+                            {"Contact Support"}
+                        </a>
+                        <a href="/api" className={styles["support-link"]}>
+                            {"API Reference"}
+                        </a>
+                        <a href="/faq" className={styles["support-link"]}>
+                            {"View FAQ"}
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
-};
+    )
+}
 
-export default Documentation;
+export default Documentation

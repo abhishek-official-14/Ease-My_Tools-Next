@@ -142,16 +142,14 @@
 //     return <VerificationCard state="success" />;
 // }
 
-
-
-import Link from "next/link";
-import { prisma } from "@/lib/prisma";
-import styles from "./page.module.css";
+import Link from "next/link"
+import { prisma } from "@/lib/prisma"
+import styles from "./page.module.css"
 
 interface VerifyEmailPageProps {
     searchParams: Promise<{
-        token?: string;
-    }>;
+        token?: string
+    }>
 }
 
 type VerifyState =
@@ -159,15 +157,15 @@ type VerifyState =
     | "invalid"
     | "expired"
     | "alreadyVerified"
-    | "userMissing";
+    | "userMissing"
 
 const stateMeta: Record<
     VerifyState,
     {
-        title: string;
-        description: string;
-        iconClassName: string;
-        iconSymbol: string;
+        title: string
+        description: string
+        iconClassName: string
+        iconSymbol: string
     }
 > = {
     success: {
@@ -205,10 +203,10 @@ const stateMeta: Record<
         iconClassName: styles.error ?? "",
         iconSymbol: "×",
     },
-};
+}
 
 function VerificationCard({ state }: { state: VerifyState }) {
-    const meta = stateMeta[state];
+    const meta = stateMeta[state]
 
     return (
         <main className={styles.container}>
@@ -222,65 +220,55 @@ function VerificationCard({ state }: { state: VerifyState }) {
 
                 <h1 className={styles.title}>{meta.title}</h1>
 
-                <p className={styles.description}>
-                    {meta.description}
-                </p>
+                <p className={styles.description}>{meta.description}</p>
 
                 <div className={styles.actions}>
-                    <Link
-                        href="/login"
-                        className={styles.primaryBtn}
-                    >
+                    <Link href="/login" className={styles.primaryBtn}>
                         Continue to Login
                     </Link>
 
-                    <Link
-                        href="/"
-                        className={styles.secondaryBtn}
-                    >
+                    <Link href="/" className={styles.secondaryBtn}>
                         Go to Dashboard/Home
                     </Link>
                 </div>
             </section>
         </main>
-    );
+    )
 }
 
 export default async function VerifyEmailPage({
     searchParams,
 }: VerifyEmailPageProps) {
-    const { token } = await searchParams;
+    const { token } = await searchParams
 
     if (!token) {
-        return <VerificationCard state="invalid" />;
+        return <VerificationCard state="invalid" />
     }
 
-    const existingToken =
-        await prisma.verificationToken.findUnique({
-            where: {
-                token,
-            },
-        });
+    const existingToken = await prisma.verificationToken.findUnique({
+        where: {
+            token,
+        },
+    })
 
     if (!existingToken) {
-        return <VerificationCard state="invalid" />;
+        return <VerificationCard state="invalid" />
     }
 
-    const hasExpired =
-        new Date(existingToken.expires) < new Date();
+    const hasExpired = new Date(existingToken.expires) < new Date()
 
     if (hasExpired) {
-        return <VerificationCard state="expired" />;
+        return <VerificationCard state="expired" />
     }
 
     const user = await prisma.user.findUnique({
         where: {
             email: existingToken.identifier,
         },
-    });
+    })
 
     if (!user) {
-        return <VerificationCard state="userMissing" />;
+        return <VerificationCard state="userMissing" />
     }
 
     if (user.emailVerified) {
@@ -288,11 +276,9 @@ export default async function VerifyEmailPage({
             where: {
                 token,
             },
-        });
+        })
 
-        return (
-            <VerificationCard state="alreadyVerified" />
-        );
+        return <VerificationCard state="alreadyVerified" />
     }
 
     await prisma.user.update({
@@ -302,13 +288,13 @@ export default async function VerifyEmailPage({
         data: {
             emailVerified: new Date(),
         },
-    });
+    })
 
     await prisma.verificationToken.delete({
         where: {
             token,
         },
-    });
+    })
 
-    return <VerificationCard state="success" />;
+    return <VerificationCard state="success" />
 }

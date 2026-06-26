@@ -26,7 +26,7 @@
 .header-content h1 {
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
   font-weight: 700;
 }
 
@@ -68,7 +68,7 @@
 .app-badge:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border-color: var(--primary);
+  border-color: #3b82f6;
 }
 
 :global(.dark) .app-badge:hover {
@@ -148,7 +148,7 @@
 .app-name {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .app-tools {
@@ -173,7 +173,7 @@
 }
 
 .tool-item:hover {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
   transform: translateX(8px);
 }
@@ -186,7 +186,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .features-grid {
@@ -243,7 +243,7 @@
 }
 
 .mobile-cta {
-  background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   color: white;
   padding: 4rem 2rem;
   border-radius: 20px;
@@ -272,7 +272,7 @@
   display: flex;
   align-items: center;
   background: white;
-  color: var(--primary);
+  color: #3b82f6;
   padding: 1rem 2rem;
   border-radius: 12px;
   text-decoration: none;

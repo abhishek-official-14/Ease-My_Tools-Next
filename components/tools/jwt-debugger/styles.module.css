@@ -51,7 +51,7 @@
 }
 
 .input-section textarea:focus {
-    border-color: var(--primary);
+    border-color: #3b82f6;
     outline: none;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .primary-btn {
-    background: var(--primary);
+    background: #3b82f6;
     color: white;
 }
 
@@ -126,7 +126,7 @@
 
 .token-info h3 {
     margin-bottom: 15px;
-    color: var(--primary);
+    color: #3b82f6;
 }
 
 .info-grid {
@@ -149,7 +149,7 @@
 
 .info-label {
     font-weight: 600;
-    color: var(--primary);
+    color: #3b82f6;
 }
 
 .info-value {
@@ -201,7 +201,7 @@
 
 .part-header h4 {
     margin: 0;
-    color: var(--primary);
+    color: #3b82f6;
 }
 
 .copy-btn-small {
@@ -277,7 +277,7 @@
 
 .jwt-info h4 {
     margin-bottom: 10px;
-    color: var(--primary);
+    color: #3b82f6;
 }
 
 .jwt-info ul {

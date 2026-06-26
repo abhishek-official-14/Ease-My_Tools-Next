@@ -29,7 +29,7 @@
 .press-header h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .press-subtitle {
@@ -63,7 +63,7 @@
 .contact-card h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .contact-card p {
@@ -99,7 +99,7 @@
 }
 
 .contact-item a {
-  color: var(--primary);
+  color: #3b82f6;
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 600;
@@ -116,7 +116,7 @@
 .press-releases h2 {
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .releases-grid {
@@ -164,7 +164,7 @@
 }
 
 .release-category {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
@@ -194,7 +194,7 @@
 }
 
 .read-more {
-  color: var(--primary);
+  color: #3b82f6;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -212,7 +212,7 @@
 .media-coverage h2 {
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .coverage-grid {
@@ -289,7 +289,7 @@
 }
 
 .read-article {
-  color: var(--primary);
+  color: #3b82f6;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -307,7 +307,7 @@
 .press-kit h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .kit-description {
@@ -386,7 +386,7 @@
 }
 
 .download-button {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
@@ -409,7 +409,7 @@
 .company-info h2 {
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .info-grid {
@@ -433,7 +433,7 @@
 .info-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .info-card p {
@@ -469,7 +469,7 @@
 
 .info-card li::before {
   content: '•';
-  color: var(--primary);
+  color: #3b82f6;
   font-weight: bold;
   margin-right: 0.75rem;
 }

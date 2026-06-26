@@ -1,0 +1,33 @@
+import { SpecialTag } from "./category"
+
+export interface Tool {
+    name: string
+    slug: string
+    icon: any
+    tags: string[]
+    primaryCategory: SpecialTag
+    component: () => Promise<any>
+
+    seo: {
+        title: string
+        description: string
+    }
+
+    seoContent: {
+        h1: string
+        intro: string
+        howToUse: string[]
+        features: string[]
+        benefits: string[]
+        useCases: string[]
+        faqs: {
+            question: string
+            answer: string
+        }[]
+
+        relatedTools: {
+            slug: string
+            name: string
+        }[]
+    }
+}

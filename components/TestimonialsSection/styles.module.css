@@ -52,7 +52,7 @@
 .testimonial-card::before {
   content: '"';
   font-size: 4rem;
-  color: var(--primary);
+  color: #3b82f6;
   position: absolute;
   top: 1rem;
   left: 1rem;

@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import styles from "./styles.module.css";
+import { useState } from "react"
+import { signIn } from "next-auth/react"
+import styles from "./styles.module.css"
 
 export default function RegisterPage() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState<string | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     async function handleSubmit(e: React.FormEvent) {
-        e.preventDefault();
-        setError(null);
-        setIsLoading(true);
+        e.preventDefault()
+        setError(null)
+        setIsLoading(true)
 
         const res = await fetch("/api/register", {
             method: "POST",
@@ -26,15 +26,15 @@ export default function RegisterPage() {
                 email,
                 password,
             }),
-        });
+        })
 
-        const data = await res.json();
-        setIsLoading(false);
+        const data = await res.json()
+        setIsLoading(false)
 
         if (res.ok) {
-            window.location.href = "/login";
+            window.location.href = "/login"
         } else {
-            setError(data.message || "Something went wrong");
+            setError(data.message || "Something went wrong")
         }
     }
 
@@ -43,7 +43,10 @@ export default function RegisterPage() {
             <div className={styles.card}>
                 <h1 className={styles.title}>Create Account</h1>
 
-                <button onClick={() => signIn("google")} className={styles.googleBtn}>
+                <button
+                    onClick={() => signIn("google")}
+                    className={styles.googleBtn}
+                >
                     <svg viewBox="0 0 24 24" width="18" height="18">
                         <path
                             fill="currentColor"
@@ -101,7 +104,11 @@ export default function RegisterPage() {
                         minLength={6}
                     />
 
-                    <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+                    <button
+                        type="submit"
+                        className={styles.submitBtn}
+                        disabled={isLoading}
+                    >
                         {isLoading ? "Creating account..." : "Sign Up"}
                     </button>
                 </form>
@@ -111,5 +118,5 @@ export default function RegisterPage() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

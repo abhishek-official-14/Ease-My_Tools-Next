@@ -4,5 +4,5 @@ export default function DashboardPage() {
             <h1>Dashboard</h1>
             <p>Protected route</p>
         </div>
-    );
+    )
 }

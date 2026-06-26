@@ -1,28 +1,25 @@
-"use client";
+"use client"
 
-import type { ReactNode } from "react";
-import { ThemeProvider } from "next-themes";
-import { SessionProvider } from "next-auth/react";
+import type { ReactNode } from "react"
+// import { ThemeProvider } from "next-themes";
+import { SessionProvider } from "next-auth/react"
 
-import ScrollToTop from "@/components/ScrollToTop";
+import ScrollToTop from "@/components/ScrollToTop"
+import { ThemeProvider } from "../components/theme-provider"
 
-export default function Providers({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  return (
-    <SessionProvider>
-      <ThemeProvider
-        attribute="class"
-        // defaultTheme="light"
-        defaultTheme="dark"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <ScrollToTop />
-        {children}
-      </ThemeProvider>
-    </SessionProvider>
-  );
+export default function Providers({ children }: { children: ReactNode }) {
+    return (
+        <SessionProvider>
+            <ThemeProvider
+                attribute="class"
+                // defaultTheme="light"
+                defaultTheme="dark"
+                enableSystem
+                disableTransitionOnChange
+            >
+                <ScrollToTop />
+                {children}
+            </ThemeProvider>
+        </SessionProvider>
+    )
 }

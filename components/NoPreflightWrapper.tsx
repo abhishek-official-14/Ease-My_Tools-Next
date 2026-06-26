@@ -1,8 +1,8 @@
-import React from "react";
+import React from "react"
 
 interface NoPreflightWrapperProps {
-    children: React.ReactNode;
-    className?: string;
+    children: React.ReactNode
+    className?: string
 }
 
 // ========================================================
@@ -57,8 +57,7 @@ const ANTI_PREFLIGHT_CSS = `
     font-size: revert;
     line-height: revert;
   }
-`;
-
+`
 
 export default function NoPreflightWrapper({
     children,
@@ -69,5 +68,5 @@ export default function NoPreflightWrapper({
             <style dangerouslySetInnerHTML={{ __html: ANTI_PREFLIGHT_CSS }} />
             {children}
         </div>
-    );
+    )
 }

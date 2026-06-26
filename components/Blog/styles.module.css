@@ -29,7 +29,7 @@
 .blog-header h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .blog-subtitle {
@@ -59,7 +59,7 @@
 .all-posts h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .posts-grid {
@@ -128,7 +128,7 @@
 }
 
 .post-category {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
@@ -157,7 +157,7 @@
 }
 
 .read-more {
-  color: var(--primary);
+  color: #3b82f6;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -225,7 +225,7 @@
 .sidebar-section h3 {
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .categories-list {
@@ -255,7 +255,7 @@
 }
 
 .category-item:hover {
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .category-name {
@@ -308,11 +308,11 @@
 
 .newsletter-input:focus {
   outline: none;
-  border-color: var(--primary);
+  border-color: #3b82f6;
 }
 
 .newsletter-button {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
   padding: 0.75rem 1rem;
   border: none;
@@ -349,7 +349,7 @@
 }
 
 .recent-post:hover {
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .recent-post h4 {

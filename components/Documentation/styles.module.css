@@ -29,7 +29,7 @@
 .docs-header h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .docs-subtitle {
@@ -71,7 +71,7 @@
 .sidebar-content h3 {
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .sidebar-nav {
@@ -110,7 +110,7 @@
 }
 
 .nav-item.active {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
 }
 
@@ -144,7 +144,7 @@
 }
 
 .subsections a:hover {
-  color: var(--primary);
+  color: #3b82f6;
   background: #f3f4f6;
 }
 
@@ -167,7 +167,7 @@
 .section-content h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .section-description {
@@ -200,7 +200,7 @@
   font-size: 1.75rem;
   margin-bottom: 1.5rem;
   color: var(--text-light);
-  border-left: 4px solid var(--primary);
+  border-left: 4px solid #3b82f6;
   padding-left: 1rem;
 }
 
@@ -262,7 +262,7 @@
 }
 
 .markdown-content a {
-  color: var(--primary);
+  color: #3b82f6;
   text-decoration: none;
 }
 
@@ -286,7 +286,7 @@
 .docs-support h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .docs-support p {
@@ -307,7 +307,7 @@
 }
 
 .support-link {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
   padding: 1rem 2rem;
   border-radius: 8px;

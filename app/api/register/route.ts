@@ -101,22 +101,17 @@
 //     }
 // }
 
-
-
-
-
-
-import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
-import { v4 as uuidv4 } from "uuid";
-import { prisma } from "@/lib/prisma";
-import { resend } from "@/lib/mail";
+import { NextResponse } from "next/server"
+import bcrypt from "bcryptjs"
+import { v4 as uuidv4 } from "uuid"
+import { prisma } from "@/lib/prisma"
+import { resend } from "@/lib/mail"
 
 // Professional email template component
 const getVerificationEmailTemplate = (name: string, verifyUrl: string) => {
-  const currentYear = new Date().getFullYear();
-  
-  return `
+    const currentYear = new Date().getFullYear()
+
+    return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -224,7 +219,7 @@ const getVerificationEmailTemplate = (name: string, verifyUrl: string) => {
         
         <div class="content">
           <div class="greeting">
-            Hello${name ? `, ${name}` : ''}!
+            Hello${name ? `, ${name}` : ""}!
           </div>
           
           <div class="message">
@@ -267,21 +262,21 @@ const getVerificationEmailTemplate = (name: string, verifyUrl: string) => {
       </div>
     </body>
     </html>
-  `;
-};
+  `
+}
 
 export async function POST(req: Request) {
     try {
-        const body = await req.json();
+        const body = await req.json()
 
-        const { name, email, password } = body;
+        const { name, email, password } = body
 
         // Basic validation
         if (!name || !email || !password) {
             return NextResponse.json(
                 { error: "Missing fields" },
                 { status: 400 }
-            );
+            )
         }
 
         // Existing user check
@@ -289,17 +284,17 @@ export async function POST(req: Request) {
             where: {
                 email,
             },
-        });
+        })
 
         if (existingUser) {
             return NextResponse.json(
                 { error: "User already exists" },
                 { status: 400 }
-            );
+            )
         }
 
         // Hash password
-        const hashedPassword = await bcrypt.hash(password, 12);
+        const hashedPassword = await bcrypt.hash(password, 12)
 
         // Create user
         const user = await prisma.user.create({
@@ -309,15 +304,13 @@ export async function POST(req: Request) {
                 password: hashedPassword,
                 role: "USER",
             },
-        });
+        })
 
         // Generate verification token
-        const verificationToken = uuidv4();
+        const verificationToken = uuidv4()
 
         // Token expiry (24 hours)
-        const expires = new Date(
-            Date.now() + 24 * 60 * 60 * 1000
-        );
+        const expires = new Date(Date.now() + 24 * 60 * 60 * 1000)
 
         // Store token in DB
         await prisma.verificationToken.create({
@@ -326,12 +319,12 @@ export async function POST(req: Request) {
                 token: verificationToken,
                 expires,
             },
-        });
+        })
 
         // Verification link
         const verifyUrl =
             `${process.env.NEXTAUTH_URL}` +
-            `/verify-email?token=${verificationToken}`;
+            `/verify-email?token=${verificationToken}`
 
         // Send email with professional template
         await resend.emails.send({
@@ -339,18 +332,17 @@ export async function POST(req: Request) {
             to: email,
             subject: "Verify your email address - EaseMyTools",
             html: getVerificationEmailTemplate(name, verifyUrl),
-        });
+        })
 
         return NextResponse.json({
-            message:
-                "Registration successful. Please verify your email.",
-        });
+            message: "Registration successful. Please verify your email.",
+        })
     } catch (error) {
-        console.error(error);
+        console.error(error)
 
         return NextResponse.json(
             { error: "Something went wrong" },
             { status: 500 }
-        );
+        )
     }
 }

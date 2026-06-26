@@ -23,7 +23,7 @@
 .faq-header h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .faq-subtitle {
@@ -58,7 +58,7 @@
 
 .search-input:focus {
   outline: none;
-  border-color: var(--primary);
+  border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -69,7 +69,7 @@
 .faq-category h2 {
   font-size: 1.75rem;
   margin-bottom: 1.5rem;
-  color: var(--primary);
+  color: #3b82f6;
   border-bottom: 2px solid #e5e7eb;
   padding-bottom: 0.5rem;
 }
@@ -137,7 +137,7 @@
 .toggle-icon {
   font-size: 1.5rem;
   font-weight: 300;
-  color: var(--primary);
+  color: #3b82f6;
   margin-left: 1rem;
   min-width: 20px;
   text-align: center;
@@ -179,7 +179,7 @@
 .faq-support h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: var(--primary);
+  color: #3b82f6;
 }
 
 .faq-support p {
@@ -210,7 +210,7 @@
 }
 
 .support-button.primary {
-  background: var(--primary);
+  background: #3b82f6;
   color: white;
 }
 
