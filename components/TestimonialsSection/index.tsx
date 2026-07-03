@@ -71,9 +71,9 @@ const TestimonialsSection = () => {
             role: "Photographer",
         },
         {
-            text: "The image tools are incredibly fast and produce professional-quality results.",
-            name: "Content Creator",
-            role: "Photographer",
+            text: "Instant Markdown rendering — supports text styling, quotes, lists, and code.",
+            name: "Content Editor",
+            role: "Editor",
         },
     ]
 

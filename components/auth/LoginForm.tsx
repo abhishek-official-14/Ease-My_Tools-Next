@@ -43,15 +43,13 @@ export default function LoginForm() {
 
     setIsLoading(true)
     
-    // Mock API call
-    // await new Promise(resolve => setTimeout(resolve, 1500))
     const email = formData.email
     const password = formData.password
-        const result = await signIn("credentials", {
-                email,
-                password,
-                redirect: false,
-            })
+    const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+    })
     
     setIsLoading(false)
     
@@ -63,54 +61,54 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+        <label htmlFor="email" className="block text-sm font-medium text-foreground/90 mb-2">
           Email address
         </label>
         <div className="relative">
-          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <input
             id="email"
             type="email"
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${
-              errors.email ? 'border-red-500/50' : 'border-white/10'
-            } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 transition-colors`}
+            className={`w-full pl-10 pr-4 py-3 bg-input border ${
+              errors.email ? 'border-destructive/50' : 'border-border'
+            } rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-colors`}
             placeholder="you@company.com"
           />
         </div>
         {errors.email && (
-          <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+          <p className="mt-1 text-sm text-destructive">{errors.email}</p>
         )}
       </div>
 
       {/* Password */}
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+        <label htmlFor="password" className="block text-sm font-medium text-foreground/90 mb-2">
           Password
         </label>
         <div className="relative">
-          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
+          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <input
             id="password"
             type={showPassword ? 'text' : 'password'}
             value={formData.password}
             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${
-              errors.password ? 'border-red-500/50' : 'border-white/10'
-            } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 transition-colors`}
+            className={`w-full pl-10 pr-12 py-3 bg-input border ${
+              errors.password ? 'border-destructive/50' : 'border-border'
+            } rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary/50 transition-colors`}
             placeholder="Enter your password"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
           >
             {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           </button>
         </div>
         {errors.password && (
-          <p className="mt-1 text-sm text-red-400">{errors.password}</p>
+          <p className="mt-1 text-sm text-destructive">{errors.password}</p>
         )}
       </div>
 
@@ -121,13 +119,13 @@ export default function LoginForm() {
             type="checkbox"
             checked={formData.rememberMe}
             onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
-            className="w-4 h-4 rounded border-white/10 bg-white/5 text-indigo-600 focus:ring-indigo-500 focus:ring-offset-0"
+            className="w-4 h-4 rounded border-border bg-input text-primary focus:ring-primary focus:ring-offset-0"
           />
-          <span className="text-sm text-foreground">Remember me</span>
+          <span className="text-sm text-foreground/80">Remember me</span>
         </label>
         <Link 
           href="/forgot-password" 
-          className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+          className="text-sm text-blue-600 dark:text-indigo-400 hover:underline transition-colors"
         >
           Forgot password?
         </Link>
@@ -139,7 +137,7 @@ export default function LoginForm() {
         disabled={isLoading}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
-        className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-500 hover:to-purple-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative"
+        className="w-full py-3 bg-primary text-white rounded-lg font-medium hover:opacity-90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative"
       >
         {isLoading ? (
           <div className="flex items-center justify-center gap-2">

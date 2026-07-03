@@ -52,10 +52,10 @@ export default function SocialButtons() {
           key={button.name}
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
-          className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-white/10 rounded-lg text-sm text-gray-300 hover:bg-white/5 transition-colors"
+          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-input border border-border rounded-lg text-sm text-foreground hover:bg-foreground/5 dark:hover:bg-white/5 transition-colors font-medium"
         >
           {button.icon}
-          Continue with {button.name}
+          <span>Continue with {button.name}</span>
         </motion.button>
       ))}
     </div>
