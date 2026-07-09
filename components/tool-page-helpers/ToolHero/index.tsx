@@ -1,23 +1,41 @@
-import styles from "./styles.module.css"
 
-type ToolHeroProps = {
-    tool: any
-}
+import { cn } from "@/lib/utils"
+import { ToolHeroProps } from "@/types/tool"
+
 
 export default function ToolHero({ tool }: ToolHeroProps) {
-    if (!tool) {
-        return null
-    }
+    if (!tool) return null
+
+    const title = tool.seoContent?.h1 || tool.name
+    const description = tool.seoContent?.intro || tool.seo?.description
+
     return (
-        <section className={styles.toolHero}>
-            <div className={styles.heroCard}>
-                <h1 className={styles.heroTitle}>
-                    {tool.seoContent?.h1 || tool.name}
+        <section
+        >
+            <div className="mx-auto max-w-7xl text-center mb-10">
+                {/* Decorative subtle glow behind title (optional UI polish) */}
+                
+                <h1
+                    className={cn(
+                        "mx-auto max-w-3xl text-3xl font-extrabold tracking-tight text-blue-600",
+                        "sm:text-4xl md:text-5xl lg:text-6xl",
+                        "dark:text-blue-400"
+                    )}
+                >
+                    {title}
                 </h1>
 
-                <p className={styles.heroDescription}>
-                    {tool.seoContent?.intro || tool.seo?.description}
-                </p>
+                {description && (
+                    <p
+                        className={cn(
+                            "mx-auto mt-4 max-w-4xl text-base text-slate-600",
+                            "sm:text-lg md:text-lg",
+                            "dark:text-slate-300"
+                        )}
+                    >
+                        {description}
+                    </p>
+                )}
             </div>
         </section>
     )

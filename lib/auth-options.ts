@@ -16,10 +16,7 @@ export const authOptions: NextAuthOptions = {
         CredentialsProvider({
             name: "credentials",
 
-            credentials: {
-                email: {},
-                password: {},
-            },
+            credentials: { email: {}, password: {}, },
 
             async authorize(credentials) {
                 // Missing credentials

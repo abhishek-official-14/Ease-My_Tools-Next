@@ -3,6 +3,8 @@
 import { useCallback, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import ImageTracer from "imagetracerjs"
+import { ToolHeroProps } from "../../../types/tool"
+import ToolHero from "../../tool-page-helpers/ToolHero"
 
 type TraceMode =
     | "logo"
@@ -20,7 +22,7 @@ function formatSize(bytes: number): string {
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
 }
 
-export default function ImageToSvg() {
+export default function ImageToSvg({tool}:ToolHeroProps) {
     const [preview, setPreview] = useState<string>("")
     const [svgCode, setSvgCode] = useState<string>("")
     const [svgUrl, setSvgUrl] = useState<string>("")
@@ -266,6 +268,8 @@ export default function ImageToSvg() {
     return (
         <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 sm:px-4 sm:py-10 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
             <div className="w-full max-w-6xl">
+                <ToolHero tool={tool}></ToolHero>
+
                 <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
                     <div className="grid gap-6 px-4 py-4 sm:px-6 sm:py-5 lg:grid-cols-[1fr_1.1fr]">
                         {/* LEFT PANEL - Upload & Settings */}

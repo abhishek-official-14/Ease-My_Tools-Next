@@ -8,6 +8,8 @@ import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Upload, X, Download, ImageIcon } from "lucide-react"
+import { ToolHeroProps } from "@/types/tool"
+import ToolHero from "@/components/tool-page-helpers/ToolHero"
 
 function formatSize(bytes: number): string {
     if (bytes < 1024) return `${bytes} B`
@@ -15,7 +17,7 @@ function formatSize(bytes: number): string {
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
 }
 
-export default function ImageResizer() {
+export default function ImageResizer({ tool }: ToolHeroProps) {
     const [file, setFile] = useState<File | null>(null)
     const [originalImage, setOriginalImage] = useState<string>("")
     const [resizedImage, setResizedImage] = useState<string>("")
@@ -199,6 +201,7 @@ export default function ImageResizer() {
     return (
         <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-foreground sm:px-4 sm:py-10 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
             <div className="w-full max-w-5xl">
+                <ToolHero tool={tool}></ToolHero>
                 <Card className="overflow-hidden rounded-xl border border-border bg-card/80 shadow-xl">
                     <CardContent className="grid gap-5 p-4 sm:gap-6 sm:p-5 lg:grid-cols-[1fr_1.1fr]">
                         {/* LEFT PANEL - Upload & Settings */}
@@ -277,18 +280,18 @@ export default function ImageResizer() {
                                                         {formatSize(file.size)}
                                                         {originalSize.width >
                                                             0 && (
-                                                            <>
-                                                                {" "}
-                                                                ·{" "}
-                                                                {
-                                                                    originalSize.width
-                                                                }
-                                                                ×
-                                                                {
-                                                                    originalSize.height
-                                                                }
-                                                            </>
-                                                        )}
+                                                                <>
+                                                                    {" "}
+                                                                    ·{" "}
+                                                                    {
+                                                                        originalSize.width
+                                                                    }
+                                                                    ×
+                                                                    {
+                                                                        originalSize.height
+                                                                    }
+                                                                </>
+                                                            )}
                                                     </p>
                                                 </div>
                                                 <Button

@@ -63,6 +63,12 @@ export default async function Page({
         return notFound()
     }
 
+    const toolHeader = {
+        name: tool.name,
+        seoContent: tool.seoContent,
+        seo: tool.seo
+    }
+
     const { default: ToolComponent } = await tool.component()
 
     const featuredCategory = getFeaturedCategoryBySlug(tool.primaryCategory)
@@ -78,11 +84,11 @@ export default async function Page({
         },
         ...(featuredCategory
             ? [
-                  {
-                      name: featuredCategory.title,
-                      url: featuredCategory.link,
-                  },
-              ]
+                {
+                    name: featuredCategory.title,
+                    url: featuredCategory.link,
+                },
+            ]
             : []),
         {
             name: tool.name,
@@ -134,10 +140,10 @@ export default async function Page({
 
             <BreadcrumbNav items={breadcrumbs} />
 
-            <ToolHero tool={tool} />
+            {/* <ToolHero tool={tool} /> */}
 
             <div className="safe-overflow">
-                <ToolComponent />
+                <ToolComponent tool={toolHeader} />
             </div>
 
             <ToolContent tool={tool} />
