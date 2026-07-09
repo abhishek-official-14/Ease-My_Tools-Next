@@ -31,3 +31,20 @@ export interface Tool {
         }[]
     }
 }
+
+export interface ToolHeroProps {
+    tool: {
+
+        name: string
+
+        seo: {
+            title: string
+            description: string
+        }
+
+        seoContent: {
+            h1: string
+            intro: string
+        }
+    }
+}

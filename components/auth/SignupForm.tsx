@@ -10,7 +10,6 @@ export default function SignupForm() {
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
-        company: "",
         password: "",
         agreeToTerms: false,
     })
@@ -187,31 +186,6 @@ export default function SignupForm() {
                         )}
                     </div>
 
-                    {/* Company */}
-                    <div>
-                        <label
-                            htmlFor="company"
-                            className="mb-2 block text-sm font-medium text-foreground/90"
-                        >
-                            Company (optional)
-                        </label>
-                        <div className="relative">
-                            <Building className="absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                            <input
-                                id="company"
-                                type="text"
-                                value={formData.company}
-                                onChange={(e) =>
-                                    setFormData({
-                                        ...formData,
-                                        company: e.target.value,
-                                    })
-                                }
-                                className="w-full rounded-lg border border-border bg-input py-3 pr-4 pl-10 text-foreground placeholder-muted-foreground transition-colors focus:border-primary/50 focus:outline-none"
-                                placeholder="Acme Inc."
-                            />
-                        </div>
-                    </div>
 
                     {/* Next Button */}
                     <motion.button

@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState, useRef, useCallback, useEffect } from "react"
+import ToolHero from "../../tool-page-helpers/ToolHero"
+import { ToolHeroProps } from "../../../types/tool"
 
 /* ---------- COLOR CONVERSIONS ---------- */
 const rgbToHsv = (
@@ -176,7 +178,10 @@ async function extractPalette(file: File, count = 5): Promise<string[]> {
 }
 
 /* ========== MAIN TOOL ========== */
-export default function ColorPickerTool() {
+
+
+
+export default function ColorPickerTool({tool}:ToolHeroProps) {
     const [hue, setHue] = useState(0)
     const [sat, setSat] = useState(100)
     const [val, setVal] = useState(100)
@@ -456,8 +461,9 @@ export default function ColorPickerTool() {
 
     return (
         <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 sm:px-4 sm:py-10 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
-            <div className="w-full max-w-5xl">
-                <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
+            <div className="w-full max-w-7xl">
+                <ToolHero tool={tool}></ToolHero>
+                <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">    
                     <div className="grid gap-5 px-4 py-5 sm:gap-5 sm:px-5 sm:py-5 lg:grid-cols-[1fr_1.05fr]">
                         {/* LEFT COLUMN – vertically centered */}
                         <div className="flex h-full items-center">
@@ -508,13 +514,13 @@ export default function ColorPickerTool() {
                                             type="text"
                                             value={hexInput}
                                             onChange={onHexChange}
-                                            className="flex-1 rounded border border-slate-200 bg-white/80 px-2 py-1 font-mono text-xs dark:border-slate-700 dark:bg-slate-800/80 dark:text-white"
+                                            className="flex-1 rounded border border-slate-200 bg-white/80 px-2 py-1 font-mono text-base text-center dark:border-slate-700 dark:bg-slate-800/80 dark:text-white"
                                         />
                                         <button
                                             onClick={() => copy(hex, "HEX")}
-                                            className="rounded p-1 text-xs text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                            className="rounded p-1 text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
                                         >
-                                            ⎘
+                                            Copy ⎘
                                         </button>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -533,7 +539,7 @@ export default function ColorPickerTool() {
                                                         e.target.value
                                                     )
                                                 }
-                                                className="w-full rounded border border-slate-200 bg-white/80 px-1 py-1 font-mono text-xs dark:border-slate-700 dark:bg-slate-800/80 dark:text-white"
+                                                className="w-full rounded border border-slate-200 bg-white/80 px-1 py-1 font-mono text-base text-center dark:border-slate-700 dark:bg-slate-800/80 dark:text-white"
                                                 placeholder="R"
                                             />
                                             <input
@@ -572,9 +578,9 @@ export default function ColorPickerTool() {
                                                     "RGB"
                                                 )
                                             }
-                                            className="rounded p-1 text-xs text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                            className="rounded p-1 text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
                                         >
-                                            ⎘
+                                            Copy ⎘
                                         </button>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -593,7 +599,7 @@ export default function ColorPickerTool() {
                                                         e.target.value
                                                     )
                                                 }
-                                                className="w-full rounded border border-slate-200 bg-white/80 px-1 py-1 font-mono text-xs dark:border-slate-700 dark:bg-slate-800/80 dark:text-white"
+                                                className="w-full rounded border border-slate-200 bg-white/80 px-1 py-1 font-mono text-base text-center dark:border-slate-700 dark:bg-slate-800/80 dark:text-white"
                                                 placeholder="H"
                                             />
                                             <input
@@ -632,9 +638,9 @@ export default function ColorPickerTool() {
                                                     "HSL"
                                                 )
                                             }
-                                            className="rounded p-1 text-xs text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                                            className="rounded p-1 text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
                                         >
-                                            ⎘
+                                            Copy ⎘
                                         </button>
                                     </div>
                                 </div>

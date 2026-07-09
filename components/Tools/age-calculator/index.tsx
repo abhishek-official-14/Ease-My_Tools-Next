@@ -1932,8 +1932,10 @@
 "use client"
 
 import React, { useState } from "react"
+import { ToolHeroProps } from "../../../types/tool"
+import ToolHero from "../../tool-page-helpers/ToolHero"
 
-const AgeCalculator = () => {
+const AgeCalculator = ({tool}:ToolHeroProps) => {
     const [birthDate, setBirthDate] = useState("")
     const [age, setAge] = useState<any | null>(null)
 
@@ -1996,6 +1998,7 @@ const AgeCalculator = () => {
     return (
         <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 sm:px-4 sm:py-10 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
             <div className="w-full max-w-2xl">
+                <ToolHero tool={tool}></ToolHero>
                 <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
                     <div className="p-5 sm:p-6">
                         {/* Input Section */}
