@@ -1,8 +1,3 @@
-
-
-
-
-
 "use client"
 
 import React, { useState, useRef, useCallback, useEffect } from "react"
@@ -320,7 +315,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
 
     return (
         <div className="flex justify-center bg-gradient-to-br from-slate-200 via-white to-slate-200 px-3 py-8 text-slate-900 sm:px-4 sm:py-10 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
-            <div className="w-full max-w-5xl">
+            <div className="w-full max-w-7xl">
                 <ToolHero tool={tool}></ToolHero>
 
                 <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
@@ -417,7 +412,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                                     <p className="truncate text-sm font-semibold text-slate-800 dark:text-white">
                                                         {selectedFile.name}
                                                     </p>
-                                                    <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                                                    <p className="mt-0.5 text-xs sm:text-base text-slate-500 dark:text-slate-400">
                                                         {selectedFile.type
                                                             .split("/")[1]
                                                             ?.toUpperCase() ||
@@ -433,7 +428,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                                         e.stopPropagation()
                                                         handleReset()
                                                     }}
-                                                    className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 bg-white/80 px-2.5 py-1.5 text-xs text-slate-600 transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:border-rose-800/40 dark:hover:bg-rose-950/20 dark:hover:text-rose-300"
+                                                    className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-lg border border-slate-200 bg-white/80 px-2.5 py-1.5 text-xs sm:text-base text-slate-600 transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:border-rose-800/40 dark:hover:bg-rose-950/20 dark:hover:text-rose-300"
                                                 >
                                                     <svg
                                                         className="h-3.5 w-3.5"
@@ -452,7 +447,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                                 </button>
                                             </div>
                                             <div className="mt-3 rounded-lg border border-slate-200/80 bg-slate-50/80 px-3 py-2 dark:border-slate-800/60 dark:bg-slate-800/30">
-                                                <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                                                <div className="flex items-center justify-between text-xs sm:text-base text-slate-500 dark:text-slate-400">
                                                     <span className="font-medium">
                                                         Original size
                                                     </span>
@@ -469,18 +464,18 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                             </div>
 
                             {error && (
-                                <div className="rounded-lg border border-rose-200/80 bg-rose-50/80 px-3 py-2.5 text-xs text-rose-700 backdrop-blur-sm dark:border-rose-900/40 dark:bg-rose-950/20 dark:text-rose-200">
+                                <div className="rounded-lg border border-rose-200/80 bg-rose-50/80 px-3 py-2.5 text-xs sm:text-base text-rose-700 backdrop-blur-sm dark:border-rose-900/40 dark:bg-rose-950/20 dark:text-rose-200">
                                     {error}
                                 </div>
                             )}
 
                             {isCompressing && (
                                 <div className="rounded-lg border border-slate-200/80 bg-white/80 px-4 py-3 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80">
-                                    <div className="mb-2 flex items-center justify-between text-xs">
+                                    <div className="mb-2 flex items-center justify-between text-xs sm:text-base">
                                         <span className="font-medium text-slate-500 dark:text-slate-400">
                                             Optimizing...
                                         </span>
-                                        <span className="font-mono text-xs font-semibold text-blue-600 dark:text-blue-400">
+                                        <span className="font-mono text-xs sm:text-base font-semibold text-blue-600 dark:text-blue-400">
                                             {progress}%
                                         </span>
                                     </div>
@@ -508,7 +503,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                             <p className="text-sm font-semibold text-slate-800 dark:text-white">
                                                 Compression complete
                                             </p>
-                                            <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                                            <p className="mt-0.5 text-xs sm:text-base text-slate-500 dark:text-slate-400">
                                                 {formatSize(
                                                     result.originalSize
                                                 )}{" "}
@@ -547,7 +542,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
 
                                     <button
                                         onClick={handleDownload}
-                                        className="mt-4 w-full rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 px-3 py-2 text-xs font-semibold tracking-wide text-white shadow-sm transition-all hover:from-emerald-600 hover:to-emerald-700 hover:shadow-md active:scale-[0.98]"
+                                        className="mt-4 w-full rounded-lg bg-gradient-to-r from-emerald-500 to-emerald-600 px-3 py-2 text-xs sm:text-base font-semibold tracking-wide text-white shadow-sm transition-all hover:from-emerald-600 hover:to-emerald-700 hover:shadow-md active:scale-[0.98]"
                                     >
                                         Download{" "}
                                         {outputFormat === "jpeg"
@@ -576,7 +571,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                                         Compressed image will appear here
                                     </p>
-                                    <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                                    <p className="mt-1 text-xs sm:text-base text-slate-400 dark:text-slate-500">
                                         Adjust settings and click &quot;Compress
                                         image&quot;
                                     </p>
@@ -588,7 +583,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                         <div className="h-full min-w-0">
                             <div className="flex h-full flex-col rounded-xl border border-slate-200/80 bg-white/50 p-4 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/50">
                                 {/* Target Size */}
-                                <div className="mb-5 min-w-0">
+                                <div className="mb-7 min-w-0">
                                     <div className="mb-3 flex items-center justify-between">
                                         <label className="text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
                                             Target size
@@ -616,7 +611,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                 </div>
 
                                 {/* Output Format */}
-                                <div className="mb-5 min-w-0">
+                                <div className="mb-7 min-w-0">
                                     <label className="mb-2 block text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
                                         Output format
                                     </label>
@@ -627,7 +622,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                                 onClick={() =>
                                                     setOutputFormat(key)
                                                 }
-                                                className={`rounded-lg border px-1 py-1.5 text-xs font-semibold transition-all duration-200 ${
+                                                className={`rounded-lg border px-1 py-1.5 text-xs sm:text-base font-semibold transition-all duration-200 ${
                                                     outputFormat === key
                                                         ? "border-blue-500 bg-blue-500 text-white shadow-sm shadow-blue-500/20"
                                                         : "border-slate-200 bg-white/60 text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-800"
@@ -640,7 +635,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                 </div>
 
                                 {/* Compression Mode */}
-                                <div className="mb-5 min-w-0">
+                                <div className="mb-7 min-w-0">
                                     <label className="mb-2 block text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
                                         Compression mode
                                     </label>
@@ -655,7 +650,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                                         : "border-slate-200 bg-white/60 text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-800"
                                                 }`}
                                             >
-                                                <div className="text-xs font-bold">
+                                                <div className="text-xs sm:text-base font-bold">
                                                     {label}
                                                 </div>
                                                 <div className="mt-0.5 text-[9px] opacity-80">
@@ -670,7 +665,7 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                 <div className="mb-5 rounded-lg border border-slate-200/80 bg-white/60 p-3 dark:border-slate-800/60 dark:bg-slate-800/30">
                                     <div className="flex items-center justify-between gap-4">
                                         <div>
-                                            <p className="text-xs font-semibold text-slate-800 dark:text-white">
+                                            <p className="text-xs sm:text-base font-semibold text-slate-800 dark:text-white">
                                                 Preserve EXIF metadata
                                             </p>
                                             <p className="mt-0.5 text-[10px] text-slate-500 dark:text-slate-400">
@@ -703,14 +698,14 @@ const ImageCompressor: React.FC = ({ tool }: ToolHeroProps) => {
                                         <button
                                             onClick={handleReset}
                                             disabled={isCompressing || !hasFile}
-                                            className="rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
+                                            className="rounded-lg border border-slate-200 bg-white/80 px-3 py-2 text-xs sm:text-base font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
                                         >
                                             Reset
                                         </button>
                                         <button
                                             onClick={handleCompress}
                                             disabled={!hasFile || isCompressing}
-                                            className={`flex-1 rounded-lg px-3 py-2 text-xs font-bold tracking-wide text-white transition-all active:scale-[0.98] ${
+                                            className={`flex-1 rounded-lg px-3 py-2 text-xs sm:text-base font-bold tracking-wide text-white transition-all active:scale-[0.98] ${
                                                 !hasFile || isCompressing
                                                     ? "cursor-not-allowed bg-slate-400 dark:bg-slate-700"
                                                     : "bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm shadow-blue-500/20 hover:from-blue-700 hover:to-indigo-700 hover:shadow"
