@@ -1,8 +1,37 @@
 "use client"
 
-import React, { useState, useRef, useCallback, useEffect } from "react"
+import React, { useState, useRef, useCallback, useEffect, useMemo } from "react"
 import JSZip from "jszip"
-import styles from "./styles.module.css"
+import { 
+  Lock, 
+  Unlock, 
+  File, 
+  Upload, 
+  RefreshCw, 
+  Trash2, 
+  Copy, 
+  Download, 
+  AlertTriangle, 
+  Check, 
+  ShieldAlert, 
+  Key, 
+  Eye, 
+  EyeOff, 
+  Clock, 
+  Sparkles,
+  X
+} from "lucide-react"
+import { ToolHeroProps } from "../../../types/tool"
+import ToolHero from "../../tool-page-helpers/ToolHero"
+
+// shadcn/ui components
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Progress } from "@/components/ui/progress"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { Input } from "@/components/ui/input"
 
 // Types
 type Mode = "encrypt" | "decrypt"
@@ -64,8 +93,22 @@ interface EncryptedFileHeader {
 const MAGIC_IDENTIFIER = "EASYMT"
 const CURRENT_VERSION = 2
 const CHUNK_SIZE = 1024 * 1024 // 1MB chunks
-const PBKDF2_ITERATIONS = 600000 // Increased from 100000 to 600000 for better security
+const PBKDF2_ITERATIONS = 600000 
 const MAX_FILE_SIZE = 100 * 1024 * 1024 // 100MB limit
+
+// Helper: Local tailwind merger wrapper
+function cn(...parts: Array<string | false | null | undefined>) {
+  return parts.filter(Boolean).join(" ")
+}
+
+// Helper function to format file size (Moved up to prevent ReferenceError)
+const formatFileSize = (bytes: number): string => {
+    if (bytes === 0) return "0 Bytes"
+    const k = 1024
+    const sizes = ["Bytes", "KB", "MB", "GB"]
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
+}
 
 // Helper: Convert Uint8Array to ArrayBuffer
 const toArrayBuffer = (uint8Array: Uint8Array): ArrayBuffer => {
@@ -101,12 +144,10 @@ const base64ToArrayBuffer = (base64: string): ArrayBuffer => {
     return bytes.buffer
 }
 
-// Generate secure random bytes
 const getRandomBytes = (size: number): Uint8Array => {
     return crypto.getRandomValues(new Uint8Array(size))
 }
 
-// Generate secure password
 const generateSecurePassword = (): string => {
     const length = 20
     const uppercase = "ABCDEFGHJKLMNPQRSTUVWXYZ"
@@ -126,14 +167,10 @@ const generateSecurePassword = (): string => {
             password += allChars.charAt(randomValue % allChars.length)
         }
     }
-
     return password
 }
 
-// Password strength checker
-const checkPasswordStrength = (
-    password: string
-): { score: number; label: string; color: string } => {
+const checkPasswordStrength = (password: string): { score: number; label: string; variant: "destructive" | "warning" | "secondary" | "success" } => {
     let score = 0
     if (password.length >= 12) score += 2
     else if (password.length >= 8) score += 1
@@ -142,25 +179,13 @@ const checkPasswordStrength = (
     if (/[0-9]/.test(password)) score += 1
     if (/[^a-zA-Z0-9]/.test(password)) score += 2
 
-    const strengthMap = [
-        { score: 0, label: "Very Weak", color: "#ef4444" },
-        { score: 2, label: "Weak", color: "#f59e0b" },
-        { score: 4, label: "Fair", color: "#eab308" },
-        { score: 5, label: "Good", color: "#10b981" },
-        { score: 7, label: "Strong", color: "#22c55e" },
-    ]
-
-    const strength = strengthMap.reduce((prev, curr) =>
-        score >= curr.score ? curr : prev
-    )
-    return { score, label: strength.label, color: strength.color }
+    if (score <= 2) return { score, label: "Very Weak", variant: "destructive" }
+    if (score <= 4) return { score, label: "Weak / Fair", variant: "warning" }
+    if (score <= 5) return { score, label: "Good Strength", variant: "secondary" }
+    return { score, label: "Strong Shield", variant: "success" }
 }
 
-// Derive key from password using PBKDF2 with increased iterations
-const deriveKey = async (
-    password: string,
-    salt: Uint8Array
-): Promise<CryptoKey> => {
+const deriveKey = async (password: string, salt: Uint8Array): Promise<CryptoKey> => {
     const encoder = new TextEncoder()
     const passwordBuffer = encoder.encode(password)
 
@@ -188,11 +213,7 @@ const deriveKey = async (
     )
 }
 
-// Encrypt a single chunk with its own IV
-const encryptChunk = async (
-    chunk: Uint8Array,
-    key: CryptoKey
-): Promise<{ encryptedData: Uint8Array; iv: Uint8Array }> => {
+const encryptChunk = async (chunk: Uint8Array, key: CryptoKey): Promise<{ encryptedData: Uint8Array; iv: Uint8Array }> => {
     const iv = getRandomBytes(12)
     const ivBuffer = toArrayBuffer(iv)
     const chunkBuffer = toArrayBuffer(chunk)
@@ -209,12 +230,7 @@ const encryptChunk = async (
     }
 }
 
-// Decrypt a single chunk with its specific IV
-const decryptChunk = async (
-    encryptedChunk: Uint8Array,
-    key: CryptoKey,
-    iv: Uint8Array
-): Promise<Uint8Array> => {
+const decryptChunk = async (encryptedChunk: Uint8Array, key: CryptoKey, iv: Uint8Array): Promise<Uint8Array> => {
     const ivBuffer = toArrayBuffer(iv)
     const chunkBuffer = toArrayBuffer(encryptedChunk)
 
@@ -227,18 +243,12 @@ const decryptChunk = async (
     return new Uint8Array(decrypted)
 }
 
-// Helper function to read file chunk using File.slice (never loads entire file)
-const readFileChunk = async (
-    file: File,
-    start: number,
-    end: number
-): Promise<Uint8Array> => {
+const readFileChunk = async (file: File, start: number, end: number): Promise<Uint8Array> => {
     const chunkBlob = file.slice(start, end)
     const chunkBuffer = await chunkBlob.arrayBuffer()
     return new Uint8Array(chunkBuffer)
 }
 
-// Encrypt file with proper header and chunk table - CHUNK-BASED PROCESSING
 const encryptFile = async (
     file: File,
     password: string,
@@ -265,16 +275,12 @@ const encryptFile = async (
         const { encryptedData, iv } = await encryptChunk(chunk, key)
         chunks.push({ encryptedData, iv, originalLength })
 
-        if (onProgress) {
-            onProgress(((i + 1) / totalChunks) * 100)
-        }
-        if (onChunkComplete) {
-            onChunkComplete(i + 1, totalChunks)
-        }
+        if (onProgress) onProgress(((i + 1) / totalChunks) * 100)
+        if (onChunkComplete) onChunkComplete(i + 1, totalChunks)
     }
 
-    let dataOffset = 0
     const chunkMetadata: ChunkMetadata[] = []
+    let dataOffset = 0
 
     for (let i = 0; i < chunks.length; i++) {
         const chunk = chunks[i]
@@ -309,29 +315,14 @@ const encryptFile = async (
     const headerLengthBuffer = new Uint8Array(4)
     new DataView(headerLengthBuffer.buffer).setUint32(0, headerLength, false)
 
-    let totalEncryptedSize = 0
+    const payloadBlobs: BlobPart[] = [headerLengthBuffer, headerBytes]
     for (const chunk of chunks) {
-        totalEncryptedSize += chunk.encryptedData.length
+        payloadBlobs.push(chunk.encryptedData)
     }
 
-    const result = new Uint8Array(4 + headerLength + totalEncryptedSize)
-    let writeOffset = 0
-
-    result.set(headerLengthBuffer, writeOffset)
-    writeOffset += 4
-
-    result.set(headerBytes, writeOffset)
-    writeOffset += headerLength
-
-    for (const chunk of chunks) {
-        result.set(chunk.encryptedData, writeOffset)
-        writeOffset += chunk.encryptedData.length
-    }
-
-    return new Blob([result], { type: "application/x-easymytools-encrypted" })
+    return new Blob(payloadBlobs, { type: "application/x-easymytools-encrypted" })
 }
 
-// Decrypt file with robust header parsing - CHUNK-BASED PROCESSING
 const decryptFile = async (
     file: File,
     password: string,
@@ -344,10 +335,7 @@ const decryptFile = async (
         throw new Error("File too small. Corrupted or invalid encrypted file.")
     }
 
-    const headerLength = new DataView(headerLengthBuffer.buffer).getUint32(
-        0,
-        false
-    )
+    const headerLength = new DataView(headerLengthBuffer.buffer).getUint32(0, false)
 
     if (headerLength <= 0 || headerLength > file.size - 4) {
         throw new Error("Invalid header length. File may be corrupted.")
@@ -364,115 +352,52 @@ const decryptFile = async (
     }
 
     if (header.magic !== MAGIC_IDENTIFIER) {
-        throw new Error(
-            "Invalid file format. Not an EaseMyTools encrypted file."
-        )
+        throw new Error("Invalid file format. Not an EaseMyTools encrypted file.")
     }
 
     if (header.version !== CURRENT_VERSION) {
-        throw new Error(
-            `Unsupported encryption version: ${header.version}. Expected version: ${CURRENT_VERSION}`
-        )
-    }
-
-    if (!header.salt || !header.chunks || !Array.isArray(header.chunks)) {
-        throw new Error("Invalid header data. Missing required fields.")
+        throw new Error(`Unsupported encryption version: ${header.version}. Expected version: ${CURRENT_VERSION}`)
     }
 
     const saltBuffer = base64ToArrayBuffer(header.salt)
     const salt = new Uint8Array(saltBuffer)
-
     const key = await deriveKey(password, salt)
 
     const encryptedDataStart = 4 + headerLength
-
     const decryptedChunks: Uint8Array[] = []
 
     for (let i = 0; i < header.chunks.length; i++) {
         const chunkMeta = header.chunks[i]
-        if (!chunkMeta) {
-            throw new Error(
-                `Missing chunk metadata for chunk ${i}. File may be corrupted.`
-            )
-        }
+        if (!chunkMeta) throw new Error(`Missing chunk metadata for chunk ${i}.`)
 
         const chunkStart = encryptedDataStart + chunkMeta.offset
         const chunkEnd = chunkStart + chunkMeta.encryptedLength
 
-        if (chunkEnd > file.size) {
-            throw new Error(
-                `Chunk ${i} extends beyond file bounds. File may be corrupted.`
-            )
-        }
+        if (chunkEnd > file.size) throw new Error(`Chunk ${i} extends beyond file bounds.`)
 
         const encryptedChunk = await readFileChunk(file, chunkStart, chunkEnd)
-
         const ivBuffer = base64ToArrayBuffer(chunkMeta.iv)
         const iv = new Uint8Array(ivBuffer)
 
         try {
             const decryptedChunk = await decryptChunk(encryptedChunk, key, iv)
-
-            if (decryptedChunk.length !== chunkMeta.length) {
-                console.warn(
-                    `Chunk ${i} size mismatch: expected ${chunkMeta.length}, got ${decryptedChunk.length}`
-                )
-            }
-
             decryptedChunks.push(decryptedChunk)
         } catch (err) {
-            throw new Error(
-                `Failed to decrypt chunk ${i}. Incorrect password or corrupted file.`
-            )
+            throw new Error(`Failed to decrypt chunk ${i}. Incorrect password or corrupted file.`)
         }
 
-        if (onProgress) {
-            onProgress(((i + 1) / header.chunks.length) * 100)
-        }
-        if (onChunkComplete) {
-            onChunkComplete(i + 1, header.chunks.length)
-        }
-    }
-
-    const totalLength = decryptedChunks.reduce(
-        (sum, chunk) => sum + chunk.length,
-        0
-    )
-    const reconstructedData = new Uint8Array(totalLength)
-    let offset = 0
-    for (const chunk of decryptedChunks) {
-        reconstructedData.set(chunk, offset)
-        offset += chunk.length
-    }
-
-    if (reconstructedData.length !== header.originalSize) {
-        console.warn(
-            `Final size mismatch: expected ${header.originalSize}, got ${reconstructedData.length}`
-        )
+        if (onProgress) onProgress(((i + 1) / header.chunks.length) * 100)
+        if (onChunkComplete) onChunkComplete(i + 1, header.chunks.length)
     }
 
     return {
-        blob: new Blob([reconstructedData], { type: header.originalType }),
+        blob: new Blob(decryptedChunks, { type: header.originalType }),
         originalName: header.originalName,
         originalType: header.originalType,
     }
 }
 
-// Helper function to generate unique file identifier
-const getFileIdentifier = (file: File): string => {
-    return `${file.name}|${file.size}|${file.lastModified}`
-}
-
-// Helper function to format file size
-const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return "0 Bytes"
-    const k = 1024
-    const sizes = ["Bytes", "KB", "MB", "GB"]
-    const i = Math.floor(Math.log(bytes) / Math.log(k))
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
-}
-
-const FileEncryptor = () => {
+export default function FileEncryptor({ tool }: ToolHeroProps) {
     const [mode, setMode] = useState<Mode>("encrypt")
     const [password, setPassword] = useState<string>("")
     const [confirmPassword, setConfirmPassword] = useState<string>("")
@@ -488,33 +413,20 @@ const FileEncryptor = () => {
     })
     const [error, setError] = useState<string>("")
     const [success, setSuccess] = useState<string>("")
-    const [abortController, setAbortController] =
-        useState<AbortController | null>(null)
-    const [encryptionDetails, setEncryptionDetails] = useState<{
-        algorithm: string
-        keyDerivation: string
-        iterations: number
-        chunkSize: string
-    } | null>(null)
+    const [abortController, setAbortController] = useState<AbortController | null>(null)
+    const [isDragging, setIsDragging] = useState(false)
 
     const fileInputRef = useRef<HTMLInputElement>(null)
-
-    const passwordStrength = checkPasswordStrength(password)
+    const passwordStrength = useMemo(() => checkPasswordStrength(password), [password])
     const passwordsMatch = mode === "decrypt" || password === confirmPassword
 
-    // Determine if UI sections should be visible
     const hasValidFiles = files.length > 0
-    const canProcess =
-        hasValidFiles &&
-        password.length > 0 &&
-        (mode === "decrypt" || passwordsMatch) &&
-        !isProcessing
+    const canProcess = hasValidFiles && password.length > 0 && passwordsMatch && !isProcessing
 
-    // Track existing file identifiers to prevent duplicates
-    const existingFileIdentifiers = React.useMemo(() => {
+    const existingFileIdentifiers = useMemo(() => {
         const identifiers = new Set<string>()
         files.forEach((file) => {
-            identifiers.add(getFileIdentifier(file.file))
+            identifiers.add(`${file.file.name}|${file.file.size}|${file.file.lastModified}`)
         })
         return identifiers
     }, [files])
@@ -528,24 +440,19 @@ const FileEncryptor = () => {
 
             for (const file of fileArray) {
                 if (file.size > MAX_FILE_SIZE) {
-                    errors.push(
-                        `${file.name}: File exceeds 100MB limit (${formatFileSize(file.size)})`
-                    )
+                    errors.push(`${file.name}: File exceeds 100MB limit (${formatFileSize(file.size)})`)
                     continue
                 }
 
-                const fileId = getFileIdentifier(file)
+                const fileId = `${file.name}|${file.size}|${file.lastModified}`
                 if (currentIdentifiers.has(fileId)) {
-                    errors.push(
-                        `${file.name}: Duplicate file detected (same name, size, and modification time)`
-                    )
+                    errors.push(`${file.name}: Duplicate file detected`)
                     continue
                 }
 
                 currentIdentifiers.add(fileId)
-
                 newFiles.push({
-                    id: Math.random().toString(36).substr(2, 9),
+                    id: Math.random().toString(36).substring(2, 11),
                     file,
                     originalName: file.name,
                     originalType: file.type,
@@ -556,19 +463,13 @@ const FileEncryptor = () => {
             }
 
             if (errors.length > 0) {
-                setError(
-                    `Skipped ${errors.length} file(s):\n${errors.join("\n")}`
-                )
-                setTimeout(() => setError(""), 8000)
+                setError(`Skipped rejected files:\n${errors.join("\n")}`)
+                setTimeout(() => setError(""), 6000)
             }
 
             if (newFiles.length > 0) {
                 setFiles((prev) => [...prev, ...newFiles])
                 setError("")
-            } else if (errors.length > 0 && newFiles.length === 0) {
-                setError(
-                    `No valid files to process. ${errors.length} file(s) were rejected.`
-                )
             }
         },
         [existingFileIdentifiers]
@@ -577,17 +478,11 @@ const FileEncryptor = () => {
     const handleDrop = useCallback(
         (e: React.DragEvent<HTMLDivElement>) => {
             e.preventDefault()
-            if (e.dataTransfer.files) {
-                handleFiles(e.dataTransfer.files)
-            }
+            setIsDragging(false)
+            if (e.dataTransfer.files) handleFiles(e.dataTransfer.files)
         },
         [handleFiles]
     )
-
-    const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault()
-        e.dataTransfer.dropEffect = "copy"
-    }, [])
 
     const removeFile = useCallback((id: string) => {
         setFiles((prev) => prev.filter((f) => f.id !== id))
@@ -597,8 +492,6 @@ const FileEncryptor = () => {
         setFiles([])
         setError("")
         setSuccess("")
-        setEncryptionDetails(null)
-        // Reset password when files are cleared
         setPassword("")
         setConfirmPassword("")
     }, [])
@@ -606,22 +499,8 @@ const FileEncryptor = () => {
     const handleGeneratePassword = useCallback(() => {
         const newPassword = generateSecurePassword()
         setPassword(newPassword)
-        if (mode === "encrypt") {
-            setConfirmPassword(newPassword)
-        }
+        if (mode === "encrypt") setConfirmPassword(newPassword)
     }, [mode])
-
-    const copyFileInfo = useCallback((result: ProcessResult) => {
-        const info = `File: ${result.originalName}
-Type: ${result.type}
-Original Size: ${formatFileSize(result.originalSize)}
-Processed Size: ${formatFileSize(result.processedSize)}
-Status: ${result.mode === "encrypt" ? "Encrypted" : "Decrypted"}
-Time: ${result.timestamp.toLocaleString()}`
-        navigator.clipboard.writeText(info)
-        setSuccess("File information copied to clipboard")
-        setTimeout(() => setSuccess(""), 3000)
-    }, [])
 
     const downloadResult = useCallback((result: ProcessResult) => {
         const url = URL.createObjectURL(result.blob)
@@ -630,16 +509,6 @@ Time: ${result.timestamp.toLocaleString()}`
         a.download = result.processedName
         a.click()
         URL.revokeObjectURL(url)
-        setSuccess(`Download started: ${result.processedName}`)
-        setTimeout(() => setSuccess(""), 3000)
-    }, [])
-
-    const clearResult = useCallback((id: string) => {
-        setResults((prev) => prev.filter((r) => r.id !== id))
-    }, [])
-
-    const clearAllResults = useCallback(() => {
-        setResults([])
     }, [])
 
     const processFiles = useCallback(async () => {
@@ -648,12 +517,6 @@ Time: ${result.timestamp.toLocaleString()}`
         setIsProcessing(true)
         setError("")
         setSuccess("")
-        setEncryptionDetails({
-            algorithm: "AES-256-GCM",
-            keyDerivation: "PBKDF2",
-            iterations: PBKDF2_ITERATIONS,
-            chunkSize: "1 MB",
-        })
 
         const controller = new AbortController()
         setAbortController(controller)
@@ -666,7 +529,6 @@ Time: ${result.timestamp.toLocaleString()}`
                 if (!fileItem) continue
 
                 const fileStartTime = Date.now()
-
                 setProgress({
                     current: i + 1,
                     total: files.length,
@@ -675,11 +537,7 @@ Time: ${result.timestamp.toLocaleString()}`
                 })
 
                 setFiles((prev) =>
-                    prev.map((f) =>
-                        f.id === fileItem.id
-                            ? { ...f, status: "processing", progress: 0 }
-                            : f
-                    )
+                    prev.map((f) => f.id === fileItem.id ? { ...f, status: "processing", progress: 0 } : f)
                 )
 
                 try {
@@ -691,27 +549,12 @@ Time: ${result.timestamp.toLocaleString()}`
                             fileItem.file,
                             password,
                             (progress) => {
-                                setFiles((prev) =>
-                                    prev.map((f) =>
-                                        f.id === fileItem.id
-                                            ? { ...f, progress }
-                                            : f
-                                    )
-                                )
+                                setFiles((prev) => prev.map((f) => f.id === fileItem.id ? { ...f, progress } : f))
                             },
                             (current, total) => {
                                 const elapsed = Date.now() - fileStartTime
-                                const estimatedTotal =
-                                    (elapsed / current) * total
-                                const remaining = Math.max(
-                                    0,
-                                    estimatedTotal - elapsed
-                                )
-
-                                setProgress((prev) => ({
-                                    ...prev,
-                                    estimatedTimeRemaining: remaining / 1000,
-                                }))
+                                const remaining = Math.max(0, ((elapsed / current) * total) - elapsed)
+                                setProgress((prev) => ({ ...prev, estimatedTimeRemaining: remaining / 1000 }))
                             }
                         )
                         processedName = `${fileItem.originalName}.encrypted`
@@ -720,101 +563,51 @@ Time: ${result.timestamp.toLocaleString()}`
                             fileItem.file,
                             password,
                             (progress) => {
-                                setFiles((prev) =>
-                                    prev.map((f) =>
-                                        f.id === fileItem.id
-                                            ? { ...f, progress }
-                                            : f
-                                    )
-                                )
+                                setFiles((prev) => prev.map((f) => f.id === fileItem.id ? { ...f, progress } : f))
                             },
                             (current, total) => {
                                 const elapsed = Date.now() - fileStartTime
-                                const estimatedTotal =
-                                    (elapsed / current) * total
-                                const remaining = Math.max(
-                                    0,
-                                    estimatedTotal - elapsed
-                                )
-
-                                setProgress((prev) => ({
-                                    ...prev,
-                                    estimatedTimeRemaining: remaining / 1000,
-                                }))
+                                const remaining = Math.max(0, ((elapsed / current) * total) - elapsed)
+                                setProgress((prev) => ({ ...prev, estimatedTimeRemaining: remaining / 1000 }))
                             }
                         )
                         resultBlob = decrypted.blob
                         processedName = decrypted.originalName
                     }
 
-                    const result: ProcessResult = {
-                        id: fileItem.id,
-                        originalName: fileItem.originalName,
-                        processedName,
-                        originalSize: fileItem.size,
-                        processedSize: resultBlob.size,
-                        type: fileItem.originalType,
-                        blob: resultBlob,
-                        timestamp: new Date(),
-                        mode,
-                    }
-
-                    setResults((prev) => [...prev, result])
+                    setResults((prev) => [
+                        ...prev,
+                        {
+                            id: fileItem.id,
+                            originalName: fileItem.originalName,
+                            processedName,
+                            originalSize: fileItem.size,
+                            processedSize: resultBlob.size,
+                            type: fileItem.originalType,
+                            blob: resultBlob,
+                            timestamp: new Date(),
+                            mode,
+                        },
+                    ])
 
                     setFiles((prev) =>
-                        prev.map((f) =>
-                            f.id === fileItem.id
-                                ? {
-                                      ...f,
-                                      status: "completed",
-                                      result: resultBlob,
-                                      encryptedSize: resultBlob.size,
-                                  }
-                                : f
-                        )
+                        prev.map((f) => f.id === fileItem.id ? { ...f, status: "completed", result: resultBlob, encryptedSize: resultBlob.size } : f)
                     )
-
-                    setSuccess(
-                        `${mode === "encrypt" ? "Encrypted" : "Decrypted"} successfully: ${fileItem.originalName}`
-                    )
-                    setTimeout(() => setSuccess(""), 5000)
                 } catch (err) {
                     setFiles((prev) =>
-                        prev.map((f) =>
-                            f.id === fileItem.id
-                                ? {
-                                      ...f,
-                                      status: "error",
-                                      error:
-                                          err instanceof Error
-                                              ? err.message
-                                              : "Processing failed",
-                                  }
-                                : f
-                        )
+                        prev.map((f) => f.id === fileItem.id ? { ...f, status: "error", error: err instanceof Error ? err.message : "Failed" } : f)
                     )
-                    setError(`Failed to ${mode}: ${fileItem.originalName}`)
-                    setTimeout(() => setError(""), 5000)
                 }
             }
-
             if (!controller.signal.aborted) {
                 setFiles([])
-                if (fileInputRef.current) {
-                    fileInputRef.current.value = ""
-                }
+                if (fileInputRef.current) fileInputRef.current.value = ""
             }
         } catch (err) {
             setError(err instanceof Error ? err.message : "Processing failed")
         } finally {
             setIsProcessing(false)
             setAbortController(null)
-            setProgress({
-                current: 0,
-                total: 0,
-                currentFile: "",
-                estimatedTimeRemaining: 0,
-            })
         }
     }, [canProcess, files, mode, password])
 
@@ -822,583 +615,258 @@ Time: ${result.timestamp.toLocaleString()}`
         if (abortController) {
             abortController.abort()
             setIsProcessing(false)
-            setError("Operation cancelled by user")
-            setFiles((prev) =>
-                prev.map((f) =>
-                    f.status === "processing"
-                        ? { ...f, status: "pending", progress: 0 }
-                        : f
-                )
-            )
+            setFiles((prev) => prev.map((f) => f.status === "processing" ? { ...f, status: "pending", progress: 0 } : f))
         }
     }, [abortController])
 
     return (
-        <div className={styles.container}>
-            <div className={styles.layout}>
-                {/* Mode Selector - Always Visible */}
-                <div className={styles.modeSelector}>
-                    <button
-                        className={`${styles.modeBtn} ${mode === "encrypt" ? styles.active : ""}`}
-                        onClick={() => {
-                            setMode("encrypt")
-                            clearFiles()
-                            setResults([])
-                            setPassword("")
-                            setConfirmPassword("")
-                        }}
-                        aria-label="Switch to encrypt mode"
-                    >
-                        <span aria-hidden="true">🔒</span>
-                        Encrypt Files
-                    </button>
-                    <button
-                        className={`${styles.modeBtn} ${mode === "decrypt" ? styles.active : ""}`}
-                        onClick={() => {
-                            setMode("decrypt")
-                            clearFiles()
-                            setResults([])
-                            setPassword("")
-                            setConfirmPassword("")
-                        }}
-                        aria-label="Switch to decrypt mode"
-                    >
-                        <span aria-hidden="true">🔓</span>
-                        Decrypt Files
-                    </button>
-                </div>
+        <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-4 py-10 text-slate-900 sm:px-6 lg:py-12 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
+            <div className="w-full max-w-6xl space-y-8">
+                <ToolHero tool={tool} />
 
-                {/* File Upload Area - Always Visible */}
-                <div
-                    className={`${styles.dropZone} ${isProcessing ? styles.disabled : ""}`}
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    onClick={() =>
-                        !isProcessing && fileInputRef.current?.click()
-                    }
-                    role="button"
-                    tabIndex={0}
-                    aria-label="File upload area"
-                >
-                    <input
-                        ref={fileInputRef}
-                        type="file"
-                        multiple
-                        onChange={(e) =>
-                            e.target.files && handleFiles(e.target.files)
-                        }
-                        style={{ display: "none" }}
-                        disabled={isProcessing}
-                        aria-label="File input"
-                    />
-                    <div className={styles.dropContent}>
-                        <span className={styles.dropIcon} aria-hidden="true">
-                            📁
-                        </span>
-                        <p>Drag & drop files here or click to browse</p>
-                        <small>
-                            Supports any file type - Images, PDFs, Documents,
-                            Videos, Audio, ZIP, etc.
-                        </small>
-                        <small>Maximum individual file size: 100MB</small>
-                    </div>
-                </div>
+                <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/30 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/20">
+                    <div className="p-6 sm:p-8">
+                        
+                        {/* Mode Selector */}
+                        <Tabs value={mode} onValueChange={(v) => { setMode(v as Mode); clearFiles(); setResults([]); }} className="w-full mb-6">
+                            <TabsList className="grid w-full max-w-md grid-cols-2">
+                                <TabsTrigger value="encrypt" className="gap-2"><Lock className="h-4 w-4" /> Encrypt Files</TabsTrigger>
+                                <TabsTrigger value="decrypt" className="gap-2"><Unlock className="h-4 w-4" /> Decrypt Files</TabsTrigger>
+                            </TabsList>
+                        </Tabs>
 
-                {/* File List - Shown only when files exist */}
-                {hasValidFiles && (
-                    <div className={styles.fileList}>
-                        <div className={styles.fileListHeader}>
-                            <h3>Selected Files ({files.length})</h3>
-                            {!isProcessing && (
-                                <button
-                                    onClick={clearFiles}
-                                    className={styles.clearBtn}
-                                    aria-label="Clear all files"
-                                >
-                                    Clear All
-                                </button>
+                        {/* Dropzone Area */}
+                        <div
+                            onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                            onDragLeave={() => setIsDragging(false)}
+                            onDrop={handleDrop}
+                            onClick={() => !isProcessing && fileInputRef.current?.click()}
+                            className={cn(
+                                "border-2 border-dashed rounded-2xl p-8 text-center transition flex flex-col items-center justify-center min-h-[200px] bg-slate-50/40 dark:bg-slate-950/20",
+                                isProcessing ? "cursor-not-allowed opacity-60" : "cursor-pointer",
+                                isDragging ? "border-indigo-500 bg-indigo-50/20" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
                             )}
-                        </div>
-                        <div className={styles.fileGrid}>
-                            {files.map((file) => (
-                                <div key={file.id} className={styles.fileCard}>
-                                    <div
-                                        className={styles.fileIcon}
-                                        aria-hidden="true"
-                                    >
-                                        {file.originalType.startsWith(
-                                            "image/"
-                                        ) && "🖼️"}
-                                        {file.originalType ===
-                                            "application/pdf" && "📄"}
-                                        {file.originalType.includes("word") &&
-                                            "📝"}
-                                        {file.originalType.includes("zip") &&
-                                            "📦"}
-                                        {file.originalType.startsWith(
-                                            "video/"
-                                        ) && "🎥"}
-                                        {file.originalType.startsWith(
-                                            "audio/"
-                                        ) && "🎵"}
-                                        {!file.originalType && "📁"}
-                                    </div>
-                                    <div className={styles.fileInfo}>
-                                        <div
-                                            className={styles.fileName}
-                                            title={file.originalName}
-                                        >
-                                            {file.originalName}
-                                        </div>
-                                        <div className={styles.fileMeta}>
-                                            <span>
-                                                {formatFileSize(file.size)}
-                                            </span>
-                                        </div>
-                                        {file.status === "processing" && (
-                                            <div
-                                                className={styles.fileProgress}
-                                            >
-                                                <div
-                                                    className={
-                                                        styles.progressBar
-                                                    }
-                                                >
-                                                    <div
-                                                        className={
-                                                            styles.progressFill
-                                                        }
-                                                        style={{
-                                                            width: `${file.progress}%`,
-                                                        }}
-                                                        role="progressbar"
-                                                        aria-valuenow={
-                                                            file.progress
-                                                        }
-                                                        aria-valuemin={0}
-                                                        aria-valuemax={100}
-                                                    />
-                                                </div>
-                                                <span
-                                                    className={
-                                                        styles.progressText
-                                                    }
-                                                >
-                                                    {Math.round(file.progress)}%
-                                                </span>
-                                            </div>
-                                        )}
-                                        {file.status === "error" && (
-                                            <div className={styles.fileError}>
-                                                {file.error}
-                                            </div>
-                                        )}
-                                    </div>
-                                    {!isProcessing &&
-                                        file.status === "pending" && (
-                                            <button
-                                                onClick={() =>
-                                                    removeFile(file.id)
-                                                }
-                                                className={styles.removeBtn}
-                                                aria-label="Remove file"
-                                            >
-                                                ✕
-                                            </button>
-                                        )}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                {/* Password Section - Shown only when files exist */}
-                {hasValidFiles && (
-                    <div
-                        className={`${styles.passwordSection} ${styles.slideIn}`}
-                    >
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>
-                                {mode === "encrypt"
-                                    ? "Encryption Password"
-                                    : "Decryption Password"}
-                            </label>
-                            <div className={styles.passwordWrapper}>
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                    placeholder="Enter strong password..."
-                                    className={styles.passwordInput}
-                                    disabled={isProcessing}
-                                    aria-label="Password"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        setShowPassword(!showPassword)
-                                    }
-                                    className={styles.passwordToggle}
-                                    aria-label={
-                                        showPassword
-                                            ? "Hide password"
-                                            : "Show password"
-                                    }
-                                >
-                                    {showPassword ? "👁️" : "👁️‍🗨️"}
-                                </button>
-                                {mode === "encrypt" && (
-                                    <button
-                                        type="button"
-                                        onClick={handleGeneratePassword}
-                                        className={styles.generateBtn}
-                                        aria-label="Generate secure password"
-                                    >
-                                        🔄
-                                    </button>
-                                )}
-                            </div>
-                            {mode === "encrypt" && password && (
-                                <div className={styles.strengthMeter}>
-                                    <div
-                                        className={styles.strengthBar}
-                                        style={{
-                                            width: `${(passwordStrength.score / 7) * 100}%`,
-                                            backgroundColor:
-                                                passwordStrength.color,
-                                        }}
-                                        role="progressbar"
-                                        aria-valuenow={passwordStrength.score}
-                                        aria-valuemin={0}
-                                        aria-valuemax={7}
-                                    />
-                                    <span
-                                        className={styles.strengthLabel}
-                                        style={{
-                                            color: passwordStrength.color,
-                                        }}
-                                    >
-                                        {passwordStrength.label}
-                                    </span>
-                                </div>
-                            )}
-                            {mode === "encrypt" && (
-                                <div className={styles.passwordRequirements}>
-                                    <small>Password must contain:</small>
-                                    <ul>
-                                        <li>
-                                            ✓ At least 8 characters (12+
-                                            recommended)
-                                        </li>
-                                        <li>
-                                            ✓ Uppercase and lowercase letters
-                                        </li>
-                                        <li>
-                                            ✓ Numbers and special characters
-                                        </li>
-                                    </ul>
-                                </div>
-                            )}
-                        </div>
-
-                        {mode === "encrypt" && (
-                            <div className={styles.inputGroup}>
-                                <label className={styles.label}>
-                                    Confirm Password
-                                </label>
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    value={confirmPassword}
-                                    onChange={(e) =>
-                                        setConfirmPassword(e.target.value)
-                                    }
-                                    placeholder="Confirm your password..."
-                                    className={styles.passwordInput}
-                                    disabled={isProcessing}
-                                    aria-label="Confirm password"
-                                />
-                                {confirmPassword && !passwordsMatch && (
-                                    <div
-                                        className={styles.errorHint}
-                                        role="alert"
-                                    >
-                                        Passwords do not match
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {/* Encryption Details Panel - Shown only when files exist and in encrypt mode */}
-                {hasValidFiles && encryptionDetails && mode === "encrypt" && (
-                    <div className={`${styles.detailsPanel} ${styles.slideIn}`}>
-                        <h4>Encryption Details</h4>
-                        <div className={styles.detailsGrid}>
-                            <div className={styles.detailItem}>
-                                <span>Algorithm:</span>
-                                <strong>{encryptionDetails.algorithm}</strong>
-                            </div>
-                            <div className={styles.detailItem}>
-                                <span>Key Derivation:</span>
-                                <strong>
-                                    {encryptionDetails.keyDerivation}
-                                </strong>
-                            </div>
-                            <div className={styles.detailItem}>
-                                <span>Iterations:</span>
-                                <strong>
-                                    {encryptionDetails.iterations.toLocaleString()}
-                                </strong>
-                            </div>
-                            <div className={styles.detailItem}>
-                                <span>Chunk Size:</span>
-                                <strong>{encryptionDetails.chunkSize}</strong>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {/* Progress Overview - Shown during processing */}
-                {isProcessing && progress.total > 0 && (
-                    <div className={styles.progressOverview}>
-                        <div className={styles.progressHeader}>
-                            <span>Processing: {progress.currentFile}</span>
-                            <span>
-                                {progress.current} of {progress.total} files
-                            </span>
-                        </div>
-                        <div className={styles.progressBar}>
-                            <div
-                                className={styles.progressFill}
-                                style={{
-                                    width: `${(progress.current / progress.total) * 100}%`,
-                                }}
-                                role="progressbar"
-                                aria-valuenow={
-                                    (progress.current / progress.total) * 100
-                                }
-                                aria-valuemin={0}
-                                aria-valuemax={100}
+                        >
+                            <input
+                                ref={fileInputRef}
+                                type="file"
+                                multiple
+                                onChange={(e) => e.target.files && handleFiles(e.target.files)}
+                                disabled={isProcessing}
+                                className="hidden"
                             />
+                            <div className="space-y-2 select-none">
+                                <div className="p-3 bg-white dark:bg-slate-900 rounded-2xl inline-block shadow-sm border border-slate-100 dark:border-slate-800/80">
+                                    <Upload className="h-6 w-6 text-slate-500" />
+                                </div>
+                                <p className="text-sm font-medium">Drag & drop files here or click to browse</p>
+                                <p className="text-xs text-slate-400">Supports any format (Images, Documents, Archive) up to 100MB per file</p>
+                            </div>
                         </div>
-                        {progress.estimatedTimeRemaining > 0 && (
-                            <div className={styles.estimateInfo}>
-                                Estimated time remaining:{" "}
-                                {Math.ceil(progress.estimatedTimeRemaining)}{" "}
-                                seconds
+
+                        {/* File Queue List */}
+                        {hasValidFiles && (
+                            <Card className="mt-6 border-slate-200 dark:border-slate-800">
+                                <CardHeader className="flex flex-row items-center justify-between pb-3">
+                                    <CardTitle className="text-sm font-semibold">Selected Payload Queue ({files.length})</CardTitle>
+                                    {!isProcessing && <Button variant="ghost" size="sm" onClick={clearFiles} className="text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/20 h-8 text-xs">Clear All</Button>}
+                                </CardHeader>
+                                <CardContent className="space-y-2 max-h-[260px] overflow-y-auto pr-1 custom-scrollbar">
+                                    {files.map((file) => (
+                                        <div key={file.id} className="flex items-center justify-between p-3 border border-slate-100 dark:border-slate-800 rounded-xl bg-slate-50/30 dark:bg-slate-950/40 group shadow-sm">
+                                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                                                <div className="p-2 bg-white dark:bg-slate-900 border rounded-lg text-sm shadow-sm">📄</div>
+                                                <div className="min-w-0 flex-1">
+                                                    <div className="text-xs font-semibold truncate text-slate-800 dark:text-slate-200" title={file.originalName}>{file.originalName}</div>
+                                                    <div className="text-[10px] text-slate-400 font-mono mt-0.5">{formatFileSize(file.size)}</div>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-3 ml-4">
+                                                {file.status === "processing" && (
+                                                    <div className="flex items-center gap-2 text-xs font-mono text-indigo-600 font-bold dark:text-indigo-400">
+                                                        <RefreshCw className="h-3 w-3 animate-spin" /> {Math.round(file.progress)}%
+                                                    </div>
+                                                )}
+                                                {file.status === "error" && <Badge variant="destructive" className="text-[9px]">{file.error || "Failed"}</Badge>}
+                                                {!isProcessing && file.status === "pending" && (
+                                                    <button type="button" onClick={() => removeFile(file.id)} className="text-slate-400 hover:text-rose-600 transition p-1 text-sm">✕</button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </CardContent>
+                            </Card>
+                        )}
+
+                        {/* Secure Key Access Configuration Section */}
+                        {hasValidFiles && (
+                            <div className="grid gap-6 md:grid-cols-2 mt-6 animate-in fade-in-50 duration-200">
+                                <Card className="border-slate-200 dark:border-slate-800">
+                                    <CardHeader className="pb-3">
+                                        <CardTitle className="text-sm font-semibold flex items-center gap-2"><Key className="h-4 w-4 text-indigo-500" /> Vault Key Access</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-4">
+                                        <div className="space-y-2">
+                                            <div className="relative">
+                                                <Input
+                                                    type={showPassword ? "text" : "password"}
+                                                    value={password}
+                                                    onChange={(e) => setPassword(e.target.value)}
+                                                    placeholder="Enter cryptographically secure token key..."
+                                                    disabled={isProcessing}
+                                                    className="pr-20 h-10 font-mono text-xs rounded-xl"
+                                                />
+                                                <div className="absolute right-1 top-1 bottom-1 flex gap-1">
+                                                    <Button type="button" variant="ghost" size="icon" onClick={() => setShowPassword(!showPassword)} className="h-8 w-8 text-slate-400 hover:text-slate-600">
+                                                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                                    </Button>
+                                                    {mode === "encrypt" && (
+                                                        <Button type="button" variant="ghost" size="icon" onClick={handleGeneratePassword} className="h-8 w-8 text-indigo-500 hover:text-indigo-600" title="Generate Secure Matrix Password">
+                                                            <Sparkles className="h-4 w-4" />
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {mode === "encrypt" && (
+                                            <div className="space-y-2">
+                                                <Input
+                                                    type={showPassword ? "text" : "password"}
+                                                    value={confirmPassword}
+                                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                                    placeholder="Confirm vault shield password match..."
+                                                    disabled={isProcessing}
+                                                    className="h-10 font-mono text-xs rounded-xl"
+                                                />
+                                                {confirmPassword && !passwordsMatch && (
+                                                    <p className="text-[10px] text-rose-500 font-semibold flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> Passwords do not align</p>
+                                                )}
+                                            </div>
+                                        )}
+                                    </CardContent>
+                                </Card>
+
+                                <Card className="border-slate-200 dark:border-slate-800">
+                                    <CardHeader className="pb-3">
+                                        <CardTitle className="text-sm font-semibold flex items-center gap-2"><ShieldAlert className="h-4 w-4 text-emerald-500" /> Cipher Mechanics</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="text-xs space-y-3 text-slate-500 dark:text-slate-400 leading-relaxed">
+                                        {mode === "encrypt" && password && (
+                                            <div className="p-3 border rounded-xl bg-slate-50/50 dark:bg-slate-950/20 space-y-2">
+                                                <div className="flex justify-between items-center">
+                                                    <span className="font-medium">Password Integrity:</span>
+                                                    <Badge variant={passwordStrength.variant} className="text-[9px] px-2 h-5 font-bold uppercase">{passwordStrength.label}</Badge>
+                                                </div>
+                                                <Progress value={(passwordStrength.score / 7) * 100} className="h-1.5" />
+                                            </div>
+                                        )}
+                                        <div className="grid grid-cols-2 gap-2 text-[11px] font-mono p-1 bg-slate-50/30 dark:bg-slate-950/10 rounded-xl border border-dashed">
+                                            <div>• Cipher: <span className="font-bold text-slate-800 dark:text-slate-200">AES-256-GCM</span></div>
+                                            <div>• KDF: <span className="font-bold text-slate-800 dark:text-slate-200">PBKDF2-SHA256</span></div>
+                                            <div>• Iterations: <span className="font-bold text-slate-800 dark:text-slate-200">{PBKDF2_ITERATIONS.toLocaleString()}</span></div>
+                                            <div>• Chunk Slice: <span className="font-bold text-slate-800 dark:text-slate-200">1 MB Bounds</span></div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
                             </div>
                         )}
-                        <button
-                            onClick={abortProcessing}
-                            className={styles.abortBtn}
-                            aria-label="Cancel operation"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                )}
 
-                {/* Action Buttons - Shown only when files exist and not processing */}
-                {hasValidFiles && !isProcessing && (
-                    <div className={styles.actionBar}>
-                        <button
-                            onClick={processFiles}
-                            disabled={!canProcess}
-                            className={styles.primaryBtn}
-                            aria-label={
-                                mode === "encrypt"
-                                    ? "Encrypt files"
-                                    : "Decrypt files"
-                            }
-                        >
-                            {mode === "encrypt"
-                                ? "🔒 Encrypt Files"
-                                : "🔓 Decrypt Files"}
-                        </button>
-                    </div>
-                )}
+                        {/* Real-time Processing Monitor Overlay */}
+                        {isProcessing && progress.total > 0 && (
+                            <Card className="mt-6 border-indigo-100 bg-indigo-50/10 dark:border-indigo-950/40 dark:bg-indigo-950/5 p-4 animate-in fade-in-40">
+                                <div className="flex flex-col sm:flex-row justify-between text-xs font-semibold mb-2 text-indigo-700 dark:text-indigo-400 gap-1">
+                                    <span className="truncate max-w-sm">Streaming: {progress.currentFile}</span>
+                                    <span className="font-mono text-right shrink-0">Asset {progress.current} of {progress.total} packages</span>
+                                </div>
+                                <Progress value={(progress.current / progress.total) * 100} className="h-2" />
+                                <div className="flex items-center justify-between mt-3 text-xs">
+                                    {progress.estimatedTimeRemaining > 0 ? (
+                                        <span className="text-slate-400 flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> Remaining: {Math.ceil(progress.estimatedTimeRemaining)}s</span>
+                                    ) : <span />}
+                                    <Button variant="outline" size="sm" onClick={abortProcessing} className="text-rose-600 bg-white dark:bg-slate-900 border-rose-200 h-8 text-xs rounded-xl">Cancel Sequence</Button>
+                                </div>
+                            </Card>
+                        )}
 
-                {/* Results Section */}
-                {results.length > 0 && (
-                    <div className={styles.resultsSection}>
-                        <div className={styles.resultsHeader}>
-                            <h3>
-                                {mode === "encrypt"
-                                    ? "Encrypted Files"
-                                    : "Decrypted Files"}{" "}
-                                ({results.length})
-                            </h3>
-                            <button
-                                onClick={clearAllResults}
-                                className={styles.clearResultsBtn}
-                            >
-                                Clear All
-                            </button>
-                        </div>
-                        <div className={styles.resultsGrid}>
-                            {results.map((result) => (
-                                <div
-                                    key={result.id}
-                                    className={styles.resultCard}
+                        {/* Core Pipeline Engine Activator Button */}
+                        {hasValidFiles && !isProcessing && (
+                            <div className="mt-6 flex justify-end">
+                                <Button 
+                                    onClick={processFiles} 
+                                    disabled={!canProcess}
+                                    className="w-full sm:w-auto px-6 h-10 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/10 gap-2"
                                 >
-                                    <div
-                                        className={styles.resultIcon}
-                                        aria-hidden="true"
-                                    >
-                                        {mode === "encrypt" ? "🔒" : "🔓"}
-                                    </div>
-                                    <div className={styles.resultInfo}>
-                                        <div
-                                            className={styles.resultName}
-                                            title={result.processedName}
-                                        >
-                                            {result.processedName}
-                                        </div>
-                                        <div className={styles.resultDetails}>
-                                            <div
-                                                className={styles.resultDetail}
-                                            >
-                                                <span>Original:</span>
-                                                <strong>
-                                                    {formatFileSize(
-                                                        result.originalSize
-                                                    )}
-                                                </strong>
+                                    <Lock className="h-4 w-4" /> {mode === "encrypt" ? "Execute Matrix Encryption" : "Unlock Package Decryption"}
+                                </Button>
+                            </div>
+                        )}
+
+                        {/* Compiled Complete Outputs Section */}
+                        {results.length > 0 && (
+                            <Card className="mt-8 border-slate-200 dark:border-slate-800 animate-in slide-in-from-bottom-4 duration-300">
+                                <CardHeader className="flex flex-row items-center justify-between pb-3 border-b">
+                                    <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                                        <Check className="h-4 w-4 text-emerald-500" />
+                                        Processed Vault Repositories ({results.length})
+                                    </CardTitle>
+                                    <Button variant="ghost" size="sm" onClick={() => setResults([])} className="text-slate-400 text-xs h-8">Clear Results</Button>
+                                </CardHeader>
+                                <CardContent className="p-0 max-h-[300px] overflow-y-auto custom-scrollbar">
+                                    {results.map((res) => (
+                                        <div key={res.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800/80 gap-3 hover:bg-slate-50/50 dark:hover:bg-slate-950/20">
+                                            <div className="min-w-0 flex-1">
+                                                <div className="text-xs font-bold truncate text-slate-800 dark:text-slate-200" title={res.processedName}>{res.processedName}</div>
+                                                <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] font-mono text-slate-400 mt-1">
+                                                    <span>Origin size: {formatFileSize(res.originalSize)}</span>
+                                                    <span>• File weight: {formatFileSize(res.processedSize)}</span>
+                                                </div>
                                             </div>
-                                            <div
-                                                className={styles.resultDetail}
-                                            >
-                                                <span>Processed:</span>
-                                                <strong>
-                                                    {formatFileSize(
-                                                        result.processedSize
-                                                    )}
-                                                </strong>
-                                            </div>
-                                            <div
-                                                className={styles.resultDetail}
-                                            >
-                                                <span>Type:</span>
-                                                <strong>
-                                                    {result.type || "Unknown"}
-                                                </strong>
-                                            </div>
-                                            <div
-                                                className={styles.resultDetail}
-                                            >
-                                                <span>Time:</span>
-                                                <strong>
-                                                    {result.timestamp.toLocaleTimeString()}
-                                                </strong>
+                                            <div className="flex gap-2 shrink-0 justify-end">
+                                                <Button size="sm" onClick={() => downloadResult(res)} className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs h-8 gap-1.5 rounded-xl">
+                                                    <Download className="h-3.5 w-3.5" /> Download
+                                                </Button>
+                                                <Button size="sm" variant="outline" onClick={() => {
+                                                    const info = `File: ${res.originalName}\nProcessed Name: ${res.processedName}\nSize: ${formatFileSize(res.processedSize)}`;
+                                                    navigator.clipboard.writeText(info);
+                                                }} className="h-8 text-xs font-medium rounded-xl border-slate-200">
+                                                    <Copy className="h-3.5 w-3.5" /> Info
+                                                </Button>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className={styles.resultActions}>
-                                        <button
-                                            onClick={() =>
-                                                downloadResult(result)
-                                            }
-                                            className={styles.downloadResultBtn}
-                                            aria-label="Download file"
-                                        >
-                                            💾 Download
-                                        </button>
-                                        <button
-                                            onClick={() => copyFileInfo(result)}
-                                            className={styles.copyResultBtn}
-                                            aria-label="Copy file information"
-                                        >
-                                            📋 Info
-                                        </button>
-                                        <button
-                                            onClick={() =>
-                                                clearResult(result.id)
-                                            }
-                                            className={styles.clearResultBtn}
-                                            aria-label="Remove from list"
-                                        >
-                                            ✕
-                                        </button>
+                                    ))}
+                                </CardContent>
+                            </Card>
+                        )}
+
+                        {/* Error Alert Display */}
+                        {error && (
+                            <div className="mt-4 p-3.5 rounded-xl border border-rose-200 bg-rose-50/50 dark:border-rose-900/30 dark:bg-rose-950/20 text-xs font-semibold text-rose-600 dark:text-rose-400 flex items-center justify-between shadow-sm animate-in fade-in-50">
+                                <span className="flex items-center gap-2"><AlertTriangle className="h-4 w-4" /> <span className="whitespace-pre-line">{error}</span></span>
+                                <button type="button" onClick={() => setError("")} className="hover:opacity-70 text-sm font-bold px-1.5">×</button>
+                            </div>
+                        )}
+
+                        {/* Informational Guidance Grid */}
+                        {/* <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {[
+                                { title: "AES-256-GCM Encryption", icon: "🔐", desc: "Military-grade symmetric encryption utilizing an independent Initialization Vector (IV) and cryptographic tag verification per slice packet." },
+                                { title: "PBKDF2-SHA256 Shield", icon: "💪", desc: `Secured via ${PBKDF2_ITERATIONS.toLocaleString()} structural loops of salted key derivation matrices protecting parameters against targeted compute arrays.` },
+                                { title: "100% Native Client Execution", icon: "🔄", desc: "Process execution functions stay exclusively in sandboxed browser layers. Assets do not parse or upload through cloud network routes." },
+                            ].map((info) => (
+                                <div key={info.title} className="p-4 rounded-xl border border-slate-200/70 bg-white/40 dark:border-slate-800/80 dark:bg-slate-950/20 flex gap-3 shadow-sm">
+                                    <div className="text-xl select-none">{info.icon}</div>
+                                    <div className="space-y-0.5">
+                                        <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">{info.title}</h4>
+                                        <p className="text-xs text-slate-400 leading-normal">{info.desc}</p>
                                     </div>
                                 </div>
                             ))}
-                        </div>
-                    </div>
-                )}
+                        </div> */}
 
-                {/* Error/Success Messages */}
-                {error && (
-                    <div className={styles.errorMessage} role="alert">
-                        <span aria-hidden="true">⚠️</span>
-                        <span style={{ whiteSpace: "pre-line" }}>{error}</span>
-                        <button
-                            onClick={() => setError("")}
-                            aria-label="Close error message"
-                        >
-                            ✕
-                        </button>
-                    </div>
-                )}
-
-                {success && (
-                    <div className={styles.successMessage} role="status">
-                        <span aria-hidden="true">✅</span>
-                        <span>{success}</span>
-                        <button
-                            onClick={() => setSuccess("")}
-                            aria-label="Close success message"
-                        >
-                            ✕
-                        </button>
-                    </div>
-                )}
-
-                {/* Info Cards - Always Visible */}
-                <div className={styles.infoGrid}>
-                    <div className={styles.infoCard}>
-                        <div className={styles.infoIcon} aria-hidden="true">
-                            🔐
-                        </div>
-                        <div className={styles.infoContent}>
-                            <h4>AES-256-GCM Encryption</h4>
-                            <p>
-                                Military-grade encryption with unique IV per
-                                chunk and authentication tags.
-                            </p>
-                        </div>
-                    </div>
-                    <div className={styles.infoCard}>
-                        <div className={styles.infoIcon} aria-hidden="true">
-                            💪
-                        </div>
-                        <div className={styles.infoContent}>
-                            <h4>PBKDF2 Key Derivation</h4>
-                            <p>
-                                {PBKDF2_ITERATIONS.toLocaleString()} iterations
-                                of PBKDF2 with random salt to prevent
-                                brute-force attacks.
-                            </p>
-                        </div>
-                    </div>
-                    <div className={styles.infoCard}>
-                        <div className={styles.infoIcon} aria-hidden="true">
-                            🔄
-                        </div>
-                        <div className={styles.infoContent}>
-                            <h4>Client-Side Processing</h4>
-                            <p>
-                                Your files never leave your device. Everything
-                                happens locally in your browser.
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     )
 }
-
-export default FileEncryptor
