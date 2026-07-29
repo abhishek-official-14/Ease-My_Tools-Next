@@ -1,9 +1,20 @@
 Ease-My_Tools-Next
 ├─ .env.local
 ├─ .gitignore
+├─ .prettierignore
+├─ .prettierrc
 ├─ .vscode
 │  └─ settings.json
+├─ AGENTS.md
 ├─ app
+│  ├─ (auth)
+│  │  ├─ forgot-password
+│  │  │  └─ page.tsx
+│  │  ├─ layout.tsx
+│  │  ├─ login
+│  │  │  └─ page.tsx
+│  │  └─ signup
+│  │     └─ page.tsx
 │  ├─ about
 │  │  └─ page.tsx
 │  ├─ api
@@ -52,7 +63,7 @@ Ease-My_Tools-Next
 │  ├─ layout.tsx
 │  ├─ loading.module.css
 │  ├─ loading.tsx
-│  ├─ login
+│  ├─ login1
 │  │  └─ page.tsx
 │  ├─ manifest.json
 │  ├─ mobile
@@ -75,30 +86,36 @@ Ease-My_Tools-Next
 │  ├─ terms-conditions
 │  │  └─ page.tsx
 │  ├─ tools
+│  │  ├─ category
+│  │  │  └─ [category]
+│  │  │     └─ page.tsx
 │  │  ├─ page.tsx
-│  │  └─ [slug]
-│  │     ├─ page.module.css
-│  │     └─ page.tsx
+│  │  └─ tool
+│  │     └─ [slug]
+│  │        └─ page.tsx
 │  └─ verify-email
 │     ├─ loading.tsx
 │     ├─ page.module.css
 │     └─ page.tsx
 ├─ components
+│  ├─ .gitkeep
 │  ├─ About
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
 │  ├─ API
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
+│  ├─ auth
+│  │  ├─ AuthLayout.tsx
+│  │  ├─ ForgotPasswordForm.tsx
+│  │  ├─ LoginForm.tsx
+│  │  ├─ SignupForm.tsx
+│  │  └─ SocialButtons.tsx
 │  ├─ AuthButton
 │  │  ├─ AuthButton.tsx
 │  │  └─ styles.module.css
-│  ├─ BackButton
-│  │  ├─ index.tsx
-│  │  └─ styles.module.css
 │  ├─ BenefitsSection
-│  │  ├─ index.tsx
-│  │  └─ styles.module.css
+│  │  └─ index.tsx
 │  ├─ Blog
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
@@ -127,8 +144,7 @@ Ease-My_Tools-Next
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
 │  ├─ FeaturedTools
-│  │  ├─ index.tsx
-│  │  └─ styles.module.css
+│  │  └─ index.tsx
 │  ├─ Features
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
@@ -136,8 +152,7 @@ Ease-My_Tools-Next
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
 │  ├─ Header
-│  │  ├─ index.tsx
-│  │  └─ styles.module.css
+│  │  └─ index.tsx
 │  ├─ HomePage
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
@@ -148,11 +163,14 @@ Ease-My_Tools-Next
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
 │  ├─ Navbar
+│  │  └─ index.tsx
+│  ├─ NavButtons
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
 │  ├─ NewsletterSection
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
+│  ├─ NoPreflightWrapper.tsx
 │  ├─ Press
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
@@ -176,7 +194,8 @@ Ease-My_Tools-Next
 │  ├─ TestimonialsSection
 │  │  ├─ index.tsx
 │  │  └─ styles.module.css
-│  ├─ tool-page
+│  ├─ theme-provider.tsx
+│  ├─ tool-page-helpers
 │  │  ├─ BreadcrumbNav
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
@@ -192,7 +211,7 @@ Ease-My_Tools-Next
 │  │  └─ ToolHero
 │  │     ├─ index.tsx
 │  │     └─ styles.module.css
-│  ├─ tools
+│  ├─ Tools
 │  │  ├─ age-calculator
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
@@ -203,8 +222,7 @@ Ease-My_Tools-Next
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ color-picker
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ csv-to-json
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
@@ -220,33 +238,29 @@ Ease-My_Tools-Next
 │  │  ├─ file-converter
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
+│  │  ├─ file-encryptor
+│  │  │  ├─ index.tsx
+│  │  │  └─ styles.module.css
 │  │  ├─ file-rename-tool
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ hash-generator
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ image-compressor
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ image-resizer
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ image-to-svg
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ json-formatter
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ jwt-debugger
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ lorem-ipsum-generator
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ markdown-previewer
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ mp4-to-gif
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
@@ -254,44 +268,34 @@ Ease-My_Tools-Next
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ password-generator
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ pdf-image-extractor
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ percentage-calculator
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ profile-pic-optimizer
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ qr-code-tool
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ regex-generator
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ remove-background
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ ssl-checker
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ svg-converter
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ text-diff-checker
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
-│  │  ├─ text-diff-checker-1
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ text-extractor
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ time-calculator
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  ├─ unit-converter
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
@@ -305,32 +309,113 @@ Ease-My_Tools-Next
 │  │  │  ├─ index.tsx
 │  │  │  └─ styles.module.css
 │  │  ├─ word-counter
-│  │  │  ├─ index.tsx
-│  │  │  └─ styles.module.css
+│  │  │  └─ index.tsx
 │  │  └─ xml-formatter
-│  │     ├─ index.tsx
-│  │     └─ styles.module.css
-│  └─ ToolsPage
-│     ├─ index.tsx
-│     └─ styles.module.css
+│  │     └─ index.tsx
+│  ├─ ToolsAllPage
+│  │  ├─ ToolCard.tsx
+│  │  ├─ ToolFilters.tsx
+│  │  ├─ ToolGrid.tsx
+│  │  ├─ ToolPagination.tsx
+│  │  ├─ ToolsClient.tsx
+│  │  └─ ToolSearch.tsx
+│  ├─ ToolsFeaturedCarousel
+│  │  ├─ CategoryCard.tsx
+│  │  ├─ CategoryCarousel.tsx
+│  │  ├─ index.tsx
+│  │  └─ ToolSearch.tsx
+│  └─ ui
+│     ├─ avatar.tsx
+│     ├─ badge.tsx
+│     ├─ button.tsx
+│     ├─ card.tsx
+│     ├─ carousel.tsx
+│     ├─ checkbox.tsx
+│     ├─ command.tsx
+│     ├─ dialog.tsx
+│     ├─ dropdown-menu.tsx
+│     ├─ input-group.tsx
+│     ├─ input.tsx
+│     ├─ label.tsx
+│     ├─ popover.tsx
+│     ├─ progress.tsx
+│     ├─ scroll-area.tsx
+│     ├─ select.tsx
+│     ├─ separator.tsx
+│     ├─ sheet.tsx
+│     ├─ slider.tsx
+│     ├─ sonner.tsx
+│     ├─ switch.tsx
+│     ├─ tabs.tsx
+│     └─ textarea.tsx
+├─ components.json
 ├─ data
-│  └─ toolsData.js
+│  ├─ featuredCategories.ts
+│  ├─ index.ts
+│  ├─ registry.ts
+│  └─ tools
+│     ├─ age-calculator.ts
+│     ├─ base64-converter.ts
+│     ├─ case-converter.ts
+│     ├─ color-picker.ts
+│     ├─ csv-to-json.ts
+│     ├─ currency-converter.ts
+│     ├─ data-uri-generator.ts
+│     ├─ favicon-generator.ts
+│     ├─ file-converter.ts
+│     ├─ file-encryptor.ts
+│     ├─ file-rename-tool.ts
+│     ├─ hash-generator.ts
+│     ├─ image-compressor.ts
+│     ├─ image-resizer.ts
+│     ├─ image-to-svg.ts
+│     ├─ json-formatter.ts
+│     ├─ jwt-debugger.ts
+│     ├─ lorem-ipsum-generator.ts
+│     ├─ markdown-previewer.ts
+│     ├─ mp4-to-gif.ts
+│     ├─ nutrition-master.ts
+│     ├─ password-generator.ts
+│     ├─ pdf-image-extractor.ts
+│     ├─ percentage-calculator.ts
+│     ├─ profile-pic-optimizer.ts
+│     ├─ qr-code-tool.ts
+│     ├─ regex-generator.ts
+│     ├─ remove-background.ts
+│     ├─ ssl-checker.ts
+│     ├─ svg-converter.ts
+│     ├─ text-diff-checker.ts
+│     ├─ text-extractor.ts
+│     ├─ time-calculator.ts
+│     ├─ unit-converter.ts
+│     ├─ url-encoder.ts
+│     ├─ video-thumbnail-generator.ts
+│     ├─ website-cost-calculator.ts
+│     ├─ word-counter.ts
+│     └─ xml-formatter.ts
 ├─ declarations.d.ts
 ├─ eslint.config.mjs
+├─ hooks
+│  └─ useBackgroundRemover.ts
 ├─ lib
+│  ├─ .gitkeep
 │  ├─ auth-options.ts
 │  ├─ auth.ts
 │  ├─ blog.ts
 │  ├─ mail.ts
 │  ├─ prisma.ts
-│  ├─ schema.ts
-│  ├─ schemaHelper.ts
-│  └─ seo.ts
+│  ├─ schema
+│  │  ├─ breadcrumb.ts
+│  │  └─ core.ts
+│  ├─ searchables.ts
+│  ├─ seo.ts
+│  ├─ toolSearch.ts
+│  └─ utils.ts
 ├─ middleware.ts
 ├─ next-env.d.ts
 ├─ next.config.ts
-├─ package-lock.json
 ├─ package.json
+├─ postcss.config.mjs
 ├─ prisma
 │  └─ schema.prisma
 ├─ project-hierarchy.txt
@@ -341,6 +426,11 @@ Ease-My_Tools-Next
 ├─ README.md
 ├─ tsconfig.json
 ├─ tsconfig.tsbuildinfo
-└─ types
-   ├─ imagetracerjs.d.ts
-   └─ next-auth.d.ts
+├─ types
+│  ├─ breadcrumb.ts
+│  ├─ category.ts
+│  ├─ imagetracerjs.d.ts
+│  ├─ next-auth.d.ts
+│  └─ tool.ts
+└─ workers
+   └─ image-ai.worker.ts
