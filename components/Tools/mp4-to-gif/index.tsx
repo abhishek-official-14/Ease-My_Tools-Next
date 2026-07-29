@@ -1,896 +1,498 @@
 "use client"
 
-export default function Mp4ToGif() {
-    return (
-        <>
-            <div className="text-center">
-                <h1 className="text-5xl">Coming Soon</h1>
-            </div>
-        </>
-    )
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { FFmpeg } from "@ffmpeg/ffmpeg"
+import { fetchFile, toBlobURL } from "@ffmpeg/util"
+import {
+  Film,
+  Upload,
+  RotateCcw,
+  Download,
+  Loader2,
+  AlertCircle,
+  Play,
+  CheckCircle2,
+  Sparkles,
+} from "lucide-react"
+import ToolHero from "@/components/tool-page-helpers/ToolHero"
+import { ToolHeroProps } from "@/types/tool"
+
+const BASE_URL = "https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.10/dist/umd"
+
+type Stats = {
+  name: string
+  size: number
+  duration: number
+  width: number
+  height: number
+  type: string
 }
 
-// // // import React, { useState, useRef } from 'react';
-// // //
-// // // import { useTheme } from 'next-themes';
-// // // import styles from './styles.module.css';
-
-// // // const Mp4ToGif = () => {
-// // //     const { t } = useTranslation('mp4ToGif');
-// // //     const { theme } = useTheme();
-// // //     const [videoFile, setVideoFile] = useState<any | null>(null);
-// // //     const [videoUrl, setVideoUrl] = useState('');
-// // //     const [gifUrl, setGifUrl] = useState('');
-// // //     const [isConverting, setIsConverting] = useState(false);
-// // //     const [isDragging, setIsDragging] = useState(false);
-// // //     const [conversionInfo, setConversionInfo] = useState<any | null>(null);
-
-// // //     const [settings, setSettings] = useState({
-// // //         startTime: 0,
-// // //         duration: 5,
-// // //         width: 400,
-// // //         frameRate: 10,
-// // //         quality: 'medium'
-// // //     });
-
-// // //     const videoRef = useRef();
-// // //     const fileInputRef = useRef();
-
-// // //     const handleFileSelect = (event) => {
-// // //         const file = event.target.files[0];
-// // //         if (file) {
-// // //             processVideoFile(file);
-// // //         }
-// // //     };
-
-// // //     const processVideoFile = (file) => {
-// // //         if (!file.type.startsWith('video/')) {
-// // //             alert('Please select a video file');
-// // //             return;
-// // //         }
-
-// // //         if (file.size > 50 * 1024 * 1024) {
-// // //             alert('File size must be less than 50MB');
-// // //             return;
-// // //         }
-
-// // //         setVideoFile(file);
-// // //         const url = URL.createObjectURL(file);
-// // //         setVideoUrl(url);
-// // //         setGifUrl('');
-// // //         setConversionInfo(null);
-// // //     };
-
-// // //     const handleDragOver = (e) => {
-// // //         e.preventDefault();
-// // //         setIsDragging(true);
-// // //     };
-
-// // //     const handleDragLeave = (e) => {
-// // //         e.preventDefault();
-// // //         setIsDragging(false);
-// // //     };
-
-// // //     const handleDrop = (e) => {
-// // //         e.preventDefault();
-// // //         setIsDragging(false);
-// // //         const file = e.dataTransfer.files[0];
-// // //         if (file) {
-// // //             processVideoFile(file);
-// // //         }
-// // //     };
-
-// // //     const convertToGif = async () => {
-// // //         if (!videoFile) {
-// // //             alert('Please upload a video file first');
-// // //             return;
-// // //         }
-
-// // //         setIsConverting(true);
-
-// // //         try {
-// // //             // Simulate conversion process (in real app, you'd use FFmpeg or similar)
-// // //             await new Promise(resolve => setTimeout(resolve, 3000));
-
-// // //             // Create a mock GIF (in real app, this would be the actual converted GIF)
-// // //             const mockGifUrl = 'https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Converted+GIF+Preview';
-
-// // //             setGifUrl(mockGifUrl);
-// // //             setConversionInfo({
-// // //                 originalSize: formatFileSize(videoFile.size),
-// // //                 gifSize: '1.2 MB',
-// // //                 duration: `${settings.duration}s`,
-// // //                 compression: '75%'
-// // //             });
-// // //         } catch (error) {
-// // //             alert('Error converting video to GIF: ' + error.message);
-// // //         } finally {
-// // //             setIsConverting(false);
-// // //         }
-// // //     };
-
-// // //     const clearAll = () => {
-// // //         setVideoFile(null);
-// // //         setVideoUrl('');
-// // //         setGifUrl('');
-// // //         setConversionInfo(null);
-// // //         if (fileInputRef.current) {
-// // //             fileInputRef.current.value = '';
-// // //         }
-// // //         if (videoRef.current) {
-// // //             videoRef.current.load();
-// // //         }
-// // //     };
-
-// // //     const downloadGif = () => {
-// // //         if (gifUrl) {
-// // //             const a = document.createElement('a');
-// // //             a.href = gifUrl;
-// // //             a.download = 'converted.gif';
-// // //             a.click();
-// // //         }
-// // //     };
-
-// // //     const formatFileSize = (bytes) => {
-// // //         if (bytes === 0) return '0 Bytes';
-// // //         const k = 1024;
-// // //         const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-// // //         const i = Math.floor(Math.log(bytes) / Math.log(k));
-// // //         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-// // //     };
-
-// // //     const updateSetting = (key, value) => {
-// // //         setSettings(prev => ({
-// // //             ...prev,
-// // //             [key]: value
-// // //         }));
-// // //     };
-
-// // //     return (
-// // //         <div className={styles["mp4-to-gif"]}>
-// // //             <div className={styles["tool-header"]}>
-// // //                 <h1>{"MP4 to GIF Converter"}</h1>
-// // //                 <p>{"Convert MP4 videos to animated GIFs"}</p>
-// // //             </div>
-
-// // //             <div className={styles["converter-container"]}>
-// // //                 <div className={styles["upload-section"]}>
-// // //                     <div
-// // //                         className={`${styles["drop-zone"]} ${isDragging ? 'dragging' : ''} ${videoFile ? 'has-file' : ''}`}
-// // //                         onDragOver={handleDragOver}
-// // //                         onDragLeave={handleDragLeave}
-// // //                         onDrop={handleDrop}
-// // //                     >
-// // //                         <input
-// // //                             ref={fileInputRef}
-// // //                             type="file"
-// // //                             accept="video/*"
-// // //                             onChange={handleFileSelect}
-// // //                             className={styles["file-input"]}
-// // //                         />
-// // //                         {!videoFile ? (
-// // //                             <div className={styles["upload-content"]}>
-// // //                                 <div className={styles["upload-icon"]}>🎥</div>
-// // //                                 <span className={styles["upload-text"]}>{"Upload MP4 Video"}</span>
-// // //                                 <span className={styles["drag-text"]}>{"or drag and drop MP4 file here"}</span>
-// // //                                 <div className={styles["file-info"]}>
-// // //                                     <span>{"Supported formats: MP4, MOV, AVI"}</span>
-// // //                                     <span>{"Max file size: 50MB"}</span>
-// // //                                 </div>
-// // //                             </div>
-// // //                         ) : (
-// // //                             <div className={styles["file-preview"]}>
-// // //                                 <div className={styles["file-icon"]}>✅</div>
-// // //                                 <span className={styles["file-name"]}>{videoFile.name}</span>
-// // //                                 <span className={styles["file-size"]}>{formatFileSize(videoFile.size)}</span>
-// // //                             </div>
-// // //                         )}
-// // //                     </div>
-// // //                 </div>
-
-// // //                 {videoUrl && (
-// // //                     <div className={styles["video-preview"]}>
-// // //                         <h3>{"Preview"}</h3>
-// // //                         <video
-// // //                             ref={videoRef}
-// // //                             src={videoUrl}
-// // //                             controls
-// // //                             className={styles["video-player"]}
-// // //                         />
-// // //                     </div>
-// // //                 )}
-
-// // //                 <div className={styles["settings-section"]}>
-// // //                     <h3>{"Conversion Settings"}</h3>
-// // //                     <div className={styles["settings-grid"]}>
-// // //                         <div className={styles["setting-group"]}>
-// // //                             <label>{"Start Time (seconds)"}</label>
-// // //                             <input
-// // //                                 type="number"
-// // //                                 value={settings.startTime}
-// // //                                 onChange={(e) => updateSetting('startTime', parseInt(e.target.value) || 0)}
-// // //                                 min="0"
-// // //                                 step="1"
-// // //                             />
-// // //                         </div>
-
-// // //                         <div className={styles["setting-group"]}>
-// // //                             <label>{"Duration (seconds)"}</label>
-// // //                             <input
-// // //                                 type="number"
-// // //                                 value={settings.duration}
-// // //                                 onChange={(e) => updateSetting('duration', parseInt(e.target.value) || 1)}
-// // //                                 min="1"
-// // //                                 max="30"
-// // //                                 step="1"
-// // //                             />
-// // //                         </div>
-
-// // //                         <div className={styles["setting-group"]}>
-// // //                             <label>{"GIF Width (pixels)"}</label>
-// // //                             <input
-// // //                                 type="number"
-// // //                                 value={settings.width}
-// // //                                 onChange={(e) => updateSetting('width', parseInt(e.target.value) || 100)}
-// // //                                 min="100"
-// // //                                 max="800"
-// // //                                 step="50"
-// // //                             />
-// // //                         </div>
-
-// // //                         <div className={styles["setting-group"]}>
-// // //                             <label>{"Frame Rate (FPS)"}</label>
-// // //                             <select
-// // //                                 value={settings.frameRate}
-// // //                                 onChange={(e) => updateSetting('frameRate', parseInt(e.target.value))}
-// // //                             >
-// // //                                 <option value={5}>5 FPS</option>
-// // //                                 <option value={10}>10 FPS</option>
-// // //                                 <option value={15}>15 FPS</option>
-// // //                                 <option value={24}>24 FPS</option>
-// // //                                 <option value={30}>30 FPS</option>
-// // //                             </select>
-// // //                         </div>
-
-// // //                         <div className={styles["setting-group"]}>
-// // //                             <label>{"Quality"}</label>
-// // //                             <select
-// // //                                 value={settings.quality}
-// // //                                 onChange={(e) => updateSetting('quality', e.target.value)}
-// // //                             >
-// // //                                 <option value="low">{"Low"}</option>
-// // //                                 <option value="medium">{"Medium"}</option>
-// // //                                 <option value="high">{"High"}</option>
-// // //                             </select>
-// // //                         </div>
-// // //                     </div>
-// // //                 </div>
-
-// // //                 <div className={styles["action-buttons"]}>
-// // //                     <button
-// // //                         onClick={convertToGif}
-// // //                         className={styles["primary-btn"]}
-// // //                         disabled={!videoFile || isConverting}
-// // //                     >
-// // //                         {isConverting ? "Converting..." : "Convert to GIF"}
-// // //                     </button>
-// // //                     <button onClick={clearAll} className={styles["secondary-btn"]}>
-// // //                         {"Clear"}
-// // //                     </button>
-// // //                 </div>
-
-// // //                 {conversionInfo && (
-// // //                     <div className={styles["conversion-info"]}>
-// // //                         <h3>{"Conversion Information"}</h3>
-// // //                         <div className={styles["info-grid"]}>
-// // //                             <div className={styles["info-item"]}>
-// // //                                 <span className={styles["info-label"]}>{"Original Size"}:</span>
-// // //                                 <span className={styles["info-value"]}>{conversionInfo.originalSize}</span>
-// // //                             </div>
-// // //                             <div className={styles["info-item"]}>
-// // //                                 <span className={styles["info-label"]}>{"GIF Size"}:</span>
-// // //                                 <span className={styles["info-value"]}>{conversionInfo.gifSize}</span>
-// // //                             </div>
-// // //                             <div className={styles["info-item"]}>
-// // //                                 <span className={styles["info-label"]}>{"Duration"}:</span>
-// // //                                 <span className={styles["info-value"]}>{conversionInfo.duration}</span>
-// // //                             </div>
-// // //                             <div className={styles["info-item"]}>
-// // //                                 <span className={styles["info-label"]}>{"Compression"}:</span>
-// // //                                 <span className={styles["info-value"]}>{conversionInfo.compression}</span>
-// // //                             </div>
-// // //                         </div>
-// // //                     </div>
-// // //                 )}
-
-// // //                 {gifUrl && (
-// // //                     <div className={styles["gif-result"]}>
-// // //                         <h3>Converted GIF</h3>
-// // //                         <div className={styles["gif-preview"]}>
-// // //                             <img src={gifUrl} alt="Converted GIF" className={styles["gif-image"]} />
-// // //                             <button onClick={downloadGif} className={styles["download-btn"]}>
-// // //                                 {"Download GIF"}
-// // //                             </button>
-// // //                         </div>
-// // //                     </div>
-// // //                 )}
-
-// // //                 <div className={styles["conversion-tips"]}>
-// // //                     <h4>{"Conversion Tips"}</h4>
-// // //                     <ul>
-// // //                         <li>{"Shorter durations and lower frame rates create smaller GIFs"}</li>
-// // //                         <li>{"Reduce width to decrease file size"}</li>
-// // //                         <li>{"Higher quality settings produce larger files"}</li>
-// // //                         <li>{"GIF format is best for short, simple animations"}</li>
-// // //                     </ul>
-// // //                 </div>
-// // //             </div>
-// // //         </div>
-// // //     );
-// // // };
-
-// // // export default Mp4ToGif;
-
-// // // import React, { useState, useRef } from 'react';
-// // //
-// // // import { useTheme } from 'next-themes';
-// // // import styles from './styles.module.css';
-
-// // // const Mp4ToGif = () => {
-// // //   // safe translation & theme fallbacks so component doesn't crash if contexts/namespaces are missing
-// // //   const translation = (typeof useTranslation === 'function') ? useTranslation('mp4ToGif') : null;
-// // //   const t = translation?.t ?? ((k) => k);
-// // //   const themeContext = (typeof useTheme === 'function') ? useTheme() : { theme: 'light' };
-// // //   const theme = themeContext?.theme ?? 'light';
-
-// // //   const [videoFile, setVideoFile] = useState<any | null>(null);
-// // //   const [videoUrl, setVideoUrl] = useState('');
-// // //   const [gifUrl, setGifUrl] = useState('');
-// // //   const [isConverting, setIsConverting] = useState(false);
-// // //   const [isDragging, setIsDragging] = useState(false);
-// // //   const [conversionInfo, setConversionInfo] = useState<any | null>(null);
-// // //   const [error, setError] = useState('');
-
-// // //   const [settings, setSettings] = useState({
-// // //     startTime: 0,
-// // //     duration: 5,
-// // //     width: 400,
-// // //     frameRate: 10,
-// // //     quality: 'medium'
-// // //   });
-
-// // //   const videoRef = useRef(null);
-// // //   const fileInputRef = useRef(null);
-
-// // //   const handleFileSelect = (event) => {
-// // //     setError('');
-// // //     const file = event.target.files?.[0];
-// // //     if (file) processVideoFile(file);
-// // //   };
-
-// // //   const processVideoFile = (file) => {
-// // //     if (!file?.type || !file.type.startsWith('video/')) {
-// // //       setError('Please select a video file');
-// // //       return;
-// // //     }
-
-// // //     if (file.size > 50 * 1024 * 1024) {
-// // //       setError('File size must be less than 50MB');
-// // //       return;
-// // //     }
-
-// // //     setVideoFile(file);
-// // //     const url = URL.createObjectURL(file);
-// // //     setVideoUrl(url);
-// // //     setGifUrl('');
-// // //     setConversionInfo(null);
-// // //   };
-
-// // //   const handleDragOver = (e) => {
-// // //     e.preventDefault();
-// // //     e.dataTransfer.dropEffect = 'copy';
-// // //     setIsDragging(true);
-// // //   };
-
-// // //   const handleDragLeave = (e) => {
-// // //     e.preventDefault();
-// // //     setIsDragging(false);
-// // //   };
-
-// // //   const handleDrop = (e) => {
-// // //     e.preventDefault();
-// // //     setIsDragging(false);
-// // //     const file = e.dataTransfer.files?.[0];
-// // //     if (file) processVideoFile(file);
-// // //   };
-
-// // //   // open native file dialog when drop zone is clicked
-// // //   const openFileDialog = () => {
-// // //     fileInputRef.current?.click();
-// // //   };
-
-// // //   const convertToGif = async () => {
-// // //     if (!videoFile) {
-// // //       setError('Please upload a video file first');
-// // //       return;
-// // //     }
-
-// // //     setError('');
-// // //     setIsConverting(true);
-
-// // //     try {
-// // //       // --- NOTE ---
-// // //       // This example simulates conversion. For a real conversion you would use
-// // //       // client-side ffmpeg.wasm or (recommended) send the file to a server
-// // //       // that runs FFmpeg and returns the GIF.
-// // //       await new Promise((resolve) => setTimeout(resolve, 1500));
-
-// // //       // Use a tiny valid GIF data URL as a safe demo placeholder (no CORS issues)
-// // //       const mockGifDataUrl = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-
-// // //       setGifUrl(mockGifDataUrl);
-// // //       setConversionInfo({
-// // //         originalSize: formatFileSize(videoFile.size),
-// // //         gifSize: '~1 KB (demo)',
-// // //         duration: `${settings.duration}s`,
-// // //         compression: '75% (est.)'
-// // //       });
-// // //     } catch (err) {
-// // //       setError('Error converting video to GIF: ' + (err?.message ?? err));
-// // //     } finally {
-// // //       setIsConverting(false);
-// // //     }
-// // //   };
-
-// // //   const clearAll = () => {
-// // //     setVideoFile(null);
-// // //     setVideoUrl('');
-// // //     setGifUrl('');
-// // //     setConversionInfo(null);
-// // //     setError('');
-
-// // //     if (fileInputRef.current) fileInputRef.current.value = null;
-
-// // //     if (videoRef.current) {
-// // //       try {
-// // //         videoRef.current.pause();
-// // //         videoRef.current.removeAttribute('src');
-// // //         // only call .load if available
-// // //         videoRef.current.load && videoRef.current.load();
-// // //       } catch (e) {
-// // //         // ignore
-// // //       }
-// // //     }
-// // //   };
-
-// // //   const downloadGif = () => {
-// // //     if (!gifUrl) return;
-// // //     const a = document.createElement('a');
-// // //     a.href = gifUrl;
-// // //     a.download = 'converted.gif';
-// // //     document.body.appendChild(a);
-// // //     a.click();
-// // //     a.remove();
-// // //   };
-
-// // //   const formatFileSize = (bytes) => {
-// // //     if (!bytes) return '0 Bytes';
-// // //     const k = 1024;
-// // //     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-// // //     const i = Math.floor(Math.log(bytes) / Math.log(k));
-// // //     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-// // //   };
-
-// // //   const updateSetting = (key, value) => {
-// // //     setSettings((prev) => ({ ...prev, [key]: value }));
-// // //   };
-
-// // //   return (
-// // //     <div className={styles["mp4-to-gif"]}>
-// // //       <div className={styles["tool-header"]}>
-// // //         <h1>{"MP4 to GIF Converter"}</h1>
-// // //         <p>{"Convert MP4 videos to animated GIFs"}</p>
-// // //       </div>
-
-// // //       <div className={styles["converter-container"]}>
-// // //         <div className={styles["upload-section"]}>
-// // //           <div
-// // //             role="button"
-// // //             tabIndex={0}
-// // //             className={`${styles["drop-zone"]} ${isDragging ? 'dragging' : ''} ${videoFile ? 'has-file' : ''}`}
-// // //             onDragOver={handleDragOver}
-// // //             onDragLeave={handleDragLeave}
-// // //             onDrop={handleDrop}
-// // //             onClick={openFileDialog}
-// // //             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') openFileDialog(); }}
-// // //           >
-// // //             <input
-// // //               ref={fileInputRef}
-// // //               type="file"
-// // //               accept="video/*"
-// // //               onChange={handleFileSelect}
-// // //               className={styles["file-input"]}
-// // //             />
-
-// // //             {!videoFile ? (
-// // //               <div className={styles["upload-content"]}>
-// // //                 <div className={styles["upload-icon"]}>🎥</div>
-// // //                 <span className={styles["upload-text"]}>{"Upload MP4 Video"}</span>
-// // //                 <span className={styles["drag-text"]}>{"or drag and drop MP4 file here"}</span>
-// // //                 <div className={styles["file-info"]}>
-// // //                   <span>{"Supported formats: MP4, MOV, AVI"}</span>
-// // //                   <span>{"Max file size: 50MB"}</span>
-// // //                 </div>
-// // //               </div>
-// // //             ) : (
-// // //               <div className={styles["file-preview"]}>
-// // //                 <div className={styles["file-icon"]}>✅</div>
-// // //                 <span className={styles["file-name"]}>{videoFile.name}</span>
-// // //                 <span className={styles["file-size"]}>{formatFileSize(videoFile.size)}</span>
-// // //               </div>
-// // //             )}
-// // //           </div>
-// // //         </div>
-
-// // //         {videoUrl && (
-// // //           <div className={styles["video-preview"]}>
-// // //             <h3>{"Preview"}</h3>
-// // //             <video ref={videoRef} src={videoUrl} controls className={styles["video-player"]} />
-// // //           </div>
-// // //         )}
-
-// // //         <div className={styles["settings-section"]}>
-// // //           <h3>{"Conversion Settings"}</h3>
-// // //           <div className={styles["settings-grid"]}>
-// // //             <div className={styles["setting-group"]}>
-// // //               <label>{"Start Time (seconds)"}</label>
-// // //               <input
-// // //                 type="number"
-// // //                 value={settings.startTime}
-// // //                 onChange={(e) => updateSetting('startTime', Number(e.target.value) || 0)}
-// // //                 min="0"
-// // //                 step="1"
-// // //               />
-// // //             </div>
-
-// // //             <div className={styles["setting-group"]}>
-// // //               <label>{"Duration (seconds)"}</label>
-// // //               <input
-// // //                 type="number"
-// // //                 value={settings.duration}
-// // //                 onChange={(e) => updateSetting('duration', Math.max(1, Math.min(30, Number(e.target.value) || 1)))}
-// // //                 min="1"
-// // //                 max="30"
-// // //                 step="1"
-// // //               />
-// // //             </div>
-
-// // //             <div className={styles["setting-group"]}>
-// // //               <label>{"GIF Width (pixels)"}</label>
-// // //               <input
-// // //                 type="number"
-// // //                 value={settings.width}
-// // //                 onChange={(e) => updateSetting('width', Math.min(800, Math.max(100, Number(e.target.value) || 100)))}
-// // //                 min="100"
-// // //                 max="800"
-// // //                 step="50"
-// // //               />
-// // //             </div>
-
-// // //             <div className={styles["setting-group"]}>
-// // //               <label>{"Frame Rate (FPS)"}</label>
-// // //               <select value={settings.frameRate} onChange={(e) => updateSetting('frameRate', Number(e.target.value))}>
-// // //                 <option value={5}>5 FPS</option>
-// // //                 <option value={10}>10 FPS</option>
-// // //                 <option value={15}>15 FPS</option>
-// // //                 <option value={24}>24 FPS</option>
-// // //                 <option value={30}>30 FPS</option>
-// // //               </select>
-// // //             </div>
-
-// // //             <div className={styles["setting-group"]}>
-// // //               <label>{"Quality"}</label>
-// // //               <select value={settings.quality} onChange={(e) => updateSetting('quality', e.target.value)}>
-// // //                 <option value="low">{"Low"}</option>
-// // //                 <option value="medium">{"Medium"}</option>
-// // //                 <option value="high">{"High"}</option>
-// // //               </select>
-// // //             </div>
-// // //           </div>
-// // //         </div>
-
-// // //         <div className={styles["action-buttons"]}>
-// // //           <button
-// // //             onClick={convertToGif}
-// // //             className={styles["primary-btn"]}
-// // //             disabled={!videoFile || isConverting}
-// // //           >
-// // //             {isConverting ? "Converting..." : "Convert to GIF"}
-// // //           </button>
-
-// // //           <button onClick={clearAll} className={styles["secondary-btn"]}>{"Clear"}</button>
-// // //         </div>
-
-// // //         {error && <div className={styles["error-message"]} role="alert">{error}</div>}
-
-// // //         {conversionInfo && (
-// // //           <div className={styles["conversion-info"]}>
-// // //             <h3>{"Conversion Information"}</h3>
-// // //             <div className={styles["info-grid"]}>
-// // //               <div className={styles["info-item"]}>
-// // //                 <span className={styles["info-label"]}>{"Original Size"}:</span>
-// // //                 <span className={styles["info-value"]}>{conversionInfo.originalSize}</span>
-// // //               </div>
-
-// // //               <div className={styles["info-item"]}>
-// // //                 <span className={styles["info-label"]}>{"GIF Size"}:</span>
-// // //                 <span className={styles["info-value"]}>{conversionInfo.gifSize}</span>
-// // //               </div>
-
-// // //               <div className={styles["info-item"]}>
-// // //                 <span className={styles["info-label"]}>{"Duration"}:</span>
-// // //                 <span className={styles["info-value"]}>{conversionInfo.duration}</span>
-// // //               </div>
-
-// // //               <div className={styles["info-item"]}>
-// // //                 <span className={styles["info-label"]}>{"Compression"}:</span>
-// // //                 <span className={styles["info-value"]}>{conversionInfo.compression}</span>
-// // //               </div>
-// // //             </div>
-// // //           </div>
-// // //         )}
-
-// // //         {gifUrl && (
-// // //           <div className={styles["gif-result"]}>
-// // //             <h3>{t('convertedGif') || 'Converted GIF'}</h3>
-// // //             <div className={styles["gif-preview"]}>
-// // //               <img src={gifUrl} alt="Converted GIF" className={styles["gif-image"]} />
-// // //               <button onClick={downloadGif} className={styles["download-btn"]}>{"Download GIF"}</button>
-// // //             </div>
-// // //           </div>
-// // //         )}
-
-// // //         <div className={styles["conversion-tips"]}>
-// // //           <h4>{"Conversion Tips"}</h4>
-// // //           <ul>
-// // //             <li>{"Shorter durations and lower frame rates create smaller GIFs"}</li>
-// // //             <li>{"Reduce width to decrease file size"}</li>
-// // //             <li>{"Higher quality settings produce larger files"}</li>
-// // //             <li>{"GIF format is best for short, simple animations"}</li>
-// // //           </ul>
-// // //         </div>
-// // //       </div>
-// // //     </div>
-// // //   );
-// // // };
-
-// // // export default Mp4ToGif;
-
-// import { useState, useRef } from "react";
-// import { useTheme } from "next-themes";
-//
-// import { FFmpeg } from "@ffmpeg/ffmpeg";
-// import { fetchFile } from "@ffmpeg/util";
-
-// import styles from './styles.module.css';
-
-// const ffmpeg = createFFmpeg({ log: true });
-
-// export default function Mp4ToGif() {
-//   const { t } = useTranslation();
-//   const { theme } = useTheme();
-
-//   const [file, setFile] = useState<any | null>(null);
-//   const [gifUrl, setGifUrl] = useState<any | null>(null);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState("");
-//   const [progress, setProgress] = useState(0);
-
-//   const videoRef = useRef(null);
-//   const fileInputRef = useRef(null);
-
-//   // Settings
-//   const [settings, setSettings] = useState({
-//     width: 320,
-//     height: 240,
-//     fps: 10,
-//     start: 0,
-//     duration: 5,
-//   });
-
-//   // File select
-//   const handleFileChange = (e) => {
-//     const uploadedFile = e.target.files?.[0];
-//     if (uploadedFile && uploadedFile.type.startsWith("video/")) {
-//       if (uploadedFile.size > 50 * 1024 * 1024) {
-//         setError("File size must be less than 50MB");
-//         return;
-//       }
-//       setFile(uploadedFile);
-//       setGifUrl(null);
-//       setError("");
-//       if (videoRef.current) {
-//         videoRef.current.load();
-//       }
-//     } else {
-//       setError("Please upload a valid video file");
-//     }
-//   };
-
-//   // Drop Zone
-//   const handleDrop = (e) => {
-//     e.preventDefault();
-//     const droppedFile = e.dataTransfer.files[0];
-//     if (droppedFile && droppedFile.type.startsWith("video/")) {
-//       setFile(droppedFile);
-//       setGifUrl(null);
-//       setError("");
-//       if (videoRef.current) {
-//         videoRef.current.load();
-//       }
-//     }
-//   };
-
-//   // Convert function
-//   const convertToGif = async () => {
-//     if (!file) {
-//       setError("Please upload a video first");
-//       return;
-//     }
-
-//     try {
-//       setLoading(true);
-//       setError("");
-//       setProgress(0);
-
-//       if (!ffmpeg.isLoaded()) {
-//         await ffmpeg.load();
-//       }
-
-//       ffmpeg.setProgress(({ ratio }) => {
-//         setProgress(Math.round(ratio * 100));
-//       });
-
-//       ffmpeg.FS("writeFile", "input.mp4", await fetchFile(file));
-
-//       await ffmpeg.run(
-//         "-ss",
-//         `${settings.start}`, // start time
-//         "-t",
-//         `${settings.duration}`, // duration
-//         "-i",
-//         "input.mp4",
-//         "-vf",
-//         `fps=${settings.fps},scale=${settings.width}:${settings.height}:flags=lanczos`,
-//         "-f",
-//         "gif",
-//         "output.gif"
-//       );
-
-//       const data = ffmpeg.FS("readFile", "output.gif");
-//       const url = URL.createObjectURL(new Blob([data.buffer], { type: "image/gif" }));
-//       setGifUrl(url);
-//     } catch (err) {
-//       console.error(err);
-//       setError("Conversion failed. Please try again.");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const downloadGif = () => {
-//     if (gifUrl) {
-//       const a = document.createElement("a");
-//       a.href = gifUrl;
-//       a.download = "output.gif";
-//       document.body.appendChild(a);
-//       a.click();
-//       document.body.removeChild(a);
-//     }
-//   };
-
-//   return (
-//     <div className={styles["mp4-to-gif"]}>
-//       <h2>{"MP4 to GIF Converter"}</h2>
-
-//       <div
-//         className={styles["drop-zone"]}
-//         onDrop={handleDrop}
-//         onDragOver={(e) => e.preventDefault()}
-//         onClick={() => fileInputRef.current?.click()}
-//         tabIndex={0}
-//         role="button"
-//       >
-//         {file ? (
-//           <p>{file.name}</p>
-//         ) : (
-//           <p>{"Drag & Drop or Click to Upload Video"}</p>
-//         )}
-//         <input
-//           type="file"
-//           accept="video/*"
-//           onChange={handleFileChange}
-//           ref={fileInputRef}
-//           style={{ display: "none" }}
-//         />
-//       </div>
-
-//       {file && (
-//         <div className={styles["video-preview"]}>
-//           <video ref={videoRef} controls>
-//             <source src={URL.createObjectURL(file)} type={file.type} />
-//           </video>
-//         </div>
-//       )}
-
-//       {/* Settings */}
-//       <div className={styles["settings"]}>
-//         <label>
-//           Width:
-//           <input
-//             type="number"
-//             value={settings.width}
-//             onChange={(e) => setSettings({ ...settings, width: Number(e.target.value) })}
-//           />
-//         </label>
-//         <label>
-//           Height:
-//           <input
-//             type="number"
-//             value={settings.height}
-//             onChange={(e) => setSettings({ ...settings, height: Number(e.target.value) })}
-//           />
-//         </label>
-//         <label>
-//           FPS:
-//           <input
-//             type="number"
-//             value={settings.fps}
-//             onChange={(e) =>
-//               setSettings({
-//                 ...settings,
-//                 fps: Math.max(1, Number(e.target.value)),
-//               })
-//             }
-//           />
-//         </label>
-//         <label>
-//           Start Time (s):
-//           <input
-//             type="number"
-//             value={settings.start}
-//             onChange={(e) => setSettings({ ...settings, start: Number(e.target.value) })}
-//           />
-//         </label>
-//         <label>
-//           Duration (s):
-//           <input
-//             type="number"
-//             value={settings.duration}
-//             onChange={(e) => setSettings({ ...settings, duration: Number(e.target.value) })}
-//           />
-//         </label>
-//       </div>
-
-//       {error && <p className={styles["error"]}>{error}</p>}
-//       {loading && <p>Converting... {progress}%</p>}
-
-//       <div className={styles["actions"]}>
-//         <button onClick={convertToGif} disabled={loading}>
-//           {loading ? "Converting..." : "Convert to GIF"}
-//         </button>
-//         {gifUrl && (
-//           <button onClick={downloadGif}>
-//             {"Download GIF"}
-//           </button>
-//         )}
-//       </div>
-
-//       {gifUrl && (
-//         <div className={styles["gif-preview"]}>
-//           <img src={gifUrl} alt="GIF Preview" />
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
+function formatBytes(bytes: number) {
+  if (!Number.isFinite(bytes) || bytes <= 0) return "0 B"
+  const units = ["B", "KB", "MB", "GB"]
+  const i = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1)
+  return `${(bytes / 1024 ** i).toFixed(i === 0 ? 0 : 2)} ${units[i]}`
+}
+
+function formatTime(seconds: number) {
+  if (!Number.isFinite(seconds) || seconds < 0) return "0:00"
+  const s = Math.floor(seconds)
+  const m = Math.floor(s / 60)
+  const r = s % 60
+  return `${m}:${String(r).padStart(2, "0")}`
+}
+
+function clamp(n: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, n))
+}
+
+export default function MP4ToGIFConverter({ tool }: ToolHeroProps) {
+  const ffmpegRef = useRef(new FFmpeg())
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  const [loaded, setLoaded] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const [file, setFile] = useState<File | null>(null)
+  const [videoUrl, setVideoUrl] = useState("")
+  const [gifUrl, setGifUrl] = useState("")
+  const [gifBlob, setGifBlob] = useState<Blob | null>(null)
+
+  const [stats, setStats] = useState<Stats | null>(null)
+  const [startTime, setStartTime] = useState(0)
+  const [endTime, setEndTime] = useState(0)
+  const [fps, setFps] = useState(12)
+  const [width, setWidth] = useState(480)
+  const [keepAspectRatio, setKeepAspectRatio] = useState(true)
+  const [processing, setProcessing] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [status, setStatus] = useState("")
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (videoUrl) URL.revokeObjectURL(videoUrl)
+      if (gifUrl) URL.revokeObjectURL(gifUrl)
+    }
+  }, [gifUrl, videoUrl])
+
+  const loadFFmpeg = useCallback(async () => {
+    if (loaded || loading) return
+
+    setLoading(true)
+    setError(null)
+    setStatus("Loading converter engine...")
+
+    try {
+      const ffmpeg = ffmpegRef.current
+
+      ffmpeg.on("progress", ({ progress }) => {
+        setProgress(Math.round(clamp(progress * 100, 0, 100)))
+      })
+
+      await ffmpeg.load({
+        coreURL: await toBlobURL(`${BASE_URL}/ffmpeg-core.js`, "text/javascript"),
+        wasmURL: await toBlobURL(`${BASE_URL}/ffmpeg-core.wasm`, "application/wasm"),
+      })
+
+      setLoaded(true)
+      setStatus("Engine ready")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load converter engine")
+    } finally {
+      setLoading(false)
+    }
+  }, [loaded, loading])
+
+  // Automatically load FFmpeg on mount
+  useEffect(() => {
+    loadFFmpeg()
+  }, [loadFFmpeg])
+
+  const onUpload = useCallback(async (picked?: File | null) => {
+    if (!picked) return
+    if (!picked.type.startsWith("video/")) {
+      setError("Please upload a valid video file.")
+      return
+    }
+
+    setError(null)
+    setGifUrl("")
+    setGifBlob(null)
+    setProgress(0)
+    setStatus("Processing video details...")
+
+    const nextUrl = URL.createObjectURL(picked)
+    if (videoUrl) URL.revokeObjectURL(videoUrl)
+    setVideoUrl(nextUrl)
+    setFile(picked)
+
+    const video = document.createElement("video")
+    video.preload = "metadata"
+    video.src = nextUrl
+
+    await new Promise<void>((resolve, reject) => {
+      video.onloadedmetadata = () => resolve()
+      video.onerror = () => reject(new Error("Unable to read video metadata"))
+    })
+
+    setStats({
+      name: picked.name,
+      size: picked.size,
+      duration: video.duration || 0,
+      width: video.videoWidth || 0,
+      height: video.videoHeight || 0,
+      type: picked.type || "video/mp4",
+    })
+
+    setStartTime(0)
+    setEndTime(Math.floor(video.duration || 0))
+    setWidth(Math.min(480, video.videoWidth || 480))
+    setKeepAspectRatio(true)
+    setStatus("Video ready for conversion")
+  }, [videoUrl])
+
+  const convertToGif = useCallback(async () => {
+    if (!file || !stats) {
+      setError("Upload a video first.")
+      return
+    }
+    if (!loaded) {
+      setError("Converter engine is initializing. Please wait.")
+      return
+    }
+
+    const ffmpeg = ffmpegRef.current
+    const safeStart = clamp(startTime, 0, Math.max(0, stats.duration))
+    const safeEnd = clamp(endTime || stats.duration, safeStart + 0.1, stats.duration || safeStart + 0.1)
+    const clipDuration = Math.max(0.1, safeEnd - safeStart)
+    const outWidth = Math.max(64, Math.round(width))
+    const fpsValue = clamp(Math.round(fps), 1, 60)
+
+    setProcessing(true)
+    setProgress(0)
+    setError(null)
+    setGifUrl("")
+    setGifBlob(null)
+    setStatus("Preparing video clip...")
+
+    try {
+      try { await ffmpeg.deleteFile("input.mp4") } catch {}
+      try { await ffmpeg.deleteFile("palette.png") } catch {}
+      try { await ffmpeg.deleteFile("output.gif") } catch {}
+
+      await ffmpeg.writeFile("input.mp4", await fetchFile(file))
+
+      const scaleExpr = keepAspectRatio
+        ? `scale=${outWidth}:-1:flags=lanczos`
+        : `scale=${outWidth}:${Math.max(64, Math.round((stats.height || 1) * (outWidth / Math.max(1, stats.width || 1))))}:flags=lanczos`
+
+      setStatus("Optimizing color palette...")
+      await ffmpeg.exec([
+        "-ss", String(safeStart),
+        "-t", String(clipDuration),
+        "-i", "input.mp4",
+        "-vf", `fps=${fpsValue},${scaleExpr},palettegen`,
+        "palette.png",
+      ])
+
+      setStatus("Rendering GIF...")
+      await ffmpeg.exec([
+        "-ss", String(safeStart),
+        "-t", String(clipDuration),
+        "-i", "input.mp4",
+        "-i", "palette.png",
+        "-lavfi",
+        `fps=${fpsValue},${scaleExpr}[x];[x][1:v]paletteuse`,
+        "-loop", "0",
+        "output.gif",
+      ])
+
+      const data = await ffmpeg.readFile("output.gif")
+      const blob = new Blob([data.buffer], { type: "image/gif" })
+      const url = URL.createObjectURL(blob)
+
+      if (gifUrl) URL.revokeObjectURL(gifUrl)
+
+      setGifBlob(blob)
+      setGifUrl(url)
+      setProgress(100)
+      setStatus("Conversion complete!")
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "GIF conversion failed")
+    } finally {
+      setProcessing(false)
+    }
+  }, [endTime, file, fps, gifUrl, keepAspectRatio, loaded, startTime, stats, width])
+
+  const downloadGif = useCallback(() => {
+    if (!gifUrl) return
+    const a = document.createElement("a")
+    a.href = gifUrl
+    a.download = `converted-${Date.now()}.gif`
+    a.click()
+  }, [gifUrl])
+
+  const resetAll = useCallback(() => {
+    if (videoUrl) URL.revokeObjectURL(videoUrl)
+    if (gifUrl) URL.revokeObjectURL(gifUrl)
+    setFile(null)
+    setVideoUrl("")
+    setGifUrl("")
+    setGifBlob(null)
+    setStats(null)
+    setStartTime(0)
+    setEndTime(0)
+    setFps(12)
+    setWidth(480)
+    setKeepAspectRatio(true)
+    setProcessing(false)
+    setProgress(0)
+    setStatus("")
+    setError(null)
+    if (fileInputRef.current) fileInputRef.current.value = ""
+  }, [gifUrl, videoUrl])
+
+  const estimate = useMemo(() => {
+    if (!stats) return "—"
+    const secs = Math.max(0.1, (endTime || stats.duration) - startTime)
+    const frames = Math.round(secs * fps)
+    return `${frames} frames • ${formatTime(secs)} duration`
+  }, [endTime, fps, startTime, stats])
+
+  return (
+    <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-4 py-8 text-slate-900 sm:px-6 lg:py-12 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
+      <div className="w-full max-w-6xl space-y-6">
+        <ToolHero tool={tool} />
+
+        <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white/90 shadow-xl shadow-slate-200/40 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/90 dark:shadow-black/40">
+          
+          {/* Header Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 px-6 py-4 dark:border-slate-800/80">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600/10 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400">
+                <Film className="h-5 w-5" />
+              </div>
+              <div>
+                <h1 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                  MP4 to GIF Converter
+                </h1>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Client-side high-quality GIF creation</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50/80 px-3 py-1 text-[11px] font-semibold text-blue-700 dark:border-blue-900/50 dark:bg-blue-950/40 dark:text-blue-300">
+                <Sparkles className="h-3 w-3" /> {loaded ? "Engine Ready" : "Initializing..."}
+              </span>
+              <button
+                onClick={resetAll}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+              >
+                <RotateCcw className="h-3.5 w-3.5" /> Reset
+              </button>
+            </div>
+          </div>
+
+          {/* Main Content Workspace */}
+          <div className="p-6 space-y-6">
+            <div className="grid gap-6 lg:grid-cols-12">
+              
+              {/* Left Column: Upload & Video Player */}
+              <div className="space-y-4 lg:col-span-6">
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="group cursor-pointer rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/50 p-6 text-center transition hover:border-blue-500 hover:bg-slate-100/50 dark:border-slate-800 dark:bg-slate-900/30 dark:hover:border-blue-500"
+                >
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="video/*"
+                    className="hidden"
+                    onChange={(e) => void onUpload(e.target.files?.[0] || null)}
+                  />
+                  <div className="flex flex-col items-center justify-center gap-2 py-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-400">
+                      <Upload className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                        {file ? "Change Video File" : "Drop your MP4 here"}
+                      </h3>
+                      <p className="mt-0.5 text-xs text-slate-400">Click to browse video files from device</p>
+                    </div>
+                  </div>
+                </div>
+
+                {stats && (
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-2xl border border-slate-200/80 bg-white/50 p-3 dark:border-slate-800 dark:bg-slate-900/30">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Video Info</span>
+                      <div className="mt-1 truncate text-xs font-bold text-slate-800 dark:text-slate-200">{stats.name}</div>
+                      <div className="text-[11px] text-slate-400">{formatBytes(stats.size)}</div>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200/80 bg-white/50 p-3 dark:border-slate-800 dark:bg-slate-900/30">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Dimensions</span>
+                      <div className="mt-1 text-xs font-bold text-slate-800 dark:text-slate-200">{stats.width} × {stats.height}</div>
+                      <div className="text-[11px] text-slate-400">Duration: {formatTime(stats.duration)}</div>
+                    </div>
+                  </div>
+                )}
+
+                {videoUrl && (
+                  <div className="overflow-hidden rounded-2xl border border-slate-200 bg-black dark:border-slate-800">
+                    <video
+                      ref={videoRef}
+                      src={videoUrl}
+                      controls
+                      className="max-h-64 w-full object-contain"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Right Column: Converter Controls */}
+              <div className="space-y-4 lg:col-span-6">
+                <div className="rounded-2xl border border-slate-200/80 bg-white/50 p-5 space-y-4 dark:border-slate-800 dark:bg-slate-900/30">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Trimming & Performance</h3>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">Start Time (sec)</label>
+                      <input
+                        type="number"
+                        min={0}
+                        step={0.1}
+                        value={startTime}
+                        onChange={(e) => setStartTime(Math.max(0, Number(e.target.value) || 0))}
+                        className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-2 text-xs font-semibold text-slate-800 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">End Time (sec)</label>
+                      <input
+                        type="number"
+                        min={0}
+                        step={0.1}
+                        value={endTime}
+                        onChange={(e) => setEndTime(Math.max(0, Number(e.target.value) || 0))}
+                        className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-2 text-xs font-semibold text-slate-800 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs font-semibold text-slate-600 dark:text-slate-400">
+                      <span>Frame Rate ({fps} FPS)</span>
+                      <span className="text-[11px] text-slate-400">{estimate}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={1}
+                      max={30}
+                      step={1}
+                      value={fps}
+                      onChange={(e) => setFps(Number(e.target.value))}
+                      className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs font-semibold text-slate-600 dark:text-slate-400">
+                      <span>Output Width ({width}px)</span>
+                      <span className="text-[11px] text-slate-400">Controls file size</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={120}
+                      max={960}
+                      step={10}
+                      value={width}
+                      onChange={(e) => setWidth(Number(e.target.value))}
+                      className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between rounded-xl border border-slate-200/60 bg-slate-50/50 p-2.5 dark:border-slate-800 dark:bg-slate-900/50">
+                    <span className="text-xs font-medium text-slate-700 dark:text-slate-300">Keep Aspect Ratio</span>
+                    <input
+                      type="checkbox"
+                      checked={keepAspectRatio}
+                      onChange={(e) => setKeepAspectRatio(e.target.checked)}
+                      className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                    />
+                  </div>
+
+                  <button
+                    onClick={convertToGif}
+                    disabled={!file || !loaded || processing}
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-xs font-semibold text-white shadow-md shadow-blue-500/10 hover:bg-blue-700 disabled:opacity-50"
+                  >
+                    {processing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4 fill-current" />}
+                    {processing ? "Converting Video..." : "Create GIF"}
+                  </button>
+                </div>
+
+                {/* Progress & Output View */}
+                <div className="space-y-3 rounded-2xl border border-slate-200/80 bg-white/50 p-4 dark:border-slate-800 dark:bg-slate-900/30">
+                  <div className="flex items-center justify-between text-xs font-semibold">
+                    <span className="text-slate-500">Status</span>
+                    <span className="text-blue-600 dark:text-blue-400">{status || (loaded ? "Ready" : "Loading engine...")}</span>
+                  </div>
+
+                  {processing && (
+                    <div className="space-y-1">
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                        <div
+                          className="h-full bg-blue-600 transition-all duration-300"
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                      <div className="text-right text-[10px] font-bold text-slate-400">{progress}%</div>
+                    </div>
+                  )}
+
+                  {error && (
+                    <div className="flex items-center gap-2 rounded-xl bg-rose-50 p-3 text-xs text-rose-600 dark:bg-rose-950/30 dark:text-rose-300">
+                      <AlertCircle className="h-4 w-4 shrink-0" /> {error}
+                    </div>
+                  )}
+
+                  {gifUrl ? (
+                    <div className="space-y-3 pt-2">
+                      <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-2 dark:border-slate-800 dark:bg-slate-950">
+                        <img src={gifUrl} alt="Generated GIF" className="max-h-56 w-full object-contain rounded-lg" />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-medium text-slate-500">
+                          Size: {gifBlob ? formatBytes(gifBlob.size) : "—"}
+                        </span>
+                        <button
+                          onClick={downloadGif}
+                          className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-blue-500/10 hover:bg-blue-700"
+                        >
+                          <Download className="h-3.5 w-3.5" /> Download GIF
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    !processing && (
+                      <div className="py-6 text-center text-xs text-slate-400 italic">
+                        GIF preview will appear here after conversion.
+                      </div>
+                    )
+                  )}
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  )
+}
