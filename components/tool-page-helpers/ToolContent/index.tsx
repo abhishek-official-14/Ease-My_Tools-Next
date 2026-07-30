@@ -1,7 +1,14 @@
 import styles from "./styles.module.css"
 
 type ToolContentProps = {
-    tool: any
+    tool: {
+        seoContent:{
+            howToUse: string[],
+            features: string[],
+            benefits: string[],
+            useCases: string[]
+        }
+    }
 }
 
 export default function ToolContent({ tool }: ToolContentProps) {

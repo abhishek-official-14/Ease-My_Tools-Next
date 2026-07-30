@@ -14,7 +14,7 @@ const TOOLS_PER_PAGE = 16
 export default function ToolsClient() {
     const [searchQuery, setSearchQuery] = useState("")
 
-    const [selectedTags, setSelectedTags] = useState<string[]>([])
+    const [selectedTag, setSelectedTag] = useState<string>("image")
 
     const [currentPage, setCurrentPage] = useState(1)
 
@@ -35,18 +35,21 @@ export default function ToolsClient() {
             )
         }
 
-        if (selectedTags.length > 0) {
-            tools = tools.filter((tool) =>
-                selectedTags.every((tag) => tool.tags.includes(tag))
-            )
+        // if (selectedTags.length > 0) {
+        //     tools = tools.filter((tool) =>
+        //         selectedTags.every((tag) => tool.tags.includes(tag))
+        //     )
+        // }
+        if (selectedTag.length > 0) {
+            tools = tools.filter(tool=>tool.tags.includes(selectedTag))
         }
 
         return tools
-    }, [searchQuery, selectedTags])
+    }, [searchQuery, selectedTag])
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [searchQuery, selectedTags])
+    }, [searchQuery, selectedTag])
 
     const totalPages = Math.ceil(filteredTools.length / TOOLS_PER_PAGE)
 
@@ -64,8 +67,8 @@ export default function ToolsClient() {
             />
 
             <ToolFilters
-                selectedTags={selectedTags}
-                setSelectedTags={setSelectedTags}
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
             />
 
             <div className="mb-6 text-sm text-muted-foreground">

@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic"
 import styles from "./styles.module.css"
 
 // Import the new sections

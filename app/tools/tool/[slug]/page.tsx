@@ -69,6 +69,12 @@ export default async function Page({
         seo: tool.seo
     }
 
+    // const toolHeader = (({name,seoContent,seo})=>({name,seoContent,seo}))(tool)
+
+    //tool.compoent() return module object with default as key for react component and other exports
+    // we just destructure default from module object and rename it to ToolComponent
+    // its not type or key value thing. : inside destructuring curly braces is for renaming
+    // ToolComponet is now a constant containg React element
     const { default: ToolComponent } = await tool.component()
 
     const featuredCategory = getFeaturedCategoryBySlug(tool.primaryCategory)
