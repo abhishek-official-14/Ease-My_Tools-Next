@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { FFmpeg } from "@ffmpeg/ffmpeg"
 import { fetchFile, toBlobURL } from "@ffmpeg/util"
 import {
@@ -194,7 +194,7 @@ export default function MP4ToGIFConverter({ tool }: ToolHeroProps) {
         "-ss", String(safeStart),
         "-t", String(clipDuration),
         "-i", "input.mp4",
-        "-vf", `fps=${fpsValue},${scaleExpr},palettegen`,
+        "-vf", `fps=${fpsValue},${scaleExpr},palettegen=stats_mode=diff`,
         "palette.png",
       ])
 
@@ -205,7 +205,7 @@ export default function MP4ToGIFConverter({ tool }: ToolHeroProps) {
         "-i", "input.mp4",
         "-i", "palette.png",
         "-lavfi",
-        `fps=${fpsValue},${scaleExpr}[x];[x][1:v]paletteuse`,
+        `fps=${fpsValue},${scaleExpr}[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=5`,
         "-loop", "0",
         "output.gif",
       ])

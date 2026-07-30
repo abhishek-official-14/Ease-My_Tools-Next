@@ -14,10 +14,10 @@ export default function ToolsPage() {
         <>
             <Header />
             <main className="bg-background p-4 text-foreground transition-colors">
-                <ToolSearch
+                {/* <ToolSearch
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
-                />
+                /> */}
                 <CategoryCarousel featuredCategories={featuredCategories} />
             </main>
         </>

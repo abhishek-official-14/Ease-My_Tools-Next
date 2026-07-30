@@ -71,7 +71,7 @@ export default function ToolsClient() {
                 setSelectedTag={setSelectedTag}
             />
 
-            <div className="mb-6 text-sm text-muted-foreground">
+            <div className="mb-6 text-sm text-muted-foreground text-center">
                 {filteredTools.length} tools found
             </div>
 

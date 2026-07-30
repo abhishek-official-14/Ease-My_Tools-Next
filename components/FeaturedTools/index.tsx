@@ -44,27 +44,6 @@ const featuredTools: FeaturedTool[] = [
         description: "Create strong, secure passwords",
         badge: "New",
         slug: "password-generator",
-    },
-    {
-        icon: "🔐",
-        title: "Password Generator",
-        description: "Create strong, secure passwords",
-        badge: "New",
-        slug: "password-generator",
-    },
-    {
-        icon: "🔐",
-        title: "Password Generator",
-        description: "Create strong, secure passwords",
-        badge: "New",
-        slug: "password-generator",
-    },
-    {
-        icon: "🔐",
-        title: "Password Generator",
-        description: "Create strong, secure passwords",
-        badge: "New",
-        slug: "password-generator",
     }
 ]
 

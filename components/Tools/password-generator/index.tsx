@@ -233,7 +233,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
 
     return (
         <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 sm:px-4 sm:py-10 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
-            <div className="w-full max-w-3xl space-y-6">
+            <div className="w-full max-w-5xl space-y-6">
                 <ToolHero tool={tool} />
 
                 <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
@@ -266,7 +266,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                     Password Strength
                                 </label>
                                 <span
-                                    className={`text-xs font-bold ${strength.color.replace("bg-", "text-")}`}
+                                    className={`text-xs font-bold ${strength.color.replace("bg-", "text-")} sm:text-base`}
                                 >
                                     {strength.strength}
                                 </span>
@@ -291,7 +291,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                 <label className="text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
                                     Password Length
                                 </label>
-                                <span className="text-xs font-bold text-slate-700 dark:text-slate-200">
+                                <span className="text-xs font-bold text-slate-700 dark:text-slate-200 sm:text-base">
                                     {length}
                                 </span>
                             </div>
@@ -309,7 +309,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
 
                         {/* Character Types */}
                         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 sm:text-base">
                                 <input
                                     type="checkbox"
                                     checked={includeUppercase}
@@ -320,7 +320,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                 />
                                 Uppercase (A-Z)
                             </label>
-                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300  sm:text-base">
                                 <input
                                     type="checkbox"
                                     checked={includeLowercase}
@@ -331,7 +331,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                 />
                                 Lowercase (a-z)
                             </label>
-                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300  sm:text-base">
                                 <input
                                     type="checkbox"
                                     checked={includeNumbers}
@@ -342,7 +342,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                 />
                                 Numbers (0-9)
                             </label>
-                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                            <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 sm:text-base">
                                 <input
                                     type="checkbox"
                                     checked={includeSymbols}
@@ -364,7 +364,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                             {/* Minimum selects */}
                             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                                 <div>
-                                    <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400">
+                                    <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400 sm:text-base">
                                         Minimum Numbers
                                     </label>
                                     <select
@@ -375,7 +375,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                             )
                                         }
                                         disabled={!includeNumbers}
-                                        className="w-full rounded-lg border border-slate-200/80 bg-white/60 px-2 py-1.5 text-xs text-slate-800 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none disabled:opacity-50 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100"
+                                        className="w-full rounded-lg border border-slate-200/80 bg-white/60 px-2 py-1.5 text-xs text-slate-800 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none disabled:opacity-50 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100 sm:text-base"
                                     >
                                         {[1, 2, 3, 4].map((n) => (
                                             <option key={n} value={n}>
@@ -385,7 +385,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400">
+                                    <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400 sm:text-base">
                                         Minimum Symbols
                                     </label>
                                     <select
@@ -396,7 +396,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                             )
                                         }
                                         disabled={!includeSymbols}
-                                        className="w-full rounded-lg border border-slate-200/80 bg-white/60 px-2 py-1.5 text-xs text-slate-800 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none disabled:opacity-50 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100"
+                                        className="w-full rounded-lg border border-slate-200/80 bg-white/60 px-2 py-1.5 text-xs text-slate-800 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none disabled:opacity-50 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100  sm:text-base"
                                     >
                                         {[1, 2, 3, 4].map((n) => (
                                             <option key={n} value={n}>
@@ -406,7 +406,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400">
+                                    <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400 sm:text-base">
                                         Minimum Uppercase
                                     </label>
                                     <select
@@ -417,7 +417,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                             )
                                         }
                                         disabled={!includeUppercase}
-                                        className="w-full rounded-lg border border-slate-200/80 bg-white/60 px-2 py-1.5 text-xs text-slate-800 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none disabled:opacity-50 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100"
+                                        className="w-full rounded-lg border border-slate-200/80 bg-white/60 px-2 py-1.5 text-xs text-slate-800 focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:outline-none disabled:opacity-50 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100  sm:text-base"
                                     >
                                         {[1, 2, 3, 4].map((n) => (
                                             <option key={n} value={n}>
@@ -430,7 +430,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
 
                             {/* Additional checkboxes */}
                             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                                <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                                <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 sm:text-base">
                                     <input
                                         type="checkbox"
                                         checked={excludeSimilar}
@@ -441,7 +441,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                     />
                                     Exclude Similar
                                 </label>
-                                <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                                <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 sm:text-base">
                                     <input
                                         type="checkbox"
                                         checked={excludeAmbiguous}
@@ -454,7 +454,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                                     />
                                     Exclude Ambiguous
                                 </label>
-                                <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                                <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300 sm:text-base">
                                     <input
                                         type="checkbox"
                                         checked={noDuplicate}
@@ -473,7 +473,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                             <h3 className="mb-2 text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
                                 Possible Combinations
                             </h3>
-                            <div className="flex flex-wrap justify-between gap-2 text-xs">
+                            <div className="flex flex-wrap justify-between gap-2 text-xs sm:text-base">
                                 <div>
                                     <span className="text-slate-500 dark:text-slate-400">
                                         Combinations:
@@ -506,7 +506,7 @@ const PasswordGenerator = ({ tool }: ToolHeroProps) => {
                         {/* Regenerate Button */}
                         <button
                             onClick={generatePassword}
-                            className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-3 py-2 text-xs font-bold tracking-wide text-white shadow-sm shadow-blue-500/20 transition hover:from-blue-700 hover:to-indigo-700 hover:shadow active:scale-[0.98]"
+                            className="w-full rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-3 py-2 text-xs font-bold tracking-wide text-white shadow-sm shadow-blue-500/20 transition hover:from-blue-700 hover:to-indigo-700 hover:shadow active:scale-[0.98] sm:text-base"
                         >
                             Generate New
                         </button>
