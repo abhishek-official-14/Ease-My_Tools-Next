@@ -1,6 +1,8 @@
 "use client"
 
 import React, { useState, useRef, useCallback } from "react"
+import ToolHero from "@/components/tool-page-helpers/ToolHero"
+import { ToolHeroProps } from "@/types/tool"
 
 function formatSize(bytes: number): string {
     if (bytes < 1024) return `${bytes} B`
@@ -8,7 +10,7 @@ function formatSize(bytes: number): string {
     return `${(bytes / (1024 * 1024)).toFixed(2)} MB`
 }
 
-export default function SvgConverter() {
+export default function SvgConverter({ tool }: ToolHeroProps) {
     const [file, setFile] = useState<File | null>(null)
     const [originalSvg, setOriginalSvg] = useState("")
     const [convertedImage, setConvertedImage] = useState("")
@@ -272,13 +274,15 @@ export default function SvgConverter() {
 
     return (
         <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 sm:px-4 sm:py-10 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
-            <div className="w-full max-w-6xl">
+            <div className="w-full max-w-6xl space-y-6">
+                <ToolHero tool={tool} />
+
                 <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
                     <div className="grid gap-6 px-4 py-4 sm:px-6 sm:py-5 lg:grid-cols-[1fr_1.1fr]">
                         {/* LEFT PANEL - Upload & Settings */}
                         <div className="space-y-5">
                             {!hasFile ? (
-                                // Upload dropzone (dashed border, camera icon)
+                                // Upload dropzone
                                 <div
                                     onDrop={handleDrop}
                                     onDragOver={handleDragOver}
@@ -400,7 +404,7 @@ export default function SvgConverter() {
                             {/* Settings - only visible when file exists */}
                             {hasFile && (
                                 <>
-                                    {/* Output Format - Horizontal Buttons */}
+                                    {/* Output Format */}
                                     <div>
                                         <label className="mb-2 block text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
                                             Output Format
@@ -432,7 +436,7 @@ export default function SvgConverter() {
                                         </div>
                                     </div>
 
-                                    {/* Background Color - Horizontal Buttons */}
+                                    {/* Background Color */}
                                     <div>
                                         <label className="mb-2 block text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
                                             Background Color
@@ -637,7 +641,7 @@ export default function SvgConverter() {
                             )}
                         </div>
 
-                        {/* RIGHT PANEL - Previews (placeholders only on desktop) */}
+                        {/* RIGHT PANEL - Previews */}
                         <div className="space-y-5">
                             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                                 {/* Original SVG Preview */}
@@ -695,7 +699,7 @@ export default function SvgConverter() {
                                 </div>
                             </div>
 
-                            {/* Download Button (only when converted image exists) */}
+                            {/* Download Button */}
                             {convertedImage && (
                                 <button
                                     onClick={downloadImage}

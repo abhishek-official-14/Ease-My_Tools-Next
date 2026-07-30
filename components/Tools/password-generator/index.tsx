@@ -1,8 +1,10 @@
 "use client"
 
 import React, { useState, useEffect, useMemo } from "react"
+import ToolHero from "@/components/tool-page-helpers/ToolHero"
+import { ToolHeroProps } from "@/types/tool"
 
-const PasswordGenerator = () => {
+const PasswordGenerator = ({ tool }: ToolHeroProps) => {
     const [password, setPassword] = useState("")
     const [length, setLength] = useState(16)
     const [includeUppercase, setIncludeUppercase] = useState(true)
@@ -231,7 +233,9 @@ const PasswordGenerator = () => {
 
     return (
         <div className="flex justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 px-3 py-8 text-slate-900 sm:px-4 sm:py-10 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
-            <div className="w-full max-w-3xl">
+            <div className="w-full max-w-3xl space-y-6">
+                <ToolHero tool={tool} />
+
                 <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 shadow-xl shadow-slate-200/40 backdrop-blur-sm dark:border-slate-800/60 dark:bg-slate-900/80 dark:shadow-black/30">
                     <div className="space-y-5 p-5 sm:p-6">
                         {/* Password Display */}
@@ -303,7 +307,7 @@ const PasswordGenerator = () => {
                             />
                         </div>
 
-                        {/* Character Types - 2 columns on mobile, 4 on desktop */}
+                        {/* Character Types */}
                         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                             <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                                 <input
@@ -357,7 +361,7 @@ const PasswordGenerator = () => {
                                 Advanced Options
                             </h3>
 
-                            {/* Minimum selects - 2 columns on mobile, 3 on desktop */}
+                            {/* Minimum selects */}
                             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                                 <div>
                                     <label className="mb-1 block text-xs text-slate-500 dark:text-slate-400">
@@ -424,7 +428,7 @@ const PasswordGenerator = () => {
                                 </div>
                             </div>
 
-                            {/* Additional checkboxes - 2 columns on mobile, 3 on desktop */}
+                            {/* Additional checkboxes */}
                             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                                 <label className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
                                     <input
