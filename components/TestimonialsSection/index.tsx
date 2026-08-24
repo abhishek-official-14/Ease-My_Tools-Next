@@ -79,7 +79,7 @@ const TestimonialsSection = () => {
 
     return (
         <section className="bg-background py-16">
-            <div className="container mx-auto px-4 sm:max-w-screen-2xl">
+            <div className="container mx-auto px-4 max-w-350">
                 <h2 className="mb-10 text-center text-3xl font-bold">
                     What Users Say
                 </h2>

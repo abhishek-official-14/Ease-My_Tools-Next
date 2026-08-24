@@ -21,11 +21,6 @@ export default function ToolsPage() {
                     setSearchQuery={setSearchQuery}
                 />
                 <CategoryCarousel featuredCategories={featuredCategories} />
-                <div className="flex justify-center mt-6 text-base">
-                    <Button variant={"default"}>
-                        <Link href={"/tools"}>All Tools →</Link>
-                    </Button>
-                </div>
             </main>
         </>
     )
