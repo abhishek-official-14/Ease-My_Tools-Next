@@ -277,6 +277,174 @@
 
 
 
+// import Link from "next/link"
+// import {
+//     LucideIcon,
+//     Image,
+//     FileText,
+//     GitCompare,
+//     KeyRound,
+//     QrCode,
+//     Code2,
+//     Palette,
+//     ArrowRightLeft,
+//     ArrowRight,
+//     LayoutGrid,
+// } from "lucide-react"
+// import { Badge } from "@/components/ui/badge"
+// import { Button } from "@/components/ui/button"
+
+// type FeaturedTool = {
+//     icon: LucideIcon
+//     title: string
+//     description: string
+//     badge?: string
+//     slug: string
+// }
+
+// const featuredTools: FeaturedTool[] = [
+//     {
+//         icon: Image,
+//         title: "Image Compressor",
+//         description: "Compress images to your exact target file size",
+//         badge: "Popular",
+//         slug: "image-compressor",
+//     },
+//     {
+//         icon: FileText,
+//         title: "Markdown Previewer",
+//         description: "Write and preview Markdown and HTML files in real-time",
+//         slug: "markdown-previewer",
+//     },
+//     {
+//         icon: GitCompare,
+//         title: "Text Diff Checker",
+//         description: "Compare two texts and highlight the differences instantly",
+//         slug: "text-diff-checker",
+//     },
+//     {
+//         icon: KeyRound,
+//         title: "Password Generator",
+//         description: "Create strong, secure passwords",
+//         badge: "New",
+//         slug: "password-generator",
+//     },
+//     {
+//         icon: QrCode,
+//         title: "QR Code Generator",
+//         description: "Generate customized and downloadable QR codes instantly",
+//         badge: "Popular",
+//         slug: "qr-code-generator",
+//     },
+//     {
+//         icon: Code2,
+//         title: "JSON Formatter",
+//         description: "Format, validate, and beautify your raw JSON data",
+//         slug: "json-formatter",
+//     },
+//     {
+//         icon: Palette,
+//         title: "Color Palette Generator",
+//         description: "Extract and generate harmonic color codes and schemes",
+//         slug: "color-palette-generator",
+//     },
+//     {
+//         icon: ArrowRightLeft,
+//         title: "Unit Converter",
+//         description: "Convert length, area, speed, weight, and digital storage units",
+//         slug: "unit-converter",
+//     },
+// ]
+
+// export default function FeaturedTools() {
+//     return (
+//         <section className="relative overflow-hidden bg-background py-12 sm:py-16 lg:py-24">
+//             <div className="mx-auto max-w-[1260px] px-4 sm:px-6 lg:px-8">
+//                 {/* Header */}
+//                 <div className="mx-auto max-w-2xl text-center">
+//                     <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+//                         Most Popular Tools
+//                     </h2>
+//                     <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base lg:text-lg">
+//                         Try our most loved tools trusted by thousands
+//                     </p>
+//                 </div>
+
+//                 {/* Grid - 1 col on mobile, 2 col on tablet (sm/md), 4 col on desktop (lg) */}
+//                 <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-4 lg:gap-6">
+//                     {featuredTools.map((tool) => {
+//                         const Icon = tool.icon
+//                         return (
+//                             <Link
+//                                 key={tool.slug}
+//                                 href={`/tools/tool/${tool.slug}`}
+//                                 className="group relative flex flex-col justify-between rounded-2xl border border-border/60 bg-card/60 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card hover:shadow-lg hover:shadow-primary/5 sm:p-6 dark:bg-card/30 dark:hover:bg-card/60"
+//                             >
+//                                 <div>
+//                                     {/* Top Row: Icon & Badge */}
+//                                     <div className="flex items-center justify-between">
+//                                         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-12 sm:w-12">
+//                                             <Icon className="h-5 w-5 stroke-[1.75] sm:h-6 sm:w-6" />
+//                                         </div>
+//                                         {tool.badge && (
+//                                             <Badge
+//                                                 variant="secondary"
+//                                                 className={`text-[11px] font-medium sm:text-xs ${
+//                                                     tool.badge === "Popular"
+//                                                         ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+//                                                         : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+//                                                 }`}
+//                                             >
+//                                                 {tool.badge}
+//                                             </Badge>
+//                                         )}
+//                                     </div>
+
+//                                     {/* Content */}
+//                                     <div className="mt-4 sm:mt-5">
+//                                         <h3 className="text-base font-semibold text-foreground transition-colors group-hover:text-primary sm:text-lg">
+//                                             {tool.title}
+//                                         </h3>
+//                                         <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground sm:mt-2 sm:text-sm">
+//                                             {tool.description}
+//                                         </p>
+//                                     </div>
+//                                 </div>
+
+//                                 {/* Bottom Action Link */}
+//                                 <div className="mt-5 flex items-center text-xs font-medium text-primary sm:mt-6 sm:text-sm">
+//                                     <span>Use Tool</span>
+//                                     <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1 sm:h-4 sm:w-4" />
+//                                 </div>
+//                             </Link>
+//                         )
+//                     })}
+//                 </div>
+
+//                 {/* Bottom CTA Button */}
+//                 <div className="mt-10 flex justify-center sm:mt-14">
+//                     <Button
+//                         asChild
+//                         size="lg"
+//                         className="w-full max-w-xs rounded-xl shadow-sm sm:w-auto sm:px-8"
+//                     >
+//                         <Link href="/tools" className="flex items-center justify-center gap-2">
+//                             <LayoutGrid className="h-4 w-4" />
+//                             <span>See All Tools</span>
+//                             <ArrowRight className="h-4 w-4" />
+//                         </Link>
+//                     </Button>
+//                 </div>
+//             </div>
+//         </section>
+//     )
+// }
+
+
+
+
+
+
 import Link from "next/link"
 import {
     LucideIcon,
@@ -291,14 +459,16 @@ import {
     ArrowRight,
     LayoutGrid,
 } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
 type FeaturedTool = {
     icon: LucideIcon
     title: string
+    category: string
     description: string
-    badge?: string
+    color: string       // Icon text & border color
+    bgColor: string     // Icon background
+    categoryColor: string // Category label color
     slug: string
 }
 
@@ -306,115 +476,133 @@ const featuredTools: FeaturedTool[] = [
     {
         icon: Image,
         title: "Image Compressor",
-        description: "Compress images to your exact target file size",
-        badge: "Popular",
+        category: "Image Tools",
+        description: "Compress images to exact target file size",
+        color: "text-emerald-400",
+        bgColor: "bg-emerald-500/10",
+        categoryColor: "text-emerald-400/90",
         slug: "image-compressor",
     },
     {
         icon: FileText,
         title: "Markdown Previewer",
-        description: "Write and preview Markdown and HTML files in real-time",
+        category: "Doc Tools",
+        description: "Write and preview Markdown in real-time",
+        color: "text-orange-400",
+        bgColor: "bg-orange-500/10",
+        categoryColor: "text-orange-400/90",
         slug: "markdown-previewer",
     },
     {
         icon: GitCompare,
         title: "Text Diff Checker",
-        description: "Compare two texts and highlight the differences instantly",
+        category: "Text Tools",
+        description: "Compare two texts and highlight differences",
+        color: "text-pink-400",
+        bgColor: "bg-pink-500/10",
+        categoryColor: "text-pink-400/90",
         slug: "text-diff-checker",
     },
     {
         icon: KeyRound,
         title: "Password Generator",
+        category: "Security",
         description: "Create strong, secure passwords",
-        badge: "New",
+        color: "text-cyan-400",
+        bgColor: "bg-cyan-500/10",
+        categoryColor: "text-cyan-400/90",
         slug: "password-generator",
     },
     {
         icon: QrCode,
         title: "QR Code Generator",
-        description: "Generate customized and downloadable QR codes instantly",
-        badge: "Popular",
+        category: "Utility Tools",
+        description: "Generate customized QR codes instantly",
+        color: "text-purple-400",
+        bgColor: "bg-purple-500/10",
+        categoryColor: "text-purple-400/90",
         slug: "qr-code-generator",
     },
     {
         icon: Code2,
         title: "JSON Formatter",
-        description: "Format, validate, and beautify your raw JSON data",
+        category: "Dev Tools",
+        description: "Format, validate, and beautify JSON",
+        color: "text-blue-400",
+        bgColor: "bg-blue-500/10",
+        categoryColor: "text-blue-400/90",
         slug: "json-formatter",
     },
     {
         icon: Palette,
-        title: "Color Palette Generator",
-        description: "Extract and generate harmonic color codes and schemes",
+        title: "Palette Generator",
+        category: "Design Tools",
+        description: "Extract and generate harmonic color schemes",
+        color: "text-rose-400",
+        bgColor: "bg-rose-500/10",
+        categoryColor: "text-rose-400/90",
         slug: "color-palette-generator",
     },
     {
         icon: ArrowRightLeft,
         title: "Unit Converter",
-        description: "Convert length, area, speed, weight, and digital storage units",
+        category: "Math & Units",
+        description: "Convert length, area, speed, and weights",
+        color: "text-indigo-400",
+        bgColor: "bg-indigo-500/10",
+        categoryColor: "text-indigo-400/90",
         slug: "unit-converter",
     },
 ]
 
 export default function FeaturedTools() {
     return (
-        <section className="relative overflow-hidden bg-background py-12 sm:py-16 lg:py-24">
-            <div className="mx-auto max-w-[1260px] px-4 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden bg-background py-5 sm:py-8 lg:py-12">
+            <div className="mx-auto max-w-[1260px] px-3 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="mx-auto max-w-2xl text-center">
                     <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
                         Most Popular Tools
                     </h2>
-                    <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base lg:text-lg">
+                    <p className="mt-1.5 text-xs text-muted-foreground sm:mt-3 sm:text-base lg:text-lg">
                         Try our most loved tools trusted by thousands
                     </p>
                 </div>
 
-                {/* Grid - 1 col on mobile, 2 col on tablet (sm/md), 4 col on desktop (lg) */}
-                <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:mt-12 lg:grid-cols-4 lg:gap-6">
+                {/* Grid - 2 Column on Mobile (TinyWow Style) | 4 Column on Desktop */}
+                <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 md:grid-cols-3 lg:mt-12 lg:grid-cols-4 lg:gap-6">
                     {featuredTools.map((tool) => {
                         const Icon = tool.icon
                         return (
                             <Link
                                 key={tool.slug}
                                 href={`/tools/tool/${tool.slug}`}
-                                className="group relative flex flex-col justify-between rounded-2xl border border-border/60 bg-card/60 p-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card hover:shadow-lg hover:shadow-primary/5 sm:p-6 dark:bg-card/30 dark:hover:bg-card/60"
+                                className="group relative flex flex-col justify-between rounded-xl border border-border/50 bg-card/60 p-3.5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card hover:shadow-lg hover:shadow-primary/5 sm:rounded-2xl sm:p-5 dark:bg-[#111827]/60 dark:hover:bg-[#1f2937]/70"
                             >
                                 <div>
-                                    {/* Top Row: Icon & Badge */}
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-12 sm:w-12">
-                                            <Icon className="h-5 w-5 stroke-[1.75] sm:h-6 sm:w-6" />
-                                        </div>
-                                        {tool.badge && (
-                                            <Badge
-                                                variant="secondary"
-                                                className={`text-[11px] font-medium sm:text-xs ${
-                                                    tool.badge === "Popular"
-                                                        ? "bg-amber-500/10 text-amber-600 dark:text-amber-400"
-                                                        : "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                                                }`}
-                                            >
-                                                {tool.badge}
-                                            </Badge>
-                                        )}
+                                    {/* Icon Box */}
+                                    <div
+                                        className={`flex h-10 w-10 items-center justify-center rounded-lg ${tool.bgColor} ${tool.color} sm:h-12 sm:w-12 sm:rounded-xl`}
+                                    >
+                                        <Icon className="h-5 w-5 stroke-[2] sm:h-6 sm:w-6 sm:stroke-[1.75]" />
                                     </div>
 
-                                    {/* Content */}
-                                    <div className="mt-4 sm:mt-5">
-                                        <h3 className="text-base font-semibold text-foreground transition-colors group-hover:text-primary sm:text-lg">
-                                            {tool.title}
-                                        </h3>
-                                        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground sm:mt-2 sm:text-sm">
-                                            {tool.description}
-                                        </p>
-                                    </div>
+                                    {/* Title */}
+                                    <h3 className="mt-3 text-sm font-bold leading-snug text-foreground transition-colors group-hover:text-primary sm:mt-4 sm:text-base lg:text-lg">
+                                        {tool.title}
+                                    </h3>
+
+                                    {/* Desktop-only Short Description */}
+                                    <p className="mt-1 hidden text-xs leading-relaxed text-muted-foreground sm:block">
+                                        {tool.description}
+                                    </p>
                                 </div>
 
-                                {/* Bottom Action Link */}
-                                <div className="mt-5 flex items-center text-xs font-medium text-primary sm:mt-6 sm:text-sm">
-                                    <span>Use Tool</span>
-                                    <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1 sm:h-4 sm:w-4" />
+                                {/* Category Tag (TinyWow Style) */}
+                                <div className="mt-2.5 sm:mt-4">
+                                    <span className={`text-[11px] font-medium sm:text-xs ${tool.categoryColor}`}>
+                                        {tool.category}
+                                    </span>
                                 </div>
                             </Link>
                         )
@@ -422,11 +610,11 @@ export default function FeaturedTools() {
                 </div>
 
                 {/* Bottom CTA Button */}
-                <div className="mt-10 flex justify-center sm:mt-14">
+                <div className="mt-8 flex justify-center sm:mt-14">
                     <Button
                         asChild
                         size="lg"
-                        className="w-full max-w-xs rounded-xl shadow-sm sm:w-auto sm:px-8"
+                        className="w-full max-w-[280px] rounded-xl shadow-sm sm:w-auto sm:px-8"
                     >
                         <Link href="/tools" className="flex items-center justify-center gap-2">
                             <LayoutGrid className="h-4 w-4" />
