@@ -1,10 +1,8 @@
-import { TbFavicon } from "react-icons/tb"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const website_cost_calculator: Tool = {
+export const website_cost_calculator: ToolMetadata = {
     name: "WebsiteCostCalculator",
     slug: "website-cost-calculator",
-    icon: TbFavicon,
     primaryCategory: "finance",
     tags: [
         "developer",

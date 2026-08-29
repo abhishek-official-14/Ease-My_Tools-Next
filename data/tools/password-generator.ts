@@ -1,10 +1,8 @@
-import { TbVectorBezier } from "react-icons/tb"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const password_generator: Tool = {
+export const password_generator: ToolMetadata = {
     name: "Password Generator",
     slug: "password-generator",
-    icon: TbVectorBezier,
     primaryCategory: "security",
     tags: [
         "security",

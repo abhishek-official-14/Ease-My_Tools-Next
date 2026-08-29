@@ -1,10 +1,8 @@
-import { MdFormatColorText } from "react-icons/md"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const case_converter: Tool = {
+export const case_converter: ToolMetadata = {
     name: "Case Converter",
     slug: "case-converter",
-    icon: MdFormatColorText,
     primaryCategory: "text",
     tags: [
         "text",

@@ -11,6 +11,7 @@ import {
     CommandList,
 } from "@/components/ui/command"
 
+import { ToolIcon } from "@/components/ToolIcon"
 import { toolSearch } from "@/lib/toolSearch"
 
 type ToolSearchProps = {
@@ -67,30 +68,29 @@ export default function ToolSearch({
                     <Command>
                         <CommandList className="max-h-72 overflow-auto p-2">
                             <CommandGroup>
-                                {filteredTools.map(
-                                    ({ name, slug, icon: Icon }) => (
-                                        <CommandItem
-                                            key={slug}
-                                            onSelect={() => {
-                                                setIsOpen(false)
-                                                router.push(
-                                                    `/tools/tool/${slug}`
-                                                )
-                                            }}
-                                            className="cursor-pointer rounded-lg"
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex h-8 w-8 items-center justify-center">
-                                                    <Icon className="h-5 w-5 text-blue-500" />
-                                                </div>
-
-                                                <span className="text-base font-medium">
-                                                    {name}
-                                                </span>
+                                {filteredTools.map(({ name, slug }) => (
+                                    <CommandItem
+                                        key={slug}
+                                        onSelect={() => {
+                                            setIsOpen(false)
+                                            router.push(`/tools/tool/${slug}`)
+                                        }}
+                                        className="cursor-pointer rounded-lg"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="flex h-8 w-8 items-center justify-center">
+                                                <ToolIcon
+                                                    slug={slug}
+                                                    className="h-5 w-5 stroke-[2] text-blue-500"
+                                                />
                                             </div>
-                                        </CommandItem>
-                                    )
-                                )}
+
+                                            <span className="text-base font-medium">
+                                                {name}
+                                            </span>
+                                        </div>
+                                    </CommandItem>
+                                ))}
                             </CommandGroup>
                         </CommandList>
                     </Command>

@@ -1,10 +1,8 @@
-import { FaBeer } from "react-icons/fa"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const mp4_to_gif: Tool = {
+export const mp4_to_gif: ToolMetadata = {
     name: "Mp4ToGif",
     slug: "mp4-to-gif",
-    icon: FaBeer,
     primaryCategory: "image",
     tags: [
         "media",

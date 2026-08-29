@@ -1,10 +1,8 @@
-import { VscFilePdf } from "react-icons/vsc"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const pdf_image_extractor: Tool = {
+export const pdf_image_extractor: ToolMetadata = {
     name: "PDFImageExtractor",
     slug: "pdf-image-extractor",
-    icon: VscFilePdf,
     primaryCategory: "image",
     tags: [
         "document",
