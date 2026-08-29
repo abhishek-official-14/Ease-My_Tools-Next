@@ -1,10 +1,8 @@
-import { FaQrcode } from "react-icons/fa"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const qr_code_tool: Tool = {
+export const qr_code_tool: ToolMetadata = {
     name: "QR Code Tool",
     slug: "qr-code-tool",
-    icon: FaQrcode,
     primaryCategory: "image",
     tags: [
         "qr",

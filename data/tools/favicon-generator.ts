@@ -1,10 +1,8 @@
-import { TbFavicon } from "react-icons/tb"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const favicon_generator: Tool = {
+export const favicon_generator: ToolMetadata = {
     name: "FaviconGenerator",
     slug: "favicon-generator",
-    icon: TbFavicon,
     primaryCategory: "web",
     tags: [
         "web",

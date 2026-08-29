@@ -1,10 +1,8 @@
-import { BsFiletypeSvg } from "react-icons/bs"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const svg_converter: Tool = {
+export const svg_converter: ToolMetadata = {
     name: "SvgConverter",
     slug: "svg-converter",
-    icon: BsFiletypeSvg,
     primaryCategory: "image",
     tags: [
         "image",

@@ -1,10 +1,8 @@
-import { FaFileCode } from "react-icons/fa"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const json_formatter: Tool = {
+export const json_formatter: ToolMetadata = {
     name: "JSON Formatter",
     slug: "json-formatter",
-    icon: FaFileCode,
     primaryCategory: "developer",
     tags: [
         "developer",

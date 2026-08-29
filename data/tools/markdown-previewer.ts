@@ -1,10 +1,8 @@
-import { BiCodeAlt } from "react-icons/bi"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const markdown_previewer: Tool = {
+export const markdown_previewer: ToolMetadata = {
     name: "Markdown Previewer",
     slug: "markdown-previewer",
-    icon: BiCodeAlt,
     primaryCategory: "text",
     tags: [
         "text",

@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import BreadcrumbNav from "@/components/tool-page-helpers/BreadcrumbNav"
-import ToolHero from "@/components/tool-page-helpers/ToolHero"
 import ToolContent from "@/components/tool-page-helpers/ToolContent"
 import ToolFaq from "@/components/tool-page-helpers/ToolFaq"
 import RelatedTools from "@/components/tool-page-helpers/RelatedTools"
@@ -64,9 +63,10 @@ export default async function Page({
     }
 
     const toolHeader = {
+        slug: tool.slug,
         name: tool.name,
         seoContent: tool.seoContent,
-        seo: tool.seo
+        seo: tool.seo,
     }
 
     // const toolHeader = (({name,seoContent,seo})=>({name,seoContent,seo}))(tool)
@@ -90,11 +90,11 @@ export default async function Page({
         },
         ...(featuredCategory
             ? [
-                {
-                    name: featuredCategory.title,
-                    url: featuredCategory.link,
-                },
-            ]
+                  {
+                      name: featuredCategory.title,
+                      url: featuredCategory.link,
+                  },
+              ]
             : []),
         {
             name: tool.name,

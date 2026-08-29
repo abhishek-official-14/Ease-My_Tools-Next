@@ -1,10 +1,8 @@
-import { FaCalculator } from "react-icons/fa"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const time_calculator: Tool = {
+export const time_calculator: ToolMetadata = {
     name: "Time Calculator",
     slug: "time-calculator",
-    icon: FaCalculator,
     primaryCategory: "misc",
     tags: [
         "misc",

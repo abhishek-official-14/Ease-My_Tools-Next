@@ -1,10 +1,8 @@
-import { FaFile } from "react-icons/fa"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const csv_to_json: Tool = {
+export const csv_to_json: ToolMetadata = {
     name: "CSV to JSON",
     slug: "csv-to-json",
-    icon: FaFile,
     primaryCategory: "developer",
     tags: [
         "developer",

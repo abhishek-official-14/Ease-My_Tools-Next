@@ -1,13 +1,31 @@
+import type { ComponentType } from "react"
+import type { LucideIcon } from "lucide-react"
+
 import { SpecialTag } from "./category"
+
+export interface ToolHeroData {
+    slug: string
+    name: string
+
+    seo: {
+        title: string
+        description: string
+    }
+
+    seoContent: {
+        h1: string
+        intro: string
+    }
+}
 
 export interface Tool {
     name: string
     slug: string
-    icon: any
+    icon: LucideIcon
     tags: string[]
-    primaryCategory: SpecialTag,
-    color? : string,
-    component: () => Promise<any>
+    primaryCategory: SpecialTag
+    color?: string
+    component: () => Promise<{ default: ComponentType<ToolHeroProps> }>
 
     seo: {
         title: string
@@ -33,19 +51,8 @@ export interface Tool {
     }
 }
 
+export type ToolMetadata = Omit<Tool, "icon">
+
 export interface ToolHeroProps {
-    tool: {
-
-        name: string
-
-        seo: {
-            title: string
-            description: string
-        }
-
-        seoContent: {
-            h1: string
-            intro: string
-        }
-    }
+    tool: ToolHeroData
 }

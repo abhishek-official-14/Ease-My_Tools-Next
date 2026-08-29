@@ -1,10 +1,8 @@
-import { FaTextHeight } from "react-icons/fa"
-import { Tool } from "@/types/tool"
+import type { ToolMetadata } from "@/types/tool"
 
-export const lorem_ipsum_generator: Tool = {
+export const lorem_ipsum_generator: ToolMetadata = {
     name: "Lorem Ipsum Generator",
     slug: "lorem-ipsum-generator",
-    icon: FaTextHeight,
     primaryCategory: "text",
     tags: [
         "text",
