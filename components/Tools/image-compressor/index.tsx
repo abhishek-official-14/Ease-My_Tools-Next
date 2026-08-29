@@ -808,7 +808,7 @@ const FORMATS: { key: OutputFormat; label: string }[] = [
     { key: "avif", label: "AVIF" },
 ]
 
-const ImageCompressor: React.FC<ToolHeroProps> = ({ tool }) => {
+const ImageCompressor: React.FC<{ tool: ToolHeroProps }> = ({ tool }) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
     const [isCompressing, setIsCompressing] = useState(false)

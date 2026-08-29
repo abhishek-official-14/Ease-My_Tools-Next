@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
-import type { Route } from "next"
-import { ToolIcon } from "@/components/ToolIcon"
 import styles from "./styles.module.css"
 
 import { CATEGORIES } from "../../data/featuredCategories"
@@ -41,7 +39,7 @@ const CategoryToolsPage = ({
                     </p>
                     <button
                         className={styles.backButton}
-                        onClick={() => router.push("/tools" as Route)}
+                        onClick={() => router.push("/tools" as any)}
                         style={{ marginTop: "1rem" }}
                     >
                         Go to Tools Page
@@ -63,19 +61,20 @@ const CategoryToolsPage = ({
                     animated ? styles.animated : ""
                 }`}
             >
-                {categoryTools.map((tool, index) => {
+                {categoryTools.map((tool: any, index: number) => {
+                    const IconComponent = tool.icon
+
                     return (
                         <div
                             key={tool.name}
                             className={`${styles.categoryToolCard} ${styles.floatingCard}`}
                             style={{ animationDelay: `${index * 0.1}s` }}
                             onClick={() =>
-                                router.push(`/tools/tool/${tool.slug}` as Route)
+                                router.push(`/tools/tool/${tool.slug}` as any)
                             }
                         >
                             <div className={styles.toolCardContent}>
-                                <ToolIcon
-                                    slug={tool.slug}
+                                <IconComponent
                                     className={styles.toolCardIcon}
                                 />
                                 <h3>{tool.name}</h3>

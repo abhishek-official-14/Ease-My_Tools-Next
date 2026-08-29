@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { BsRegex } from "react-icons/bs"
+import { Tool } from "@/types/tool"
 
-export const regex_generator: ToolMetadata = {
+export const regex_generator: Tool = {
     name: "Regex Generator",
     slug: "regex-generator",
+    icon: BsRegex,
     primaryCategory: "developer",
     tags: [
         "developer",

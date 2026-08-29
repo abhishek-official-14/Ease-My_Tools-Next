@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { TbVectorBezier } from "react-icons/tb"
+import { Tool } from "@/types/tool"
 
-export const data_uri_generator: ToolMetadata = {
+export const data_uri_generator: Tool = {
     name: "Data URI Generator",
     slug: "data-uri-generator",
+    icon: TbVectorBezier,
     primaryCategory: "developer",
     tags: [
         "developer",

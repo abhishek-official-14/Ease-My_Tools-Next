@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { TbVectorTriangle } from "react-icons/tb"
+import { Tool } from "@/types/tool"
 
-export const image_to_svg: ToolMetadata = {
+export const image_to_svg: Tool = {
     name: "ImageToSvg",
     slug: "image-to-svg",
+    icon: TbVectorTriangle,
     primaryCategory: "image",
     tags: [
         "image",

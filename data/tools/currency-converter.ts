@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { MdOutlineCurrencyExchange } from "react-icons/md"
+import { Tool } from "@/types/tool"
 
-export const currency_converter: ToolMetadata = {
+export const currency_converter: Tool = {
     name: "Currency Converter",
     slug: "currency-converter",
+    icon: MdOutlineCurrencyExchange,
     primaryCategory: "finance",
     tags: [
         "finance",

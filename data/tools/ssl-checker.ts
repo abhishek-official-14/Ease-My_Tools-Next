@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaTextHeight } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const ssl_checker: ToolMetadata = {
+export const ssl_checker: Tool = {
     name: "SSL Checker",
     slug: "ssl-checker",
+    icon: FaTextHeight,
     primaryCategory: "security",
     tags: [
         "security",

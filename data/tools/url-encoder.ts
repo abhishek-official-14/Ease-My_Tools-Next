@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaGlobe } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const url_encoder: ToolMetadata = {
+export const url_encoder: Tool = {
     name: "URL Encoder",
     slug: "url-encoder",
+    icon: FaGlobe,
     primaryCategory: "developer",
     tags: [
         "developer",

@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaExchangeAlt } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const unit_converter: ToolMetadata = {
+export const unit_converter: Tool = {
     name: "Unit Converter",
     slug: "unit-converter",
+    icon: FaExchangeAlt,
     primaryCategory: "finance",
     tags: [
         "finance",

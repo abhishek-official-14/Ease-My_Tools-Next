@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaTextHeight } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const text_extractor: ToolMetadata = {
+export const text_extractor: Tool = {
     name: "Text Extractor",
     slug: "text-extractor",
+    icon: FaTextHeight,
     primaryCategory: "text",
     tags: [
         "text",

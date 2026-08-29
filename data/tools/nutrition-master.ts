@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaTextHeight } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const nutrition_master: ToolMetadata = {
+export const nutrition_master: Tool = {
     name: "Nutrition Master",
     slug: "nutrition-master",
+    icon: FaTextHeight,
     primaryCategory: "misc",
     tags: [
         "misc",

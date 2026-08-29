@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaLock } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const file_encryptor: ToolMetadata = {
+export const file_encryptor: Tool = {
     name: "File Encryptor & Decryptor",
     slug: "file-encryptor",
+    icon: FaLock,
     primaryCategory: "security",
     tags: [
         "security",

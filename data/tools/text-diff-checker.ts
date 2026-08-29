@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { BiText } from "react-icons/bi"
+import { Tool } from "@/types/tool"
 
-export const text_diff_checker: ToolMetadata = {
+export const text_diff_checker: Tool = {
     name: "Text Diff Checker",
     slug: "text-diff-checker",
+    icon: BiText,
     primaryCategory: "text",
     tags: [
         "text",

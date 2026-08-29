@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { AiOutlineFileText } from "react-icons/ai"
+import { Tool } from "@/types/tool"
 
-export const word_counter: ToolMetadata = {
+export const word_counter: Tool = {
     name: "Word Counter",
     slug: "word-counter",
+    icon: AiOutlineFileText,
     primaryCategory: "text",
     tags: [
         "text",

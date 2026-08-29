@@ -1,6 +1,53 @@
+// import Link from "next/link"
+
+// import { Card, CardContent } from "@/components/ui/card"
+
+// import type { Tool } from "@/types/tool"
+
+// type ToolCardProps = {
+//     tool: Tool
+// }
+
+// export default function ToolCard({ tool }: ToolCardProps) {
+//     const Icon = tool.icon
+
+//     return (
+//         <Link href={`/tools/tool/${tool.slug}`}>
+//             <Card className="h-full cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+//                 <CardContent className="space-y-4 p-5">
+//                     <div className="flex items-center gap-3">
+//                         <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+//                             <Icon className="h-6 w-6 text-primary" />
+//                         </div>
+
+//                         <h3 className="text-lg font-semibold">{tool.name}</h3>
+//                     </div>
+
+//                     <p className="line-clamp-3 text-sm text-muted-foreground">
+//                         {tool.seo.description}
+//                     </p>
+
+//                     <div className="flex flex-wrap gap-2">
+//                         {tool.tags.slice(0, 3).map((tag) => (
+//                             <span
+//                                 key={tag}
+//                                 className="rounded-full bg-secondary px-2 py-1 text-xs"
+//                             >
+//                                 {tag}
+//                             </span>
+//                         ))}
+//                     </div>
+//                 </CardContent>
+//             </Card>
+//         </Link>
+//     )
+// }
+
+
+
+
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { ToolIcon } from "@/components/ToolIcon"
 import type { Tool } from "@/types/tool"
 
 type ToolCardProps = {
@@ -8,6 +55,7 @@ type ToolCardProps = {
 }
 
 export default function ToolCard({ tool }: ToolCardProps) {
+    const Icon = tool.icon
     const primaryTag = tool.tags?.[0] || "Tool"
 
     return (
@@ -18,19 +66,16 @@ export default function ToolCard({ tool }: ToolCardProps) {
             <div>
                 {/* Icon Container */}
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:h-12 sm:w-12 sm:rounded-xl">
-                    <ToolIcon
-                        slug={tool.slug}
-                        className="h-5 w-5 stroke-[2] sm:h-6 sm:w-6 sm:stroke-[1.75]"
-                    />
+                    <Icon className="h-5 w-5 stroke-[2] sm:h-6 sm:w-6 sm:stroke-[1.75]" />
                 </div>
 
                 {/* Title */}
-                <h3 className="mt-3 text-sm leading-snug font-bold text-foreground transition-colors group-hover:text-primary sm:mt-4 sm:text-base lg:text-lg">
+                <h3 className="mt-3 text-sm font-bold leading-snug text-foreground transition-colors group-hover:text-primary sm:mt-4 sm:text-base lg:text-lg">
                     {tool.name}
                 </h3>
 
                 {/* Description (Desktop only to keep mobile cards neat) */}
-                <p className="mt-1.5 line-clamp-2 hidden text-xs leading-relaxed text-muted-foreground sm:block sm:text-sm">
+                <p className="mt-1.5 hidden text-xs leading-relaxed text-muted-foreground line-clamp-2 sm:block sm:text-sm">
                     {tool.seo.description}
                 </p>
             </div>

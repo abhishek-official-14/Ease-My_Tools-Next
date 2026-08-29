@@ -1,5 +1,4 @@
-import type { Tool, ToolMetadata } from "../types/tool"
-import { getToolIcon } from "@/lib/tool-icons"
+import { Tool } from "../types/tool"
 import { CATEGORIES } from "./featuredCategories"
 import { age_calculator } from "./tools/age-calculator"
 import { base64_converter } from "./tools/base64-converter"
@@ -41,7 +40,7 @@ import { website_cost_calculator } from "./tools/website-cost-calculator"
 import { word_counter } from "./tools/word-counter"
 import { xml_formatter } from "./tools/xml-formatter"
 
-const TOOL_METADATA: ToolMetadata[] = [
+export const ALL_TOOLS: Tool[] = [
     age_calculator,
     base64_converter,
     case_converter,
@@ -82,11 +81,6 @@ const TOOL_METADATA: ToolMetadata[] = [
     word_counter,
     xml_formatter,
 ]
-
-export const ALL_TOOLS: Tool[] = TOOL_METADATA.map((tool) => ({
-    ...tool,
-    icon: getToolIcon(tool.slug),
-}))
 
 export const getAllTools = (): Tool[] => ALL_TOOLS
 

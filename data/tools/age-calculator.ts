@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaCalculator } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const age_calculator: ToolMetadata = {
+export const age_calculator: Tool = {
     name: "Age Calculator",
     slug: "age-calculator",
+    icon: FaCalculator,
     primaryCategory: "misc",
     tags: [
         "misc",

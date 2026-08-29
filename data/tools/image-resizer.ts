@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { MdOutlineImage } from "react-icons/md"
+import { Tool } from "@/types/tool"
 
-export const image_resizer: ToolMetadata = {
+export const image_resizer: Tool = {
     name: "Image Resizer",
     slug: "image-resizer",
+    icon: MdOutlineImage,
     primaryCategory: "image",
     tags: [
         "image",

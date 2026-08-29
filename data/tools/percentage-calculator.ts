@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaCalculator } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const percentage_calculator: ToolMetadata = {
+export const percentage_calculator: Tool = {
     name: "Percentage Calculator",
     slug: "percentage-calculator",
+    icon: FaCalculator,
     primaryCategory: "finance",
     tags: [
         "finance",

@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaTextHeight } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const jwt_debugger: ToolMetadata = {
+export const jwt_debugger: Tool = {
     name: "JWT Debugger",
     slug: "jwt-debugger",
+    icon: FaTextHeight,
     primaryCategory: "developer",
     tags: [
         "developer",

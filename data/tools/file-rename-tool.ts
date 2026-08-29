@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md"
+import { Tool } from "@/types/tool"
 
-export const file_renamer: ToolMetadata = {
+export const file_renamer: Tool = {
     name: "File Rename Tool",
     slug: "file-rename-tool",
+    icon: MdOutlineDriveFileRenameOutline,
     primaryCategory: "file",
     tags: [
         "document",

@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaVideo } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const video_thumbnail_generator: ToolMetadata = {
+export const video_thumbnail_generator: Tool = {
     name: "Video Thumbnail Generator",
     slug: "video-thumbnail-generator",
+    icon: FaVideo,
     primaryCategory: "image",
     tags: [
         "media",

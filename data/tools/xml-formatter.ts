@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaFileCode } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const xml_formatter: ToolMetadata = {
+export const xml_formatter: Tool = {
     name: "XML Formatter",
     slug: "xml-formatter",
+    icon: FaFileCode,
     primaryCategory: "developer",
     tags: [
         "developer",

@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { TbVectorBezier } from "react-icons/tb"
+import { Tool } from "@/types/tool"
 
-export const hash_generator: ToolMetadata = {
+export const hash_generator: Tool = {
     name: "Hash Generator",
     slug: "hash-generator",
+    icon: TbVectorBezier,
     primaryCategory: "security",
     tags: [
         "security",

@@ -1,13 +1,11 @@
 import Link from "next/link"
 
-import { ToolIcon } from "@/components/ToolIcon"
 import { getToolBySlug } from "@/data/registry"
-import type { Tool } from "@/types/tool"
 
 import styles from "./styles.module.css"
 
 type RelatedToolsProps = {
-    tool: Tool
+    tool: any
 }
 
 export default function RelatedTools({ tool }: RelatedToolsProps) {
@@ -18,8 +16,8 @@ export default function RelatedTools({ tool }: RelatedToolsProps) {
     }
 
     const relatedTools = relatedSlugs
-        .map((related) => getToolBySlug(related.slug))
-        .filter((relatedTool): relatedTool is Tool => Boolean(relatedTool))
+        .map((related: any) => getToolBySlug(related.slug))
+        .filter(Boolean)
 
     if (!relatedTools.length) {
         return null
@@ -37,19 +35,12 @@ export default function RelatedTools({ tool }: RelatedToolsProps) {
                 </div>
 
                 <div className={styles.toolsGrid}>
-                    {relatedTools.map((relatedTool) => (
+                    {relatedTools.map((relatedTool: any) => (
                         <Link
                             key={relatedTool.slug}
                             href={`/tools/tool/${relatedTool.slug}`}
                             className={styles.toolCard}
                         >
-                            <div className={styles.toolIconWrap}>
-                                <ToolIcon
-                                    slug={relatedTool.slug}
-                                    className={styles.toolIcon}
-                                />
-                            </div>
-
                             <h3 className={styles.toolName}>
                                 {relatedTool.name}
                             </h3>

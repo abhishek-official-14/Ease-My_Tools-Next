@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { MdAutoFixHigh } from "react-icons/md"
+import { Tool } from "@/types/tool"
 
-export const background_remover: ToolMetadata = {
+export const background_remover: Tool = {
     name: "RemoveBackground",
     slug: "remove-background",
+    icon: MdAutoFixHigh,
     primaryCategory: "image",
     tags: [
         "image",

@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaCompress } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const image_compressor: ToolMetadata = {
+export const image_compressor: Tool = {
     name: "Image Compressor",
     slug: "image-compressor",
+    icon: FaCompress,
     primaryCategory: "image",
     tags: [
         "image",

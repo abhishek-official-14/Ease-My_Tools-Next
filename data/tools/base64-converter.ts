@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { TbBinaryTree } from "react-icons/tb"
+import { Tool } from "@/types/tool"
 
-export const base64_converter: ToolMetadata = {
+export const base64_converter: Tool = {
     name: "Base64 Converter",
     slug: "base64-converter",
+    icon: TbBinaryTree,
     primaryCategory: "developer",
     tags: [
         "developer",

@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaPalette } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const color_picker: ToolMetadata = {
+export const color_picker: Tool = {
     name: "Color Picker",
     slug: "color-picker",
+    icon: FaPalette,
     primaryCategory: "image",
     tags: [
         "image",

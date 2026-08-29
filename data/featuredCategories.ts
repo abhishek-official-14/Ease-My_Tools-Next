@@ -1,6 +1,14 @@
 // data/featuredTags.ts
 
-import { categoryIcons } from "@/lib/tool-icons"
+import {
+    FaImage,
+    FaLock,
+    FaGlobe,
+    FaFile,
+    FaCalculator,
+    FaTextHeight,
+    FaCode,
+} from "react-icons/fa"
 
 import { getToolsByTag } from "./registry"
 import { Category, FeaturedCategory } from "../types/category"
@@ -12,7 +20,7 @@ export const CATEGORIES: Category[] = [
         title: "Image Tools",
         description: "Resize, optimize and edit images",
         color: "#F97316",
-        icon: categoryIcons.image,
+        icon: FaImage,
         link: "/tools/category/image" as Route,
     },
     {
@@ -20,7 +28,7 @@ export const CATEGORIES: Category[] = [
         title: "Text Tools",
         description: "Writing, formatting and text analysis",
         color: "#06B6D4",
-        icon: categoryIcons.text,
+        icon: FaTextHeight,
         link: "/tools/category/text" as Route,
     },
     {
@@ -28,7 +36,7 @@ export const CATEGORIES: Category[] = [
         title: "Developer Tools",
         description: "JSON, regex, encoders and APIs",
         color: "#EC4899",
-        icon: categoryIcons.developer,
+        icon: FaCode,
         link: "/tools/category/developer" as Route,
     },
     {
@@ -36,7 +44,7 @@ export const CATEGORIES: Category[] = [
         title: "File & Document Tools",
         description: "PDFs, files and document utilities",
         color: "#3B82F6",
-        icon: categoryIcons.file,
+        icon: FaFile,
         link: "/tools/category/file" as Route,
     },
     {
@@ -44,7 +52,7 @@ export const CATEGORIES: Category[] = [
         title: "Security & Privacy",
         description: "Encryption, passwords and certificates",
         color: "#F43F5E",
-        icon: categoryIcons.security,
+        icon: FaLock,
         link: "/tools/category/security" as Route,
     },
     {
@@ -52,7 +60,7 @@ export const CATEGORIES: Category[] = [
         title: "Web Tools",
         description: "Website and SEO utilities",
         color: "#10B981",
-        icon: categoryIcons.web,
+        icon: FaGlobe,
         link: "/tools/category/web" as Route,
     },
     {
@@ -60,7 +68,7 @@ export const CATEGORIES: Category[] = [
         title: "Finance & Numbers",
         description: "Currencies, percentages and calculations",
         color: "#8B5CF6",
-        icon: categoryIcons.finance,
+        icon: FaCalculator,
         link: "/tools/category/finance" as Route,
     },
     {
@@ -68,7 +76,7 @@ export const CATEGORIES: Category[] = [
         title: "Misc. Tools",
         description: "Miscellanous tools",
         color: "#0D9488",
-        icon: categoryIcons.misc,
+        icon: FaCalculator,
         link: "/tools/category/misc" as Route,
     },
 ] as const

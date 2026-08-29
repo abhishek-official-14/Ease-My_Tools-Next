@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaFileCsv } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const file_converter: ToolMetadata = {
+export const file_converter: Tool = {
     name: "File Converter",
     slug: "file-converter",
+    icon: FaFileCsv,
     primaryCategory: "file",
     tags: [
         "file",

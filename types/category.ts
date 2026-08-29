@@ -1,5 +1,5 @@
 import { Route } from "next"
-import type { LucideIcon } from "lucide-react"
+import { IconType } from "react-icons"
 
 export type SpecialTag =
     | "image"
@@ -16,7 +16,7 @@ export interface Category {
     title: string
     description: string
     color: string
-    icon: LucideIcon
+    icon: IconType
     // link: string;
     link: Route
 }

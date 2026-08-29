@@ -1,8 +1,10 @@
-import type { ToolMetadata } from "@/types/tool"
+import { FaUserCircle } from "react-icons/fa"
+import { Tool } from "@/types/tool"
 
-export const profile_pic_optimizer: ToolMetadata = {
+export const profile_pic_optimizer: Tool = {
     name: "Profile Picture Optimizer",
     slug: "profile-pic-optimizer",
+    icon: FaUserCircle,
     primaryCategory: "image",
     tags: [
         "image",
